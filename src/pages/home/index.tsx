@@ -7,8 +7,9 @@ import { ClipboardDocumentIcon } from '@heroicons/react/24/outline'
 import { Footer } from '@/components/Footer'
 
 function Home (): ReactElement {
-  const version: string = '0.4'
-  const downloadUrl: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
+  const version: string = '0.5'
+  const downloadUrlZip: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
+  // const downloadUrlDmg: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker ${version}.dmg`
   const masUrl: string = 'https://apps.apple.com/us/app/macpacker/id6473273874'
 
   return (
@@ -45,14 +46,14 @@ function Home (): ReactElement {
               </div>
 
               {/* zip */}
-              <a href={downloadUrl} className='font-mono bg-neutral-900 text-white py-2 px-4 rounded-md flex flex-row'>
+              <a href={downloadUrlZip} className='font-mono bg-neutral-900 text-white py-2 px-4 rounded-md flex flex-row'>
                 <div>.zip</div>
               </a>
 
               {/* dmg */}
-              <a href={downloadUrl} className='font-mono bg-neutral-900 text-white py-2 px-4 rounded-md flex flex-row'>
+              {/* <a href={downloadUrlDmg} className='font-mono bg-neutral-900 text-white py-2 px-4 rounded-md flex flex-row'>
                 <div>.dmg</div>
-              </a>
+              </a> */}
 
               {/* mas */}
               <a href={masUrl}>
@@ -61,7 +62,7 @@ function Home (): ReactElement {
             </div>
 
             <div className='mb-12 mt-2 text-sm text-neutral-500 justify-self-center'>
-              v{version} | 7 MB | macOS 15 or newer
+              v{version} | 2 MB | macOS 15 or newer
             </div>
           </div>
 
