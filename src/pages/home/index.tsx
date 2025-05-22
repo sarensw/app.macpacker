@@ -36,7 +36,7 @@ function Home (): ReactElement {
 
           {/* download options */}
           <div>
-            <div className='flex flex-row mt-6 gap-4'>
+            <div className='flex flex-col md:flex-row mt-6 gap-4'>
               {/* brew */}
               <div className='font-mono bg-gray-100 py-2 px-4 rounded-md flex flex-row border relative'>
                 <div><span className='text-teal-700'>$</span> brew <span className='text-gray-600'>install</span> macpacker</div>
@@ -45,20 +45,22 @@ function Home (): ReactElement {
                 <div className='absolute top-0 rotate-20 p-1 bg-orange-500 rounded-md left-1/4 text-sm'>coming soon ...</div>
               </div>
 
-              {/* zip */}
-              <a href={downloadUrlZip} className='font-mono bg-neutral-900 text-white py-2 px-4 rounded-md flex flex-row'>
-                <div>.zip</div>
-              </a>
+              <div className='flex flex-row gap-4'>
+                {/* zip */}
+                <a href={downloadUrlZip} className='font-mono bg-neutral-900 text-white py-2 px-4 rounded-md flex flex-row'>
+                  <div>.zip</div>
+                </a>
 
-              {/* dmg */}
-              {/* <a href={downloadUrlDmg} className='font-mono bg-neutral-900 text-white py-2 px-4 rounded-md flex flex-row'>
-                <div>.dmg</div>
-              </a> */}
+                {/* dmg */}
+                {/* <a href={downloadUrlDmg} className='font-mono bg-neutral-900 text-white py-2 px-4 rounded-md flex flex-row'>
+                  <div>.dmg</div>
+                </a> */}
 
-              {/* mas */}
-              <a href={masUrl}>
-                <img className='w-auto h-auto' src={mas} />
-              </a>
+                {/* mas */}
+                <a href={masUrl}>
+                  <img className='w-auto h-auto' src={mas} />
+                </a>
+              </div>
             </div>
 
             <div className='mb-12 mt-2 text-sm text-neutral-500 justify-self-center'>
