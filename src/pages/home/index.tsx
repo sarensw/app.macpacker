@@ -7,7 +7,7 @@ import { ClipboardDocumentIcon } from '@heroicons/react/24/outline'
 import { Footer } from '@/components/Footer'
 
 function Home (): ReactElement {
-  const version: string = '0.5'
+  const version: string = '0.6'
   const downloadUrlZip: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
   // const downloadUrlDmg: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker ${version}.dmg`
   const masUrl: string = 'https://apps.apple.com/us/app/macpacker/id6473273874'
@@ -18,7 +18,7 @@ function Home (): ReactElement {
         {/* header */}
         <div className='flex flex-row mt-2'>
           <div className='flex-grow'></div>
-          <a href='https://github.com/brainchest/macpacker' className='flex flex-row items-center space-x-2'>
+          <a href='https://github.com/sarensw/macpacker' className='flex flex-row items-center space-x-2'>
             <span>Fork me on</span>
             <img className='w-6' src={github} alt='GitHub'/>
           </a>
@@ -79,7 +79,7 @@ function Home (): ReactElement {
               <li className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 font-medium text-gray-600 ring-1 ring-gray-500 ring-inset'>tar</li>
               <li className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 font-medium text-gray-600 ring-1 ring-gray-500 ring-inset'>7zip</li>
               <li className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 font-medium text-gray-600 ring-1 ring-gray-500 ring-inset'>lz4</li>
-              <li><a href='https://github.com/brainchest/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>Please add ...</a></li>
+              <li><a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>Please add ...</a></li>
             </ul>
           </div>
 
@@ -89,7 +89,7 @@ function Home (): ReactElement {
             <div className='flex flex-row font-mono space-x-2 text-sm items-baseline
 '>
               <p>... coming soon ...</p>
-              <a href='https://github.com/brainchest/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium font-mono text-white ring-1 ring-gray-500 ring-inset'>Please add ...</a>
+              <a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium font-mono text-white ring-1 ring-gray-500 ring-inset'>Please add ...</a>
             </div>
           </div>
         </div>
