@@ -1,7 +1,5 @@
 import type { ReactElement } from 'react'
-import mainApp from '@assets/main.png'
 import mas from '@assets/mas.svg'
-import logo from '@assets/icon_512x512@2x.png'
 import github from '@assets/github-mark.svg'
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline'
 import { Footer } from '@/components/Footer'
@@ -27,7 +25,7 @@ function Home (): ReactElement {
         <div className='mt-24 flex flex-col space-y-6 items-center'>
           {/* hero */}
           <div className='flex flex-row gap-2'>
-            <img className='w-16' src={logo} />
+            <img className='w-16' src='/icon_512x512@2x.png' />
             <h1 className='mt-2 text-5xl font-bold tracking-tight text-gray-950 dark:text-white'>MacPacker</h1>
           </div>
 
@@ -69,7 +67,7 @@ function Home (): ReactElement {
           </div>
 
           {/* main image */}
-          <img className='w-auto h-auto' src={mainApp} />
+          <img className='w-auto h-auto' src='/main.png' />
 
           {/* read from */}
           <div className='justify-items-center flex flex-col space-y-2 items-center'>

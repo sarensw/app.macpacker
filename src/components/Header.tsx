@@ -1,12 +1,11 @@
 import type { ReactElement } from 'react'
-import logo from '@assets/icon_512x512@2x.png'
 
 function Header (): ReactElement {
   return (
     <>
       <div className='flex flex-row w-full mx-auto  justify-center space-x-2'>
         <a className='flex flex-row items-center' href='/'>
-          <img src={logo} className='w-12' />
+          <img src='/icon_512x512@2x.png' className='w-12' />
           <p className='font-bold text-lg'>MacPacker</p>
         </a>
       </div>
