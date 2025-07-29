@@ -62,7 +62,7 @@ function Home (): ReactElement {
             </div>
 
             <div className='mb-12 mt-2 text-sm text-neutral-500 justify-self-center'>
-              v{version} | 2 MB | macOS 14.6 or newer
+              v{version} | 4.1 MB | macOS 14.6 or newer
             </div>
           </div>
 
