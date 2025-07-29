@@ -30,7 +30,7 @@ function Home (): ReactElement {
           </div>
 
           {/* sub header */}
-          <p className=' text-center max-w-lg text-gray-800'>Archive manager for macOS. <span className='font-bold'>Open source</span>, because essential tools should be free. Preview <span className='italic'>(nested)</span> archives without extracting them.</p>
+          <p className=' text-center max-w-lg text-gray-800'>Archive manager for macOS. <span className='font-bold'>Open source</span>, because essential tools should be free. Preview <span className='italic'>(nested)</span> archives without extracting them. Extract single files.</p>
 
           {/* download options */}
           <div>
