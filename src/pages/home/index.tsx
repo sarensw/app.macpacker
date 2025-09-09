@@ -3,9 +3,10 @@ import mas from '@assets/mas.svg'
 import github from '@assets/github-mark.svg'
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline'
 import { Footer } from '@/components/Footer'
+import { ArchiveFormat } from '@/components/ArchiveFormat'
 
 function Home (): ReactElement {
-  const version: string = '0.6'
+  const version: string = '0.7'
   const downloadUrlZip: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
   // const downloadUrlDmg: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker ${version}.dmg`
   const masUrl: string = 'https://apps.apple.com/us/app/macpacker/id6473273874'
@@ -73,11 +74,14 @@ function Home (): ReactElement {
           <div className='justify-items-center flex flex-col space-y-2 items-center'>
             <h3 className='text-neutral-800 text-lg'>Read / Extract from</h3>
             <ul className='font-mono flex flex-row space-x-2 justify-center text-sm'>
-              <li className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 font-medium text-gray-600 ring-1 ring-gray-500 ring-inset'>zip</li>
-              <li className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 font-medium text-gray-600 ring-1 ring-gray-500 ring-inset'>tar</li>
-              <li className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 font-medium text-gray-600 ring-1 ring-gray-500 ring-inset'>7zip</li>
-              <li className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 font-medium text-gray-600 ring-1 ring-gray-500 ring-inset'>lz4</li>
-              <li className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 font-medium text-gray-600 ring-1 ring-gray-500 ring-inset'>rar</li>
+              <ArchiveFormat name={'7zip'} />
+              <ArchiveFormat name={'lha'} />
+              <ArchiveFormat name={'lz4'} />
+              <ArchiveFormat name={'lzh'} />
+              <ArchiveFormat name={'lzx'} />
+              <ArchiveFormat name={'rar'} />
+              <ArchiveFormat name={'tar'} />
+              <ArchiveFormat name={'zip'} />
               <li><a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>Please add ...</a></li>
             </ul>
           </div>
