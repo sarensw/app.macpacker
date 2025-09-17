@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer'
 import { ArchiveFormat } from '@/components/ArchiveFormat'
 
 function Home (): ReactElement {
-  const version: string = '0.7'
+  const version: string = '0.8'
   const downloadUrlZip: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
   // const downloadUrlDmg: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker ${version}.dmg`
   const masUrl: string = 'https://apps.apple.com/us/app/macpacker/id6473273874'
@@ -63,7 +63,7 @@ function Home (): ReactElement {
             </div>
 
             <div className='mb-12 mt-2 text-sm text-neutral-500 justify-self-center'>
-              v{version} | 4.1 MB | macOS 14.6 or newer
+              v{version} | 4.2 MB | macOS 14.6 or newer
             </div>
           </div>
 
@@ -71,16 +71,25 @@ function Home (): ReactElement {
           <img className='w-auto h-auto' src='/main.png' />
 
           {/* read from */}
-          <div className='justify-items-center flex flex-col space-y-2 items-center'>
+          <div className='justify-items-center flex flex-col space-y-2 items-center max-w-lg'>
             <h3 className='text-neutral-800 text-lg'>Read / Extract from</h3>
-            <ul className='font-mono flex flex-row space-x-2 justify-center text-sm'>
+            <ul className='font-mono flex flex-row flex-wrap space-x-2 space-y-2 justify-center text-sm'>
               <ArchiveFormat name={'7zip'} />
+              <ArchiveFormat name={'bzip2'} />
+              <ArchiveFormat name={'cab'} />
+              <ArchiveFormat name={'cpio'} />
+              <ArchiveFormat name={'gzip'} />
+              <ArchiveFormat name={'iso'} />
               <ArchiveFormat name={'lha'} />
               <ArchiveFormat name={'lz4'} />
               <ArchiveFormat name={'lzh'} />
               <ArchiveFormat name={'lzx'} />
               <ArchiveFormat name={'rar'} />
+              <ArchiveFormat name={'sea'} />
+              <ArchiveFormat name={'sit'} />
               <ArchiveFormat name={'tar'} />
+              <ArchiveFormat name={'xz'} />
+              <ArchiveFormat name={'Z'} />
               <ArchiveFormat name={'zip'} />
               <li><a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>Please add ...</a></li>
             </ul>
