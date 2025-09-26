@@ -4,9 +4,11 @@ import github from '@assets/github-mark.svg'
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline'
 import { Footer } from '@/components/Footer'
 import { ArchiveFormat } from '@/components/ArchiveFormat'
+import { Language } from '@/components/Language'
+import { WhatOthersSay } from '@/components/WhatOthersSay'
 
 function Home (): ReactElement {
-  const version: string = '0.8'
+  const version: string = '0.9'
   const downloadUrlZip: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
   // const downloadUrlDmg: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker ${version}.dmg`
   const masUrl: string = 'https://apps.apple.com/us/app/macpacker/id6473273874'
@@ -70,8 +72,20 @@ function Home (): ReactElement {
           {/* main image */}
           <img className='w-auto h-auto' src='/main.png' />
 
+          {/* translated to */}
+          <div className='justify-items-center flex flex-col space-y-2 items-center max-w-2xl'>
+            <h3 className='text-neutral-800 text-lg'>Translated from</h3>
+            <ul className='font-mono flex flex-row flex-wrap space-x-2 space-y-2 justify-center text-sm'>
+              <Language code={'en'} name={'English'} icons={['us', 'gb', 'au']} />
+              <Language code={'de'} name={'German'} icons={['de', 'at', 'ch']} />
+              <Language code={'fr'} name={'French'} icons={['fr']} />
+              <Language code={'zh_Hans'} name={'Simplified Chinese'} icons={['cn']} />
+              <li><a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>Please translate to ...</a></li>
+            </ul>
+          </div>
+
           {/* read from */}
-          <div className='justify-items-center flex flex-col space-y-2 items-center max-w-lg'>
+          <div className='mt-8 justify-items-center flex flex-col space-y-2 items-center max-w-lg'>
             <h3 className='text-neutral-800 text-lg'>Read / Extract from</h3>
             <ul className='font-mono flex flex-row flex-wrap space-x-2 space-y-2 justify-center text-sm'>
               <ArchiveFormat name={'7zip'} />
@@ -98,12 +112,20 @@ function Home (): ReactElement {
           {/* write to */}
           <div className='mt-8 justify-items-center flex flex-col space-y-2 items-center'>
             <h3 className='text-neutral-800 text-lg'>Create / Write to</h3>
-            <div className='flex flex-row font-mono space-x-2 text-sm items-baseline
-'>
+            <div className='flex flex-row font-mono space-x-2 text-sm items-baseline'>
               <p>... coming soon ...</p>
               <a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium font-mono text-white ring-1 ring-gray-500 ring-inset'>Please add ...</a>
             </div>
           </div>
+
+          {/* testimonials */}
+          {/* <div className='mt-8 justify-items-center flex flex-col space-y-2 items-center'>
+            <h3 className='text-neutral-800 text-lg'>What others say</h3>
+            <div className='flex flex-row space-x-2 items-baseline'>
+              <WhatOthersSay name='Sandra' source='Direct Chat' text='😁 Thank You!' title='Thank You' />
+              <WhatOthersSay name='Sevikha' source='App Store Reviews' text='Useful functionality. Thanks for your dev time, and good luck with moving this forward!' title='Good tool' />
+            </div>
+          </div> */}
         </div>
       </div>
 
