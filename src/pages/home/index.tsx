@@ -5,7 +5,6 @@ import { ClipboardDocumentIcon } from '@heroicons/react/24/outline'
 import { Footer } from '@/components/Footer'
 import { ArchiveFormat } from '@/components/ArchiveFormat'
 import { Language } from '@/components/Language'
-import { WhatOthersSay } from '@/components/WhatOthersSay'
 
 function Home (): ReactElement {
   const version: string = '0.9'
