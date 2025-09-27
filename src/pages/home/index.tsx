@@ -74,7 +74,7 @@ function Home (): ReactElement {
 
           {/* translated to */}
           <div className='justify-items-center flex flex-col space-y-2 items-center max-w-2xl'>
-            <h3 className='text-neutral-800 text-lg'>Translated from</h3>
+            <h3 className='text-neutral-800 text-lg'>Translated to</h3>
             <ul className='font-mono flex flex-row flex-wrap space-x-2 space-y-2 justify-center text-sm'>
               <Language code={'en'} name={'English'} icons={['us', 'gb', 'au']} />
               <Language code={'de'} name={'German'} icons={['de', 'at', 'ch']} />
