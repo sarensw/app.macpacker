@@ -7,7 +7,7 @@ import { ArchiveFormat } from '@/components/ArchiveFormat'
 import { Language } from '@/components/Language'
 
 function Home (): ReactElement {
-  const version: string = '0.9'
+  const version: string = '0.10'
   const downloadUrlZip: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
   // const downloadUrlDmg: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker ${version}.dmg`
   const masUrl: string = 'https://apps.apple.com/us/app/macpacker/id6473273874'
@@ -64,7 +64,7 @@ function Home (): ReactElement {
             </div>
 
             <div className='mb-12 mt-2 text-sm text-neutral-500 justify-self-center'>
-              v{version} | 4.2 MB | macOS 14.6 or newer
+              v{version} | 4.5 MB | macOS 14.6 or newer
             </div>
           </div>
 
