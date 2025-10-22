@@ -38,11 +38,10 @@ function Home (): ReactElement {
           <div>
             <div className='flex flex-col md:flex-row mt-6 gap-4'>
               {/* brew */}
-              <div className='font-mono bg-gray-100 py-2 px-4 rounded-md flex flex-row border relative'>
-                <div><span className='text-teal-700'>$</span> brew <span className='text-gray-600'>install</span> macpacker</div>
+              <div className='font-mono bg-gray-100 py-2 px-4 rounded-md flex flex-row border'>
+                <div><span className='text-teal-700'>$</span> brew <span className='text-gray-600'>install</span> <span className='text-teal-700'>--cask</span> macpacker</div>
                 <div className='w-px bg-gray-300 mx-4'></div>
-                <div><ClipboardDocumentIcon className='size-6 active:opacity-50' onClick={() => {navigator.clipboard.writeText('brew install macpacker')}} /></div>
-                <div className='absolute top-0 rotate-20 p-1 bg-orange-500 rounded-md left-1/4 text-sm'>coming soon ...</div>
+                <div className='select-none'><ClipboardDocumentIcon className='size-6 active:opacity-50 select-none' onClick={() => {navigator.clipboard.writeText('brew install --cask macpacker')}} /></div>
               </div>
 
               <div className='flex flex-row gap-4'>
