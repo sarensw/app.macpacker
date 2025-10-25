@@ -7,7 +7,7 @@ import { ArchiveFormat } from '@/components/ArchiveFormat'
 import { Language } from '@/components/Language'
 
 function Home (): ReactElement {
-  const version: string = '0.10'
+  const version: string = '0.11'
   const downloadUrlZip: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
   // const downloadUrlDmg: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker ${version}.dmg`
   const masUrl: string = 'https://apps.apple.com/us/app/macpacker/id6473273874'
@@ -28,7 +28,7 @@ function Home (): ReactElement {
           {/* hero */}
           <div className='flex flex-row gap-2'>
             <img className='w-16' src='/icon_512x512@2x.png' />
-            <h1 className='mt-2 text-5xl font-bold tracking-tight text-gray-950 dark:text-white'>MacPacker</h1>
+            <h1 className='mt-2 text-5xl font-bold tracking-tight text-gray-950'>MacPacker</h1>
           </div>
 
           {/* sub header */}
@@ -63,7 +63,7 @@ function Home (): ReactElement {
             </div>
 
             <div className='mb-12 mt-2 text-sm text-neutral-500 justify-self-center'>
-              v{version} | 4.5 MB | macOS 14.6 or newer
+              v{version} | 4.9 MB | macOS 13.5 or newer
             </div>
           </div>
 
@@ -77,6 +77,7 @@ function Home (): ReactElement {
               <Language code={'en'} name={'English'} icons={['us', 'gb', 'au']} />
               <Language code={'de'} name={'German'} icons={['de', 'at', 'ch']} />
               <Language code={'fr'} name={'French'} icons={['fr']} />
+              <Language code={'it'} name={'Italian'} icons={['it']} />
               <Language code={'zh_Hans'} name={'Simplified Chinese'} icons={['cn']} />
               <li><a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>Please translate to ...</a></li>
             </ul>
