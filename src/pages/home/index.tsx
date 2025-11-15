@@ -7,7 +7,7 @@ import { ArchiveFormat } from '@/components/ArchiveFormat'
 import { Language } from '@/components/Language'
 
 function Home (): ReactElement {
-  const version: string = '0.11'
+  const version: string = '0.12'
   const downloadUrlZip: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
   // const downloadUrlDmg: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker ${version}.dmg`
   const masUrl: string = 'https://apps.apple.com/us/app/macpacker/id6473273874'
@@ -63,7 +63,7 @@ function Home (): ReactElement {
             </div>
 
             <div className='mb-12 mt-2 text-sm text-neutral-500 justify-self-center'>
-              v{version} | 4.9 MB | macOS 13.5 or newer
+              v{version} | 5 MB | macOS 13.5 or newer
             </div>
           </div>
 
@@ -71,15 +71,17 @@ function Home (): ReactElement {
           <img className='w-auto h-auto' src='/main.png' />
 
           {/* translated to */}
-          <div className='justify-items-center flex flex-col space-y-2 items-center max-w-2xl'>
+          <div className='justify-items-center flex flex-col space-y-2 items-center max-w-xl'>
             <h3 className='text-neutral-800 text-lg'>Translated to</h3>
             <ul className='font-mono flex flex-row flex-wrap space-x-2 space-y-2 justify-center text-sm'>
               <Language code={'en'} name={'English'} icons={['us', 'gb', 'au']} />
-              <Language code={'de'} name={'German'} icons={['de', 'at', 'ch']} />
               <Language code={'fr'} name={'French'} icons={['fr']} />
+              <Language code={'de'} name={'German'} icons={['de', 'at', 'ch']} />
               <Language code={'it'} name={'Italian'} icons={['it']} />
               <Language code={'zh_Hans'} name={'Simplified Chinese'} icons={['cn']} />
-              <li><a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>Please translate to ...</a></li>
+              <Language code={'ru'} name={'Russian'} icons={['ru']} />
+              <Language code={'uk'} name={'Ukrainian'} icons={['ua']} />
+              <li><a href='https://poeditor.com/join/project/J2Qq2SUzYr' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>🫵 Help with translations</a></li>
             </ul>
           </div>
 
