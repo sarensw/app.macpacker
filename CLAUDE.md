@@ -88,7 +88,7 @@ Jira tickets must have labels to indicate required agents:
 
 ### Agent Workflow
 ```
-1. jira-fetcher  → Fetch ticket, set "In Progress"
+1. jira-reader  → Read the downloaded ticket, set "In Progress"
 2. git-senior    → Create branch from dev
 3. [Doer agents based on labels]
 4. web-tester    → Validate everything

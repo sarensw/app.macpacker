@@ -1,8 +1,10 @@
 # Claude
+.claude/state/
+.claude/work/
+
+# Environment
 .env
 .env.*
-agent/
-
 .venv
 env/
 venv/

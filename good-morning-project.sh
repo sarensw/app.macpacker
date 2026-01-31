@@ -118,35 +118,10 @@ show_status() {
 }
 
 # Step 1: Fetch ticket
-step_fetch2() {
-    log_step "STEP 1: Fetching Jira ticket..."
-    
-    # Check if already in progress
-    if [ -f "$STATE_DIR/current-ticket.json" ]; then
-        CURRENT_STATUS=$(jq -r '.status' "$STATE_DIR/current-ticket.json")
-        
-        if [ "$CURRENT_STATUS" == "in_progress" ] || [ "$CURRENT_STATUS" == "rework_required" ]; then
-            TICKET_KEY=$(jq -r '.ticket_key' "$STATE_DIR/current-ticket.json")
-            log_warning "Resuming work on $TICKET_KEY"
-            return 0
-        fi
-    fi
-    
-    # Fetch new ticket
-    log_info "Fetching next ticket from Jira..."
-    claude -c "Use jira-fetcher subagent to fetch the next ticket from backlog"
-    
-    if [ ! -f "$STATE_DIR/current-ticket.json" ]; then
-        log_warning "No tickets available in backlog"
-        exit 0
-    fi
-    
-    TICKET_KEY=$(jq -r '.ticket_key' "$STATE_DIR/current-ticket.json")
-    log_success "Fetched: $TICKET_KEY"
-}
 step_fetch() {
     log_step "STEP 1.a: Fetching Jira ticket..."
 
+    local raw_file=".claude/state/raw-ticket.json"
     local ticket_file=".claude/state/current-ticket.json"
     mkdir -p ".claude/state"
 
@@ -154,14 +129,14 @@ step_fetch() {
 
     python3 .claude/scripts/jira_fetch_top.py
 
-    if [ "$(jq -r '.status // empty' "$ticket_file")" == "idle" ]; then
+    if [ "$(jq -r '.status // empty' "$raw_file")" == "idle" ]; then
         log_warning "No tickets available in backlog"
         exit 0
     fi
 
-    TICKET_KEY=$(jq -r '.issue_key // empty' "$ticket_file")
+    TICKET_KEY=$(jq -r '.issue_key // empty' "$raw_file")
     if [ -z "$TICKET_KEY" ] || [ "$TICKET_KEY" == "null" ]; then
-        log_warning "Could not read issue_key from $ticket_file"
+        log_warning "Could not read issue_key from $raw_file"
         exit 1
     fi
 

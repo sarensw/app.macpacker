@@ -1,37 +1,23 @@
 ---
-name: jira-fetcher
-description: Fetches ONE prioritized ticket from Jira backlog and sets it to "In Progress"
+name: jira-reader
+description: Takes the raw jira ticket json and loads all the info out of it that is required for work to start
 tools: Read, Write
 model: haiku
 ---
 
-You fetch exactly ONE ticket from Jira and prepare it for processing.
-
 ## Process
 
 ### 1. Check Current State
-Read `.claude/state/current-ticket.json` to see if work is already in progress:
+Read `.claude/state/raw-ticket.json` to see if work is already in progress:
 - If ticket exists and status is "In Progress" → Resume that ticket
-- If no current ticket → Fetch next ticket from backlog
+- If ticket exists and status is "To Do" -> then treat this as a completely new work item
+- If ticket does not exist or contains any other status then abort and add a corresponding comment to the ticket
 
-### 2. Fetch Next Ticket
-Query Jira using JQL:
-```
-project = WEBPROJ AND status = "To Do" ORDER BY priority DESC, created ASC
-```
+### 2. Transition to "In Progress"
+If the ticket is in `To Do` status, then update Jira ticket status: `To Do` → `In Progress`
 
-Take the FIRST ticket only (highest priority, oldest if same priority).
 
-### 3. Transition to "In Progress"
-Update Jira ticket status: `To Do` → `In Progress`
-
-Add comment to ticket:
-```
-🤖 Automated processing started at {timestamp}
-Assigned to: Autonomous Agent System
-```
-
-### 4. Extract Ticket Information
+### 3. Extract Ticket Information
 
 Parse and extract:
 - **ticket_key**: e.g., "WEBPROJ-123"
@@ -43,7 +29,7 @@ Parse and extract:
 - **assignee**: (if specified)
 - **linked_issues**: Dependencies
 
-### 5. Determine Required Agents
+### 4. Determine Required Agents
 
 Based on labels:
 ```javascript
@@ -66,7 +52,7 @@ if (labels.includes('needs-content')) {
 requiredAgents.push('reviewer', 'pr-agent');
 ```
 
-### 6. Save to State File
+### 5. Save to State File
 
 Write to `.claude/state/current-ticket.json`:
 ```json
@@ -91,7 +77,7 @@ Write to `.claude/state/current-ticket.json`:
 }
 ```
 
-### 7. Create Work Specification
+### 6. Create Work Specification
 
 Write detailed work spec to `.claude/work/WEBPROJ-123-spec.md`:
 ```markdown
