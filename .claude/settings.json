@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(data/**)",
+      "Read(reports/**)",
+      "Edit(data/tickets/*)",
+      "Edit(reports/*)",
+      "mcp__atlassian__*"
+    ]
+  }
+}
