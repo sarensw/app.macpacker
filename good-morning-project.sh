@@ -143,7 +143,7 @@ step_fetch() {
     log_step "STEP 1.b: Converting Jira ticket to markdown..."
     python3 .claude/scripts/ticket_json_to_md.py
 
-    claude -c "Use jira-reader subagent to read the raw ticket and convert it into internal JSON format for processing"
+    claude -p "Use jira-reader subagent to read the raw ticket .claude/state/raw-ticket.json and convert it into internal JSON format for processing" --dangerously-skip-permissions
 
     log_success "Fetched and converted: $TICKET_KEY"
 }
@@ -166,7 +166,7 @@ step_git() {
     fi
     
     log_info "Creating branch for $TICKET_KEY..."
-    claude -c "Use git-senior subagent to create feature branch for $TICKET_KEY"
+    claude -p "Use git-senior subagent to create feature branch for $TICKET_KEY" --dangerously-skip-permissions
     
     BRANCH=$(jq -r '.branch' "$STATE_DIR/current-ticket.json")
     log_success "Branch created: $BRANCH"
@@ -189,21 +189,21 @@ step_impl() {
     # Web Developer
     if echo "$REQUIRED_AGENTS" | grep -q "web-developer"; then
         log_info "Running web-developer..."
-        claude -c "Use web-developer subagent to implement $TICKET_KEY"
+        claude -p "Use web-developer subagent to implement $TICKET_KEY" --dangerously-skip-permissions
         log_success "Web development complete"
     fi
     
     # Translator
     if echo "$REQUIRED_AGENTS" | grep -q "translator"; then
         log_info "Running translator..."
-        claude -c "Use translator subagent to add translations for $TICKET_KEY"
+        claude -p "Use translator subagent to add translations for $TICKET_KEY" --dangerously-skip-permissions
         log_success "Translation complete"
     fi
     
     # Marketer
     if echo "$REQUIRED_AGENTS" | grep -q "marketer"; then
         log_info "Running marketer..."
-        claude -c "Use marketer subagent to create content for $TICKET_KEY"
+        claude -p "Use marketer subagent to create content for $TICKET_KEY" --dangerously-skip-permissions
         log_success "Content creation complete"
     fi
 }
@@ -220,7 +220,7 @@ step_test() {
     TICKET_KEY=$(jq -r '.ticket_key' "$STATE_DIR/current-ticket.json")
     
     log_info "Running web-tester..."
-    claude -c "Use web-tester subagent to validate $TICKET_KEY"
+    claude -p "Use web-tester subagent to validate $TICKET_KEY" --dangerously-skip-permissions
     
     TEST_RESULT=$(jq -r '.test_status // "unknown"' "$STATE_DIR/current-ticket.json")
     
@@ -244,7 +244,7 @@ step_review() {
     TICKET_KEY=$(jq -r '.ticket_key' "$STATE_DIR/current-ticket.json")
     
     log_info "Running reviewer..."
-    claude -c "Use reviewer subagent to review all work for $TICKET_KEY"
+    claude -p "Use reviewer subagent to review all work for $TICKET_KEY" --dangerously-skip-permissions
     
     REVIEW_STATUS=$(jq -r '.reviewer_decision // "unknown"' "$STATE_DIR/current-ticket.json")
     
@@ -258,16 +258,16 @@ step_review() {
         if [ -n "$REWORK_AGENTS" ]; then
             for agent in $REWORK_AGENTS; do
                 log_info "Re-running $agent with feedback..."
-                claude -c "Use $agent subagent to address reviewer feedback for $TICKET_KEY"
+                claude -p "Use $agent subagent to address reviewer feedback for $TICKET_KEY" --dangerously-skip-permissions
             done
             
             # Re-test
             log_info "Re-running tests..."
-            claude -c "Use web-tester subagent to validate $TICKET_KEY"
+            claude -p "Use web-tester subagent to validate $TICKET_KEY" --dangerously-skip-permissions
             
             # Re-review
             log_info "Re-running reviewer..."
-            claude -c "Use reviewer subagent to review all work for $TICKET_KEY"
+            claude -p "Use reviewer subagent to review all work for $TICKET_KEY" --dangerously-skip-permissions
             
             REVIEW_STATUS=$(jq -r '.reviewer_decision' "$STATE_DIR/current-ticket.json")
             
@@ -294,7 +294,7 @@ step_pr() {
     TICKET_KEY=$(jq -r '.ticket_key' "$STATE_DIR/current-ticket.json")
     
     log_info "Running pr-agent..."
-    claude -c "Use pr-agent subagent to finalize $TICKET_KEY"
+    claude -p "Use pr-agent subagent to finalize $TICKET_KEY" --dangerously-skip-permissions
     
     COMMITS=$(jq -r '.commits_created // 0' "$STATE_DIR/current-ticket.json")
     BRANCH=$(jq -r '.branch' "$STATE_DIR/current-ticket.json")
