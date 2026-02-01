@@ -1,0 +1,8 @@
+# Robots.txt for MacPacker
+# https://macpacker.app
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://macpacker.app/sitemap.xml
