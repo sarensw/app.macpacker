@@ -1,0 +1,35 @@
+{
+  "hero": {
+    "title": "MacPacker",
+    "subtitle": "适用于 macOS 的归档管理器。",
+    "openSource": "开源",
+    "openSourceTagline": "因为重要的工具应该是免费的。",
+    "previewFeature": "预览",
+    "nested": "嵌套的",
+    "previewTagline": "归档而无需解压。提取单个文件。"
+  },
+  "header": {
+    "forkMe": "在此处 Fork"
+  },
+  "download": {
+    "versionInfo": "v{{version}} | {{size}} MB | macOS {{minVersion}} 或更高版本",
+    "downloadZip": ".zip",
+    "appStore": "Mac App Store"
+  },
+  "languages": {
+    "title": "已翻译（由社区提供）为",
+    "helpTranslate": "🫵 帮助翻译"
+  },
+  "formats": {
+    "readTitle": "读取 / 提取自",
+    "writeTitle": "创建 / 写入到",
+    "comingSoon": "... 即将推出 ...",
+    "requestFormat": "请添加 ..."
+  },
+  "footer": {
+    "createdBy": "用 ☕ 创建，作者：",
+    "copyright": "© {{year}} Stephan Arenswald",
+    "imprint": "版权说明",
+    "contact": "联系方式"
+  }
+}

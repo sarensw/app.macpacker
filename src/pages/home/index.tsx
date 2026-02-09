@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import mas from '@assets/mas.svg'
 import github from '@assets/github-mark.svg'
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline'
@@ -7,6 +8,7 @@ import { ArchiveFormat } from '@/components/ArchiveFormat'
 import { Language } from '@/components/Language'
 
 function Home (): ReactElement {
+  const { t } = useTranslation()
   const version: string = '0.13'
   const downloadUrlZip: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
   // const downloadUrlDmg: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker ${version}.dmg`
@@ -19,7 +21,7 @@ function Home (): ReactElement {
         <div className='flex flex-row mt-2'>
           <div className='flex-grow'></div>
           <a href='https://github.com/sarensw/macpacker' className='flex flex-row items-center space-x-2'>
-            <span>Fork me on</span>
+            <span>{t('header.forkMe')}</span>
             <img className='w-6' src={github} alt='GitHub'/>
           </a>
         </div>
@@ -28,11 +30,11 @@ function Home (): ReactElement {
           {/* hero */}
           <div className='flex flex-row gap-2'>
             <img className='w-16' src='/icon_512x512@2x.png' />
-            <h1 className='mt-2 text-5xl font-bold tracking-tight text-gray-950'>MacPacker</h1>
+            <h1 className='mt-2 text-5xl font-bold tracking-tight text-gray-950'>{t('hero.title')}</h1>
           </div>
 
           {/* sub header */}
-          <p className=' text-center max-w-lg text-gray-800'>Archive manager for macOS. <span className='font-bold'>Open source</span>, because essential tools should be free. Preview <span className='italic'>(nested)</span> archives without extracting them. Extract single files.</p>
+          <p className=' text-center max-w-lg text-gray-800'>{t('hero.subtitle')} <span className='font-bold'>{t('hero.openSource')}</span>, {t('hero.openSourceTagline')} {t('hero.previewFeature')} <span className='italic'>({t('hero.nested')})</span> {t('hero.previewTagline')}</p>
 
           {/* download options */}
           <div>
@@ -47,7 +49,7 @@ function Home (): ReactElement {
               <div className='flex flex-row gap-4'>
                 {/* zip */}
                 <a href={downloadUrlZip} className='font-mono bg-neutral-900 text-white py-2 px-4 rounded-md flex flex-row'>
-                  <div>.zip</div>
+                  <div>{t('download.downloadZip')}</div>
                 </a>
 
                 {/* dmg */}
@@ -63,7 +65,7 @@ function Home (): ReactElement {
             </div>
 
             <div className='mb-12 mt-2 text-sm text-neutral-500 justify-self-center'>
-              v{version} | 5 MB | macOS 13.5 or newer
+              {t('download.versionInfo', { version, size: '5', minVersion: '13.5' })}
             </div>
           </div>
 
@@ -72,7 +74,7 @@ function Home (): ReactElement {
 
           {/* translated to */}
           <div className='justify-items-center flex flex-col space-y-2 items-center max-w-xl'>
-            <h3 className='text-neutral-800 text-lg'>Translated (by the community) to</h3>
+            <h3 className='text-neutral-800 text-lg'>{t('languages.title')}</h3>
             <ul className='font-mono flex flex-row flex-wrap space-x-2 space-y-2 justify-center text-sm'>
               <Language code={'zh_Hans'} name={'Chinese (Simplified'} icons={['cn']} />
               <Language code={'en'} name={'English'} icons={['us', 'gb', 'au']} />
@@ -82,13 +84,13 @@ function Home (): ReactElement {
               <Language code={'ru'} name={'Persian (Farsi)'} icons={[]} />
               <Language code={'ru'} name={'Russian'} icons={['ru']} />
               <Language code={'uk'} name={'Ukrainian'} icons={['ua']} />
-              <li><a href='https://poeditor.com/join/project/J2Qq2SUzYr' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>🫵 Help with translations</a></li>
+              <li><a href='https://poeditor.com/join/project/J2Qq2SUzYr' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>{t('languages.helpTranslate')}</a></li>
             </ul>
           </div>
 
           {/* read from */}
           <div className='mt-8 justify-items-center flex flex-col space-y-2 items-center max-w-lg'>
-            <h3 className='text-neutral-800 text-lg'>Read / Extract from</h3>
+            <h3 className='text-neutral-800 text-lg'>{t('formats.readTitle')}</h3>
             <ul className='font-mono flex flex-row flex-wrap space-x-2 space-y-2 justify-center text-sm'>
               <ArchiveFormat name={'7zip'} />
               <ArchiveFormat name={'apfs'} />
@@ -121,16 +123,16 @@ function Home (): ReactElement {
               <ArchiveFormat name={'vmdk'} />
               <ArchiveFormat name={'xar'} />
               <ArchiveFormat name={'zip'} />
-              <li><a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>Please add ...</a></li>
+              <li><a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>{t('formats.requestFormat')}</a></li>
             </ul>
           </div>
 
           {/* write to */}
           <div className='mt-8 justify-items-center flex flex-col space-y-2 items-center'>
-            <h3 className='text-neutral-800 text-lg'>Create / Write to</h3>
+            <h3 className='text-neutral-800 text-lg'>{t('formats.writeTitle')}</h3>
             <div className='flex flex-row font-mono space-x-2 text-sm items-baseline'>
-              <p>... coming soon ...</p>
-              <a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium font-mono text-white ring-1 ring-gray-500 ring-inset'>Please add ...</a>
+              <p>{t('formats.comingSoon')}</p>
+              <a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium font-mono text-white ring-1 ring-gray-500 ring-inset'>{t('formats.requestFormat')}</a>
             </div>
           </div>
 
