@@ -73,8 +73,8 @@ describe('translation key structure', () => {
     }
   })
 
-  it('should have footer keys: createdBy, copyright, imprint, contact', () => {
-    const footerKeys = ['createdBy', 'copyright', 'imprint', 'contact']
+  it('should have footer keys: createdBy, copyright, imprint, contact, mediaKit', () => {
+    const footerKeys = ['createdBy', 'copyright', 'imprint', 'contact', 'mediaKit']
     for (const key of footerKeys) {
       expect(en.footer).toHaveProperty(key)
     }
