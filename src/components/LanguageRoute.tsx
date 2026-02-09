@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import { useParams, useLocation } from 'wouter'
 import i18n from '@/i18n/config'
 import { supportedLanguages, fallbackLanguage } from '@/i18n/config'
+import type { SupportedLanguage } from '@/i18n/config'
+import { useOgImage } from '@/hooks/useOgImage'
 
 interface LanguageRouteProps {
   children: ReactNode
@@ -29,7 +31,13 @@ function LanguageRoute({ children }: LanguageRouteProps): ReactElement | null {
     }
   }, [lang, location, setLocation])
 
-  if (!lang || !(supportedLanguages as readonly string[]).includes(lang)) {
+  const validLang = lang && (supportedLanguages as readonly string[]).includes(lang)
+    ? (lang as SupportedLanguage)
+    : null
+
+  useOgImage(validLang ?? fallbackLanguage)
+
+  if (!validLang) {
     return null
   }
 

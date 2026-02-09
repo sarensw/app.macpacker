@@ -3,11 +3,14 @@ import { useLocation } from 'wouter'
 import i18n from '@/i18n/config'
 import { fallbackLanguage } from '@/i18n/config'
 import { detectBrowserLanguage } from '@/i18n/detectLanguage'
+import { useOgImage } from '@/hooks/useOgImage'
 import { Home } from '@/pages/home'
 
 function LanguageRedirect() {
   const [, setLocation] = useLocation()
   const [showHome, setShowHome] = useState(false)
+
+  useOgImage(fallbackLanguage)
 
   useEffect(() => {
     const lang = detectBrowserLanguage()
