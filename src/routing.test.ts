@@ -69,6 +69,14 @@ describe('footer imprint link', () => {
   it('should not use useLocalizedPath for imprint link', () => {
     expect(footerTsx).not.toContain('useLocalizedPath')
   })
+
+  it('should use a plain <a> tag instead of wouter Link for imprint', () => {
+    expect(footerTsx).toMatch(/<a\s[^>]*href='\/imprint'/)
+  })
+
+  it('should not import Link from wouter', () => {
+    expect(footerTsx).not.toMatch(/import.*Link.*from\s+['"]wouter['"]/)
+  })
 })
 
 describe('language redirect behavior', () => {

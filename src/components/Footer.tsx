@@ -2,8 +2,6 @@ import type { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import LinkedIn from '@assets/linkedin.svg'
 import X from '@assets/x.svg'
-import { Link } from 'wouter'
-
 function Footer (): ReactElement {
   const { t } = useTranslation()
   const year = new Date().getFullYear()
@@ -24,9 +22,7 @@ function Footer (): ReactElement {
       </div>
       <p className='flex flex-row gap-4 justify-center'>
         <span>{t('footer.copyright', { year })}</span>
-        {/* <a className='ml-8' href='/imprint.html'>Impressum</a> */}
-        {/* <Link href='/privacy'>Privacy</Link> */}
-        <Link href='/imprint'>{t('footer.imprint')}</Link>
+        <a href='/imprint'>{t('footer.imprint')}</a>
         <a href='mailto:apps@sarensw.com'>{t('footer.contact')}</a>
       </p>
     </footer>
