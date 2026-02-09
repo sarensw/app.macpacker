@@ -23,6 +23,7 @@ function Footer (): ReactElement {
       <p className='flex flex-row gap-4 justify-center'>
         <span>{t('footer.copyright', { year })}</span>
         <a href='/imprint'>{t('footer.imprint')}</a>
+        <a href='/media-kit/brand/macpacker-brand-assets.zip'>{t('footer.mediaKit')}</a>
         <a href='mailto:apps@sarensw.com'>{t('footer.contact')}</a>
       </p>
     </footer>
