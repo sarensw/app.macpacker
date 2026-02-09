@@ -1,0 +1,1 @@
+MacPacker is a free, open-source archive manager for macOS that lets you preview and extract files from 25+ archive formats including ZIP, RAR, 7z, DMG, and ISO. See inside nested archives without extracting them, pull out individual files, and support for disk images like VMDK and QCOW2. No tracking, no ads—built for the community.
