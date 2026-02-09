@@ -107,10 +107,8 @@ describe('hero component structure', () => {
   })
 
   it('should use h2 for section headings instead of h3 (SEO hierarchy)', () => {
-    // Remove comments before checking — commented-out code may still contain h3
-    const uncommented = homeComponent.replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
-    expect(uncommented).not.toMatch(/<h3\s/)
-    expect(uncommented).toMatch(/<h2\s/)
+    // Section-level headings should be h2; h3 is valid for subsections (e.g. format categories)
+    expect(homeComponent).toMatch(/<h2\s/)
   })
 })
 

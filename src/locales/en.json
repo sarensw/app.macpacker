@@ -49,7 +49,16 @@
     "readTitle": "Read / Extract from",
     "writeTitle": "Create / Write to",
     "comingSoon": "... coming soon ...",
-    "requestFormat": "Please add ..."
+    "requestFormat": "Please add ...",
+    "categories": {
+      "compression": "Compression",
+      "diskImages": "Disk Images",
+      "archives": "Archives",
+      "other": "Other"
+    },
+    "showMore": "Show {{count}} more formats",
+    "showMoreAriaLabel": "Expand to show all supported formats",
+    "comparisonLink": "Learn about format comparison"
   },
   "footer": {
     "createdBy": "Created with ☕ by:",

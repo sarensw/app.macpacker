@@ -49,7 +49,16 @@
     "readTitle": "读取 / 提取自",
     "writeTitle": "创建 / 写入到",
     "comingSoon": "... 即将推出 ...",
-    "requestFormat": "请添加 ..."
+    "requestFormat": "请添加 ...",
+    "categories": {
+      "compression": "压缩格式",
+      "diskImages": "磁盘映像",
+      "archives": "归档格式",
+      "other": "其他"
+    },
+    "showMore": "显示 {{count}} 种更多格式",
+    "showMoreAriaLabel": "展开显示所有支持的格式",
+    "comparisonLink": "了解格式比较"
   },
   "footer": {
     "createdBy": "用 ☕ 创建，作者：",
