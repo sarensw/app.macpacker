@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useParams } from 'wouter'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -8,8 +8,9 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { TableOfContents } from '@/components/TableOfContents'
 import { useDocMeta } from '@/hooks/useDocMeta'
-import { parseFrontmatter, extractHeadings, headingToId } from '@/utils/docs'
-import type { TocEntry } from '@/utils/docs'
+import { useStructuredData } from '@/hooks/useStructuredData'
+import { parseFrontmatter, extractHeadings, extractFaqEntries, headingToId, docsDir } from '@/utils/docs'
+import type { TocEntry, FaqEntry } from '@/utils/docs'
 import { fallbackLanguage } from '@/i18n/config'
 
 function DocPage(): ReactElement {
@@ -21,10 +22,29 @@ function DocPage(): ReactElement {
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [headings, setHeadings] = useState<TocEntry[]>([])
+  const [faqEntries, setFaqEntries] = useState<FaqEntry[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<boolean>(false)
 
-  useDocMeta({ title, description })
+  useDocMeta({ title, description, lang, slug })
+
+  const faqSchema = useMemo(() => {
+    if (faqEntries.length === 0) return null
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqEntries.map((entry) => ({
+        '@type': 'Question',
+        name: entry.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: entry.answer,
+        },
+      })),
+    }
+  }, [faqEntries])
+
+  useStructuredData(faqSchema, 'doc-faq-schema')
 
   useEffect(() => {
     if (!slug) return
@@ -32,12 +52,12 @@ function DocPage(): ReactElement {
     setLoading(true)
     setError(false)
 
-    fetch(`/docs/${lang}/${slug}.md`)
+    fetch(`/docs/${docsDir(lang)}/${slug}.md`)
       .then(async (response) => {
         if (!response.ok) {
           // Fall back to English if the localized version is not available
           if (lang !== fallbackLanguage) {
-            const fallbackResponse = await fetch(`/docs/${fallbackLanguage}/${slug}.md`)
+            const fallbackResponse = await fetch(`/docs/${docsDir(fallbackLanguage)}/${slug}.md`)
             if (!fallbackResponse.ok) throw new Error('Not found')
             return fallbackResponse.text()
           }
@@ -51,6 +71,7 @@ function DocPage(): ReactElement {
         setDescription(frontmatter.description)
         setBody(mdBody)
         setHeadings(extractHeadings(mdBody))
+        setFaqEntries(extractFaqEntries(mdBody))
         setLoading(false)
       })
       .catch(() => {

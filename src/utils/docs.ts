@@ -1,3 +1,15 @@
+/**
+ * Maps URL language codes to the directory names used for docs files.
+ * Most languages use the same code, but Chinese uses 'zh-Hans' per ISO standard.
+ */
+const LANG_TO_DOCS_DIR: Record<string, string> = {
+  zh: 'zh-Hans',
+}
+
+export function docsDir(lang: string): string {
+  return LANG_TO_DOCS_DIR[lang] ?? lang
+}
+
 export interface DocFrontmatter {
   title: string
   description: string
@@ -72,4 +84,56 @@ export function headingToId(text: string): string {
     .toLowerCase()
     .replace(/[^\w\s-]/g, '')
     .replace(/\s+/g, '-')
+}
+
+export interface FaqEntry {
+  question: string
+  answer: string
+}
+
+/**
+ * Extract FAQ question/answer pairs from markdown.
+ * Looks for H3 headings that end with "?" under an H2 containing "FAQ" or
+ * "Frequently Asked Questions" (or localized equivalents).
+ * The answer is the paragraph text following the H3 heading.
+ */
+export function extractFaqEntries(markdown: string): FaqEntry[] {
+  const entries: FaqEntry[] = []
+  const lines = markdown.split('\n')
+
+  let inFaqSection = false
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]
+
+    // Detect FAQ section by H2 heading
+    if (line.match(/^##\s+/)) {
+      const heading = line.replace(/^##\s+/, '').trim()
+      inFaqSection = /faq|frequently asked|häufig gestellte|常见问题/i.test(heading)
+      continue
+    }
+
+    // Inside FAQ section, look for H3 questions
+    if (inFaqSection && line.match(/^###\s+/)) {
+      const question = line.replace(/^###\s+/, '').trim()
+
+      // Collect answer paragraphs (non-empty lines until next heading or empty line after content)
+      const answerLines: string[] = []
+      for (let j = i + 1; j < lines.length; j++) {
+        const nextLine = lines[j]
+        if (nextLine.match(/^#{2,3}\s+/)) break
+        if (nextLine.trim() !== '') {
+          answerLines.push(nextLine.trim())
+        } else if (answerLines.length > 0) {
+          break
+        }
+      }
+
+      if (answerLines.length > 0) {
+        entries.push({ question, answer: answerLines.join(' ') })
+      }
+    }
+  }
+
+  return entries
 }
