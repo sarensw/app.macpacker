@@ -2,10 +2,11 @@ import { useState, type ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import mas from '@assets/mas.svg'
 import github from '@assets/github-mark.svg'
-import { ClipboardDocumentIcon, CheckIcon } from '@heroicons/react/24/outline'
+import { ClipboardDocumentIcon, CheckIcon, MagnifyingGlassIcon, ArrowDownTrayIcon, SquaresPlusIcon } from '@heroicons/react/24/outline'
 import { Footer } from '@/components/Footer'
 import { ArchiveFormat } from '@/components/ArchiveFormat'
 import { Language } from '@/components/Language'
+import { FeatureCard } from '@/components/FeatureCard'
 
 function Home (): ReactElement {
   const { t } = useTranslation()
@@ -85,6 +86,28 @@ function Home (): ReactElement {
 
           {/* main image */}
           <img className='w-auto h-auto' src='/main.png' alt='MacPacker application window showing nested archive preview' loading='lazy' />
+
+          {/* features */}
+          <section aria-labelledby='features-heading' className='mt-16 mb-12 flex flex-col space-y-8 items-center w-full'>
+            <h2 id='features-heading' className='text-neutral-800 text-lg'>{t('features.title')}</h2>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 w-full'>
+              <FeatureCard
+                icon={MagnifyingGlassIcon}
+                title={t('features.nestedPreview.title')}
+                description={t('features.nestedPreview.description')}
+              />
+              <FeatureCard
+                icon={ArrowDownTrayIcon}
+                title={t('features.extractSingle.title')}
+                description={t('features.extractSingle.description')}
+              />
+              <FeatureCard
+                icon={SquaresPlusIcon}
+                title={t('features.formats.title')}
+                description={t('features.formats.description')}
+              />
+            </div>
+          </section>
 
           {/* version info */}
           <div className='text-sm text-neutral-500 text-center'>
