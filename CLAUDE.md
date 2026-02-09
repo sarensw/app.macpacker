@@ -43,3 +43,24 @@ npm run preview   # Preview production build locally
 - `flag-icons` for country flags (language badges)
 - `react-markdown` + `remark-gfm` for markdown rendering
 - `wouter` for client-side routing
+
+## Routing + Hosting Constraints (Important)
+
+This app is an SPA (React + wouter). Language URLs like `/de` and `/zh` are **client-side routes**, not physical files.
+
+### Production requirement
+When deployed as static files (e.g., GitHub Pages), the host must rewrite unknown paths to `/index.html` (SPA fallback), otherwise direct hits to `/de` or `/zh` will fail even if they work in `vite dev`.
+
+### Why localhost can be misleading
+`vite dev` (and often `vite preview`) serves SPA fallback automatically, so route issues may be hidden during local testing.
+
+### Route model (current)
+- `/` -> language redirect/home behavior
+- `/:lang` -> localized home
+- `/imprint` -> root-only imprint route
+
+If route structure changes, update this section.
+
+### SEO/sitemap rule
+Only include URLs in `public/sitemap.xml` that are actually routable in production.
+Do not list paths like `/<lang>/imprint` unless that route truly exists.
