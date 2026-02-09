@@ -28,10 +28,10 @@ describe('hreflang tags in index.html', () => {
 })
 
 describe('route structure', () => {
-  it('should support en, de, and zh-Hans as language codes', () => {
+  it('should support en, de, and zh as language codes', () => {
     expect(supportedLanguages).toContain('en')
     expect(supportedLanguages).toContain('de')
-    expect(supportedLanguages).toContain('zh-Hans')
+    expect(supportedLanguages).toContain('zh')
   })
 
   it('should have exactly 3 supported languages', () => {

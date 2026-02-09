@@ -5,18 +5,14 @@ function detectBrowserLanguage(): SupportedLanguage {
   const browserLangs = navigator.languages ?? [navigator.language]
   for (const lang of browserLangs) {
     const normalized = lang.trim()
-    // Exact match first (e.g. zh-Hans)
+    // Exact match first (e.g. zh, de)
     if ((supportedLanguages as readonly string[]).includes(normalized)) {
       return normalized as SupportedLanguage
     }
-    // Try base language (e.g. "de-DE" → "de")
+    // Try base language (e.g. "de-DE" → "de", "zh-CN" → "zh")
     const base = normalized.split('-')[0]
     if ((supportedLanguages as readonly string[]).includes(base)) {
       return base as SupportedLanguage
-    }
-    // Special case: zh → zh-Hans
-    if (base === 'zh') {
-      return 'zh-Hans'
     }
   }
   return fallbackLanguage

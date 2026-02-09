@@ -5,7 +5,7 @@ import i18n from './config'
 
 const en = JSON.parse(readFileSync(resolve(__dirname, '../locales/en.json'), 'utf-8'))
 const de = JSON.parse(readFileSync(resolve(__dirname, '../locales/de.json'), 'utf-8'))
-const zhHans = JSON.parse(readFileSync(resolve(__dirname, '../locales/zh-Hans.json'), 'utf-8'))
+const zhHans = JSON.parse(readFileSync(resolve(__dirname, '../locales/zh.json'), 'utf-8'))
 
 function getKeys(obj: Record<string, unknown>, prefix = ''): string[] {
   const keys: string[] = []
@@ -31,7 +31,7 @@ describe('translation files exist and are valid JSON', () => {
     expect(Object.keys(de).length).toBeGreaterThan(0)
   })
 
-  it('should have zh-Hans.json with content', () => {
+  it('should have zh.json with content', () => {
     expect(zhHans).toBeDefined()
     expect(Object.keys(zhHans).length).toBeGreaterThan(0)
   })
@@ -46,7 +46,7 @@ describe('translation key structure', () => {
     expect(deKeys).toEqual(enKeys)
   })
 
-  it('should have the same keys in en and zh-Hans', () => {
+  it('should have the same keys in en and zh', () => {
     expect(zhHansKeys).toEqual(enKeys)
   })
 
@@ -82,7 +82,7 @@ describe('translation key structure', () => {
 })
 
 describe('translation values are non-empty strings', () => {
-  const locales = { en, de, 'zh-Hans': zhHans }
+  const locales = { en, de, zh: zhHans }
 
   for (const [locale, translations] of Object.entries(locales)) {
     const keys = getKeys(translations)
@@ -152,7 +152,7 @@ describe('i18n resources loaded', () => {
   })
 
   it('should have translation resources for Simplified Chinese', () => {
-    expect(i18n.hasResourceBundle('zh-Hans', 'translation')).toBe(true)
+    expect(i18n.hasResourceBundle('zh', 'translation')).toBe(true)
   })
 
   it('should resolve English keys via t()', async () => {
@@ -168,7 +168,7 @@ describe('i18n resources loaded', () => {
   })
 
   it('should resolve Chinese keys via t()', async () => {
-    await i18n.changeLanguage('zh-Hans')
+    await i18n.changeLanguage('zh')
     expect(i18n.t('hero.subtitle')).toContain('macOS')
     expect(i18n.t('footer.contact')).toBe('联系方式')
   })
@@ -192,7 +192,7 @@ describe('i18n resources loaded', () => {
   })
 
   it('should switch language and return Chinese translations', async () => {
-    await i18n.changeLanguage('zh-Hans')
+    await i18n.changeLanguage('zh')
     const result = i18n.t('download.versionInfo', { version: '0.13', size: '5', minVersion: '13.5' })
     expect(result).toContain('0.13')
     expect(result).toContain('5 MB')

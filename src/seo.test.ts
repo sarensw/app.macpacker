@@ -70,14 +70,14 @@ describe('sitemap.xml', () => {
     const content = readFileSync(sitemapPath, 'utf-8')
     expect(content).toContain('<loc>https://macpacker.app/en/</loc>')
     expect(content).toContain('<loc>https://macpacker.app/de/</loc>')
-    expect(content).toContain('<loc>https://macpacker.app/zh-Hans/</loc>')
+    expect(content).toContain('<loc>https://macpacker.app/zh/</loc>')
   })
 
   it('should include imprint pages', () => {
     const content = readFileSync(sitemapPath, 'utf-8')
     expect(content).toContain('<loc>https://macpacker.app/en/imprint</loc>')
     expect(content).toContain('<loc>https://macpacker.app/de/imprint</loc>')
-    expect(content).toContain('<loc>https://macpacker.app/zh-Hans/imprint</loc>')
+    expect(content).toContain('<loc>https://macpacker.app/zh/imprint</loc>')
   })
 
   it('should use macpacker.app domain for all URLs', () => {

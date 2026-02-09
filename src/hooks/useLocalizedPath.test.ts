@@ -15,14 +15,14 @@ describe('localized path construction', () => {
     expect(buildLocalizedPath('de', '/imprint')).toBe('/de/imprint')
   })
 
-  it('should prefix path with zh-Hans language code', () => {
-    expect(buildLocalizedPath('zh-Hans', '/imprint')).toBe('/zh-Hans/imprint')
+  it('should prefix path with zh language code', () => {
+    expect(buildLocalizedPath('zh', '/imprint')).toBe('/zh/imprint')
   })
 
   it('should handle root path correctly', () => {
     expect(buildLocalizedPath('en', '/')).toBe('/en/')
     expect(buildLocalizedPath('de', '/')).toBe('/de/')
-    expect(buildLocalizedPath('zh-Hans', '/')).toBe('/zh-Hans/')
+    expect(buildLocalizedPath('zh', '/')).toBe('/zh/')
   })
 
   it('should add leading slash if missing', () => {
