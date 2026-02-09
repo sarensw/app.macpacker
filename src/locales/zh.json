@@ -6,15 +6,25 @@
     "openSourceTagline": "因为重要的工具应该是免费的。",
     "previewFeature": "预览",
     "nested": "嵌套的",
-    "previewTagline": "归档而无需解压。提取单个文件。"
+    "previewTagline": "归档而无需解压。提取单个文件。",
+    "headline": "在 macOS 上预览和解压任何归档文件",
+    "subheadline": "无需解压即可查看嵌套归档内容。",
+    "freeAndOpenSource": "免费且开源。",
+    "installWith": "使用 Homebrew 安装",
+    "copyCommand": "复制到剪贴板",
+    "commandCopied": "已复制！",
+    "seeFormats": "查看全部 30+ 种支持的格式 →",
+    "trustSignal": "无跟踪、无广告、永久开源。"
   },
   "header": {
     "forkMe": "在此处 Fork"
   },
   "download": {
     "versionInfo": "v{{version}} | {{size}} MB | macOS {{minVersion}} 或更高版本",
-    "downloadZip": ".zip",
-    "appStore": "Mac App Store"
+    "downloadZip": "下载 .zip",
+    "appStore": "Mac App Store",
+    "alternativeLabel": "或直接下载",
+    "downloadCount": "{{count}} 次下载"
   },
   "languages": {
     "title": "已翻译（由社区提供）为",

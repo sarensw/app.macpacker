@@ -6,15 +6,25 @@
     "openSourceTagline": "denn wichtige Werkzeuge sollten kostenlos sein.",
     "previewFeature": "Vorschau",
     "nested": "verschachtelte",
-    "previewTagline": "Archive ohne Entpacken ansehen. Einzelne Dateien extrahieren."
+    "previewTagline": "Archive ohne Entpacken ansehen. Einzelne Dateien extrahieren.",
+    "headline": "Beliebige Archive auf macOS ansehen & entpacken",
+    "subheadline": "Verschachtelte Archive einsehen, ohne sie zu entpacken.",
+    "freeAndOpenSource": "Kostenlos & Open Source.",
+    "installWith": "Mit Homebrew installieren",
+    "copyCommand": "In Zwischenablage kopieren",
+    "commandCopied": "Kopiert!",
+    "seeFormats": "Alle 30+ unterstützten Formate ansehen →",
+    "trustSignal": "Kein Tracking. Keine Werbung. Für immer Open Source."
   },
   "header": {
     "forkMe": "Fork mich auf"
   },
   "download": {
     "versionInfo": "v{{version}} | {{size}} MB | macOS {{minVersion}} oder neuer",
-    "downloadZip": ".zip",
-    "appStore": "Mac App Store"
+    "downloadZip": ".zip herunterladen",
+    "appStore": "Mac App Store",
+    "alternativeLabel": "Oder direkt herunterladen",
+    "downloadCount": "{{count}} Downloads"
   },
   "languages": {
     "title": "Übersetzt (von der Community) auf",

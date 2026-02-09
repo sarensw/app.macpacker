@@ -125,10 +125,10 @@ describe('preserved terms across translations', () => {
     expect(zhHans.hero.subtitle).toContain('macOS')
   })
 
-  it('should keep ".zip" as downloadZip value', () => {
-    expect(en.download.downloadZip).toBe('.zip')
-    expect(de.download.downloadZip).toBe('.zip')
-    expect(zhHans.download.downloadZip).toBe('.zip')
+  it('should include ".zip" in downloadZip value', () => {
+    expect(en.download.downloadZip).toContain('.zip')
+    expect(de.download.downloadZip).toContain('.zip')
+    expect(zhHans.download.downloadZip).toContain('.zip')
   })
 
   it('should keep "Mac App Store" untranslated', () => {
