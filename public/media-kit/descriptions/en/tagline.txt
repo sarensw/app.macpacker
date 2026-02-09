@@ -1,0 +1,1 @@
+MacPacker: Preview & extract 25+ archive formats on macOS. See inside nested archives. Free & open source.
