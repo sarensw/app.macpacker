@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { parseFrontmatter, extractHeadings, headingToId } from './docs'
+import { parseFrontmatter, extractHeadings, headingToId, extractFaqEntries, docsDir } from './docs'
 
 describe('parseFrontmatter', () => {
   it('should parse title and description from frontmatter', () => {
@@ -142,5 +142,122 @@ describe('headingToId', () => {
 
   it('should lowercase the result', () => {
     expect(headingToId('UPPERCASE HEADING')).toBe('uppercase-heading')
+  })
+})
+
+describe('docsDir', () => {
+  it('should return the same language code for en', () => {
+    expect(docsDir('en')).toBe('en')
+  })
+
+  it('should return the same language code for de', () => {
+    expect(docsDir('de')).toBe('de')
+  })
+
+  it('should map zh to zh-Hans', () => {
+    expect(docsDir('zh')).toBe('zh-Hans')
+  })
+
+  it('should pass through unknown language codes unchanged', () => {
+    expect(docsDir('fr')).toBe('fr')
+  })
+})
+
+describe('extractFaqEntries', () => {
+  it('should extract FAQ question/answer pairs from English markdown', () => {
+    const md = `## Some Section
+
+Some content.
+
+## Frequently Asked Questions
+
+### Can macOS open RAR files natively?
+
+No, macOS does not have built-in support for RAR files.
+
+### What is the best free RAR extractor for Mac?
+
+MacPacker is the best free RAR extractor for Mac. It supports 30+ formats.
+`
+
+    const entries = extractFaqEntries(md)
+    expect(entries).toHaveLength(2)
+    expect(entries[0].question).toBe('Can macOS open RAR files natively?')
+    expect(entries[0].answer).toBe('No, macOS does not have built-in support for RAR files.')
+    expect(entries[1].question).toBe('What is the best free RAR extractor for Mac?')
+    expect(entries[1].answer).toBe('MacPacker is the best free RAR extractor for Mac. It supports 30+ formats.')
+  })
+
+  it('should extract FAQ entries from German markdown', () => {
+    const md = `## Häufig gestellte Fragen
+
+### Kann macOS RAR-Dateien nativ öffnen?
+
+Nein, macOS verfügt nicht über integrierte Unterstützung für RAR-Dateien.
+`
+
+    const entries = extractFaqEntries(md)
+    expect(entries).toHaveLength(1)
+    expect(entries[0].question).toBe('Kann macOS RAR-Dateien nativ öffnen?')
+  })
+
+  it('should extract FAQ entries from Chinese markdown', () => {
+    const md = `## 常见问题解答
+
+### macOS 能原生打开 RAR 文件吗？
+
+不能，macOS 没有内置 RAR 文件支持。
+`
+
+    const entries = extractFaqEntries(md)
+    expect(entries).toHaveLength(1)
+    expect(entries[0].question).toBe('macOS 能原生打开 RAR 文件吗？')
+  })
+
+  it('should return empty array when no FAQ section exists', () => {
+    const md = `## Introduction
+
+Some content here.
+
+## Method 1
+
+Steps to follow.
+`
+
+    const entries = extractFaqEntries(md)
+    expect(entries).toHaveLength(0)
+  })
+
+  it('should stop collecting FAQ entries when a new H2 section starts', () => {
+    const md = `## FAQ
+
+### Question 1?
+
+Answer 1.
+
+## Next Section
+
+### Not a FAQ question
+
+Not an answer.
+`
+
+    const entries = extractFaqEntries(md)
+    expect(entries).toHaveLength(1)
+    expect(entries[0].question).toBe('Question 1?')
+  })
+
+  it('should handle multi-line answers by joining them', () => {
+    const md = `## Frequently Asked Questions
+
+### Is it safe?
+
+Yes, it is completely safe.
+It is open-source software.
+`
+
+    const entries = extractFaqEntries(md)
+    expect(entries).toHaveLength(1)
+    expect(entries[0].answer).toBe('Yes, it is completely safe. It is open-source software.')
   })
 })

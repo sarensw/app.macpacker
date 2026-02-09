@@ -89,8 +89,10 @@ describe('sitemap.xml', () => {
     const content = readFileSync(sitemapPath, 'utf-8')
     const locMatches = content.match(/<loc>(.*?)<\/loc>/g) || []
     const urls = locMatches.map(loc => loc.replace(/<\/?loc>/g, ''))
-    // Valid routes: /, /en/, /de/, /zh/, /imprint
-    const validPaths = ['/', '/en/', '/de/', '/zh/', '/imprint']
+    const validPaths = [
+      '/', '/en/', '/de/', '/zh/', '/imprint',
+      '/en/docs/extract-rar', '/de/docs/extract-rar', '/zh/docs/extract-rar',
+    ]
     for (const url of urls) {
       const path = url.replace('https://macpacker.app', '')
       expect(validPaths).toContain(path)
