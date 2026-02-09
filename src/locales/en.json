@@ -1,0 +1,35 @@
+{
+  "hero": {
+    "title": "MacPacker",
+    "subtitle": "Archive manager for macOS.",
+    "openSource": "Open source",
+    "openSourceTagline": "because essential tools should be free.",
+    "previewFeature": "Preview",
+    "nested": "nested",
+    "previewTagline": "archives without extracting them. Extract single files."
+  },
+  "header": {
+    "forkMe": "Fork me on"
+  },
+  "download": {
+    "versionInfo": "v{{version}} | {{size}} MB | macOS {{minVersion}} or newer",
+    "downloadZip": ".zip",
+    "appStore": "Mac App Store"
+  },
+  "languages": {
+    "title": "Translated (by the community) to",
+    "helpTranslate": "🫵 Help with translations"
+  },
+  "formats": {
+    "readTitle": "Read / Extract from",
+    "writeTitle": "Create / Write to",
+    "comingSoon": "... coming soon ...",
+    "requestFormat": "Please add ..."
+  },
+  "footer": {
+    "createdBy": "Created with ☕ by:",
+    "copyright": "© {{year}} Stephan Arenswald",
+    "imprint": "Imprint",
+    "contact": "Contact"
+  }
+}
