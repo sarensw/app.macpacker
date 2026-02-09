@@ -7,6 +7,7 @@ import { Footer } from '@/components/Footer'
 import { ArchiveFormat } from '@/components/ArchiveFormat'
 import { Language } from '@/components/Language'
 import { FeatureCard } from '@/components/FeatureCard'
+import { WhatOthersSay } from '@/components/WhatOthersSay'
 import { useLocalizedPath } from '@/hooks/useLocalizedPath'
 
 interface FormatCategory {
@@ -225,13 +226,36 @@ function Home (): ReactElement {
           </div>
 
           {/* testimonials */}
-          {/* <div className='mt-8 justify-items-center flex flex-col space-y-2 items-center'>
-            <h3 className='text-neutral-800 text-lg'>What others say</h3>
-            <div className='flex flex-row space-x-2 items-baseline'>
-              <WhatOthersSay name='Sandra' source='Direct Chat' text='😁 Thank You!' title='Thank You' />
-              <WhatOthersSay name='Sevikha' source='App Store Reviews' text='Useful functionality. Thanks for your dev time, and good luck with moving this forward!' title='Good tool' />
+          <section aria-labelledby='testimonials-heading' className='mt-8 flex flex-col space-y-4 items-center w-full'>
+            <h2 id='testimonials-heading' className='text-neutral-800 text-lg'>{t('testimonials.title')}</h2>
+            <a
+              href='https://github.com/sarensw/MacPacker'
+              className='inline-flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 rounded'
+            >
+              <span aria-hidden='true'>&#11088;</span>
+              <span>{t('testimonials.githubStars', { count: 369 })}</span>
+            </a>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-4 w-full'>
+              <WhatOthersSay
+                source='App Store'
+                title='Improved a lot'
+                text='Great modern/native app for archive preview. It has improved a lot compared to early days. Quick Look integration is nice too.'
+                name='hi362846'
+              />
+              <WhatOthersSay
+                source='App Store'
+                title='Good tool'
+                text='Useful functionality. Thanks for your dev time, and good luck with moving this forward!'
+                name='Sevikha'
+              />
+              <WhatOthersSay
+                source='App Store'
+                title="Not perfect, but it's the best open source implementation currently"
+                text='I hope this becomes the 7zip GUI of macOS'
+                name='Jae_gone'
+              />
             </div>
-          </div> */}
+          </section>
         </div>
       </div>
 

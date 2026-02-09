@@ -60,6 +60,10 @@
     "showMoreAriaLabel": "Expand to show all supported formats",
     "comparisonLink": "Learn about format comparison"
   },
+  "testimonials": {
+    "title": "What others say",
+    "githubStars": "{{count}} GitHub Stars"
+  },
   "footer": {
     "createdBy": "Created with ☕ by:",
     "copyright": "© {{year}} Stephan Arenswald",
