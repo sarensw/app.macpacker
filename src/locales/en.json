@@ -30,6 +30,21 @@
     "title": "Translated (by the community) to",
     "helpTranslate": "🫵 Help with translations"
   },
+  "features": {
+    "title": "Key Features",
+    "nestedPreview": {
+      "title": "Nested Preview",
+      "description": "See inside archives without extracting"
+    },
+    "extractSingle": {
+      "title": "Extract Single Files",
+      "description": "Pull out just what you need"
+    },
+    "formats": {
+      "title": "25+ Formats",
+      "description": "RAR, 7z, DMG, ISO and more"
+    }
+  },
   "formats": {
     "readTitle": "Read / Extract from",
     "writeTitle": "Create / Write to",

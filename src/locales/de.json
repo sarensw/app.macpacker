@@ -30,6 +30,21 @@
     "title": "Übersetzt (von der Community) auf",
     "helpTranslate": "🫵 Bei Übersetzungen helfen"
   },
+  "features": {
+    "title": "Hauptfunktionen",
+    "nestedPreview": {
+      "title": "Verschachtelte Vorschau",
+      "description": "Archive einsehen ohne sie zu entpacken"
+    },
+    "extractSingle": {
+      "title": "Einzelne Dateien extrahieren",
+      "description": "Nur das extrahieren, was Sie brauchen"
+    },
+    "formats": {
+      "title": "25+ Formate",
+      "description": "RAR, 7z, DMG, ISO und mehr"
+    }
+  },
   "formats": {
     "readTitle": "Lesen / Extrahieren von",
     "writeTitle": "Erstellen / Schreiben zu",

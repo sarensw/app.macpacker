@@ -30,6 +30,21 @@
     "title": "已翻译（由社区提供）为",
     "helpTranslate": "🫵 帮助翻译"
   },
+  "features": {
+    "title": "主要功能",
+    "nestedPreview": {
+      "title": "嵌套预览",
+      "description": "无需解压即可查看归档内容"
+    },
+    "extractSingle": {
+      "title": "提取单个文件",
+      "description": "只提取您需要的内容"
+    },
+    "formats": {
+      "title": "25+ 种格式",
+      "description": "RAR、7z、DMG、ISO 等"
+    }
+  },
   "formats": {
     "readTitle": "读取 / 提取自",
     "writeTitle": "创建 / 写入到",
