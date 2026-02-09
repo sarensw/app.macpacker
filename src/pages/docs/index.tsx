@@ -17,6 +17,11 @@ const docs: DocLink[] = [
     title: 'How to Extract RAR Files on macOS',
     description: 'Learn how to open and extract RAR archives on your Mac using MacPacker.',
   },
+  {
+    slug: 'extract-7zip',
+    title: 'How to Extract 7z Files on macOS',
+    description: 'Learn how to open and extract 7z (7-Zip) archives on your Mac using MacPacker.',
+  },
 ]
 
 function DocsIndex(): ReactElement {

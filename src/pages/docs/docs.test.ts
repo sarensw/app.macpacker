@@ -80,6 +80,10 @@ describe('DocsIndex component', () => {
   it('should list the extract-rar doc', () => {
     expect(docsIndexTsx).toContain('extract-rar')
   })
+
+  it('should list the extract-7zip doc', () => {
+    expect(docsIndexTsx).toContain('extract-7zip')
+  })
 })
 
 describe('DocPage component', () => {
@@ -367,5 +371,217 @@ describe('sitemap includes docs URLs', () => {
     for (const entry of docsEntries) {
       expect(entry).toContain('<priority>0.8</priority>')
     }
+  })
+
+  it('should include English extract-7zip docs URL', () => {
+    expect(sitemap).toContain('<loc>https://macpacker.app/en/docs/extract-7zip</loc>')
+  })
+
+  it('should include German extract-7zip docs URL', () => {
+    expect(sitemap).toContain('<loc>https://macpacker.app/de/docs/extract-7zip</loc>')
+  })
+
+  it('should include Chinese extract-7zip docs URL', () => {
+    expect(sitemap).toContain('<loc>https://macpacker.app/zh/docs/extract-7zip</loc>')
+  })
+
+  it('extract-7zip docs URLs should have priority 0.8', () => {
+    const docsEntries = sitemap.match(/<url>\s*<loc>https:\/\/macpacker\.app\/\w+\/docs\/extract-7zip<\/loc>[\s\S]*?<\/url>/g) || []
+    expect(docsEntries.length).toBe(3)
+    for (const entry of docsEntries) {
+      expect(entry).toContain('<priority>0.8</priority>')
+    }
+  })
+})
+
+describe('extract-7zip markdown content', () => {
+  const docsDir = resolve(__dirname, '../../../public/docs')
+
+  it('should have en/extract-7zip.md', () => {
+    expect(existsSync(resolve(docsDir, 'en/extract-7zip.md'))).toBe(true)
+  })
+
+  it('should have de/extract-7zip.md', () => {
+    expect(existsSync(resolve(docsDir, 'de/extract-7zip.md'))).toBe(true)
+  })
+
+  it('should have zh-Hans/extract-7zip.md', () => {
+    expect(existsSync(resolve(docsDir, 'zh-Hans/extract-7zip.md'))).toBe(true)
+  })
+
+  it('English extract-7zip should have frontmatter with title and description', () => {
+    const content = readFileSync(resolve(docsDir, 'en/extract-7zip.md'), 'utf-8')
+    expect(content).toMatch(/^---/)
+    expect(content).toMatch(/title:/)
+    expect(content).toMatch(/description:/)
+  })
+
+  it('German extract-7zip should have frontmatter with title and description', () => {
+    const content = readFileSync(resolve(docsDir, 'de/extract-7zip.md'), 'utf-8')
+    expect(content).toMatch(/^---/)
+    expect(content).toMatch(/title:/)
+    expect(content).toMatch(/description:/)
+  })
+
+  it('Chinese extract-7zip should have frontmatter with title and description', () => {
+    const content = readFileSync(resolve(docsDir, 'zh-Hans/extract-7zip.md'), 'utf-8')
+    expect(content).toMatch(/^---/)
+    expect(content).toMatch(/title:/)
+    expect(content).toMatch(/description:/)
+  })
+})
+
+describe('extract-7zip content structure', () => {
+  const docsPath = resolve(__dirname, '../../../public/docs')
+  const enContent = readFileSync(resolve(docsPath, 'en/extract-7zip.md'), 'utf-8')
+  const deContent = readFileSync(resolve(docsPath, 'de/extract-7zip.md'), 'utf-8')
+  const zhContent = readFileSync(resolve(docsPath, 'zh-Hans/extract-7zip.md'), 'utf-8')
+
+  function countWords(text: string): number {
+    // Strip frontmatter
+    const body = text.replace(/^---[\s\S]*?---\n/, '')
+    // Strip markdown syntax, code blocks, and image references
+    const cleaned = body
+      .replace(/```[\s\S]*?```/g, '')
+      .replace(/!\[.*?\]\(.*?\)/g, '')
+      .replace(/\[([^\]]*)\]\(.*?\)/g, '$1')
+      .replace(/[#*>`_~\-|]/g, '')
+      .replace(/\n+/g, ' ')
+      .trim()
+    return cleaned.split(/\s+/).filter(w => w.length > 0).length
+  }
+
+  it('English version should have approximately 1,200-1,500 words', () => {
+    const words = countWords(enContent)
+    // Markdown word count is approximate; allow tolerance for formatting artifacts
+    expect(words).toBeGreaterThanOrEqual(1100)
+    expect(words).toBeLessThanOrEqual(1700)
+  })
+
+  it('should have exactly one H1 heading in English version', () => {
+    const body = enContent.replace(/^---[\s\S]*?---\n/, '')
+    const h1Matches = body.match(/^# .+$/gm) || []
+    expect(h1Matches).toHaveLength(1)
+  })
+
+  it('should have H2 sections for all required content areas in English', () => {
+    expect(enContent).toMatch(/^## .*(MacPacker|Method 1)/m)
+    expect(enContent).toMatch(/^## .*(Terminal|Method 2)/m)
+    expect(enContent).toMatch(/^## .*(Other|Method 3)/m)
+    expect(enContent).toMatch(/^## .*(Troubleshoot)/m)
+    expect(enContent).toMatch(/^## .*(FAQ|Frequently)/m)
+  })
+
+  it('should have a format comparison section', () => {
+    expect(enContent).toMatch(/^## .*(?:7z vs|Format Comparison)/m)
+  })
+
+  it('English FAQ section should have 5-8 questions', () => {
+    const faqSection = enContent.split(/^## .*(?:FAQ|Frequently)/m)[1] || ''
+    const questions = faqSection.match(/^### .+$/gm) || []
+    expect(questions.length).toBeGreaterThanOrEqual(5)
+    expect(questions.length).toBeLessThanOrEqual(8)
+  })
+
+  it('should include screenshot placeholders with dimensions', () => {
+    const placeholders = enContent.match(/!\[.*?\]\(placeholder-\d+x\d+\.png\)/g) || []
+    expect(placeholders.length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('should include download links to MacPacker', () => {
+    expect(enContent).toContain('macpacker.app')
+    expect(enContent).toContain('#download')
+  })
+
+  it('English frontmatter should include keywords', () => {
+    expect(enContent).toMatch(/keywords:/)
+  })
+
+  it('English frontmatter should include canonical URL', () => {
+    expect(enContent).toMatch(/canonical:.*macpacker\.app.*extract-7zip/)
+  })
+
+  it('should include primary keyword variations about opening 7z files on mac', () => {
+    expect(enContent.toLowerCase()).toContain('7z')
+    expect(enContent.toLowerCase()).toContain('mac')
+    expect(enContent.toLowerCase()).toContain('extract')
+  })
+
+  it('should include secondary keywords', () => {
+    expect(enContent.toLowerCase()).toContain('7-zip')
+    expect(enContent.toLowerCase()).toContain('p7zip')
+    expect(enContent.toLowerCase()).toContain('lzma')
+  })
+
+  it('should include p7zip installation and command examples', () => {
+    expect(enContent).toContain('brew install p7zip')
+    expect(enContent).toContain('7z x')
+    expect(enContent).toContain('7z l')
+    expect(enContent).toContain('7z t')
+  })
+
+  it('should describe 7-Zip format characteristics', () => {
+    expect(enContent.toLowerCase()).toContain('lzma')
+    expect(enContent.toLowerCase()).toContain('open-source')
+    expect(enContent.toLowerCase()).toContain('compression')
+  })
+
+  it('should link to format comparison or RAR doc', () => {
+    expect(enContent).toContain('extract-rar')
+  })
+
+  it('all three language versions should have consistent structure', () => {
+    // All should have FAQ section
+    expect(enContent).toMatch(/^## .*(?:FAQ|Frequently)/m)
+    expect(deContent).toMatch(/^## .*(?:Häufig|FAQ)/m)
+    expect(zhContent).toMatch(/^## .*常见问题/m)
+
+    // All should have MacPacker method section
+    expect(enContent).toMatch(/^## .*MacPacker/m)
+    expect(deContent).toMatch(/^## .*MacPacker/m)
+    expect(zhContent).toMatch(/^## .*MacPacker/m)
+
+    // All should have Terminal method section
+    expect(enContent).toMatch(/^## .*(Terminal|Method 2)/m)
+    expect(deContent).toMatch(/^## .*(Terminal|Methode 2)/m)
+    expect(zhContent).toMatch(/^## .*终端/m)
+
+    // All should have Troubleshooting section
+    expect(enContent).toMatch(/^## .*(Troubleshoot)/m)
+    expect(deContent).toMatch(/^## .*(Fehlerbehebung|Behebung)/m)
+    expect(zhContent).toMatch(/^## .*故障排除/m)
+  })
+
+  it('all three language versions should have matching placeholder images', () => {
+    const enPlaceholders = (enContent.match(/placeholder-\d+x\d+\.png/g) || []).sort()
+    const dePlaceholders = (deContent.match(/placeholder-\d+x\d+\.png/g) || []).sort()
+    const zhPlaceholders = (zhContent.match(/placeholder-\d+x\d+\.png/g) || []).sort()
+
+    expect(enPlaceholders).toEqual(dePlaceholders)
+    expect(enPlaceholders).toEqual(zhPlaceholders)
+  })
+
+  it('all three language versions should have language-specific download links', () => {
+    expect(enContent).toContain('macpacker.app/en#download')
+    expect(deContent).toContain('macpacker.app/de#download')
+    expect(zhContent).toContain('macpacker.app/zh#download')
+  })
+
+  it('all three language versions should have language-specific canonical URLs', () => {
+    expect(enContent).toMatch(/canonical:.*\/en\/docs\/extract-7zip/)
+    expect(deContent).toMatch(/canonical:.*\/de\/docs\/extract-7zip/)
+    expect(zhContent).toMatch(/canonical:.*\/zh\/docs\/extract-7zip/)
+  })
+
+  it('German version should have same number of H2 sections as English', () => {
+    const enH2s = enContent.match(/^## /gm) || []
+    const deH2s = deContent.match(/^## /gm) || []
+    expect(enH2s.length).toBe(deH2s.length)
+  })
+
+  it('Chinese version should have same number of H2 sections as English', () => {
+    const enH2s = enContent.match(/^## /gm) || []
+    const zhH2s = zhContent.match(/^## /gm) || []
+    expect(enH2s.length).toBe(zhH2s.length)
   })
 })
