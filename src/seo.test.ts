@@ -73,11 +73,28 @@ describe('sitemap.xml', () => {
     expect(content).toContain('<loc>https://macpacker.app/zh/</loc>')
   })
 
-  it('should include imprint pages', () => {
+  it('should include imprint page at root level only', () => {
     const content = readFileSync(sitemapPath, 'utf-8')
-    expect(content).toContain('<loc>https://macpacker.app/en/imprint</loc>')
-    expect(content).toContain('<loc>https://macpacker.app/de/imprint</loc>')
-    expect(content).toContain('<loc>https://macpacker.app/zh/imprint</loc>')
+    expect(content).toContain('<loc>https://macpacker.app/imprint</loc>')
+  })
+
+  it('should not include language-prefixed imprint URLs', () => {
+    const content = readFileSync(sitemapPath, 'utf-8')
+    expect(content).not.toContain('<loc>https://macpacker.app/en/imprint</loc>')
+    expect(content).not.toContain('<loc>https://macpacker.app/de/imprint</loc>')
+    expect(content).not.toContain('<loc>https://macpacker.app/zh/imprint</loc>')
+  })
+
+  it('should only contain URLs that match actual routes', () => {
+    const content = readFileSync(sitemapPath, 'utf-8')
+    const locMatches = content.match(/<loc>(.*?)<\/loc>/g) || []
+    const urls = locMatches.map(loc => loc.replace(/<\/?loc>/g, ''))
+    // Valid routes: /, /en/, /de/, /zh/, /imprint
+    const validPaths = ['/', '/en/', '/de/', '/zh/', '/imprint']
+    for (const url of urls) {
+      const path = url.replace('https://macpacker.app', '')
+      expect(validPaths).toContain(path)
+    }
   })
 
   it('should use macpacker.app domain for all URLs', () => {
