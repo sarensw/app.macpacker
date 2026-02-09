@@ -49,7 +49,16 @@
     "readTitle": "Lesen / Extrahieren von",
     "writeTitle": "Erstellen / Schreiben zu",
     "comingSoon": "... kommt bald ...",
-    "requestFormat": "Bitte hinzufügen ..."
+    "requestFormat": "Bitte hinzufügen ...",
+    "categories": {
+      "compression": "Komprimierung",
+      "diskImages": "Disk-Images",
+      "archives": "Archive",
+      "other": "Sonstige"
+    },
+    "showMore": "{{count}} weitere Formate anzeigen",
+    "showMoreAriaLabel": "Alle unterstützten Formate anzeigen",
+    "comparisonLink": "Mehr über Formatvergleich erfahren"
   },
   "footer": {
     "createdBy": "Erstellt mit ☕ von:",

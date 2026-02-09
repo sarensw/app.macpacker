@@ -7,10 +7,44 @@ import { Footer } from '@/components/Footer'
 import { ArchiveFormat } from '@/components/ArchiveFormat'
 import { Language } from '@/components/Language'
 import { FeatureCard } from '@/components/FeatureCard'
+import { useLocalizedPath } from '@/hooks/useLocalizedPath'
+
+interface FormatCategory {
+  labelKey: string
+  initial: string[]
+  expanded: string[]
+}
+
+const formatCategories: FormatCategory[] = [
+  {
+    labelKey: 'formats.categories.compression',
+    initial: ['zip', 'rar', '7zip', 'gzip', 'lz4'],
+    expanded: ['lzx', 'sea', 'xar'],
+  },
+  {
+    labelKey: 'formats.categories.diskImages',
+    initial: ['dmg', 'iso', 'vdi', 'vmdk', 'vhdx', 'qcow2'],
+    expanded: ['apfs', 'fat', 'ntfs', 'vhd'],
+  },
+  {
+    labelKey: 'formats.categories.archives',
+    initial: ['tar', 'tar.bz2, bzip2', 'tar.lz4, lz4', 'tar.xz, xz'],
+    expanded: ['tar.z, taz', 'tar.Z, Z', 'cpio', 'squashfs'],
+  },
+  {
+    labelKey: 'formats.categories.other',
+    initial: [],
+    expanded: ['arj', 'cab', 'chm', 'lha', 'lzh', 'sit'],
+  },
+]
+
+const totalHiddenFormats = formatCategories.reduce((sum, cat) => sum + cat.expanded.length, 0)
 
 function Home (): ReactElement {
   const { t } = useTranslation()
   const [copied, setCopied] = useState(false)
+  const [showAllFormats, setShowAllFormats] = useState(false)
+  const localizedPath = useLocalizedPath()
   const version: string = '0.13'
   const downloadUrlZip: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
   const masUrl: string = 'https://apps.apple.com/us/app/macpacker/id6473273874'
@@ -133,40 +167,52 @@ function Home (): ReactElement {
           {/* read from */}
           <div id='formats' className='mt-8 justify-items-center flex flex-col space-y-2 items-center max-w-lg'>
             <h2 className='text-neutral-800 text-lg'>{t('formats.readTitle')}</h2>
-            <ul className='font-mono flex flex-row flex-wrap space-x-2 space-y-2 justify-center text-sm'>
-              <ArchiveFormat name={'7zip'} />
-              <ArchiveFormat name={'apfs'} />
-              <ArchiveFormat name={'arj'} />
-              <ArchiveFormat name={'cab'} />
-              <ArchiveFormat name={'chm'} />
-              <ArchiveFormat name={'cpio'} />
-              <ArchiveFormat name={'dmg'} />
-              <ArchiveFormat name={'fat'} />
-              <ArchiveFormat name={'gzip'} />
-              <ArchiveFormat name={'iso'} />
-              <ArchiveFormat name={'lha'} />
-              <ArchiveFormat name={'lzh'} />
-              <ArchiveFormat name={'lzx'} />
-              <ArchiveFormat name={'ntfs'} />
-              <ArchiveFormat name={'qcow2'} />
-              <ArchiveFormat name={'rar'} />
-              <ArchiveFormat name={'sea'} />
-              <ArchiveFormat name={'sit'} />
-              <ArchiveFormat name={'squashfs'} />
-              <ArchiveFormat name={'tar'} />
-              <ArchiveFormat name={'tar.bz2, bzip2'} />
-              <ArchiveFormat name={'tar.lz4, lz4'} />
-              <ArchiveFormat name={'tar.z, taz'} />
-              <ArchiveFormat name={'tar.xz, xz'} />
-              <ArchiveFormat name={'tar.Z, Z'} />
-              <ArchiveFormat name={'vdi'} />
-              <ArchiveFormat name={'vhd'} />
-              <ArchiveFormat name={'vhdx'} />
-              <ArchiveFormat name={'vmdk'} />
-              <ArchiveFormat name={'xar'} />
-              <ArchiveFormat name={'zip'} />
-              <li><a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>{t('formats.requestFormat')}</a></li>
-            </ul>
+
+            <div className='w-full flex flex-col space-y-6 items-start'>
+              {formatCategories.map((category) => {
+                if (category.initial.length === 0 && !showAllFormats) return null
+
+                return (
+                  <div key={category.labelKey} className='w-full'>
+                    <h3 className='text-sm font-medium text-gray-700 mb-3'>
+                      {t(category.labelKey)}
+                    </h3>
+                    <ul className='font-mono flex flex-row flex-wrap gap-2 text-sm'>
+                      {category.initial.map((format) => (
+                        <ArchiveFormat key={format} name={format} />
+                      ))}
+                      {showAllFormats && category.expanded.map((format) => (
+                        <ArchiveFormat key={format} name={format} />
+                      ))}
+                    </ul>
+                  </div>
+                )
+              })}
+
+              {!showAllFormats && (
+                <button
+                  type='button'
+                  onClick={() => setShowAllFormats(true)}
+                  aria-expanded={false}
+                  aria-label={t('formats.showMoreAriaLabel')}
+                  className='inline-flex items-center rounded-md bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 ring-1 ring-gray-500 ring-inset hover:bg-gray-100 transition-colors active:scale-95 self-center focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2'
+                >
+                  {t('formats.showMore', { count: totalHiddenFormats })}
+                </button>
+              )}
+
+              <div className='w-full flex justify-center'>
+                <a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>{t('formats.requestFormat')}</a>
+              </div>
+
+              <a
+                href={localizedPath('/docs/format-comparison')}
+                className='text-sm text-gray-600 hover:text-gray-900 transition-colors self-center flex items-center gap-1 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 rounded'
+              >
+                {t('formats.comparisonLink')}
+                <span aria-hidden='true'>&rarr;</span>
+              </a>
+            </div>
           </div>
 
           {/* write to */}
