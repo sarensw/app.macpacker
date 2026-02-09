@@ -1,18 +1,24 @@
-import type { ReactElement } from 'react'
+import { useState, type ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import mas from '@assets/mas.svg'
 import github from '@assets/github-mark.svg'
-import { ClipboardDocumentIcon } from '@heroicons/react/24/outline'
+import { ClipboardDocumentIcon, CheckIcon } from '@heroicons/react/24/outline'
 import { Footer } from '@/components/Footer'
 import { ArchiveFormat } from '@/components/ArchiveFormat'
 import { Language } from '@/components/Language'
 
 function Home (): ReactElement {
   const { t } = useTranslation()
+  const [copied, setCopied] = useState(false)
   const version: string = '0.13'
   const downloadUrlZip: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
-  // const downloadUrlDmg: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker ${version}.dmg`
   const masUrl: string = 'https://apps.apple.com/us/app/macpacker/id6473273874'
+
+  const handleCopy = (): void => {
+    navigator.clipboard.writeText('brew install --cask macpacker')
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <>
@@ -26,55 +32,68 @@ function Home (): ReactElement {
           </a>
         </div>
 
-        <div className='mt-24 flex flex-col space-y-6 items-center'>
+        <div className='mt-24 flex flex-col space-y-8 items-center'>
           {/* hero */}
-          <div className='flex flex-row gap-2'>
-            <img className='w-16' src='/icon_512x512@2x.png' />
-            <h1 className='mt-2 text-5xl font-bold tracking-tight text-gray-950'>{t('hero.title')}</h1>
-          </div>
+          <img className='w-12 md:w-16' src='/icon_512x512@2x.png' alt='MacPacker app icon' />
+          <h1 className='text-4xl md:text-6xl font-bold tracking-tight leading-tight text-gray-950 text-center'>{t('hero.headline')}</h1>
 
           {/* sub header */}
-          <p className=' text-center max-w-lg text-gray-800'>{t('hero.subtitle')} <span className='font-bold'>{t('hero.openSource')}</span>, {t('hero.openSourceTagline')} {t('hero.previewFeature')} <span className='italic'>({t('hero.nested')})</span> {t('hero.previewTagline')}</p>
+          <p className='text-lg text-center max-w-2xl text-gray-700'>
+            {t('hero.subheadline')} <strong>{t('hero.freeAndOpenSource')}</strong>
+          </p>
 
           {/* download options */}
-          <div>
-            <div className='flex flex-col md:flex-row mt-6 gap-4'>
-              {/* brew */}
-              <div className='font-mono bg-gray-100 py-2 px-4 rounded-md flex flex-row border'>
-                <div><span className='text-teal-700'>$</span> brew <span className='text-gray-600'>install</span> <span className='text-teal-700'>--cask</span> macpacker</div>
-                <div className='w-px bg-gray-300 mx-4'></div>
-                <div className='select-none'><ClipboardDocumentIcon className='size-6 active:opacity-50 select-none' onClick={() => {navigator.clipboard.writeText('brew install --cask macpacker')}} /></div>
-              </div>
-
-              <div className='flex flex-row gap-4'>
-                {/* zip */}
-                <a href={downloadUrlZip} className='font-mono bg-neutral-900 text-white py-2 px-4 rounded-md flex flex-row'>
-                  <div>{t('download.downloadZip')}</div>
-                </a>
-
-                {/* dmg */}
-                {/* <a href={downloadUrlDmg} className='font-mono bg-neutral-900 text-white py-2 px-4 rounded-md flex flex-row'>
-                  <div>.dmg</div>
-                </a> */}
-
-                {/* mas */}
-                <a href={masUrl}>
-                  <img className='w-auto h-auto' src={mas} />
-                </a>
-              </div>
+          <div className='flex flex-col items-center gap-4 w-full max-w-2xl'>
+            {/* brew */}
+            <div className='w-full font-mono bg-gray-50 py-3 px-5 rounded-lg flex flex-row items-center border-2 border-gray-300 shadow-md overflow-x-auto' role='region' aria-label={t('hero.installWith')}>
+              <code className='flex-grow whitespace-nowrap'>
+                <span aria-hidden='true' className='text-teal-700'>$</span> brew <span className='text-gray-600'>install</span> <span className='text-teal-700'>--cask</span> macpacker
+              </code>
+              <button
+                type='button'
+                className='ml-4 p-2 hover:bg-gray-200 rounded transition-colors active:scale-95 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2'
+                onClick={handleCopy}
+                aria-label={t('hero.copyCommand')}
+              >
+                {copied ? (
+                  <CheckIcon className='size-6 text-teal-600' />
+                ) : (
+                  <ClipboardDocumentIcon className='size-6' />
+                )}
+              </button>
             </div>
 
-            <div className='mb-12 mt-2 text-sm text-neutral-500 justify-self-center'>
-              {t('download.versionInfo', { version, size: '5', minVersion: '13.5' })}
+            {/* secondary downloads */}
+            <div className='flex flex-col items-center gap-2'>
+              <span className='text-xs text-gray-500'>{t('download.alternativeLabel')}</span>
+              <div className='flex flex-col md:flex-row gap-3 items-center'>
+                {/* zip */}
+                <a
+                  href={downloadUrlZip}
+                  className='text-sm bg-white text-gray-900 border-2 border-gray-300 py-2 px-4 md:py-1.5 md:px-3 rounded-md hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2'
+                >
+                  {t('download.downloadZip')}
+                </a>
+
+                {/* mas */}
+                <a href={masUrl} className='hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 rounded'>
+                  <img className='h-10 w-auto' src={mas} alt={t('download.appStore')} />
+                </a>
+              </div>
             </div>
           </div>
 
           {/* main image */}
-          <img className='w-auto h-auto' src='/main.png' />
+          <img className='w-auto h-auto' src='/main.png' alt='MacPacker application window showing nested archive preview' loading='lazy' />
+
+          {/* version info */}
+          <div className='text-sm text-neutral-500 text-center'>
+            {t('download.versionInfo', { version, size: '5', minVersion: '13.5' })}
+          </div>
 
           {/* translated to */}
           <div className='justify-items-center flex flex-col space-y-2 items-center max-w-xl'>
-            <h3 className='text-neutral-800 text-lg'>{t('languages.title')}</h3>
+            <h2 className='text-neutral-800 text-lg'>{t('languages.title')}</h2>
             <ul className='font-mono flex flex-row flex-wrap space-x-2 space-y-2 justify-center text-sm'>
               <Language code={'zh_Hans'} name={'Chinese (Simplified'} icons={['cn']} />
               <Language code={'en'} name={'English'} icons={['us', 'gb', 'au']} />
@@ -89,8 +108,8 @@ function Home (): ReactElement {
           </div>
 
           {/* read from */}
-          <div className='mt-8 justify-items-center flex flex-col space-y-2 items-center max-w-lg'>
-            <h3 className='text-neutral-800 text-lg'>{t('formats.readTitle')}</h3>
+          <div id='formats' className='mt-8 justify-items-center flex flex-col space-y-2 items-center max-w-lg'>
+            <h2 className='text-neutral-800 text-lg'>{t('formats.readTitle')}</h2>
             <ul className='font-mono flex flex-row flex-wrap space-x-2 space-y-2 justify-center text-sm'>
               <ArchiveFormat name={'7zip'} />
               <ArchiveFormat name={'apfs'} />
@@ -129,7 +148,7 @@ function Home (): ReactElement {
 
           {/* write to */}
           <div className='mt-8 justify-items-center flex flex-col space-y-2 items-center'>
-            <h3 className='text-neutral-800 text-lg'>{t('formats.writeTitle')}</h3>
+            <h2 className='text-neutral-800 text-lg'>{t('formats.writeTitle')}</h2>
             <div className='flex flex-row font-mono space-x-2 text-sm items-baseline'>
               <p>{t('formats.comingSoon')}</p>
               <a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium font-mono text-white ring-1 ring-gray-500 ring-inset'>{t('formats.requestFormat')}</a>

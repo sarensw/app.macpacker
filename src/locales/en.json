@@ -6,15 +6,25 @@
     "openSourceTagline": "because essential tools should be free.",
     "previewFeature": "Preview",
     "nested": "nested",
-    "previewTagline": "archives without extracting them. Extract single files."
+    "previewTagline": "archives without extracting them. Extract single files.",
+    "headline": "Preview & Extract Any Archive on macOS",
+    "subheadline": "See inside nested archives without extracting.",
+    "freeAndOpenSource": "Free & open source.",
+    "installWith": "Install with Homebrew",
+    "copyCommand": "Copy to clipboard",
+    "commandCopied": "Copied!",
+    "seeFormats": "See all 30+ supported formats →",
+    "trustSignal": "No tracking. No ads. Open source forever."
   },
   "header": {
     "forkMe": "Fork me on"
   },
   "download": {
     "versionInfo": "v{{version}} | {{size}} MB | macOS {{minVersion}} or newer",
-    "downloadZip": ".zip",
-    "appStore": "Mac App Store"
+    "downloadZip": "Download .zip",
+    "appStore": "Mac App Store",
+    "alternativeLabel": "Or download directly",
+    "downloadCount": "{{count}} downloads"
   },
   "languages": {
     "title": "Translated (by the community) to",
