@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
-import { supportedLanguages } from './i18n/config'
+import { supportedLanguages, fallbackLanguage } from './i18n/config'
 
 describe('hreflang tags in index.html', () => {
   const html = readFileSync(resolve(__dirname, '../index.html'), 'utf-8')
@@ -15,9 +15,9 @@ describe('hreflang tags in index.html', () => {
     }
   })
 
-  it('should have an x-default hreflang tag pointing to English', () => {
+  it('should have an x-default hreflang tag pointing to root URL', () => {
     expect(html).toMatch(
-      /<link\s+rel="alternate"\s+hreflang="x-default"\s+href="https:\/\/macpacker\.app\/en\/"\s*\/?>/,
+      /<link\s+rel="alternate"\s+hreflang="x-default"\s+href="https:\/\/macpacker\.app\/"\s*\/?>/,
     )
   })
 
@@ -36,5 +36,50 @@ describe('route structure', () => {
 
   it('should have exactly 3 supported languages', () => {
     expect(supportedLanguages).toHaveLength(3)
+  })
+
+  it('should have English as the fallback language', () => {
+    expect(fallbackLanguage).toBe('en')
+  })
+})
+
+describe('imprint route', () => {
+  const appTsx = readFileSync(resolve(__dirname, './App.tsx'), 'utf-8')
+
+  it('should have /imprint as a root-level route without language prefix', () => {
+    expect(appTsx).toMatch(/path='\/imprint'/)
+  })
+
+  it('should not have imprint nested under language routes', () => {
+    // The imprint route inside the :lang nest was removed
+    const langNestMatch = appTsx.match(/:lang.*nest[\s\S]*?<\/Route>/m)
+    if (langNestMatch) {
+      expect(langNestMatch[0]).not.toContain("'/imprint'")
+    }
+  })
+})
+
+describe('footer imprint link', () => {
+  const footerTsx = readFileSync(resolve(__dirname, './components/Footer.tsx'), 'utf-8')
+
+  it('should link to /imprint without language prefix', () => {
+    expect(footerTsx).toContain("href='/imprint'")
+  })
+
+  it('should not use useLocalizedPath for imprint link', () => {
+    expect(footerTsx).not.toContain('useLocalizedPath')
+  })
+})
+
+describe('language redirect behavior', () => {
+  const redirectTsx = readFileSync(resolve(__dirname, './components/LanguageRedirect.tsx'), 'utf-8')
+
+  it('should render Home component for English browsers without redirect', () => {
+    expect(redirectTsx).toContain('fallbackLanguage')
+    expect(redirectTsx).toContain('<Home />')
+  })
+
+  it('should redirect non-English browsers to language-prefixed URL', () => {
+    expect(redirectTsx).toContain('setLocation(`/${lang}/`')
   })
 })

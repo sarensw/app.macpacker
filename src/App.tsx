@@ -9,12 +9,12 @@ function App() {
     <>
       <Router>
         <Switch>
+          <Route path='/imprint' component={Imprint} />
           <Route path='/' component={LanguageRedirect} />
           <Route path='/:lang' nest>
             <LanguageRoute>
               <Switch>
                 <Route path='/' component={Home} />
-                <Route path='/imprint' component={Imprint} />
               </Switch>
             </LanguageRoute>
           </Route>
