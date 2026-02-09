@@ -22,6 +22,11 @@ const docs: DocLink[] = [
     title: 'How to Extract 7z Files on macOS',
     description: 'Learn how to open and extract 7z (7-Zip) archives on your Mac using MacPacker.',
   },
+  {
+    slug: 'password-protect-zip',
+    title: 'How to Password Protect ZIP Files on Mac',
+    description: 'Learn 3 ways to password protect ZIP files on Mac: Terminal, MacPacker, or Disk Utility.',
+  },
 ]
 
 function DocsIndex(): ReactElement {
