@@ -30,14 +30,14 @@ describe('detectBrowserLanguage', () => {
     expect(detectBrowserLanguage()).toBe('de')
   })
 
-  it('should return "zh-Hans" for zh browser language', () => {
+  it('should return "zh" for zh browser language', () => {
     mockNavigatorLanguages(['zh-CN', 'zh'])
-    expect(detectBrowserLanguage()).toBe('zh-Hans')
+    expect(detectBrowserLanguage()).toBe('zh')
   })
 
-  it('should return "zh-Hans" for exact zh-Hans match', () => {
-    mockNavigatorLanguages(['zh-Hans'])
-    expect(detectBrowserLanguage()).toBe('zh-Hans')
+  it('should return "zh" for exact zh match', () => {
+    mockNavigatorLanguages(['zh'])
+    expect(detectBrowserLanguage()).toBe('zh')
   })
 
   it('should fall back to "en" for unsupported languages', () => {

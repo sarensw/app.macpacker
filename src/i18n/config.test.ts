@@ -14,15 +14,15 @@ describe('i18n configuration', () => {
     expect(fallbackLanguage).toBe('en')
   })
 
-  it('should support en, de, and zh-Hans', () => {
-    expect(supportedLanguages).toEqual(['en', 'de', 'zh-Hans'])
+  it('should support en, de, and zh', () => {
+    expect(supportedLanguages).toEqual(['en', 'de', 'zh'])
   })
 
   it('should have supportedLngs configured in i18next options', () => {
     const options = i18n.options
     expect(options.supportedLngs).toContain('en')
     expect(options.supportedLngs).toContain('de')
-    expect(options.supportedLngs).toContain('zh-Hans')
+    expect(options.supportedLngs).toContain('zh')
   })
 
   it('should allow manual language change to German', async () => {
@@ -31,8 +31,8 @@ describe('i18n configuration', () => {
   })
 
   it('should allow manual language change to Simplified Chinese', async () => {
-    await i18n.changeLanguage('zh-Hans')
-    expect(i18n.language).toBe('zh-Hans')
+    await i18n.changeLanguage('zh')
+    expect(i18n.language).toBe('zh')
   })
 
   it('should allow manual language change back to English', async () => {
