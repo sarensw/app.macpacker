@@ -9,13 +9,14 @@ interface WhatOthersSayProperties {
 
 function WhatOthersSay (props: WhatOthersSayProperties): ReactElement {
     return (
-        <div className='w-72 bg-gray-50 p-4 rounded-md border border-gray-400'>
+        <div className='bg-gray-50 p-5 rounded-lg ring-1 ring-gray-500 ring-inset flex flex-col'>
             <div className='text-xs text-gray-400'>{props.source}</div>
-            <div className='text-md font-bold mt-1'>{props.title}</div>
-            <div className='my-4'>{props.text}</div>
-            <div className='font-medium'>{props.name}</div>
+            <div className='text-sm font-semibold mt-1 text-gray-950'>{props.title}</div>
+            <div className='my-3 text-sm text-gray-600 flex-grow'>{props.text}</div>
+            <div className='text-sm font-medium text-gray-700'>{props.name}</div>
         </div>
     )
 }
 
 export { WhatOthersSay }
+export type { WhatOthersSayProperties }

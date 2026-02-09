@@ -60,6 +60,10 @@
     "showMoreAriaLabel": "展开显示所有支持的格式",
     "comparisonLink": "了解格式比较"
   },
+  "testimonials": {
+    "title": "用户评价",
+    "githubStars": "{{count}} 个 GitHub 星标"
+  },
   "footer": {
     "createdBy": "用 ☕ 创建，作者：",
     "copyright": "© {{year}} Stephan Arenswald",
