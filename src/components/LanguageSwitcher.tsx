@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'wouter'
-import { supportedLanguages } from '@/i18n/config'
+import { supportedLanguages, fallbackLanguage } from '@/i18n/config'
 import type { SupportedLanguage } from '@/i18n/config'
 import { languages } from '@/i18n/languages'
 
@@ -15,7 +15,11 @@ function LanguageSwitcher (): ReactElement {
 
   function handleLanguageChange (lang: SupportedLanguage): void {
     void i18n.changeLanguage(lang)
-    setLocation(`/${lang}/`)
+    if (lang === fallbackLanguage) {
+      setLocation('~/')
+    } else {
+      setLocation(`~/${lang}/`)
+    }
   }
 
   return (

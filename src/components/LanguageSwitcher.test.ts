@@ -1,6 +1,11 @@
 import { describe, it, expect } from 'vitest'
-import { supportedLanguages } from '@/i18n/config'
+import { readFileSync } from 'fs'
+import { resolve } from 'path'
+import { supportedLanguages, fallbackLanguage } from '@/i18n/config'
+import type { SupportedLanguage } from '@/i18n/config'
 import { languages } from '@/i18n/languages'
+
+const switcherSource = readFileSync(resolve(__dirname, './LanguageSwitcher.tsx'), 'utf-8')
 
 describe('LanguageSwitcher language configuration', () => {
   it('should define exactly three languages', () => {
@@ -61,5 +66,66 @@ describe('LanguageSwitcher accessibility requirements', () => {
       expect(switchLabel).toBeTruthy()
       expect(switchLabel).toContain(lang.name)
     }
+  })
+})
+
+// Pure function that mirrors the navigation logic in handleLanguageChange
+function buildLanguageSwitchPath (lang: SupportedLanguage): string {
+  if (lang === fallbackLanguage) {
+    return '~/'
+  }
+  return `~/${lang}/`
+}
+
+describe('LanguageSwitcher navigation path construction (AR-208)', () => {
+  it('AC-1: should navigate to ~/de/ when switching from default language to German', () => {
+    expect(buildLanguageSwitchPath('de')).toBe('~/de/')
+  })
+
+  it('AC-1: should navigate to ~/zh/ when switching from default language to Chinese', () => {
+    expect(buildLanguageSwitchPath('zh')).toBe('~/zh/')
+  })
+
+  it('AC-2: should navigate to ~/zh/ when switching from German to Chinese (absolute path replaces current)', () => {
+    // The ~ prefix makes the path absolute in wouter, so it replaces the current language path
+    // regardless of which language is currently active
+    expect(buildLanguageSwitchPath('zh')).toBe('~/zh/')
+  })
+
+  it('AC-2: should navigate to ~/de/ when switching from Chinese to German (absolute path replaces current)', () => {
+    expect(buildLanguageSwitchPath('de')).toBe('~/de/')
+  })
+
+  it('AC-3: should navigate to ~/ (root) when selecting English (default language)', () => {
+    expect(buildLanguageSwitchPath('en')).toBe('~/')
+  })
+
+  it('should use the ~ prefix for all language paths to ensure absolute navigation', () => {
+    for (const lang of languages) {
+      const path = buildLanguageSwitchPath(lang.code)
+      expect(path.startsWith('~/')).toBe(true)
+    }
+  })
+})
+
+describe('LanguageSwitcher source code uses absolute paths (AR-208)', () => {
+  it('should use ~ prefix for absolute navigation in setLocation calls', () => {
+    expect(switcherSource).toContain("setLocation('~/')")
+    expect(switcherSource).toContain('setLocation(`~/${lang}/`)')
+  })
+
+  it('should not use relative setLocation paths without ~ prefix', () => {
+    // Ensure there are no setLocation calls with paths like /${lang}/ (without ~)
+    // that would cause the nested route appending bug
+    const relativePattern = /setLocation\(`\/\$\{lang\}\/`\)/
+    expect(switcherSource).not.toMatch(relativePattern)
+  })
+
+  it('should import fallbackLanguage to handle default language navigation', () => {
+    expect(switcherSource).toContain('fallbackLanguage')
+  })
+
+  it('should check for fallbackLanguage before navigating', () => {
+    expect(switcherSource).toContain('lang === fallbackLanguage')
   })
 })
