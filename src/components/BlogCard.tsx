@@ -12,7 +12,7 @@ interface BlogCardProps {
 }
 
 function BlogCard ({ slug, title, excerpt, date, lang }: BlogCardProps): ReactElement {
-  const href = lang === fallbackLanguage ? `/blog/${slug}` : `/${lang}/blog/${slug}`
+  const href = lang === fallbackLanguage ? `~/blog/${slug}` : `~/${lang}/blog/${slug}`
 
   const formattedDate = new Date(date + 'T00:00:00').toLocaleDateString(
     lang === 'zh' ? 'zh-CN' : 'en-US',
