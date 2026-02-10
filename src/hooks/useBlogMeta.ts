@@ -43,9 +43,10 @@ function useBlogMeta({ title, description, lang, slug }: BlogMetaOptions) {
     const addedElements: Element[] = []
 
     if (lang) {
-      // Build canonical URL
+      // Build canonical URL — English pages at root, Chinese under /zh
       const pathSegment = slug ? `/blog/${slug}` : '/blog'
-      const canonicalUrl = `${BASE_URL}/${lang}${pathSegment}`
+      const langPrefix = lang === 'en' ? '' : `/${lang}`
+      const canonicalUrl = `${BASE_URL}${langPrefix}${pathSegment}`
       setMetaTag('property', 'og:url', canonicalUrl)
 
       const canonical = ensureLinkTag('canonical')
@@ -55,10 +56,11 @@ function useBlogMeta({ title, description, lang, slug }: BlogMetaOptions) {
       // Hreflang tags for all language versions
       const languages = ['en', 'zh']
       for (const hrefLang of languages) {
+        const hrefPrefix = hrefLang === 'en' ? '' : `/${hrefLang}`
         const link = document.createElement('link')
         link.setAttribute('rel', 'alternate')
         link.setAttribute('hreflang', hrefLang === 'zh' ? 'zh-Hans' : hrefLang)
-        link.setAttribute('href', `${BASE_URL}/${hrefLang}${pathSegment}`)
+        link.setAttribute('href', `${BASE_URL}${hrefPrefix}${pathSegment}`)
         link.setAttribute('data-blog-meta', 'true')
         document.head.appendChild(link)
         addedElements.push(link)
@@ -68,7 +70,7 @@ function useBlogMeta({ title, description, lang, slug }: BlogMetaOptions) {
       const xDefault = document.createElement('link')
       xDefault.setAttribute('rel', 'alternate')
       xDefault.setAttribute('hreflang', 'x-default')
-      xDefault.setAttribute('href', `${BASE_URL}/en${pathSegment}`)
+      xDefault.setAttribute('href', `${BASE_URL}${pathSegment}`)
       xDefault.setAttribute('data-blog-meta', 'true')
       document.head.appendChild(xDefault)
       addedElements.push(xDefault)

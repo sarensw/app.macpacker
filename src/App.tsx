@@ -13,11 +13,11 @@ function App() {
     <>
       <Router>
         <Switch>
-          <Route path='/imprint' component={Imprint} />
-          <Route path='/' component={LanguageRedirect} />
-          <Route path='/:lang' nest>
-            <LanguageRoute>
+          {/* Chinese routes under /zh prefix */}
+          <Route path='/zh' nest>
+            <LanguageRoute lang='zh'>
               <Switch>
+                <Route path='/imprint' component={Imprint} />
                 <Route path='/blog/:slug' component={BlogDetail} />
                 <Route path='/blog' component={BlogIndex} />
                 <Route path='/docs/:slug' component={DocPage} />
@@ -26,6 +26,16 @@ function App() {
               </Switch>
             </LanguageRoute>
           </Route>
+
+          {/* English routes at root level (default language) */}
+          <Route path='/imprint' component={Imprint} />
+          <Route path='/blog/:slug' component={BlogDetail} />
+          <Route path='/blog' component={BlogIndex} />
+          <Route path='/docs/:slug' component={DocPage} />
+          <Route path='/docs' component={DocsIndex} />
+
+          {/* Root: detect language and redirect or show English home */}
+          <Route path='/' component={LanguageRedirect} />
         </Switch>
       </Router>
     </>

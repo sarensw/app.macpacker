@@ -2,7 +2,7 @@
 title: How to Extract Multiple Archives at Once on macOS
 description: Complete guide to batch extracting archives on Mac. Learn Automator workflows, shell scripts, and MacPacker batch features to extract multiple ZIP, RAR, and 7z files simultaneously.
 keywords: batch extract archives mac, extract multiple zip files mac, bulk unzip mac, automate extraction mac, batch unrar mac, extract all archives
-canonical: https://macpacker.app/en/docs/batch-extraction
+canonical: https://macpacker.app/docs/batch-extraction
 ---
 
 # How to Extract Multiple Archives at Once on macOS
@@ -35,7 +35,7 @@ Install MacPacker via [Homebrew](https://brew.sh):
 brew install --cask macpacker
 ```
 
-Or download directly from the [MacPacker website](https://macpacker.app/en#download) or Mac App Store.
+Or download directly from the [MacPacker website](https://macpacker.app/#download) or Mac App Store.
 
 ### Step 2: Select Multiple Archives
 
@@ -70,7 +70,7 @@ MacPacker's batch mode handles complex scenarios automatically:
 
 This makes MacPacker significantly more capable than Archive Utility or basic command-line tools for batch operations.
 
-[Download MacPacker for Free](https://macpacker.app/en#download)
+[Download MacPacker for Free](https://macpacker.app/#download)
 
 ## Method 2: Batch Extract Using Terminal and Shell Scripts
 
@@ -276,6 +276,6 @@ Multi-part archives (`.part1.rar`, `.part2.rar`, etc.) must have all parts prese
 
 ---
 
-**Ready to batch extract archives efficiently?** [Download MacPacker — The Fastest Batch Archive Extractor for Mac](https://macpacker.app/en#download)
+**Ready to batch extract archives efficiently?** [Download MacPacker — The Fastest Batch Archive Extractor for Mac](https://macpacker.app/#download)
 
 MacPacker is free, open-source, and supports batch extraction of 30+ archive formats. No scripts, no setup, no limitations.

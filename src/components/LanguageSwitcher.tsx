@@ -1,25 +1,29 @@
 import type { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'wouter'
-import { supportedLanguages } from '@/i18n/config'
+import { fallbackLanguage } from '@/i18n/config'
 import type { SupportedLanguage } from '@/i18n/config'
 import { languages } from '@/i18n/languages'
+import { useCurrentLanguage } from '@/i18n/LanguageContext'
 
 function LanguageSwitcher (): ReactElement {
   const { i18n } = useTranslation()
   const [location, setLocation] = useLocation()
+  const currentLang = useCurrentLanguage()
 
-  const currentLang = (supportedLanguages as readonly string[]).includes(i18n.language)
-    ? i18n.language
-    : 'en'
+  function handleLanguageChange (targetLang: SupportedLanguage): void {
+    void i18n.changeLanguage(targetLang)
 
-  function handleLanguageChange (lang: SupportedLanguage): void {
-    void i18n.changeLanguage(lang)
-
-    // Preserve the current subpath (e.g. /blog, /blog/hello-world, /docs/slug)
-    // In the nested route context, location is the path after /:lang
+    // location is the current subpath within the route context
     const subpath = location && location !== '/' ? location : ''
-    setLocation(`~/${lang}${subpath || '/'}`)
+
+    if (targetLang === fallbackLanguage) {
+      // Navigate to root-level English path
+      setLocation(`~${subpath || '/'}`)
+    } else {
+      // Navigate to language-prefixed path
+      setLocation(`~/${targetLang}${subpath || '/'}`)
+    }
   }
 
   return (

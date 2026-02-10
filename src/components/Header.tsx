@@ -1,9 +1,10 @@
 import { useState, type ReactElement, type ReactNode } from 'react'
-import { Link, useParams } from 'wouter'
+import { Link } from 'wouter'
 import { useLocalizedPath } from '@/hooks/useLocalizedPath'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { HeaderMobileMenu } from '@/components/HeaderMobileMenu'
 import { HeaderNavLink } from '@/components/HeaderNavLink'
+import { useCurrentLanguage } from '@/i18n/LanguageContext'
 import { fallbackLanguage } from '@/i18n/config'
 
 interface HeaderProps {
@@ -12,8 +13,7 @@ interface HeaderProps {
 
 function Header ({ children }: HeaderProps): ReactElement {
   const localizedPath = useLocalizedPath()
-  const params = useParams<{ lang: string }>()
-  const lang = params.lang ?? fallbackLanguage
+  const lang = useCurrentLanguage()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const homePath = lang === fallbackLanguage ? '~/' : `~/${lang}`

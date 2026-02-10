@@ -44,7 +44,9 @@ function useDocMeta({ title, description, lang, slug }: DocMetaOptions) {
     const addedElements: Element[] = []
 
     if (lang && slug) {
-      const canonicalUrl = `${BASE_URL}/${lang}/docs/${slug}`
+      // English pages at root, Chinese under /zh
+      const langPrefix = lang === 'en' ? '' : `/${lang}`
+      const canonicalUrl = `${BASE_URL}${langPrefix}/docs/${slug}`
       setMetaTag('property', 'og:url', canonicalUrl)
 
       const canonical = ensureLinkTag('canonical')
@@ -54,10 +56,11 @@ function useDocMeta({ title, description, lang, slug }: DocMetaOptions) {
       // Hreflang tags for all language versions
       const languages = ['en', 'zh']
       for (const hrefLang of languages) {
+        const hrefPrefix = hrefLang === 'en' ? '' : `/${hrefLang}`
         const link = document.createElement('link')
         link.setAttribute('rel', 'alternate')
         link.setAttribute('hreflang', hrefLang === 'zh' ? 'zh-Hans' : hrefLang)
-        link.setAttribute('href', `${BASE_URL}/${hrefLang}/docs/${slug}`)
+        link.setAttribute('href', `${BASE_URL}${hrefPrefix}/docs/${slug}`)
         link.setAttribute('data-doc-meta', 'true')
         document.head.appendChild(link)
         addedElements.push(link)
@@ -67,7 +70,7 @@ function useDocMeta({ title, description, lang, slug }: DocMetaOptions) {
       const xDefault = document.createElement('link')
       xDefault.setAttribute('rel', 'alternate')
       xDefault.setAttribute('hreflang', 'x-default')
-      xDefault.setAttribute('href', `${BASE_URL}/en/docs/${slug}`)
+      xDefault.setAttribute('href', `${BASE_URL}/docs/${slug}`)
       xDefault.setAttribute('data-doc-meta', 'true')
       document.head.appendChild(xDefault)
       addedElements.push(xDefault)
