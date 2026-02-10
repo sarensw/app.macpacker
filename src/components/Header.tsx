@@ -8,12 +8,14 @@ function Header (): ReactElement {
 
   return (
     <>
-      <div className='flex flex-row w-full mx-auto justify-between items-center px-4'>
+      <div className='flex flex-row w-full max-w-3xl mx-auto justify-between items-center px-4 mt-2'>
         <Link className='flex flex-row items-center space-x-2' href={localizedPath('/')}>
-          <img src='/icon_512x512@2x.png' className='w-12' />
+          <img src='/icon_512x512@2x.png' className='w-12' alt='MacPacker' />
           <p className='font-bold text-lg'>MacPacker</p>
         </Link>
-        <LanguageSwitcher />
+        <div className='flex flex-row items-center space-x-4'>
+          <LanguageSwitcher />
+        </div>
       </div>
     </>
   )

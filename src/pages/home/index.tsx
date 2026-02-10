@@ -1,8 +1,8 @@
 import { useState, type ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import mas from '@assets/mas.svg'
-import github from '@assets/github-mark.svg'
 import { ClipboardDocumentIcon, CheckIcon, MagnifyingGlassIcon, ArrowDownTrayIcon, SquaresPlusIcon } from '@heroicons/react/24/outline'
+import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { ArchiveFormat } from '@/components/ArchiveFormat'
 import { Language } from '@/components/Language'
@@ -58,16 +58,8 @@ function Home (): ReactElement {
 
   return (
     <>
+      <Header />
       <div className='w-full max-w-3xl mx-auto px-4 mb-20'>
-        {/* header */}
-        <div className='flex flex-row mt-2'>
-          <div className='flex-grow'></div>
-          <a href='https://github.com/sarensw/macpacker' className='flex flex-row items-center space-x-2'>
-            <span>{t('header.forkMe')}</span>
-            <img className='w-6' src={github} alt='GitHub'/>
-          </a>
-        </div>
-
         <div className='mt-24 flex flex-col space-y-8 items-center'>
           {/* hero */}
           <img className='w-12 md:w-16' src='/icon_512x512@2x.png' alt='MacPacker app icon' />
