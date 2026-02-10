@@ -94,6 +94,8 @@ describe('sitemap.xml', () => {
       '/en/docs/extract-rar', '/zh/docs/extract-rar',
       '/en/docs/extract-7zip', '/zh/docs/extract-7zip',
       '/en/docs/password-protect-zip', '/zh/docs/password-protect-zip',
+      '/en/blog', '/zh/blog',
+      '/en/blog/hello-world', '/zh/blog/hello-world',
     ]
     for (const url of urls) {
       const path = url.replace('https://macpacker.app', '')
