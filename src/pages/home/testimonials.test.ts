@@ -4,7 +4,6 @@ import { resolve } from 'path'
 import i18n from '../../i18n/config'
 
 const en = JSON.parse(readFileSync(resolve(__dirname, '../../locales/en.json'), 'utf-8'))
-const de = JSON.parse(readFileSync(resolve(__dirname, '../../locales/de.json'), 'utf-8'))
 const zh = JSON.parse(readFileSync(resolve(__dirname, '../../locales/zh.json'), 'utf-8'))
 
 const homeComponent = readFileSync(resolve(__dirname, './index.tsx'), 'utf-8')
@@ -133,13 +132,11 @@ describe('WhatOthersSay component structure', () => {
 describe('testimonials section translation keys', () => {
   it('should have testimonials.title key in all languages', () => {
     expect(en.testimonials.title).toBeDefined()
-    expect(de.testimonials.title).toBeDefined()
     expect(zh.testimonials.title).toBeDefined()
   })
 
   it('should have testimonials.githubStars key in all languages', () => {
     expect(en.testimonials.githubStars).toBeDefined()
-    expect(de.testimonials.githubStars).toBeDefined()
     expect(zh.testimonials.githubStars).toBeDefined()
   })
 
@@ -169,7 +166,7 @@ describe('i18n resolves testimonial keys correctly', () => {
 
   it('should resolve testimonial keys in all languages without returning the key itself', async () => {
     const keys = ['testimonials.title', 'testimonials.githubStars']
-    for (const lang of ['en', 'de', 'zh']) {
+    for (const lang of ['en', 'zh']) {
       await i18n.changeLanguage(lang)
       for (const key of keys) {
         const value = i18n.t(key, { count: 369 })

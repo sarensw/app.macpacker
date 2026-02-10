@@ -28,11 +28,10 @@ describe('LanguageRedirect logic', () => {
     // When lang === fallbackLanguage, LanguageRedirect renders Home instead of redirecting
   })
 
-  it('should redirect German browsers to /de/', () => {
+  it('should not redirect German browsers (falls back to English)', () => {
     mockNavigatorLanguages(['de-DE', 'de', 'en'])
     const lang = detectBrowserLanguage()
-    expect(lang).not.toBe(fallbackLanguage)
-    expect(`/${lang}/`).toBe('/de/')
+    expect(lang).toBe(fallbackLanguage)
   })
 
   it('should redirect Chinese browsers to /zh/', () => {
@@ -51,7 +50,6 @@ describe('LanguageRedirect logic', () => {
 
   it('should generate correct redirect paths for all non-English languages', () => {
     const testCases = [
-      { input: ['de'], expected: '/de/' },
       { input: ['zh'], expected: '/zh/' },
       { input: ['zh-CN'], expected: '/zh/' },
     ]

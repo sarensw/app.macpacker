@@ -109,7 +109,7 @@ export function extractFaqEntries(markdown: string): FaqEntry[] {
     // Detect FAQ section by H2 heading
     if (line.match(/^##\s+/)) {
       const heading = line.replace(/^##\s+/, '').trim()
-      inFaqSection = /faq|frequently asked|häufig gestellte|常见问题/i.test(heading)
+      inFaqSection = /faq|frequently asked|常见问题/i.test(heading)
       continue
     }
 

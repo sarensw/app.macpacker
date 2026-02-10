@@ -1,1 +1,0 @@
-Open-Source-Archivmanager für macOS. Verschachtelte Archive ohne Entpacken anzeigen.

@@ -11,17 +11,12 @@ describe('localized path construction', () => {
     expect(buildLocalizedPath('en', '/imprint')).toBe('/en/imprint')
   })
 
-  it('should prefix path with German language code', () => {
-    expect(buildLocalizedPath('de', '/imprint')).toBe('/de/imprint')
-  })
-
   it('should prefix path with zh language code', () => {
     expect(buildLocalizedPath('zh', '/imprint')).toBe('/zh/imprint')
   })
 
   it('should handle root path correctly', () => {
     expect(buildLocalizedPath('en', '/')).toBe('/en/')
-    expect(buildLocalizedPath('de', '/')).toBe('/de/')
     expect(buildLocalizedPath('zh', '/')).toBe('/zh/')
   })
 

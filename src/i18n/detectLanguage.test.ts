@@ -25,9 +25,9 @@ describe('detectBrowserLanguage', () => {
     expect(detectBrowserLanguage()).toBe('en')
   })
 
-  it('should return "de" for German browser', () => {
+  it('should return "en" for German browser (no longer supported)', () => {
     mockNavigatorLanguages(['de-DE', 'de', 'en'])
-    expect(detectBrowserLanguage()).toBe('de')
+    expect(detectBrowserLanguage()).toBe('en')
   })
 
   it('should return "zh" for zh browser language', () => {
@@ -51,12 +51,12 @@ describe('detectBrowserLanguage', () => {
   })
 
   it('should pick the first supported language from preferences', () => {
-    mockNavigatorLanguages(['ja', 'de-AT', 'en-US'])
-    expect(detectBrowserLanguage()).toBe('de')
+    mockNavigatorLanguages(['ja', 'zh-CN', 'en-US'])
+    expect(detectBrowserLanguage()).toBe('zh')
   })
 
-  it('should handle exact supported language match', () => {
-    mockNavigatorLanguages(['de'])
-    expect(detectBrowserLanguage()).toBe('de')
+  it('should fall back to English when only unsupported languages present', () => {
+    mockNavigatorLanguages(['de', 'fr'])
+    expect(detectBrowserLanguage()).toBe('en')
   })
 })

@@ -1,1 +1,0 @@
-MacPacker: Über 25 Archivformate auf macOS anzeigen und entpacken. Verschachtelte Archive einsehen. Kostenlos & Open Source.

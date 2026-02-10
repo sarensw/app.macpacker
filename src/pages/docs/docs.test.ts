@@ -37,19 +37,8 @@ describe('docs markdown content', () => {
     expect(existsSync(resolve(docsDir, 'en/extract-rar.md'))).toBe(true)
   })
 
-  it('should have de/extract-rar.md', () => {
-    expect(existsSync(resolve(docsDir, 'de/extract-rar.md'))).toBe(true)
-  })
-
   it('English extract-rar should have frontmatter with title and description', () => {
     const content = readFileSync(resolve(docsDir, 'en/extract-rar.md'), 'utf-8')
-    expect(content).toMatch(/^---/)
-    expect(content).toMatch(/title:/)
-    expect(content).toMatch(/description:/)
-  })
-
-  it('German extract-rar should have frontmatter with title and description', () => {
-    const content = readFileSync(resolve(docsDir, 'de/extract-rar.md'), 'utf-8')
     expect(content).toMatch(/^---/)
     expect(content).toMatch(/title:/)
     expect(content).toMatch(/description:/)
@@ -200,7 +189,6 @@ describe('Chinese docs markdown content', () => {
 describe('extract-rar content structure', () => {
   const docsPath = resolve(__dirname, '../../../public/docs')
   const enContent = readFileSync(resolve(docsPath, 'en/extract-rar.md'), 'utf-8')
-  const deContent = readFileSync(resolve(docsPath, 'de/extract-rar.md'), 'utf-8')
   const zhContent = readFileSync(resolve(docsPath, 'zh-Hans/extract-rar.md'), 'utf-8')
 
   function countWords(text: string): number {
@@ -262,15 +250,13 @@ describe('extract-rar content structure', () => {
     expect(enContent).toMatch(/canonical:.*macpacker\.app/)
   })
 
-  it('all three language versions should have consistent structure', () => {
+  it('both language versions should have consistent structure', () => {
     // All should have FAQ section
     expect(enContent).toMatch(/^## .*(?:FAQ|Frequently)/m)
-    expect(deContent).toMatch(/^## .*(?:Häufig|FAQ)/m)
     expect(zhContent).toMatch(/^## .*常见问题/m)
 
     // All should have MacPacker method section
     expect(enContent).toMatch(/^## .*MacPacker/m)
-    expect(deContent).toMatch(/^## .*MacPacker/m)
     expect(zhContent).toMatch(/^## .*MacPacker/m)
   })
 })
@@ -356,10 +342,6 @@ describe('sitemap includes docs URLs', () => {
     expect(sitemap).toContain('<loc>https://macpacker.app/en/docs/extract-rar</loc>')
   })
 
-  it('should include German extract-rar docs URL', () => {
-    expect(sitemap).toContain('<loc>https://macpacker.app/de/docs/extract-rar</loc>')
-  })
-
   it('should include Chinese extract-rar docs URL', () => {
     expect(sitemap).toContain('<loc>https://macpacker.app/zh/docs/extract-rar</loc>')
   })
@@ -367,7 +349,7 @@ describe('sitemap includes docs URLs', () => {
   it('docs URLs should have priority 0.8', () => {
     // Check that docs URLs are followed by priority 0.8
     const docsEntries = sitemap.match(/<url>\s*<loc>https:\/\/macpacker\.app\/\w+\/docs\/extract-rar<\/loc>[\s\S]*?<\/url>/g) || []
-    expect(docsEntries.length).toBe(3)
+    expect(docsEntries.length).toBe(2)
     for (const entry of docsEntries) {
       expect(entry).toContain('<priority>0.8</priority>')
     }
@@ -377,17 +359,13 @@ describe('sitemap includes docs URLs', () => {
     expect(sitemap).toContain('<loc>https://macpacker.app/en/docs/extract-7zip</loc>')
   })
 
-  it('should include German extract-7zip docs URL', () => {
-    expect(sitemap).toContain('<loc>https://macpacker.app/de/docs/extract-7zip</loc>')
-  })
-
   it('should include Chinese extract-7zip docs URL', () => {
     expect(sitemap).toContain('<loc>https://macpacker.app/zh/docs/extract-7zip</loc>')
   })
 
   it('extract-7zip docs URLs should have priority 0.8', () => {
     const docsEntries = sitemap.match(/<url>\s*<loc>https:\/\/macpacker\.app\/\w+\/docs\/extract-7zip<\/loc>[\s\S]*?<\/url>/g) || []
-    expect(docsEntries.length).toBe(3)
+    expect(docsEntries.length).toBe(2)
     for (const entry of docsEntries) {
       expect(entry).toContain('<priority>0.8</priority>')
     }
@@ -401,23 +379,12 @@ describe('extract-7zip markdown content', () => {
     expect(existsSync(resolve(docsDir, 'en/extract-7zip.md'))).toBe(true)
   })
 
-  it('should have de/extract-7zip.md', () => {
-    expect(existsSync(resolve(docsDir, 'de/extract-7zip.md'))).toBe(true)
-  })
-
   it('should have zh-Hans/extract-7zip.md', () => {
     expect(existsSync(resolve(docsDir, 'zh-Hans/extract-7zip.md'))).toBe(true)
   })
 
   it('English extract-7zip should have frontmatter with title and description', () => {
     const content = readFileSync(resolve(docsDir, 'en/extract-7zip.md'), 'utf-8')
-    expect(content).toMatch(/^---/)
-    expect(content).toMatch(/title:/)
-    expect(content).toMatch(/description:/)
-  })
-
-  it('German extract-7zip should have frontmatter with title and description', () => {
-    const content = readFileSync(resolve(docsDir, 'de/extract-7zip.md'), 'utf-8')
     expect(content).toMatch(/^---/)
     expect(content).toMatch(/title:/)
     expect(content).toMatch(/description:/)
@@ -434,7 +401,6 @@ describe('extract-7zip markdown content', () => {
 describe('extract-7zip content structure', () => {
   const docsPath = resolve(__dirname, '../../../public/docs')
   const enContent = readFileSync(resolve(docsPath, 'en/extract-7zip.md'), 'utf-8')
-  const deContent = readFileSync(resolve(docsPath, 'de/extract-7zip.md'), 'utf-8')
   const zhContent = readFileSync(resolve(docsPath, 'zh-Hans/extract-7zip.md'), 'utf-8')
 
   function countWords(text: string): number {
@@ -530,53 +496,39 @@ describe('extract-7zip content structure', () => {
     expect(enContent).toContain('extract-rar')
   })
 
-  it('all three language versions should have consistent structure', () => {
+  it('both language versions should have consistent structure', () => {
     // All should have FAQ section
     expect(enContent).toMatch(/^## .*(?:FAQ|Frequently)/m)
-    expect(deContent).toMatch(/^## .*(?:Häufig|FAQ)/m)
     expect(zhContent).toMatch(/^## .*常见问题/m)
 
     // All should have MacPacker method section
     expect(enContent).toMatch(/^## .*MacPacker/m)
-    expect(deContent).toMatch(/^## .*MacPacker/m)
     expect(zhContent).toMatch(/^## .*MacPacker/m)
 
     // All should have Terminal method section
     expect(enContent).toMatch(/^## .*(Terminal|Method 2)/m)
-    expect(deContent).toMatch(/^## .*(Terminal|Methode 2)/m)
     expect(zhContent).toMatch(/^## .*终端/m)
 
     // All should have Troubleshooting section
     expect(enContent).toMatch(/^## .*(Troubleshoot)/m)
-    expect(deContent).toMatch(/^## .*(Fehlerbehebung|Behebung)/m)
     expect(zhContent).toMatch(/^## .*故障排除/m)
   })
 
-  it('all three language versions should have matching placeholder images', () => {
+  it('both language versions should have matching placeholder images', () => {
     const enPlaceholders = (enContent.match(/placeholder-\d+x\d+\.png/g) || []).sort()
-    const dePlaceholders = (deContent.match(/placeholder-\d+x\d+\.png/g) || []).sort()
     const zhPlaceholders = (zhContent.match(/placeholder-\d+x\d+\.png/g) || []).sort()
 
-    expect(enPlaceholders).toEqual(dePlaceholders)
     expect(enPlaceholders).toEqual(zhPlaceholders)
   })
 
-  it('all three language versions should have language-specific download links', () => {
+  it('both language versions should have language-specific download links', () => {
     expect(enContent).toContain('macpacker.app/en#download')
-    expect(deContent).toContain('macpacker.app/de#download')
     expect(zhContent).toContain('macpacker.app/zh#download')
   })
 
-  it('all three language versions should have language-specific canonical URLs', () => {
+  it('both language versions should have language-specific canonical URLs', () => {
     expect(enContent).toMatch(/canonical:.*\/en\/docs\/extract-7zip/)
-    expect(deContent).toMatch(/canonical:.*\/de\/docs\/extract-7zip/)
     expect(zhContent).toMatch(/canonical:.*\/zh\/docs\/extract-7zip/)
-  })
-
-  it('German version should have same number of H2 sections as English', () => {
-    const enH2s = enContent.match(/^## /gm) || []
-    const deH2s = deContent.match(/^## /gm) || []
-    expect(enH2s.length).toBe(deH2s.length)
   })
 
   it('Chinese version should have same number of H2 sections as English', () => {
@@ -593,23 +545,12 @@ describe('password-protect-zip markdown content', () => {
     expect(existsSync(resolve(docsDir, 'en/password-protect-zip.md'))).toBe(true)
   })
 
-  it('should have de/password-protect-zip.md', () => {
-    expect(existsSync(resolve(docsDir, 'de/password-protect-zip.md'))).toBe(true)
-  })
-
   it('should have zh-Hans/password-protect-zip.md', () => {
     expect(existsSync(resolve(docsDir, 'zh-Hans/password-protect-zip.md'))).toBe(true)
   })
 
   it('English password-protect-zip should have frontmatter with title and description', () => {
     const content = readFileSync(resolve(docsDir, 'en/password-protect-zip.md'), 'utf-8')
-    expect(content).toMatch(/^---/)
-    expect(content).toMatch(/title:/)
-    expect(content).toMatch(/description:/)
-  })
-
-  it('German password-protect-zip should have frontmatter with title and description', () => {
-    const content = readFileSync(resolve(docsDir, 'de/password-protect-zip.md'), 'utf-8')
     expect(content).toMatch(/^---/)
     expect(content).toMatch(/title:/)
     expect(content).toMatch(/description:/)
@@ -626,7 +567,6 @@ describe('password-protect-zip markdown content', () => {
 describe('password-protect-zip content structure', () => {
   const docsPath = resolve(__dirname, '../../../public/docs')
   const enContent = readFileSync(resolve(docsPath, 'en/password-protect-zip.md'), 'utf-8')
-  const deContent = readFileSync(resolve(docsPath, 'de/password-protect-zip.md'), 'utf-8')
   const zhContent = readFileSync(resolve(docsPath, 'zh-Hans/password-protect-zip.md'), 'utf-8')
 
   function countWords(text: string): number {
@@ -711,44 +651,32 @@ describe('password-protect-zip content structure', () => {
     expect(enContent.toLowerCase()).toContain('12 characters')
   })
 
-  it('all three language versions should have consistent structure', () => {
+  it('both language versions should have consistent structure', () => {
     // All should have FAQ section
     expect(enContent).toMatch(/^## .*(?:FAQ|Frequently)/m)
-    expect(deContent).toMatch(/^## .*(?:Häufig|FAQ)/m)
     expect(zhContent).toMatch(/^## .*常见问题/m)
 
     // All should have MacPacker method section
     expect(enContent).toMatch(/^## .*MacPacker/m)
-    expect(deContent).toMatch(/^## .*MacPacker/m)
     expect(zhContent).toMatch(/^## .*MacPacker/m)
 
     // All should have Terminal method section
     expect(enContent).toMatch(/^## .*Terminal/m)
-    expect(deContent).toMatch(/^## .*Terminal/m)
     expect(zhContent).toMatch(/^## .*终端/m)
 
     // All should have Troubleshooting section
     expect(enContent).toMatch(/^## .*(Troubleshoot)/m)
-    expect(deContent).toMatch(/^## .*(Fehlerbehebung)/m)
     expect(zhContent).toMatch(/^## .*故障排除/m)
   })
 
-  it('all three language versions should have language-specific download links', () => {
+  it('both language versions should have language-specific download links', () => {
     expect(enContent).toContain('macpacker.app/en#download')
-    expect(deContent).toContain('macpacker.app/de#download')
     expect(zhContent).toContain('macpacker.app/zh#download')
   })
 
-  it('all three language versions should have language-specific canonical URLs', () => {
+  it('both language versions should have language-specific canonical URLs', () => {
     expect(enContent).toMatch(/canonical:.*\/en\/docs\/password-protect-zip/)
-    expect(deContent).toMatch(/canonical:.*\/de\/docs\/password-protect-zip/)
     expect(zhContent).toMatch(/canonical:.*\/zh\/docs\/password-protect-zip/)
-  })
-
-  it('German version should have same number of H2 sections as English', () => {
-    const enH2s = enContent.match(/^## /gm) || []
-    const deH2s = deContent.match(/^## /gm) || []
-    expect(enH2s.length).toBe(deH2s.length)
   })
 
   it('Chinese version should have same number of H2 sections as English', () => {
@@ -774,17 +702,13 @@ describe('sitemap includes password-protect-zip URLs', () => {
     expect(sitemap).toContain('<loc>https://macpacker.app/en/docs/password-protect-zip</loc>')
   })
 
-  it('should include German password-protect-zip docs URL', () => {
-    expect(sitemap).toContain('<loc>https://macpacker.app/de/docs/password-protect-zip</loc>')
-  })
-
   it('should include Chinese password-protect-zip docs URL', () => {
     expect(sitemap).toContain('<loc>https://macpacker.app/zh/docs/password-protect-zip</loc>')
   })
 
   it('password-protect-zip docs URLs should have priority 0.8', () => {
     const docsEntries = sitemap.match(/<url>\s*<loc>https:\/\/macpacker\.app\/\w+\/docs\/password-protect-zip<\/loc>[\s\S]*?<\/url>/g) || []
-    expect(docsEntries.length).toBe(3)
+    expect(docsEntries.length).toBe(2)
     for (const entry of docsEntries) {
       expect(entry).toContain('<priority>0.8</priority>')
     }

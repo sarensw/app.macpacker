@@ -8,20 +8,16 @@ import { languages } from '@/i18n/languages'
 const switcherSource = readFileSync(resolve(__dirname, './LanguageSwitcher.tsx'), 'utf-8')
 
 describe('LanguageSwitcher language configuration', () => {
-  it('should define exactly three languages', () => {
-    expect(languages).toHaveLength(3)
+  it('should define exactly two languages', () => {
+    expect(languages).toHaveLength(2)
   })
 
   it('should have English as the first language with label "EN"', () => {
     expect(languages[0]).toEqual({ code: 'en', label: 'EN', name: 'English' })
   })
 
-  it('should have German as the second language with label "DE"', () => {
-    expect(languages[1]).toEqual({ code: 'de', label: 'DE', name: 'German' })
-  })
-
-  it('should have Chinese as the third language with label "中文"', () => {
-    expect(languages[2]).toEqual({ code: 'zh', label: '中文', name: 'Chinese' })
+  it('should have Chinese as the second language with label "中文"', () => {
+    expect(languages[1]).toEqual({ code: 'zh', label: '中文', name: 'Chinese' })
   })
 
   it('should only use text labels, no flag icons (AC-3)', () => {
@@ -78,22 +74,8 @@ function buildLanguageSwitchPath (lang: SupportedLanguage): string {
 }
 
 describe('LanguageSwitcher navigation path construction (AR-208)', () => {
-  it('AC-1: should navigate to ~/de/ when switching from default language to German', () => {
-    expect(buildLanguageSwitchPath('de')).toBe('~/de/')
-  })
-
   it('AC-1: should navigate to ~/zh/ when switching from default language to Chinese', () => {
     expect(buildLanguageSwitchPath('zh')).toBe('~/zh/')
-  })
-
-  it('AC-2: should navigate to ~/zh/ when switching from German to Chinese (absolute path replaces current)', () => {
-    // The ~ prefix makes the path absolute in wouter, so it replaces the current language path
-    // regardless of which language is currently active
-    expect(buildLanguageSwitchPath('zh')).toBe('~/zh/')
-  })
-
-  it('AC-2: should navigate to ~/de/ when switching from Chinese to German (absolute path replaces current)', () => {
-    expect(buildLanguageSwitchPath('de')).toBe('~/de/')
   })
 
   it('AC-3: should navigate to ~/ (root) when selecting English (default language)', () => {

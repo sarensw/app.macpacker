@@ -203,15 +203,10 @@ describe('ZIP archive', () => {
 
 describe('footer translation keys for media kit', () => {
   const en = JSON.parse(readFileSync(resolve(__dirname, './locales/en.json'), 'utf-8'))
-  const de = JSON.parse(readFileSync(resolve(__dirname, './locales/de.json'), 'utf-8'))
   const zh = JSON.parse(readFileSync(resolve(__dirname, './locales/zh.json'), 'utf-8'))
 
   it('should have mediaKit key in English', () => {
     expect(en.footer.mediaKit).toBe('Media Kit')
-  })
-
-  it('should have mediaKit key in German', () => {
-    expect(de.footer.mediaKit).toBe('Medien-Kit')
   })
 
   it('should have mediaKit key in Chinese', () => {

@@ -5,13 +5,11 @@ const BASE_URL = 'https://macpacker.app'
 
 const ogImageAlt: Record<SupportedLanguage, string> = {
   en: 'MacPacker archive manager for macOS showing nested archive preview',
-  de: 'MacPacker Archivmanager für macOS mit verschachtelter Archivvorschau',
   zh: 'MacPacker macOS 归档管理器显示嵌套归档预览',
 }
 
 const ogLocale: Record<SupportedLanguage, string> = {
   en: 'en_US',
-  de: 'de_DE',
   zh: 'zh_CN',
 }
 
