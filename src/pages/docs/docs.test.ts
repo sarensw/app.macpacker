@@ -21,12 +21,15 @@ describe('docs routes in App.tsx', () => {
     expect(appTsx).toContain("import { DocPage } from './pages/docs/DocPage'")
   })
 
-  it('should place docs routes inside the language-nested route', () => {
-    // The docs routes should appear between the /:lang nest and the home route
-    const langNestMatch = appTsx.match(/path='\/:lang'[\s\S]*?nest[\s\S]*?<\/Route>/m)
-    expect(langNestMatch).not.toBeNull()
-    expect(langNestMatch![0]).toContain("'/docs/:slug'")
-    expect(langNestMatch![0]).toContain("'/docs'")
+  it('should place docs routes inside the /zh language-nested route and at root level', () => {
+    // Docs routes exist both at root level (English) and under /zh (Chinese)
+    const zhNestMatch = appTsx.match(/path='\/zh'[\s\S]*?nest[\s\S]*?<\/Route>/m)
+    expect(zhNestMatch).not.toBeNull()
+    expect(zhNestMatch![0]).toContain("'/docs/:slug'")
+    expect(zhNestMatch![0]).toContain("'/docs'")
+    // Also at root level for English
+    const rootDocs = appTsx.match(/<Route path='\/docs\/:slug'/m)
+    expect(rootDocs).not.toBeNull()
   })
 })
 
@@ -339,7 +342,8 @@ describe('sitemap includes docs URLs', () => {
   const sitemap = readFileSync(sitemapPath, 'utf-8')
 
   it('should include English extract-rar docs URL', () => {
-    expect(sitemap).toContain('<loc>https://macpacker.app/en/docs/extract-rar</loc>')
+    // English at root (AC-2)
+    expect(sitemap).toContain('<loc>https://macpacker.app/docs/extract-rar</loc>')
   })
 
   it('should include Chinese extract-rar docs URL', () => {
@@ -348,7 +352,7 @@ describe('sitemap includes docs URLs', () => {
 
   it('docs URLs should have priority 0.8', () => {
     // Check that docs URLs are followed by priority 0.8
-    const docsEntries = sitemap.match(/<url>\s*<loc>https:\/\/macpacker\.app\/\w+\/docs\/extract-rar<\/loc>[\s\S]*?<\/url>/g) || []
+    const docsEntries = sitemap.match(/<url>\s*<loc>https:\/\/macpacker\.app\/(?:\w+\/)?docs\/extract-rar<\/loc>[\s\S]*?<\/url>/g) || []
     expect(docsEntries.length).toBe(2)
     for (const entry of docsEntries) {
       expect(entry).toContain('<priority>0.8</priority>')
@@ -356,7 +360,8 @@ describe('sitemap includes docs URLs', () => {
   })
 
   it('should include English extract-7zip docs URL', () => {
-    expect(sitemap).toContain('<loc>https://macpacker.app/en/docs/extract-7zip</loc>')
+    // English at root (AC-2)
+    expect(sitemap).toContain('<loc>https://macpacker.app/docs/extract-7zip</loc>')
   })
 
   it('should include Chinese extract-7zip docs URL', () => {
@@ -364,7 +369,7 @@ describe('sitemap includes docs URLs', () => {
   })
 
   it('extract-7zip docs URLs should have priority 0.8', () => {
-    const docsEntries = sitemap.match(/<url>\s*<loc>https:\/\/macpacker\.app\/\w+\/docs\/extract-7zip<\/loc>[\s\S]*?<\/url>/g) || []
+    const docsEntries = sitemap.match(/<url>\s*<loc>https:\/\/macpacker\.app\/(?:\w+\/)?docs\/extract-7zip<\/loc>[\s\S]*?<\/url>/g) || []
     expect(docsEntries.length).toBe(2)
     for (const entry of docsEntries) {
       expect(entry).toContain('<priority>0.8</priority>')
@@ -522,12 +527,14 @@ describe('extract-7zip content structure', () => {
   })
 
   it('both language versions should have language-specific download links', () => {
-    expect(enContent).toContain('macpacker.app/en#download')
+    // English at root (AC-2), Chinese at /zh
+    expect(enContent).toContain('macpacker.app/#download')
     expect(zhContent).toContain('macpacker.app/zh#download')
   })
 
   it('both language versions should have language-specific canonical URLs', () => {
-    expect(enContent).toMatch(/canonical:.*\/en\/docs\/extract-7zip/)
+    // English at root (AC-2), Chinese at /zh
+    expect(enContent).toMatch(/canonical:.*macpacker\.app\/docs\/extract-7zip/)
     expect(zhContent).toMatch(/canonical:.*\/zh\/docs\/extract-7zip/)
   })
 
@@ -670,12 +677,14 @@ describe('password-protect-zip content structure', () => {
   })
 
   it('both language versions should have language-specific download links', () => {
-    expect(enContent).toContain('macpacker.app/en#download')
+    // English at root (AC-2), Chinese at /zh
+    expect(enContent).toContain('macpacker.app/#download')
     expect(zhContent).toContain('macpacker.app/zh#download')
   })
 
   it('both language versions should have language-specific canonical URLs', () => {
-    expect(enContent).toMatch(/canonical:.*\/en\/docs\/password-protect-zip/)
+    // English at root (AC-2), Chinese at /zh
+    expect(enContent).toMatch(/canonical:.*macpacker\.app\/docs\/password-protect-zip/)
     expect(zhContent).toMatch(/canonical:.*\/zh\/docs\/password-protect-zip/)
   })
 
@@ -699,7 +708,8 @@ describe('sitemap includes password-protect-zip URLs', () => {
   const sitemap = readFileSync(sitemapPath, 'utf-8')
 
   it('should include English password-protect-zip docs URL', () => {
-    expect(sitemap).toContain('<loc>https://macpacker.app/en/docs/password-protect-zip</loc>')
+    // English at root (AC-2)
+    expect(sitemap).toContain('<loc>https://macpacker.app/docs/password-protect-zip</loc>')
   })
 
   it('should include Chinese password-protect-zip docs URL', () => {
@@ -707,7 +717,7 @@ describe('sitemap includes password-protect-zip URLs', () => {
   })
 
   it('password-protect-zip docs URLs should have priority 0.8', () => {
-    const docsEntries = sitemap.match(/<url>\s*<loc>https:\/\/macpacker\.app\/\w+\/docs\/password-protect-zip<\/loc>[\s\S]*?<\/url>/g) || []
+    const docsEntries = sitemap.match(/<url>\s*<loc>https:\/\/macpacker\.app\/(?:\w+\/)?docs\/password-protect-zip<\/loc>[\s\S]*?<\/url>/g) || []
     expect(docsEntries.length).toBe(2)
     for (const entry of docsEntries) {
       expect(entry).toContain('<priority>0.8</priority>')

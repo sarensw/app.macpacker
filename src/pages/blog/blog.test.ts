@@ -159,7 +159,7 @@ describe('AC-7: Language switcher preserves blog context', () => {
   })
 
   it('should include subpath in language switch navigation', () => {
-    expect(languageSwitcherComponent).toContain('`~/${lang}${subpath || ')
+    expect(languageSwitcherComponent).toContain('`~/${targetLang}${subpath || ')
   })
 })
 
@@ -170,7 +170,8 @@ describe('AC-8: Missing translation fallback to English', () => {
   })
 
   it('should redirect to English canonical URL on missing translation', () => {
-    expect(blogDetailComponent).toContain('`~/${fallbackLanguage}/blog/${slug}`')
+    // English blog is at root /blog/ (AC-2)
+    expect(blogDetailComponent).toContain('`~/blog/${slug}`')
   })
 })
 
@@ -285,7 +286,8 @@ describe('AC-12: SEO metadata', () => {
 
 describe('AC-13: Sitemap includes blog URLs', () => {
   it('should include English blog index URL', () => {
-    expect(sitemapXml).toContain('<loc>https://macpacker.app/en/blog</loc>')
+    // English at root (AC-2)
+    expect(sitemapXml).toContain('<loc>https://macpacker.app/blog</loc>')
   })
 
   it('should include Chinese blog index URL', () => {
@@ -293,7 +295,8 @@ describe('AC-13: Sitemap includes blog URLs', () => {
   })
 
   it('should include English hello-world blog post URL', () => {
-    expect(sitemapXml).toContain('<loc>https://macpacker.app/en/blog/hello-world</loc>')
+    // English at root (AC-2)
+    expect(sitemapXml).toContain('<loc>https://macpacker.app/blog/hello-world</loc>')
   })
 
   it('should include Chinese hello-world blog post URL', () => {

@@ -68,7 +68,8 @@ describe('sitemap.xml', () => {
 
   it('should include language-specific home pages', () => {
     const content = readFileSync(sitemapPath, 'utf-8')
-    expect(content).toContain('<loc>https://macpacker.app/en/</loc>')
+    // English home is at root /, Chinese at /zh/ (AC-2, AC-3)
+    expect(content).toContain('<loc>https://macpacker.app/</loc>')
     expect(content).toContain('<loc>https://macpacker.app/zh/</loc>')
     expect(content).not.toContain('<loc>https://macpacker.app/de/</loc>')
   })
@@ -78,24 +79,27 @@ describe('sitemap.xml', () => {
     expect(content).toContain('<loc>https://macpacker.app/imprint</loc>')
   })
 
-  it('should not include language-prefixed imprint URLs', () => {
+  it('should include Chinese imprint route per AC-5', () => {
     const content = readFileSync(sitemapPath, 'utf-8')
+    // AC-5 requires both /imprint and /zh/imprint
+    expect(content).toContain('<loc>https://macpacker.app/zh/imprint</loc>')
     expect(content).not.toContain('<loc>https://macpacker.app/en/imprint</loc>')
     expect(content).not.toContain('<loc>https://macpacker.app/de/imprint</loc>')
-    expect(content).not.toContain('<loc>https://macpacker.app/zh/imprint</loc>')
   })
 
   it('should only contain URLs that match actual routes', () => {
     const content = readFileSync(sitemapPath, 'utf-8')
     const locMatches = content.match(/<loc>(.*?)<\/loc>/g) || []
     const urls = locMatches.map(loc => loc.replace(/<\/?loc>/g, ''))
+    // English pages at root (AC-2), Chinese pages at /zh (AC-3)
     const validPaths = [
-      '/', '/en/', '/zh/', '/imprint',
-      '/en/docs/extract-rar', '/zh/docs/extract-rar',
-      '/en/docs/extract-7zip', '/zh/docs/extract-7zip',
-      '/en/docs/password-protect-zip', '/zh/docs/password-protect-zip',
-      '/en/blog', '/zh/blog',
-      '/en/blog/hello-world', '/zh/blog/hello-world',
+      '/', '/zh/',
+      '/docs/extract-rar', '/zh/docs/extract-rar',
+      '/docs/extract-7zip', '/zh/docs/extract-7zip',
+      '/docs/password-protect-zip', '/zh/docs/password-protect-zip',
+      '/blog', '/zh/blog',
+      '/blog/hello-world', '/zh/blog/hello-world',
+      '/imprint', '/zh/imprint',
     ]
     for (const url of urls) {
       const path = url.replace('https://macpacker.app', '')

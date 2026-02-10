@@ -2,7 +2,7 @@
 title: How to Extract RAR Files on Mac (macOS 13.5+)
 description: Complete guide to extracting RAR files on macOS. Learn 3 methods: MacPacker (easiest), Terminal, and alternative tools. Free, fast, and no ads.
 keywords: extract rar mac, open rar macos, rar extractor mac, unrar mac, how to extract rar files mac, best rar extractor mac, free rar extractor
-canonical: https://macpacker.app/en/docs/extract-rar
+canonical: https://macpacker.app/docs/extract-rar
 ---
 
 # How to Extract RAR Files on Mac (macOS 13.5+)
@@ -33,7 +33,7 @@ The quickest way to install MacPacker is via [Homebrew](https://brew.sh), the po
 brew install --cask macpacker
 ```
 
-Alternatively, you can download MacPacker directly from the [MacPacker website](https://macpacker.app/en#download) or install it from the Mac App Store.
+Alternatively, you can download MacPacker directly from the [MacPacker website](https://macpacker.app/#download) or install it from the Mac App Store.
 
 ![MacPacker installation interface showing Homebrew command](placeholder-800x450.png)
 
@@ -70,7 +70,7 @@ MacPacker shows real-time progress and handles even complex scenarios automatica
 - ✅ No ads, no tracking, completely free
 - ✅ Native macOS design with full support for Dark Mode
 
-[Download MacPacker for Free](https://macpacker.app/en#download)
+[Download MacPacker for Free](https://macpacker.app/#download)
 
 ## Method 2: Extract RAR Files Using Terminal (Advanced)
 
@@ -161,7 +161,7 @@ If double-clicking does nothing:
 3. Click "Change All..." to make MacPacker the default for all RAR files
 4. Try opening the file directly from within MacPacker using File > Open
 
-Still having issues? [Download the latest version of MacPacker](https://macpacker.app/en#download) — newer releases often fix compatibility problems.
+Still having issues? [Download the latest version of MacPacker](https://macpacker.app/#download) — newer releases often fix compatibility problems.
 
 ## Frequently Asked Questions
 
@@ -199,6 +199,6 @@ Nested RAR archives (archives containing other archives) are common in software 
 
 ---
 
-**Ready to extract RAR files on your Mac?** [Get MacPacker — The Fastest RAR Extractor for Mac](https://macpacker.app/en#download)
+**Ready to extract RAR files on your Mac?** [Get MacPacker — The Fastest RAR Extractor for Mac](https://macpacker.app/#download)
 
 MacPacker is free, open-source, and supports over 30 archive formats. No ads, no tracking, no limitations.

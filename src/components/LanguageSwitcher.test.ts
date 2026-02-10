@@ -92,7 +92,7 @@ describe('LanguageSwitcher navigation path construction (AR-208)', () => {
 
 describe('LanguageSwitcher source code uses absolute paths (AR-208)', () => {
   it('should use ~ prefix for absolute navigation in setLocation calls', () => {
-    expect(switcherSource).toContain('setLocation(`~/${lang}${subpath')
+    expect(switcherSource).toContain('setLocation(`~/${targetLang}${subpath')
   })
 
   it('should not use relative setLocation paths without ~ prefix', () => {

@@ -1,17 +1,15 @@
 import type { ReactElement } from 'react'
 import { useState, useEffect } from 'react'
-import { useParams } from 'wouter'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { BlogCard } from '@/components/BlogCard'
 import { useBlogMeta } from '@/hooks/useBlogMeta'
 import { fetchBlogPost, blogPostSlugs, sortBlogPosts } from '@/utils/blog'
-import { fallbackLanguage } from '@/i18n/config'
 import type { BlogPost } from '@/utils/blog'
+import { useCurrentLanguage } from '@/i18n/LanguageContext'
 
 function BlogIndex(): ReactElement {
-  const params = useParams<{ lang: string }>()
-  const lang = params.lang ?? fallbackLanguage
+  const lang = useCurrentLanguage()
 
   const [posts, setPosts] = useState<BlogPost[]>([])
   const [loading, setLoading] = useState<boolean>(true)

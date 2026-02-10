@@ -2,7 +2,7 @@
 title: How to Password Protect ZIP Files on Mac (3 Easy Methods)
 description: Learn 3 ways to password protect ZIP files on Mac: Terminal (fastest), MacPacker (easiest), or Disk Utility. Includes commands and AES-256 tips.
 keywords: password protect zip mac, encrypt zip macos, secure zip file mac, zip password mac terminal, aes-256 zip mac, create encrypted zip mac, password zip file terminal, macpacker, disk utility encrypt, zip encryption mac
-canonical: https://macpacker.app/en/docs/password-protect-zip
+canonical: https://macpacker.app/docs/password-protect-zip
 ---
 
 # How to Password Protect ZIP Files on Mac (3 Easy Methods)
@@ -109,7 +109,7 @@ Once the create feature ships, MacPacker will offer:
 
 Meanwhile, use the Terminal method (Method 1) for creating password-protected ZIP files, and use MacPacker for extracting and managing existing archives.
 
-[Download MacPacker for Free](https://macpacker.app/en#download)
+[Download MacPacker for Free](https://macpacker.app/#download)
 
 ## Method 3: Use Disk Utility to Create Encrypted DMG (Alternative Approach)
 
@@ -257,6 +257,6 @@ source ~/.zshrc
 
 Now you can simply run `ziplock archive.zip foldername` to create encrypted archives.
 
-**For extracting password-protected archives,** [Get MacPacker — The Best Archive Manager for Mac](https://macpacker.app/en#download)
+**For extracting password-protected archives,** [Get MacPacker — The Best Archive Manager for Mac](https://macpacker.app/#download)
 
 MacPacker is free, open-source, and supports over 30 archive formats. No ads, no tracking, no limitations.

@@ -2,7 +2,7 @@
 title: Preview Nested Archives on macOS Without Extracting
 description: Complete guide to handling nested archives (archives within archives) on Mac. Learn how MacPacker's preview feature lets you explore multi-layered compressed files without full extraction.
 keywords: nested archive preview mac, archive inside archive mac, nested zip mac, multi-layer archive, preview archive contents mac, nested rar preview
-canonical: https://macpacker.app/en/docs/nested-archives
+canonical: https://macpacker.app/docs/nested-archives
 ---
 
 # Preview Nested Archives on macOS Without Extracting
@@ -75,7 +75,7 @@ Install via [Homebrew](https://brew.sh):
 brew install --cask macpacker
 ```
 
-Or download from the [MacPacker website](https://macpacker.app/en#download) or Mac App Store.
+Or download from the [MacPacker website](https://macpacker.app/#download) or Mac App Store.
 
 #### Step 2: Open the Outer Archive
 
@@ -117,7 +117,7 @@ MacPacker transparently manages the entire extraction chain — if you extract a
 
 **Selective extraction** — Extract only the specific files you need from deep within nested structures, ignoring everything else.
 
-[Download MacPacker for Free](https://macpacker.app/en#download)
+[Download MacPacker for Free](https://macpacker.app/#download)
 
 ## Working with Common Nested Archive Scenarios
 
@@ -296,6 +296,6 @@ Yes, but you'll need to provide passwords for each encrypted layer as you naviga
 
 ---
 
-**Ready to explore nested archives effortlessly?** [Download MacPacker — The Only Mac Archive Manager with Nested Preview](https://macpacker.app/en#download)
+**Ready to explore nested archives effortlessly?** [Download MacPacker — The Only Mac Archive Manager with Nested Preview](https://macpacker.app/#download)
 
 MacPacker's intelligent nested archive navigation saves time and disk space. Free, open-source, and handles unlimited nesting depth across 30+ formats.

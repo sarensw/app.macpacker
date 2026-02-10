@@ -12,10 +12,11 @@ import { useStructuredData } from '@/hooks/useStructuredData'
 import { parseFrontmatter, extractHeadings, extractFaqEntries, headingToId, docsDir } from '@/utils/docs'
 import type { TocEntry, FaqEntry } from '@/utils/docs'
 import { fallbackLanguage } from '@/i18n/config'
+import { useCurrentLanguage } from '@/i18n/LanguageContext'
 
 function DocPage(): ReactElement {
-  const params = useParams<{ lang: string; slug: string }>()
-  const lang = params.lang ?? fallbackLanguage
+  const params = useParams<{ slug: string }>()
+  const lang = useCurrentLanguage()
   const slug = params.slug ?? ''
 
   const [body, setBody] = useState<string>('')

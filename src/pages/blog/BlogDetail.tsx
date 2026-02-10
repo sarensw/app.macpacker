@@ -11,12 +11,15 @@ import { GradientPlaceholder } from '@/components/GradientPlaceholder'
 import { useBlogMeta } from '@/hooks/useBlogMeta'
 import { fetchBlogPost } from '@/utils/blog'
 import { fallbackLanguage } from '@/i18n/config'
+import { useCurrentLanguage } from '@/i18n/LanguageContext'
+import { useLocalizedPath } from '@/hooks/useLocalizedPath'
 
 function BlogDetail(): ReactElement {
-  const params = useParams<{ lang: string; slug: string }>()
-  const lang = params.lang ?? fallbackLanguage
+  const params = useParams<{ slug: string }>()
+  const lang = useCurrentLanguage()
   const slug = params.slug ?? ''
   const [, setLocation] = useLocation()
+  const localizedPath = useLocalizedPath()
 
   const [body, setBody] = useState<string>('')
   const [title, setTitle] = useState<string>('')
@@ -27,7 +30,7 @@ function BlogDetail(): ReactElement {
 
   useBlogMeta({ title, description, lang, slug })
 
-  const blogIndexHref = `/${lang}/blog`
+  const blogIndexHref = localizedPath('/blog')
 
   const backLabel = lang === 'zh' ? '← 返回博客' : '← Back to Blog'
 
@@ -45,7 +48,7 @@ function BlogDetail(): ReactElement {
             const fallbackPost = await fetchBlogPost(slug, fallbackLanguage)
             if (fallbackPost) {
               // Redirect to English canonical URL
-              setLocation(`~/${fallbackLanguage}/blog/${slug}`, { replace: true })
+              setLocation(`~/blog/${slug}`, { replace: true })
               return
             }
           }

@@ -81,9 +81,9 @@ describe('AR-215 AC-5: Clicking branding does not repeatedly append /<lang>', ()
 })
 
 describe('AR-215 AC-6: Behavior is consistent regardless of starting page', () => {
-  it('homePath is computed from lang param, independent of current page path', () => {
-    // The homePath computation only depends on lang, not on the current URL
-    expect(headerComponent).toContain("params.lang ?? fallbackLanguage")
+  it('homePath is computed from lang context, independent of current page path', () => {
+    // The homePath computation only depends on lang (from LanguageContext), not on the current URL
+    expect(headerComponent).toContain("useCurrentLanguage()")
     expect(headerComponent).toMatch(/const homePath = lang === fallbackLanguage \? '~\/' : `~\/\$\{lang\}`/)
   })
 

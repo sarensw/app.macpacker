@@ -2,7 +2,7 @@
 title: How to Recover Files from Corrupted Archives on macOS
 description: Complete guide to fixing and recovering files from corrupted ZIP, RAR, and 7z archives on Mac. Learn repair tools, partial extraction techniques, and prevention strategies.
 keywords: fix corrupted zip mac, repair rar file mac, corrupted archive recovery mac, fix damaged zip, recover corrupted 7z, archive repair macos
-canonical: https://macpacker.app/en/docs/corrupted-archives
+canonical: https://macpacker.app/docs/corrupted-archives
 ---
 
 # How to Recover Files from Corrupted Archives on macOS
@@ -35,7 +35,7 @@ Install via [Homebrew](https://brew.sh):
 brew install --cask macpacker
 ```
 
-Or download from the [MacPacker website](https://macpacker.app/en#download) or Mac App Store.
+Or download from the [MacPacker website](https://macpacker.app/#download) or Mac App Store.
 
 ### Step 2: Open the Corrupted Archive
 
@@ -65,7 +65,7 @@ MacPacker's error-tolerant extraction handles several corruption scenarios:
 - **Truncated archives** — Extracts all complete files before the truncation point
 - **Format-specific recovery** — Uses [RAR recovery records](./extract-rar) and [7z error correction](./extract-7zip) when available
 
-[Download MacPacker for Free](https://macpacker.app/en#download)
+[Download MacPacker for Free](https://macpacker.app/#download)
 
 ## Method 2: Repair RAR Archives Using Recovery Records
 
@@ -303,6 +303,6 @@ Compressed archives are more fragile than uncompressed files because compression
 
 ---
 
-**Need to recover files from corrupted archives?** [Download MacPacker — Advanced Error Recovery for Mac](https://macpacker.app/en#download)
+**Need to recover files from corrupted archives?** [Download MacPacker — Advanced Error Recovery for Mac](https://macpacker.app/#download)
 
 MacPacker's intelligent extraction continues recovering data even when other tools fail. Free, open-source, and supports 30+ archive formats.

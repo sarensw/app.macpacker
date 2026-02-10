@@ -8,8 +8,10 @@ describe('hreflang tags in index.html', () => {
 
   it('should have hreflang tag for each supported language', () => {
     for (const lang of supportedLanguages) {
+      // English (fallback) hreflang points to root /, other languages to /<lang>/
+      const hrefPath = lang === fallbackLanguage ? '' : `${lang}/`
       const pattern = new RegExp(
-        `<link\\s+rel="alternate"\\s+hreflang="${lang}"\\s+href="https://macpacker\\.app/${lang.replace('-', '\\-')}/"\\s*/?>`,
+        `<link\\s+rel="alternate"\\s+hreflang="${lang}"\\s+href="https://macpacker\\.app/${hrefPath}"\\s*/?>`,
       )
       expect(html).toMatch(pattern)
     }
@@ -49,12 +51,11 @@ describe('imprint route', () => {
     expect(appTsx).toMatch(/path='\/imprint'/)
   })
 
-  it('should not have imprint nested under language routes', () => {
-    // The imprint route inside the :lang nest was removed
-    const langNestMatch = appTsx.match(/:lang.*nest[\s\S]*?<\/Route>/m)
-    if (langNestMatch) {
-      expect(langNestMatch[0]).not.toContain("'/imprint'")
-    }
+  it('should have imprint under /zh language route per AC-5', () => {
+    // AC-5 requires both /imprint and /zh/imprint routes
+    const zhNestMatch = appTsx.match(/path='\/zh'.*nest[\s\S]*?<\/Route>/m)
+    expect(zhNestMatch).not.toBeNull()
+    expect(zhNestMatch![0]).toContain("'/imprint'")
   })
 })
 

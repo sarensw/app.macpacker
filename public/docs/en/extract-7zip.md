@@ -2,7 +2,7 @@
 title: How to Extract 7z Files on Mac (macOS 13.5+)
 description: Complete guide to extracting 7z files on macOS. Learn 3 methods: MacPacker (easiest), Terminal, and alternative tools. Free, fast, and no ads.
 keywords: 7zip mac, extract 7z mac, 7-zip macos, how to open 7z files macos, p7zip mac, 7z extractor mac, best 7z extractor mac, free 7z mac
-canonical: https://macpacker.app/en/docs/extract-7zip
+canonical: https://macpacker.app/docs/extract-7zip
 ---
 
 # How to Extract 7z Files on Mac (macOS 13.5+)
@@ -34,7 +34,7 @@ The quickest way to install MacPacker is via [Homebrew](https://brew.sh), the po
 brew install --cask macpacker
 ```
 
-Alternatively, you can download MacPacker directly from the [MacPacker website](https://macpacker.app/en#download) or install it from the Mac App Store.
+Alternatively, you can download MacPacker directly from the [MacPacker website](https://macpacker.app/#download) or install it from the Mac App Store.
 
 ![MacPacker installation interface showing Homebrew command](placeholder-800x450.png)
 
@@ -73,7 +73,7 @@ MacPacker shows real-time progress and handles even complex scenarios automatica
 - ✅ Native macOS design with full support for Dark Mode
 - ✅ Open-source software you can trust
 
-[Download MacPacker for Free](https://macpacker.app/en#download)
+[Download MacPacker for Free](https://macpacker.app/#download)
 
 ## Method 2: Extract 7z Files Using Terminal (Advanced)
 
@@ -164,7 +164,7 @@ If double-clicking does nothing:
 3. Click "Change All..." to make MacPacker the default for all 7z files
 4. Try opening the file directly from within MacPacker using File > Open
 
-Still having issues? [Download the latest version of MacPacker](https://macpacker.app/en#download) — newer releases often fix compatibility problems.
+Still having issues? [Download the latest version of MacPacker](https://macpacker.app/#download) — newer releases often fix compatibility problems.
 
 ## 7z vs RAR vs ZIP: Format Comparison
 
@@ -182,7 +182,7 @@ Understanding the differences between archive formats helps you choose the right
 - Excellent compression ratios (solid compression support)
 - Widely used for software and media distribution
 - Requires third-party software on macOS
-- Learn more: [How to Extract RAR Files on Mac](https://macpacker.app/en/docs/extract-rar)
+- Learn more: [How to Extract RAR Files on Mac](https://macpacker.app/docs/extract-rar)
 
 **ZIP Format:**
 - Universal support (built into macOS and Windows)
@@ -225,6 +225,6 @@ Yes, MacPacker is completely safe. It's open-source software (you can [view the 
 
 ---
 
-**Ready to extract 7z files on your Mac?** [Get MacPacker — The Fastest 7z Extractor for Mac](https://macpacker.app/en#download)
+**Ready to extract 7z files on your Mac?** [Get MacPacker — The Fastest 7z Extractor for Mac](https://macpacker.app/#download)
 
 MacPacker is free, open-source, and supports over 30 archive formats. No ads, no tracking, no limitations.

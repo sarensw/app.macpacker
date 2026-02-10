@@ -2,7 +2,7 @@
 title: Automate Archive Extraction with macOS Shortcuts
 description: Complete guide to automating archive extraction on Mac using Shortcuts app, Automator, shell scripts, and folder actions. Streamline your workflow with intelligent extraction automation.
 keywords: automate extraction mac, shortcuts archive mac, automator extraction, automatic unzip mac, folder action extract, macos automation archive
-canonical: https://macpacker.app/en/docs/automation
+canonical: https://macpacker.app/docs/automation
 ---
 
 # Automate Archive Extraction with macOS Shortcuts
@@ -417,6 +417,6 @@ Yes, using Mail rules and Automator or AppleScript. Create a Mail rule that runs
 
 ---
 
-**Ready to automate your archive workflow?** [Download MacPacker — Intelligent Archive Management for Mac](https://macpacker.app/en#download)
+**Ready to automate your archive workflow?** [Download MacPacker — Intelligent Archive Management for Mac](https://macpacker.app/#download)
 
 Combine MacPacker's powerful extraction capabilities with macOS automation for a seamless, hands-free archive workflow. Free, open-source, and supports 30+ formats.
