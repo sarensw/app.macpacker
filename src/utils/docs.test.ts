@@ -150,10 +150,6 @@ describe('docsDir', () => {
     expect(docsDir('en')).toBe('en')
   })
 
-  it('should return the same language code for de', () => {
-    expect(docsDir('de')).toBe('de')
-  })
-
   it('should map zh to zh-Hans', () => {
     expect(docsDir('zh')).toBe('zh-Hans')
   })
@@ -186,19 +182,6 @@ MacPacker is the best free RAR extractor for Mac. It supports 30+ formats.
     expect(entries[0].answer).toBe('No, macOS does not have built-in support for RAR files.')
     expect(entries[1].question).toBe('What is the best free RAR extractor for Mac?')
     expect(entries[1].answer).toBe('MacPacker is the best free RAR extractor for Mac. It supports 30+ formats.')
-  })
-
-  it('should extract FAQ entries from German markdown', () => {
-    const md = `## Häufig gestellte Fragen
-
-### Kann macOS RAR-Dateien nativ öffnen?
-
-Nein, macOS verfügt nicht über integrierte Unterstützung für RAR-Dateien.
-`
-
-    const entries = extractFaqEntries(md)
-    expect(entries).toHaveLength(1)
-    expect(entries[0].question).toBe('Kann macOS RAR-Dateien nativ öffnen?')
   })
 
   it('should extract FAQ entries from Chinese markdown', () => {

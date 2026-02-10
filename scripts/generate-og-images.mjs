@@ -28,13 +28,7 @@ const languages = [
     lineHeight: '1.35',
     fontSize: '21px',
   },
-  {
-    code: 'de',
-    tagline: readFileSync(resolve(projectRoot, 'public/media-kit/descriptions/de/tagline.txt'), 'utf-8').trim(),
-    lineHeight: '1.35',
-    fontSize: '20px',
-  },
-  {
+{
     code: 'zh',
     tagline: readFileSync(resolve(projectRoot, 'public/media-kit/descriptions/zh-Hans/tagline.txt'), 'utf-8').trim(),
     lineHeight: '1.5',

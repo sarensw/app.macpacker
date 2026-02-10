@@ -4,7 +4,6 @@ import { resolve } from 'path'
 import i18n from './config'
 
 const en = JSON.parse(readFileSync(resolve(__dirname, '../locales/en.json'), 'utf-8'))
-const de = JSON.parse(readFileSync(resolve(__dirname, '../locales/de.json'), 'utf-8'))
 const zhHans = JSON.parse(readFileSync(resolve(__dirname, '../locales/zh.json'), 'utf-8'))
 
 function getKeys(obj: Record<string, unknown>, prefix = ''): string[] {
@@ -26,11 +25,6 @@ describe('translation files exist and are valid JSON', () => {
     expect(Object.keys(en).length).toBeGreaterThan(0)
   })
 
-  it('should have de.json with content', () => {
-    expect(de).toBeDefined()
-    expect(Object.keys(de).length).toBeGreaterThan(0)
-  })
-
   it('should have zh.json with content', () => {
     expect(zhHans).toBeDefined()
     expect(Object.keys(zhHans).length).toBeGreaterThan(0)
@@ -39,12 +33,7 @@ describe('translation files exist and are valid JSON', () => {
 
 describe('translation key structure', () => {
   const enKeys = getKeys(en).sort()
-  const deKeys = getKeys(de).sort()
   const zhHansKeys = getKeys(zhHans).sort()
-
-  it('should have the same keys in en and de', () => {
-    expect(deKeys).toEqual(enKeys)
-  })
 
   it('should have the same keys in en and zh', () => {
     expect(zhHansKeys).toEqual(enKeys)
@@ -54,7 +43,6 @@ describe('translation key structure', () => {
     const requiredSections = ['hero', 'header', 'download', 'languages', 'formats', 'footer']
     for (const section of requiredSections) {
       expect(en).toHaveProperty(section)
-      expect(de).toHaveProperty(section)
       expect(zhHans).toHaveProperty(section)
     }
   })
@@ -82,7 +70,7 @@ describe('translation key structure', () => {
 })
 
 describe('translation values are non-empty strings', () => {
-  const locales = { en, de, zh: zhHans }
+  const locales = { en, zh: zhHans }
 
   for (const [locale, translations] of Object.entries(locales)) {
     const keys = getKeys(translations)
@@ -98,7 +86,7 @@ describe('translation values are non-empty strings', () => {
 
 describe('interpolation variables', () => {
   it('should have {{version}}, {{size}}, and {{minVersion}} in download.versionInfo for all locales', () => {
-    for (const locale of [en, de, zhHans]) {
+    for (const locale of [en, zhHans]) {
       expect(locale.download.versionInfo).toContain('{{version}}')
       expect(locale.download.versionInfo).toContain('{{size}}')
       expect(locale.download.versionInfo).toContain('{{minVersion}}')
@@ -106,7 +94,7 @@ describe('interpolation variables', () => {
   })
 
   it('should have {{year}} in footer.copyright for all locales', () => {
-    for (const locale of [en, de, zhHans]) {
+    for (const locale of [en, zhHans]) {
       expect(locale.footer.copyright).toContain('{{year}}')
     }
   })
@@ -115,25 +103,21 @@ describe('interpolation variables', () => {
 describe('preserved terms across translations', () => {
   it('should keep "MacPacker" as the hero title in all languages', () => {
     expect(en.hero.title).toBe('MacPacker')
-    expect(de.hero.title).toBe('MacPacker')
     expect(zhHans.hero.title).toBe('MacPacker')
   })
 
   it('should keep "macOS" in subtitle across all languages', () => {
     expect(en.hero.subtitle).toContain('macOS')
-    expect(de.hero.subtitle).toContain('macOS')
     expect(zhHans.hero.subtitle).toContain('macOS')
   })
 
   it('should include ".zip" in downloadZip value', () => {
     expect(en.download.downloadZip).toContain('.zip')
-    expect(de.download.downloadZip).toContain('.zip')
     expect(zhHans.download.downloadZip).toContain('.zip')
   })
 
   it('should keep "Mac App Store" untranslated', () => {
     expect(en.download.appStore).toBe('Mac App Store')
-    expect(de.download.appStore).toBe('Mac App Store')
     expect(zhHans.download.appStore).toBe('Mac App Store')
   })
 })
@@ -147,10 +131,6 @@ describe('i18n resources loaded', () => {
     expect(i18n.hasResourceBundle('en', 'translation')).toBe(true)
   })
 
-  it('should have translation resources for German', () => {
-    expect(i18n.hasResourceBundle('de', 'translation')).toBe(true)
-  })
-
   it('should have translation resources for Simplified Chinese', () => {
     expect(i18n.hasResourceBundle('zh', 'translation')).toBe(true)
   })
@@ -159,12 +139,6 @@ describe('i18n resources loaded', () => {
     await i18n.changeLanguage('en')
     expect(i18n.t('hero.title')).toBe('MacPacker')
     expect(i18n.t('footer.contact')).toBe('Contact')
-  })
-
-  it('should resolve German keys via t()', async () => {
-    await i18n.changeLanguage('de')
-    expect(i18n.t('hero.subtitle')).toBe('Archiv-Manager für macOS.')
-    expect(i18n.t('footer.imprint')).toBe('Impressum')
   })
 
   it('should resolve Chinese keys via t()', async () => {
@@ -183,12 +157,6 @@ describe('i18n resources loaded', () => {
     await i18n.changeLanguage('en')
     const result = i18n.t('footer.copyright', { year: 2025 })
     expect(result).toBe('© 2025 Stephan Arenswald')
-  })
-
-  it('should switch language and return German translations', async () => {
-    await i18n.changeLanguage('de')
-    const result = i18n.t('download.versionInfo', { version: '0.13', size: '5', minVersion: '13.5' })
-    expect(result).toBe('v0.13 | 5 MB | macOS 13.5 oder neuer')
   })
 
   it('should switch language and return Chinese translations', async () => {

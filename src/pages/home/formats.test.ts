@@ -4,14 +4,13 @@ import { resolve } from 'path'
 import i18n from '../../i18n/config'
 
 const en = JSON.parse(readFileSync(resolve(__dirname, '../../locales/en.json'), 'utf-8'))
-const de = JSON.parse(readFileSync(resolve(__dirname, '../../locales/de.json'), 'utf-8'))
 const zh = JSON.parse(readFileSync(resolve(__dirname, '../../locales/zh.json'), 'utf-8'))
 
 const homeComponent = readFileSync(resolve(__dirname, './index.tsx'), 'utf-8')
 
 describe('formats section translation keys (AC-6)', () => {
   it('should have formats.categories keys in all languages', () => {
-    for (const locale of [en, de, zh]) {
+    for (const locale of [en, zh]) {
       expect(locale.formats.categories.compression).toBeDefined()
       expect(locale.formats.categories.diskImages).toBeDefined()
       expect(locale.formats.categories.archives).toBeDefined()
@@ -20,26 +19,25 @@ describe('formats section translation keys (AC-6)', () => {
   })
 
   it('should have formats.showMore key in all languages', () => {
-    for (const locale of [en, de, zh]) {
+    for (const locale of [en, zh]) {
       expect(locale.formats.showMore).toBeDefined()
     }
   })
 
   it('should have formats.showMoreAriaLabel key in all languages', () => {
-    for (const locale of [en, de, zh]) {
+    for (const locale of [en, zh]) {
       expect(locale.formats.showMoreAriaLabel).toBeDefined()
     }
   })
 
   it('should have formats.comparisonLink key in all languages', () => {
-    for (const locale of [en, de, zh]) {
+    for (const locale of [en, zh]) {
       expect(locale.formats.comparisonLink).toBeDefined()
     }
   })
 
   it('should have showMore with interpolation placeholder', () => {
     expect(en.formats.showMore).toContain('{{count}}')
-    expect(de.formats.showMore).toContain('{{count}}')
     expect(zh.formats.showMore).toContain('{{count}}')
   })
 })
@@ -216,7 +214,7 @@ describe('i18n resolves format category keys correctly', () => {
       'formats.showMoreAriaLabel',
       'formats.comparisonLink'
     ]
-    for (const lang of ['en', 'de', 'zh']) {
+    for (const lang of ['en', 'zh']) {
       await i18n.changeLanguage(lang)
       for (const key of keys) {
         const value = i18n.t(key)

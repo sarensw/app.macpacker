@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite'
 /**
  * Vite plugin that copies index.html to 404.html after build.
  * GitHub Pages serves 404.html for unknown paths, enabling SPA fallback
- * so that client-side routes like /de and /zh work on direct navigation.
+ * so that client-side routes like /zh work on direct navigation.
  */
 function spaFallback(): Plugin {
   return {

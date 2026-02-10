@@ -4,7 +4,6 @@ import { resolve } from 'path'
 import i18n from '../../i18n/config'
 
 const en = JSON.parse(readFileSync(resolve(__dirname, '../../locales/en.json'), 'utf-8'))
-const de = JSON.parse(readFileSync(resolve(__dirname, '../../locales/de.json'), 'utf-8'))
 const zh = JSON.parse(readFileSync(resolve(__dirname, '../../locales/zh.json'), 'utf-8'))
 
 const homeComponent = readFileSync(resolve(__dirname, './index.tsx'), 'utf-8')
@@ -13,26 +12,25 @@ const featureCardComponent = readFileSync(resolve(__dirname, '../../components/F
 describe('features section translation keys (AC-5)', () => {
   it('should have features.title key in all languages', () => {
     expect(en.features.title).toBeDefined()
-    expect(de.features.title).toBeDefined()
     expect(zh.features.title).toBeDefined()
   })
 
   it('should have features.nestedPreview keys in all languages', () => {
-    for (const locale of [en, de, zh]) {
+    for (const locale of [en, zh]) {
       expect(locale.features.nestedPreview.title).toBeDefined()
       expect(locale.features.nestedPreview.description).toBeDefined()
     }
   })
 
   it('should have features.extractSingle keys in all languages', () => {
-    for (const locale of [en, de, zh]) {
+    for (const locale of [en, zh]) {
       expect(locale.features.extractSingle.title).toBeDefined()
       expect(locale.features.extractSingle.description).toBeDefined()
     }
   })
 
   it('should have features.formats keys in all languages', () => {
-    for (const locale of [en, de, zh]) {
+    for (const locale of [en, zh]) {
       expect(locale.features.formats.title).toBeDefined()
       expect(locale.features.formats.description).toBeDefined()
     }
@@ -204,7 +202,7 @@ describe('i18n resolves feature keys correctly', () => {
       'features.formats.title',
       'features.formats.description'
     ]
-    for (const lang of ['en', 'de', 'zh']) {
+    for (const lang of ['en', 'zh']) {
       await i18n.changeLanguage(lang)
       for (const key of keys) {
         const value = i18n.t(key)

@@ -52,7 +52,7 @@ function useDocMeta({ title, description, lang, slug }: DocMetaOptions) {
       addedElements.push(canonical)
 
       // Hreflang tags for all language versions
-      const languages = ['en', 'de', 'zh']
+      const languages = ['en', 'zh']
       for (const hrefLang of languages) {
         const link = document.createElement('link')
         link.setAttribute('rel', 'alternate')

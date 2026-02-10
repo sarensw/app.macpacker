@@ -11,8 +11,8 @@ describe('language validation', () => {
     expect(isValidLanguage('en')).toBe(true)
   })
 
-  it('should accept "de" as valid', () => {
-    expect(isValidLanguage('de')).toBe(true)
+  it('should reject "de" as no longer supported', () => {
+    expect(isValidLanguage('de')).toBe(false)
   })
 
   it('should accept "zh" as valid', () => {
@@ -31,7 +31,7 @@ describe('language validation', () => {
 
   it('should reject language codes with wrong casing', () => {
     expect(isValidLanguage('EN')).toBe(false)
-    expect(isValidLanguage('De')).toBe(false)
+    expect(isValidLanguage('de')).toBe(false)
     expect(isValidLanguage('ZH')).toBe(false)
   })
 

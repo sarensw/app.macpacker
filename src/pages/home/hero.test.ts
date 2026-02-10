@@ -4,7 +4,6 @@ import { resolve } from 'path'
 import i18n from '../../i18n/config'
 
 const en = JSON.parse(readFileSync(resolve(__dirname, '../../locales/en.json'), 'utf-8'))
-const de = JSON.parse(readFileSync(resolve(__dirname, '../../locales/de.json'), 'utf-8'))
 const zh = JSON.parse(readFileSync(resolve(__dirname, '../../locales/zh.json'), 'utf-8'))
 
 const homeComponent = readFileSync(resolve(__dirname, './index.tsx'), 'utf-8')
@@ -12,43 +11,36 @@ const homeComponent = readFileSync(resolve(__dirname, './index.tsx'), 'utf-8')
 describe('hero section translation keys', () => {
   it('should have hero.headline key in all languages', () => {
     expect(en.hero.headline).toBeDefined()
-    expect(de.hero.headline).toBeDefined()
     expect(zh.hero.headline).toBeDefined()
   })
 
   it('should have hero.subheadline key in all languages', () => {
     expect(en.hero.subheadline).toBeDefined()
-    expect(de.hero.subheadline).toBeDefined()
     expect(zh.hero.subheadline).toBeDefined()
   })
 
   it('should have hero.freeAndOpenSource key in all languages', () => {
     expect(en.hero.freeAndOpenSource).toBeDefined()
-    expect(de.hero.freeAndOpenSource).toBeDefined()
     expect(zh.hero.freeAndOpenSource).toBeDefined()
   })
 
   it('should have hero.copyCommand key in all languages', () => {
     expect(en.hero.copyCommand).toBeDefined()
-    expect(de.hero.copyCommand).toBeDefined()
     expect(zh.hero.copyCommand).toBeDefined()
   })
 
   it('should have hero.commandCopied key in all languages', () => {
     expect(en.hero.commandCopied).toBeDefined()
-    expect(de.hero.commandCopied).toBeDefined()
     expect(zh.hero.commandCopied).toBeDefined()
   })
 
   it('should have hero.installWith key in all languages', () => {
     expect(en.hero.installWith).toBeDefined()
-    expect(de.hero.installWith).toBeDefined()
     expect(zh.hero.installWith).toBeDefined()
   })
 
   it('should have download.alternativeLabel key in all languages', () => {
     expect(en.download.alternativeLabel).toBeDefined()
-    expect(de.download.alternativeLabel).toBeDefined()
     expect(zh.download.alternativeLabel).toBeDefined()
   })
 })
@@ -62,10 +54,6 @@ describe('hero headline content (AC-1: value proposition)', () => {
     expect(en.hero.headline).toMatch(/Preview|Extract/)
   })
 
-  it('should contain "macOS" in the German headline', () => {
-    expect(de.hero.headline).toContain('macOS')
-  })
-
   it('should contain "macOS" in the Chinese headline', () => {
     expect(zh.hero.headline).toContain('macOS')
   })
@@ -74,10 +62,6 @@ describe('hero headline content (AC-1: value proposition)', () => {
 describe('hero subheadline content (AC-2: nested preview mentioned)', () => {
   it('should mention nested archives in the English subheadline', () => {
     expect(en.hero.subheadline.toLowerCase()).toContain('nested')
-  })
-
-  it('should mention nested archives in the German subheadline', () => {
-    expect(de.hero.subheadline.toLowerCase()).toContain('verschachtelt')
   })
 
   it('should mention nested archives in the Chinese subheadline', () => {
@@ -225,13 +209,6 @@ describe('i18n resolves hero keys correctly', () => {
     expect(i18n.t('hero.freeAndOpenSource')).toBe('Free & open source.')
   })
 
-  it('should resolve hero.headline in German', async () => {
-    await i18n.changeLanguage('de')
-    const headline = i18n.t('hero.headline')
-    expect(headline).toContain('macOS')
-    expect(headline.length).toBeGreaterThan(0)
-  })
-
   it('should resolve hero.headline in Chinese', async () => {
     await i18n.changeLanguage('zh')
     const headline = i18n.t('hero.headline')
@@ -240,7 +217,7 @@ describe('i18n resolves hero keys correctly', () => {
   })
 
   it('should resolve hero.copyCommand in all languages', async () => {
-    for (const lang of ['en', 'de', 'zh']) {
+    for (const lang of ['en', 'zh']) {
       await i18n.changeLanguage(lang)
       const value = i18n.t('hero.copyCommand')
       expect(value.length).toBeGreaterThan(0)
@@ -249,7 +226,7 @@ describe('i18n resolves hero keys correctly', () => {
   })
 
   it('should resolve download.alternativeLabel in all languages', async () => {
-    for (const lang of ['en', 'de', 'zh']) {
+    for (const lang of ['en', 'zh']) {
       await i18n.changeLanguage(lang)
       const value = i18n.t('download.alternativeLabel')
       expect(value.length).toBeGreaterThan(0)

@@ -69,8 +69,8 @@ describe('sitemap.xml', () => {
   it('should include language-specific home pages', () => {
     const content = readFileSync(sitemapPath, 'utf-8')
     expect(content).toContain('<loc>https://macpacker.app/en/</loc>')
-    expect(content).toContain('<loc>https://macpacker.app/de/</loc>')
     expect(content).toContain('<loc>https://macpacker.app/zh/</loc>')
+    expect(content).not.toContain('<loc>https://macpacker.app/de/</loc>')
   })
 
   it('should include imprint page at root level only', () => {
@@ -90,10 +90,10 @@ describe('sitemap.xml', () => {
     const locMatches = content.match(/<loc>(.*?)<\/loc>/g) || []
     const urls = locMatches.map(loc => loc.replace(/<\/?loc>/g, ''))
     const validPaths = [
-      '/', '/en/', '/de/', '/zh/', '/imprint',
-      '/en/docs/extract-rar', '/de/docs/extract-rar', '/zh/docs/extract-rar',
-      '/en/docs/extract-7zip', '/de/docs/extract-7zip', '/zh/docs/extract-7zip',
-      '/en/docs/password-protect-zip', '/de/docs/password-protect-zip', '/zh/docs/password-protect-zip',
+      '/', '/en/', '/zh/', '/imprint',
+      '/en/docs/extract-rar', '/zh/docs/extract-rar',
+      '/en/docs/extract-7zip', '/zh/docs/extract-7zip',
+      '/en/docs/password-protect-zip', '/zh/docs/password-protect-zip',
     ]
     for (const url of urls) {
       const path = url.replace('https://macpacker.app', '')

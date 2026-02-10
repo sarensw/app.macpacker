@@ -21,21 +21,20 @@ describe('hreflang tags in index.html', () => {
     )
   })
 
-  it('should have exactly 4 hreflang tags (3 languages + x-default)', () => {
+  it('should have exactly 3 hreflang tags (2 languages + x-default)', () => {
     const matches = html.match(/hreflang="/g)
-    expect(matches).toHaveLength(4)
+    expect(matches).toHaveLength(3)
   })
 })
 
 describe('route structure', () => {
-  it('should support en, de, and zh as language codes', () => {
+  it('should support en and zh as language codes', () => {
     expect(supportedLanguages).toContain('en')
-    expect(supportedLanguages).toContain('de')
     expect(supportedLanguages).toContain('zh')
   })
 
-  it('should have exactly 3 supported languages', () => {
-    expect(supportedLanguages).toHaveLength(3)
+  it('should have exactly 2 supported languages', () => {
+    expect(supportedLanguages).toHaveLength(2)
   })
 
   it('should have English as the fallback language', () => {

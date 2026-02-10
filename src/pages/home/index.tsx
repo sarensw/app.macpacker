@@ -148,7 +148,7 @@ function Home (): ReactElement {
               <Language code={'zh_Hans'} name={'Chinese (Simplified'} icons={['cn']} />
               <Language code={'en'} name={'English'} icons={['us', 'gb', 'au']} />
               <Language code={'fr'} name={'French'} icons={['fr']} />
-              <Language code={'de'} name={'German'} icons={['de', 'at', 'ch']} />
+
               <Language code={'it'} name={'Italian'} icons={['it']} />
               <Language code={'ru'} name={'Persian (Farsi)'} icons={[]} />
               <Language code={'ru'} name={'Russian'} icons={['ru']} />
