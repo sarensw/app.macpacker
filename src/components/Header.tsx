@@ -16,6 +16,7 @@ function Header ({ children }: HeaderProps): ReactElement {
   const lang = params.lang ?? fallbackLanguage
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+  const homePath = lang === fallbackLanguage ? '~/' : `~/${lang}`
   const blogLabel = lang === 'zh' ? '博客' : 'Blog'
 
   function toggleMobileMenu () {
@@ -30,7 +31,7 @@ function Header ({ children }: HeaderProps): ReactElement {
     <header className='relative'>
       <div className='flex flex-row w-full max-w-3xl mx-auto justify-between items-center gap-2 px-4 mt-2'>
         {/* Left section: Brand */}
-        <Link className='flex flex-row items-center gap-2' href={localizedPath('/')}>
+        <Link className='flex flex-row items-center gap-2' href={homePath}>
           <img src='/icon_512x512@2x.png' className='w-12' alt='MacPacker' />
           <p className='hidden md:block font-bold text-lg'>MacPacker</p>
         </Link>

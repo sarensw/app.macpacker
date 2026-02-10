@@ -7,7 +7,7 @@ function useLocalizedPath() {
 
   return (path: string): string => {
     const cleanPath = path.startsWith('/') ? path : `/${path}`
-    return `/${lang}${cleanPath}`
+    return `~/${lang}${cleanPath}`
   }
 }
 
