@@ -47,8 +47,8 @@ describe('AC-2: Desktop 3-section layout with gap-2', () => {
 })
 
 describe('AC-3: Left section with logo + MacPacker text linking to localized root', () => {
-  it('should have a Link wrapping both logo and text', () => {
-    expect(headerComponent).toContain("href={localizedPath('/')}")
+  it('should have a Link wrapping both logo and text using homePath', () => {
+    expect(headerComponent).toContain("href={homePath}")
   })
 
   it('should show the MacPacker logo', () => {
