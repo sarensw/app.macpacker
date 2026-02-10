@@ -1,8 +1,10 @@
 import { useState, type ReactElement, type ReactNode } from 'react'
-import { Link } from 'wouter'
+import { Link, useParams } from 'wouter'
 import { useLocalizedPath } from '@/hooks/useLocalizedPath'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { HeaderMobileMenu } from '@/components/HeaderMobileMenu'
+import { HeaderNavLink } from '@/components/HeaderNavLink'
+import { fallbackLanguage } from '@/i18n/config'
 
 interface HeaderProps {
   children?: ReactNode
@@ -10,7 +12,11 @@ interface HeaderProps {
 
 function Header ({ children }: HeaderProps): ReactElement {
   const localizedPath = useLocalizedPath()
+  const params = useParams<{ lang: string }>()
+  const lang = params.lang ?? fallbackLanguage
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const blogLabel = lang === 'zh' ? '博客' : 'Blog'
 
   function toggleMobileMenu () {
     setIsMobileMenuOpen(prev => !prev)
@@ -31,6 +37,7 @@ function Header ({ children }: HeaderProps): ReactElement {
 
         {/* Middle section: Navigation links (desktop) */}
         <nav aria-label='Main navigation' className='hidden md:flex flex-row items-center gap-2'>
+          <HeaderNavLink href={localizedPath('/blog')}>{blogLabel}</HeaderNavLink>
           {children}
         </nav>
 
@@ -41,11 +48,10 @@ function Header ({ children }: HeaderProps): ReactElement {
 
         {/* Mobile: Hamburger menu */}
         <HeaderMobileMenu isOpen={isMobileMenuOpen} onToggle={toggleMobileMenu}>
-          {children && (
-            <nav aria-label='Main navigation' className='flex flex-col gap-4' onClick={closeMobileMenu}>
-              {children}
-            </nav>
-          )}
+          <nav aria-label='Main navigation' className='flex flex-col gap-4' onClick={closeMobileMenu}>
+            <HeaderNavLink href={localizedPath('/blog')}>{blogLabel}</HeaderNavLink>
+            {children}
+          </nav>
           <LanguageSwitcher />
         </HeaderMobileMenu>
       </div>
