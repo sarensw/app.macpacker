@@ -21,6 +21,7 @@ npm run preview   # Preview production build locally
 - **Styling:** Tailwind CSS 4 via `@tailwindcss/vite` plugin
 - **Routing:** Wouter (lightweight router) — routes defined in `src/App.tsx`
 - **Deployment:** GitHub Actions auto-deploys `dist/` to GitHub Pages on push to `main`
+- **Mudularization:** This is a React/Tailwind based page. All controls like buttons, texts, headers, cards, ... have to be added as small components, so they can, and shall be reused.
 
 ### Path Aliases (configured in vite.config.ts and tsconfig)
 
