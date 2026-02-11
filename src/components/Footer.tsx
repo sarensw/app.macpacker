@@ -1,9 +1,13 @@
 import type { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'wouter'
 import LinkedIn from '@assets/linkedin.svg'
 import X from '@assets/x.svg'
+import { useLocalizedPath } from '@/hooks/useLocalizedPath'
+
 function Footer (): ReactElement {
   const { t } = useTranslation()
+  const localizedPath = useLocalizedPath()
   const year = new Date().getFullYear()
 
   return (
@@ -22,7 +26,7 @@ function Footer (): ReactElement {
       </div>
       <p className='flex flex-row gap-4 justify-center'>
         <span>{t('footer.copyright', { year })}</span>
-        <a href='/imprint'>{t('footer.imprint')}</a>
+        <Link href={localizedPath('/imprint')}>{t('footer.imprint')}</Link>
         <a href='/media-kit/brand/macpacker-brand-assets.zip'>{t('footer.mediaKit')}</a>
         <a href='mailto:apps@sarensw.com'>{t('footer.contact')}</a>
       </p>
