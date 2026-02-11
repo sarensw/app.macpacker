@@ -28,18 +28,21 @@ describe('AR-221 AC-1: Correct Route Structure', () => {
       expect(appTsx).toContain("path='/' component={LanguageRedirect}")
     })
 
-    it('should have /blog route (blog index)', () => {
-      // English blog route at root level (outside /zh nest)
-      expect(appTsx).toContain("path='/blog' component={BlogIndex}")
+    it('should have /blog route (blog index) wrapped in LanguageRoute', () => {
+      // English blog route at root level, wrapped in LanguageRoute for language state consistency
+      expect(appTsx).toContain("path='/blog'")
+      expect(appTsx).toContain("<LanguageRoute lang='en'><BlogIndex /></LanguageRoute>")
     })
 
-    it('should have /blog/:slug route (blog detail)', () => {
-      // English blog detail route at root level
-      expect(appTsx).toContain("path='/blog/:slug' component={BlogDetail}")
+    it('should have /blog/:slug route (blog detail) wrapped in LanguageRoute', () => {
+      // English blog detail route at root level, wrapped in LanguageRoute
+      expect(appTsx).toContain("path='/blog/:slug'")
+      expect(appTsx).toContain("<LanguageRoute lang='en'><BlogDetail /></LanguageRoute>")
     })
 
-    it('should have /imprint route', () => {
-      expect(appTsx).toContain("path='/imprint' component={Imprint}")
+    it('should have /imprint route wrapped in LanguageRoute', () => {
+      expect(appTsx).toContain("path='/imprint'")
+      expect(appTsx).toContain("<LanguageRoute lang='en'><Imprint /></LanguageRoute>")
     })
   })
 
@@ -124,24 +127,25 @@ describe('AR-221 AC-2: Route navigation paths for all known routes', () => {
       expect(appTsx).toContain("path='/' component={LanguageRedirect}")
     })
 
-    it('/blog is routable at root level', () => {
-      // Verify it's outside the /zh nest block (at root level)
+    it('/blog is routable at root level with LanguageRoute wrapper', () => {
       const rootRoutes = appTsx.split("path='/zh' nest")[1]
       expect(rootRoutes).toBeTruthy()
-      // After the zh nest block closes, there are root-level routes
-      expect(rootRoutes).toContain("path='/blog' component={BlogIndex}")
+      expect(rootRoutes).toContain("path='/blog'")
+      expect(rootRoutes).toContain("<BlogIndex />")
     })
 
-    it('/blog/hello-world resolves via /blog/:slug at root level', () => {
+    it('/blog/hello-world resolves via /blog/:slug at root level with LanguageRoute wrapper', () => {
       const rootRoutes = appTsx.split("path='/zh' nest")[1]
       expect(rootRoutes).toBeTruthy()
-      expect(rootRoutes).toContain("path='/blog/:slug' component={BlogDetail}")
+      expect(rootRoutes).toContain("path='/blog/:slug'")
+      expect(rootRoutes).toContain("<BlogDetail />")
     })
 
-    it('/imprint is routable at root level', () => {
+    it('/imprint is routable at root level with LanguageRoute wrapper', () => {
       const rootRoutes = appTsx.split("path='/zh' nest")[1]
       expect(rootRoutes).toBeTruthy()
-      expect(rootRoutes).toContain("path='/imprint' component={Imprint}")
+      expect(rootRoutes).toContain("path='/imprint'")
+      expect(rootRoutes).toContain("<Imprint />")
     })
   })
 

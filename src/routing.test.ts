@@ -51,6 +51,10 @@ describe('imprint route', () => {
     expect(appTsx).toMatch(/path='\/imprint'/)
   })
 
+  it('should wrap root-level imprint in LanguageRoute with lang=en', () => {
+    expect(appTsx).toContain("<LanguageRoute lang='en'><Imprint /></LanguageRoute>")
+  })
+
   it('should have imprint under /zh language route per AC-5', () => {
     // AC-5 requires both /imprint and /zh/imprint routes
     const zhNestMatch = appTsx.match(/path='\/zh'.*nest[\s\S]*?<\/Route>/m)
@@ -62,20 +66,18 @@ describe('imprint route', () => {
 describe('footer imprint link', () => {
   const footerTsx = readFileSync(resolve(__dirname, './components/Footer.tsx'), 'utf-8')
 
-  it('should link to /imprint without language prefix', () => {
-    expect(footerTsx).toContain("href='/imprint'")
+  it('should use useLocalizedPath for the imprint link', () => {
+    expect(footerTsx).toContain('useLocalizedPath')
+    expect(footerTsx).toContain("localizedPath('/imprint')")
   })
 
-  it('should not use useLocalizedPath for imprint link', () => {
-    expect(footerTsx).not.toContain('useLocalizedPath')
+  it('should import Link from wouter for router-aware navigation', () => {
+    expect(footerTsx).toMatch(/import.*Link.*from\s+['"]wouter['"]/)
   })
 
-  it('should use a plain <a> tag instead of wouter Link for imprint', () => {
-    expect(footerTsx).toMatch(/<a\s[^>]*href='\/imprint'/)
-  })
-
-  it('should not import Link from wouter', () => {
-    expect(footerTsx).not.toMatch(/import.*Link.*from\s+['"]wouter['"]/)
+  it('should use wouter Link component for the imprint link', () => {
+    expect(footerTsx).toContain('<Link')
+    expect(footerTsx).toContain("localizedPath('/imprint')")
   })
 })
 
