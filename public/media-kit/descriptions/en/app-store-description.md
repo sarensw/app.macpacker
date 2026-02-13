@@ -26,7 +26,7 @@ Available in English, German, French, Italian, Russian, Ukrainian, Chinese (Simp
 ## System Requirements
 
 - macOS 13.5 or newer
-- 5 MB disk space
+- 11.8 MB disk space
 
 ## What's New
 

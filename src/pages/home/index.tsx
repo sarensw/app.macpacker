@@ -46,7 +46,7 @@ function Home (): ReactElement {
   const [copied, setCopied] = useState(false)
   const [showAllFormats, setShowAllFormats] = useState(false)
   const localizedPath = useLocalizedPath()
-  const version: string = '0.13'
+  const version: string = '0.14'
   const downloadUrlZip: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
   const masUrl: string = 'https://apps.apple.com/us/app/macpacker/id6473273874'
 
@@ -111,6 +111,11 @@ function Home (): ReactElement {
             </div>
           </div>
 
+          {/* version info */}
+          <div className='text-sm text-neutral-500 text-center'>
+            {t('download.versionInfo', { version, size: '11.8', minVersion: '13.5' })}
+          </div>
+
           {/* main image */}
           <img className='w-auto h-auto' src='/main.png' alt='MacPacker application window showing nested archive preview' loading='lazy' />
 
@@ -135,11 +140,6 @@ function Home (): ReactElement {
               />
             </div>
           </section>
-
-          {/* version info */}
-          <div className='text-sm text-neutral-500 text-center'>
-            {t('download.versionInfo', { version, size: '5', minVersion: '13.5' })}
-          </div>
 
           {/* translated to */}
           <div className='justify-items-center flex flex-col space-y-2 items-center max-w-xl'>

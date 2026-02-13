@@ -22,7 +22,7 @@ MacPacker 是一款免费开源的 macOS 归档管理器，使用户能够预览
 - 多语言界面（8 种语言）
 - 零跟踪或遥测
 
-MacPacker 可通过 Homebrew、直接下载或 Mac App Store 免费下载。该应用程序需要 macOS 13.5 或更高版本，仅占用 5 MB 磁盘空间。
+MacPacker 可通过 Homebrew、直接下载或 Mac App Store 免费下载。该应用程序需要 macOS 13.5 或更高版本，仅占用 11.8 MB 磁盘空间。
 
 ## 关于开发者
 
@@ -39,7 +39,7 @@ MacPacker 由位于德国的独立软件开发者 Stephan Arenswald 开发和维
 ## 技术规格
 
 - **平台：** macOS 13.5 或更高版本
-- **文件大小：** 5 MB
+- **文件大小：** 11.8 MB
 - **许可证：** 开源
 - **语言：** 英语、德语、法语、意大利语、俄语、乌克兰语、简体中文、波斯语（法尔西语）
 - **支持的格式：** 25+ 种，包括 ZIP、RAR、7z、DMG、ISO、TAR、VMDK、QCOW2 等

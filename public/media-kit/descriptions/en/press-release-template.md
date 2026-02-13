@@ -22,7 +22,7 @@ Key capabilities include:
 - Multilingual interface (8 languages)
 - Zero tracking or telemetry
 
-MacPacker is available as a free download via Homebrew, direct download, or the Mac App Store. The application requires macOS 13.5 or newer and occupies just 5 MB of disk space.
+MacPacker is available as a free download via Homebrew, direct download, or the Mac App Store. The application requires macOS 13.5 or newer and occupies just 11.8 MB of disk space.
 
 ## About the Developer
 
@@ -39,7 +39,7 @@ MacPacker is developed and maintained by Stephan Arenswald, an independent softw
 ## Technical Specifications
 
 - **Platform:** macOS 13.5 or newer
-- **File Size:** 5 MB
+- **File Size:** 11.8 MB
 - **License:** Open source
 - **Languages:** English, German, French, Italian, Russian, Ukrainian, Chinese (Simplified), Persian (Farsi)
 - **Supported Formats:** 25+ including ZIP, RAR, 7z, DMG, ISO, TAR, VMDK, QCOW2, and more
