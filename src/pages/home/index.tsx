@@ -46,7 +46,7 @@ function Home (): ReactElement {
   const [copied, setCopied] = useState(false)
   const [showAllFormats, setShowAllFormats] = useState(false)
   const localizedPath = useLocalizedPath()
-  const version: string = '0.14'
+  const version: string = '0.14.1'
   const downloadUrlZip: string = `https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v${version}.zip`
   const masUrl: string = 'https://apps.apple.com/us/app/macpacker/id6473273874'
 
@@ -148,9 +148,12 @@ function Home (): ReactElement {
               <Language code={'zh_Hans'} name={'Chinese (Simplified'} icons={['cn']} />
               <Language code={'en'} name={'English'} icons={['us', 'gb', 'au']} />
               <Language code={'fr'} name={'French'} icons={['fr']} />
-
+              <Language code={'de'} name={'German'} icons={['de']} />
               <Language code={'it'} name={'Italian'} icons={['it']} />
+              <Language code={'ja'} name={'Japanese'} icons={['jp']} />
               <Language code={'ru'} name={'Persian (Farsi)'} icons={[]} />
+              <Language code={'pl'} name={'Polish'} icons={['pl']} />
+              <Language code={'pt_BR'} name={'Portuguese (Brazil)'} icons={['br']} />
               <Language code={'ru'} name={'Russian'} icons={['ru']} />
               <Language code={'uk'} name={'Ukrainian'} icons={['ua']} />
               <li><a href='https://poeditor.com/join/project/J2Qq2SUzYr' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>{t('languages.helpTranslate')}</a></li>

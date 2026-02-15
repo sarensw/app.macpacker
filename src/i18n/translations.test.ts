@@ -150,7 +150,7 @@ describe('i18n resources loaded', () => {
   it('should interpolate variables correctly', async () => {
     await i18n.changeLanguage('en')
     const result = i18n.t('download.versionInfo', { version: '0.13', size: '5', minVersion: '13.5' })
-    expect(result).toBe('v0.14 | 11.8 MB | macOS 13.5 or newer')
+    expect(result).toBe('v0.14.1 | 11.8 MB | macOS 13.5 or newer')
   })
 
   it('should interpolate year in copyright', async () => {
@@ -162,7 +162,7 @@ describe('i18n resources loaded', () => {
   it('should switch language and return Chinese translations', async () => {
     await i18n.changeLanguage('zh')
     const result = i18n.t('download.versionInfo', { version: '0.13', size: '5', minVersion: '13.5' })
-    expect(result).toContain('0.14')
+    expect(result).toContain('0.14.1')
     expect(result).toContain('11.8 MB')
     expect(result).toContain('13.5')
   })
