@@ -1,5 +1,6 @@
 import { useState, type ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'wouter'
 import mas from '@assets/mas.svg'
 import { ClipboardDocumentIcon, CheckIcon, MagnifyingGlassIcon, ArrowDownTrayIcon, SquaresPlusIcon } from '@heroicons/react/24/outline'
 import { Header } from '@/components/Header'
@@ -201,13 +202,13 @@ function Home (): ReactElement {
                 <a href='https://github.com/sarensw/MacPacker/issues/new' className='inline-flex items-center rounded-md bg-gray-800 px-2 py-1 font-medium text-white ring-1 ring-gray-500 ring-inset'>{t('formats.requestFormat')}</a>
               </div>
 
-              <a
+              <Link
                 href={localizedPath('/docs/format-comparison')}
                 className='text-sm text-gray-600 hover:text-gray-900 transition-colors self-center flex items-center gap-1 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 rounded'
               >
                 {t('formats.comparisonLink')}
                 <span aria-hidden='true'>&rarr;</span>
-              </a>
+              </Link>
             </div>
           </div>
 
