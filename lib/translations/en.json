@@ -1,0 +1,180 @@
+{
+  "nav": {
+    "features": "Features",
+    "formats": "Formats",
+    "openSource": "Open Source",
+    "docs": "Docs",
+    "blog": "Blog"
+  },
+  "hero": {
+    "badge": "Free & open source — always",
+    "titlePre": "See inside ",
+    "titleEm": "any",
+    "titlePost": " archive",
+    "sub": "Preview nested archives, extract only what you need. The macOS archive manager that should have existed all along.",
+    "appStore": "Mac App Store",
+    "githubReleases": "GitHub Releases",
+    "directDownload": "Direct Download",
+    "brewCommand": "brew install --cask macpacker",
+    "copied": "Copied!"
+  },
+  "window": {
+    "title": "project-backup-2025.tar.gz",
+    "sidebar": {
+      "archive": "project-backup.tar",
+      "src": "src/",
+      "docs": "docs/",
+      "assets": "assets/",
+      "readme": "README.md",
+      "package": "package.json"
+    },
+    "files": {
+      "src": { "name": "src/", "size": "—", "date": "12 files" },
+      "docs": { "name": "docs/", "size": "—", "date": "5 files" },
+      "assets": { "name": "assets/", "size": "—", "date": "23 files" },
+      "readme": { "name": "README.md", "size": "4.2 KB", "date": "Jan 15, 2025" },
+      "package": { "name": "package.json", "size": "1.1 KB", "date": "Jan 12, 2025" },
+      "tsconfig": { "name": "tsconfig.json", "size": "0.6 KB", "date": "Dec 28, 2024" },
+      "credentials": { "name": "credentials.env.zip", "size": "0.3 KB", "date": "Nov 4, 2024" }
+    }
+  },
+  "formats": {
+    "eyebrow": "Supported Formats",
+    "title": "30+ archive & disk image formats",
+    "description": "If you can download it, MacPacker can probably open it. Popular formats are highlighted.",
+    "note": "Plus other formats supported by XADMaster and 7-Zip core.",
+    "seeFullList": "See full list →"
+  },
+  "features": {
+    "eyebrow": "Features",
+    "title": "What Apple's Archive Utility won't do",
+    "peek": {
+      "title": "Peek inside",
+      "description": "Browse the full contents of any archive without extracting a single byte. Navigate folders, check sizes — all instantly."
+    },
+    "nested": {
+      "title": "Nested archives",
+      "description": "Archives inside archives? Drill into nested compressed files seamlessly — no extracting intermediate layers first."
+    },
+    "selective": {
+      "title": "Selective extraction",
+      "description": "Drag out exactly the files you need. No more extracting an entire 2 GB archive to grab one config file."
+    },
+    "native": {
+      "title": "Native & fast",
+      "description": "Built with Swift and SwiftUI. No Electron, no wrappers. A fast, native macOS app that feels right at home."
+    },
+    "quicklook": {
+      "title": "Quick Look",
+      "description": "Hit Space to preview files right inside MacPacker. Documents, images, code — preview without extracting."
+    },
+    "finder": {
+      "title": "Finder integration",
+      "description": "Open archives from the Finder context menu and manage files through the file provider extension."
+    }
+  },
+  "howItWorks": {
+    "eyebrow": "How it works",
+    "title": "Three seconds to see everything",
+    "open": {
+      "title": "Open",
+      "description": "Double-click any archive or right-click in Finder. Supports 30+ formats out of the box."
+    },
+    "browse": {
+      "title": "Browse",
+      "description": "Navigate the full folder tree. Peek inside nested archives. Preview files with Quick Look."
+    },
+    "extract": {
+      "title": "Extract",
+      "description": "Drag out the files you need to Finder, or extract everything at once. Your choice."
+    }
+  },
+  "openSource": {
+    "eyebrow": "Open Source",
+    "title": "Essential tools should be ",
+    "titleEm": "free",
+    "description": "MacPacker is fully open source under GPL-3.0. Inspect the code, contribute features, improve translations, or fork it. Built in the open, for everyone.",
+    "viewOnGithub": "View on GitHub",
+    "stats": {
+      "formats": { "value": "30+", "label": "Formats" },
+      "stars": { "value": "255", "label": "GitHub Stars" },
+      "license": { "value": "GPL-3", "label": "License" }
+    }
+  },
+  "languages": {
+    "eyebrow": "Languages",
+    "title": "Available in 10 languages",
+    "list": [
+      { "flag": "🇬🇧", "name": "English" },
+      { "flag": "🇨🇳", "name": "中文" },
+      { "flag": "🇩🇪", "name": "Deutsch" },
+      { "flag": "🇫🇷", "name": "Français" },
+      { "flag": "🇪🇸", "name": "Español" },
+      { "flag": "🇺🇦", "name": "Українська" },
+      { "flag": "🇷🇺", "name": "Русский" },
+      { "flag": "🇮🇷", "name": "فارسی" },
+      { "flag": "🇯🇵", "name": "日本語" },
+      { "flag": "🇰🇷", "name": "한국어" }
+    ],
+    "helpText": "Want to help translate?",
+    "helpLink": "Join on POEditor →"
+  },
+  "techStrip": {
+    "items": [
+      "Swift & SwiftUI",
+      "Sandboxed & Notarized",
+      "macOS 14+",
+      "Apple Silicon native"
+    ]
+  },
+  "blog": {
+    "eyebrow": "Blog",
+    "title": "Latest updates",
+    "viewAll": "View all posts →",
+    "posts": [
+      {
+        "date": "Latest",
+        "title": "7-Zip core integration",
+        "description": "Bringing near-complete format parity with 7-Zip to macOS, along with new engines for broader archive support.",
+        "readMore": "Read more →"
+      },
+      {
+        "date": "Changelog",
+        "title": "DMG, APFS & disk images",
+        "description": "MacPacker now opens Apple Disk Images, APFS volumes, and virtual disk formats like VMDK, VHD, and QCOW2.",
+        "readMore": "Read more →"
+      },
+      {
+        "date": "Community",
+        "title": "Translating MacPacker",
+        "description": "Help bring MacPacker to your language. 10 translations and counting, powered by community contributors.",
+        "readMore": "Read more →"
+      }
+    ]
+  },
+  "cta": {
+    "titlePre": "Stop extracting ",
+    "titleEm": "everything",
+    "titlePost": ".",
+    "sub": "Free, open source, and built for macOS.",
+    "downloadFree": "Download Free",
+    "sourceCode": "Source Code",
+    "directDownload": "Direct Download"
+  },
+  "footer": {
+    "copyright": "© 2025–2026 MacPacker",
+    "madeBy": "Made by",
+    "author": "Stephan Arenswald",
+    "docs": "Docs",
+    "blog": "Blog",
+    "github": "GitHub",
+    "reportBug": "Report a Bug",
+    "privacy": "Privacy"
+  },
+  "meta": {
+    "title": "MacPacker — Preview & Extract Any Archive on macOS",
+    "titleTemplate": "%s | MacPacker",
+    "description": "Preview nested archives, extract only what you need. The macOS archive manager that should have existed all along.",
+    "siteName": "MacPacker"
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "nav": {
+    "features": "功能",
+    "formats": "格式",
+    "openSource": "开源",
+    "docs": "文档",
+    "blog": "博客"
+  },
+  "hero": {
+    "badge": "免费开源 — 始终如一",
+    "titlePre": "查看",
+    "titleEm": "任何",
+    "titlePost": "压缩包内容",
+    "sub": "预览嵌套压缩包，仅提取所需文件。这是 macOS 上早该存在的压缩包管理工具。",
+    "appStore": "Mac App Store",
+    "githubReleases": "GitHub Releases",
+    "directDownload": "直接下载",
+    "brewCommand": "brew install --cask macpacker",
+    "copied": "已复制！"
+  },
+  "window": {
+    "title": "project-backup-2025.tar.gz",
+    "sidebar": {
+      "archive": "project-backup.tar",
+      "src": "src/",
+      "docs": "docs/",
+      "assets": "assets/",
+      "readme": "README.md",
+      "package": "package.json"
+    },
+    "files": {
+      "src": { "name": "src/", "size": "—", "date": "12 个文件" },
+      "docs": { "name": "docs/", "size": "—", "date": "5 个文件" },
+      "assets": { "name": "assets/", "size": "—", "date": "23 个文件" },
+      "readme": { "name": "README.md", "size": "4.2 KB", "date": "2025年1月15日" },
+      "package": { "name": "package.json", "size": "1.1 KB", "date": "2025年1月12日" },
+      "tsconfig": { "name": "tsconfig.json", "size": "0.6 KB", "date": "2024年12月28日" },
+      "credentials": { "name": "credentials.env.zip", "size": "0.3 KB", "date": "2024年11月4日" }
+    }
+  },
+  "formats": {
+    "eyebrow": "支持的格式",
+    "title": "30+ 种压缩包和磁盘镜像格式",
+    "description": "只要能下载的文件，MacPacker 基本都能打开。常用格式已高亮显示。",
+    "note": "还支持 XADMaster 和 7-Zip 核心所支持的其他格式。",
+    "seeFullList": "查看完整列表 →"
+  },
+  "features": {
+    "eyebrow": "功能",
+    "title": "Apple 归档工具做不到的事",
+    "peek": {
+      "title": "快速预览",
+      "description": "无需解压即可浏览压缩包的完整内容。浏览文件夹、查看大小——一切即时完成。"
+    },
+    "nested": {
+      "title": "嵌套压缩包",
+      "description": "压缩包中还有压缩包？无缝深入嵌套的压缩文件——无需先解压中间层。"
+    },
+    "selective": {
+      "title": "选择性提取",
+      "description": "只拖出你需要的文件。不必为了一个配置文件而解压整个 2 GB 的压缩包。"
+    },
+    "native": {
+      "title": "原生高效",
+      "description": "使用 Swift 和 SwiftUI 构建。没有 Electron，没有包装层。快速的原生 macOS 应用，浑然天成。"
+    },
+    "quicklook": {
+      "title": "快速查看",
+      "description": "按空格键即可在 MacPacker 中预览文件。文档、图片、代码——无需解压即可预览。"
+    },
+    "finder": {
+      "title": "访达集成",
+      "description": "通过访达右键菜单打开压缩包，通过文件提供程序扩展管理文件。"
+    }
+  },
+  "howItWorks": {
+    "eyebrow": "使用方法",
+    "title": "三秒查看全部内容",
+    "open": {
+      "title": "打开",
+      "description": "双击任意压缩包或在访达中右键点击。开箱即用支持 30+ 种格式。"
+    },
+    "browse": {
+      "title": "浏览",
+      "description": "浏览完整文件目录树。深入查看嵌套压缩包。使用快速查看预览文件。"
+    },
+    "extract": {
+      "title": "提取",
+      "description": "将需要的文件拖到访达中，或一次性全部提取。随你选择。"
+    }
+  },
+  "openSource": {
+    "eyebrow": "开源",
+    "title": "必备工具应当",
+    "titleEm": "免费",
+    "description": "MacPacker 完全开源，采用 GPL-3.0 许可证。检查代码、贡献功能、改进翻译，或创建分支。公开构建，服务所有人。",
+    "viewOnGithub": "在 GitHub 上查看",
+    "stats": {
+      "formats": { "value": "30+", "label": "支持格式" },
+      "stars": { "value": "255", "label": "GitHub Stars" },
+      "license": { "value": "GPL-3", "label": "开源许可" }
+    }
+  },
+  "languages": {
+    "eyebrow": "语言",
+    "title": "支持 10 种语言",
+    "list": [
+      { "flag": "🇬🇧", "name": "English" },
+      { "flag": "🇨🇳", "name": "中文" },
+      { "flag": "🇩🇪", "name": "Deutsch" },
+      { "flag": "🇫🇷", "name": "Français" },
+      { "flag": "🇪🇸", "name": "Español" },
+      { "flag": "🇺🇦", "name": "Українська" },
+      { "flag": "🇷🇺", "name": "Русский" },
+      { "flag": "🇮🇷", "name": "فارسی" },
+      { "flag": "🇯🇵", "name": "日本語" },
+      { "flag": "🇰🇷", "name": "한국어" }
+    ],
+    "helpText": "想帮忙翻译？",
+    "helpLink": "加入 POEditor →"
+  },
+  "techStrip": {
+    "items": [
+      "Swift 和 SwiftUI",
+      "沙盒化并经公证",
+      "macOS 14+",
+      "Apple Silicon 原生支持"
+    ]
+  },
+  "blog": {
+    "eyebrow": "博客",
+    "title": "最新动态",
+    "viewAll": "查看全部文章 →",
+    "posts": [
+      {
+        "date": "最新",
+        "title": "7-Zip 核心集成",
+        "description": "将与 7-Zip 几乎完全兼容的格式支持带到 macOS，同时引入新引擎以支持更广泛的压缩格式。",
+        "readMore": "阅读更多 →"
+      },
+      {
+        "date": "更新日志",
+        "title": "DMG、APFS 和磁盘镜像",
+        "description": "MacPacker 现已支持打开 Apple 磁盘镜像、APFS 卷以及 VMDK、VHD 和 QCOW2 等虚拟磁盘格式。",
+        "readMore": "阅读更多 →"
+      },
+      {
+        "date": "社区",
+        "title": "翻译 MacPacker",
+        "description": "帮助将 MacPacker 带到你的语言。已有 10 种翻译，由社区贡献者持续更新中。",
+        "readMore": "阅读更多 →"
+      }
+    ]
+  },
+  "cta": {
+    "titlePre": "不必再解压",
+    "titleEm": "所有内容",
+    "titlePost": "。",
+    "sub": "免费、开源，专为 macOS 打造。",
+    "downloadFree": "免费下载",
+    "sourceCode": "源代码",
+    "directDownload": "直接下载"
+  },
+  "footer": {
+    "copyright": "© 2025–2026 MacPacker",
+    "madeBy": "开发者",
+    "author": "Stephan Arenswald",
+    "docs": "文档",
+    "blog": "博客",
+    "github": "GitHub",
+    "reportBug": "报告问题",
+    "privacy": "隐私政策"
+  },
+  "meta": {
+    "title": "MacPacker — 在 macOS 上预览和提取任何压缩包",
+    "titleTemplate": "%s | MacPacker",
+    "description": "预览嵌套压缩包，仅提取所需文件。这是 macOS 上早该存在的压缩包管理工具。",
+    "siteName": "MacPacker"
+  }
+}
