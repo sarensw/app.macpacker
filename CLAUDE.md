@@ -4,64 +4,37 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Marketing website for [MacPacker](https://macpacker.app) — an open-source archive manager for macOS. This is a static React/TypeScript site deployed to GitHub Pages, not the native macOS app itself.
+This repository contains the marketing/landing page for **MacPacker**, a macOS archive manager app. The actual macOS app source code lives at https://github.com/sarensw/MacPacker (Swift/SwiftUI).
 
-## Commands
+## Coding Guidelines
 
-```bash
-npm run dev       # Start Vite dev server with hot reload
-npm run build     # TypeScript type check (tsc -b) + Vite production build
-npm run lint      # ESLint check
-npm run preview   # Preview production build locally
-```
+The project is using git to have code versioning and diff available. Adjust .gitignore appropriately so that no secrets, unnecessary files or folders, depending on the used programming language are added to git.
 
 ## Architecture
 
-- **Framework:** React 19 + TypeScript (strict mode) + Vite
-- **Styling:** Tailwind CSS 4 via `@tailwindcss/vite` plugin
-- **Routing:** Wouter (lightweight router) — routes defined in `src/App.tsx`
-- **Deployment:** GitHub Actions auto-deploys `dist/` to GitHub Pages on push to `main`
-- **Mudularization:** This is a React/Tailwind based page. All controls like buttons, texts, headers, cards, ... have to be added as small components, so they can, and shall be reused.
+Next.js 15 app (App Router) with TypeScript, deployed to Vercel.
 
-### Path Aliases (configured in vite.config.ts and tsconfig)
+- `app/layout.tsx` — Root layout with metadata
+- `app/page.tsx` — Main landing page (client component for scroll-reveal and clipboard interactions)
+- `app/globals.css` — All styles (CSS custom properties, component styles, responsive breakpoints, animations)
 
-- `@` → `./src`
-- `@assets` → `./src/assets`
-- `@components` → `./src/components`
+The page is a single-route marketing site. Interactive behavior (IntersectionObserver scroll reveals, brew command clipboard copy) runs client-side.
 
-### Source Layout
+## Development
 
-- `src/main.tsx` — Entry point
-- `src/App.tsx` — Router with two routes: `/` (home) and `/imprint`
-- `src/components/` — Reusable components (Header, Footer, badge components)
-- `src/pages/home/` — Landing page with download links, features, supported formats
-- `src/pages/imprint/` — Legal page rendered from `public/markdown/imprint.md` via react-markdown
-- `public/` — Static assets (icons, screenshots, markdown content)
+```bash
+npm run dev    # Start dev server
+npm run build  # Production build
+npm run start  # Serve production build
+```
 
-### Key Dependencies
+## Design System
 
-- `@heroicons/react` for icons
-- `flag-icons` for country flags (language badges)
-- `react-markdown` + `remark-gfm` for markdown rendering
-- `wouter` for client-side routing
+CSS custom properties defined in `:root` in `app/globals.css`:
+- Colors: `--bg` (#FAFAF8), `--accent` (#D4793C amber), `--text` (#1A1A1C), `--border` (#E8E8E5)
+- Typography: `--font` (General Sans), `--font-accent` (Newsreader italic)
+- Spacing: `--radius` (12px), `--radius-lg` (16px)
 
-## Routing + Hosting Constraints (Important)
+## Deployment
 
-This app is an SPA (React + wouter). Language URLs like `/de` and `/zh` are **client-side routes**, not physical files.
-
-### Production requirement
-When deployed as static files (e.g., GitHub Pages), the host must rewrite unknown paths to `/index.html` (SPA fallback), otherwise direct hits to `/de` or `/zh` will fail even if they work in `vite dev`.
-
-### Why localhost can be misleading
-`vite dev` (and often `vite preview`) serves SPA fallback automatically, so route issues may be hidden during local testing.
-
-### Route model (current)
-- `/` -> language redirect/home behavior
-- `/:lang` -> localized home
-- `/imprint` -> root-only imprint route
-
-If route structure changes, update this section.
-
-### SEO/sitemap rule
-Only include URLs in `public/sitemap.xml` that are actually routable in production.
-Do not list paths like `/<lang>/imprint` unless that route truly exists.
+Vercel. The site uses relative paths (`/blog`, `/zh`, `/privacy`) for internal navigation.
