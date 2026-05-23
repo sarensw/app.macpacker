@@ -103,18 +103,21 @@
   },
   "languages": {
     "eyebrow": "Languages",
-    "title": "Available in 10 languages",
+    "title": "Available in 13 languages",
     "list": [
-      { "flag": "🇬🇧", "name": "English" },
       { "flag": "🇨🇳", "name": "中文" },
-      { "flag": "🇩🇪", "name": "Deutsch" },
+      { "flag": "🇬🇧", "name": "English" },
       { "flag": "🇫🇷", "name": "Français" },
-      { "flag": "🇪🇸", "name": "Español" },
-      { "flag": "🇺🇦", "name": "Українська" },
-      { "flag": "🇷🇺", "name": "Русский" },
-      { "flag": "🇮🇷", "name": "فارسی" },
+      { "flag": "🇩🇪", "name": "Deutsch" },
+      { "flag": "🇮🇹", "name": "Italiano" },
       { "flag": "🇯🇵", "name": "日本語" },
-      { "flag": "🇰🇷", "name": "한국어" }
+      { "flag": "🇰🇷", "name": "한국어" },
+      { "flag": "🇮🇷", "name": "فارسی" },
+      { "flag": "🇵🇱", "name": "Polski" },
+      { "flag": "🇧🇷", "name": "Português (Brasil)" },
+      { "flag": "🇷🇺", "name": "Русский" },
+      { "flag": "🇲🇽", "name": "Español (México)" },
+      { "flag": "🇺🇦", "name": "Українська" }
     ],
     "helpText": "Want to help translate?",
     "helpLink": "Join on POEditor →"
@@ -147,7 +150,7 @@
       {
         "date": "Community",
         "title": "Translating MacPacker",
-        "description": "Help bring MacPacker to your language. 10 translations and counting, powered by community contributors.",
+        "description": "Help bring MacPacker to your language. 13 translations and counting, powered by community contributors.",
         "readMore": "Read more →"
       }
     ]

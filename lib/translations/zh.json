@@ -103,18 +103,21 @@
   },
   "languages": {
     "eyebrow": "语言",
-    "title": "支持 10 种语言",
+    "title": "支持 13 种语言",
     "list": [
-      { "flag": "🇬🇧", "name": "English" },
       { "flag": "🇨🇳", "name": "中文" },
-      { "flag": "🇩🇪", "name": "Deutsch" },
+      { "flag": "🇬🇧", "name": "English" },
       { "flag": "🇫🇷", "name": "Français" },
-      { "flag": "🇪🇸", "name": "Español" },
-      { "flag": "🇺🇦", "name": "Українська" },
-      { "flag": "🇷🇺", "name": "Русский" },
-      { "flag": "🇮🇷", "name": "فارسی" },
+      { "flag": "🇩🇪", "name": "Deutsch" },
+      { "flag": "🇮🇹", "name": "Italiano" },
       { "flag": "🇯🇵", "name": "日本語" },
-      { "flag": "🇰🇷", "name": "한국어" }
+      { "flag": "🇰🇷", "name": "한국어" },
+      { "flag": "🇮🇷", "name": "فارسی" },
+      { "flag": "🇵🇱", "name": "Polski" },
+      { "flag": "🇧🇷", "name": "Português (Brasil)" },
+      { "flag": "🇷🇺", "name": "Русский" },
+      { "flag": "🇲🇽", "name": "Español (México)" },
+      { "flag": "🇺🇦", "name": "Українська" }
     ],
     "helpText": "想帮忙翻译？",
     "helpLink": "加入 POEditor →"
@@ -147,7 +150,7 @@
       {
         "date": "社区",
         "title": "翻译 MacPacker",
-        "description": "帮助将 MacPacker 带到你的语言。已有 10 种翻译，由社区贡献者持续更新中。",
+        "description": "帮助将 MacPacker 带到你的语言。已有 13 种翻译，由社区贡献者持续更新中。",
         "readMore": "阅读更多 →"
       }
     ]
