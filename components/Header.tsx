@@ -9,10 +9,12 @@ interface HeaderProps {
 }
 
 export default function Header({ locale, t, downloadUrl }: HeaderProps) {
-  const navLinks = [
+  const navLinks: { name: string; href: string; external?: boolean }[] = [
     { name: t.nav.features, href: "#features" },
     { name: t.nav.formats, href: "#formats" },
     { name: t.nav.changelog, href: "#changelog" },
+    { name: t.nav.docs, href: `/${locale}/docs`, external: true },
+    { name: t.nav.blog, href: `/${locale}/blog`, external: true },
   ];
 
   return (
@@ -39,15 +41,25 @@ export default function Header({ locale, t, downloadUrl }: HeaderProps) {
         </Link>
 
         <div className="hidden md:flex items-center gap-7">
-          {navLinks.map((l) => (
-            <a
-              key={l.name}
-              href={l.href}
-              className="text-[13px] text-ink-secondary hover:text-ink-primary transition-colors"
-            >
-              {l.name}
-            </a>
-          ))}
+          {navLinks.map((l) =>
+            l.external ? (
+              <Link
+                key={l.name}
+                href={l.href}
+                className="text-[13px] text-ink-secondary hover:text-ink-primary transition-colors"
+              >
+                {l.name}
+              </Link>
+            ) : (
+              <a
+                key={l.name}
+                href={l.href}
+                className="text-[13px] text-ink-secondary hover:text-ink-primary transition-colors"
+              >
+                {l.name}
+              </a>
+            ),
+          )}
           <LanguageSwitcher locale={locale} />
           <a
             href={downloadUrl}
