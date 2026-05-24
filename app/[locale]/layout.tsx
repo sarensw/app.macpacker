@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Newsreader } from "next/font/google";
 import { notFound } from "next/navigation";
 import { isValidLocale, locales, getTranslations } from "@/lib/i18n";
@@ -12,6 +12,15 @@ const newsreader = Newsreader({
   display: "swap",
   variable: "--font-newsreader",
 });
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+};
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -64,11 +73,20 @@ export async function generateMetadata({
       type: "website",
       locale: locale === "zh" ? "zh_CN" : "en_US",
       url: `https://macpacker.app/${locale}`,
+      images: [
+        {
+          url: "/logo.png",
+          width: 1024,
+          height: 1024,
+          alt: "MacPacker",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: t.meta.title,
       description: t.meta.description,
+      images: ["/logo.png"],
     },
     alternates: {
       canonical: `https://macpacker.app/${locale}`,
@@ -79,31 +97,58 @@ export async function generateMetadata({
         "x-default": "https://macpacker.app/en",
       },
     },
+    icons: {
+      icon: "/icon",
+      apple: { url: "/logo.png", sizes: "180x180", type: "image/png" },
+      shortcut: "/logo.png",
+    },
+    // Smart App Banner — surfaces an "Install" CTA on Safari iOS when users
+    // happen to land on the site from a mobile device.
+    other: {
+      "apple-itunes-app": "app-id=6473273874",
+      "apple-mobile-web-app-capable": "yes",
+      "apple-mobile-web-app-title": "MacPacker",
+    },
   };
 }
 
 function JsonLd({ locale }: { locale: Locale }) {
+  const description =
+    locale === "zh"
+      ? "预览嵌套压缩包，仅提取所需文件。这是 macOS 上早该存在的压缩包管理工具。"
+      : "Preview nested archives, extract only what you need. The macOS archive manager that should have existed all along.";
+
   const softwareApp = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "MacPacker",
-    operatingSystem: "macOS",
+    operatingSystem: "macOS 14+",
     applicationCategory: "UtilitiesApplication",
+    softwareVersion: "0.15.1",
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
     },
     url: "https://macpacker.app",
-    downloadUrl:
+    downloadUrl: [
       "https://apps.apple.com/us/app/macpacker/id6473273874",
-    description:
-      locale === "zh"
-        ? "预览嵌套压缩包，仅提取所需文件。这是 macOS 上早该存在的压缩包管理工具。"
-        : "Preview nested archives, extract only what you need. The macOS archive manager that should have existed all along.",
+      "https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v0.15.dmg",
+      "https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v0.15.zip",
+      "https://github.com/sarensw/MacPacker/releases",
+    ],
+    installUrl: "https://apps.apple.com/us/app/macpacker/id6473273874",
+    image: "https://macpacker.app/logo.png",
+    screenshot: "https://macpacker.app/logo.png",
+    description,
     license: "https://opensource.org/licenses/GPL-3.0",
     isAccessibleForFree: true,
-    inLanguage: ["en", "zh", "de", "fr", "es", "uk", "ru", "fa", "ja", "ko"],
+    inLanguage: ["en", "zh", "de", "fr", "es", "uk", "ru", "fa", "ja", "ko", "pl", "pt", "it"],
+    author: {
+      "@type": "Person",
+      name: "Stephan Arenswald",
+      url: "https://sarensw.com",
+    },
   };
 
   const organization = {
@@ -111,7 +156,19 @@ function JsonLd({ locale }: { locale: Locale }) {
     "@type": "Organization",
     name: "MacPacker",
     url: "https://macpacker.app",
-    sameAs: ["https://github.com/sarensw/MacPacker"],
+    logo: "https://macpacker.app/logo.png",
+    sameAs: [
+      "https://github.com/sarensw/MacPacker",
+      "https://apps.apple.com/us/app/macpacker/id6473273874",
+    ],
+  };
+
+  const website = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "MacPacker",
+    url: "https://macpacker.app",
+    inLanguage: locale === "zh" ? "zh-CN" : "en-US",
   };
 
   return (
@@ -123,6 +180,10 @@ function JsonLd({ locale }: { locale: Locale }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }}
       />
     </>
   );

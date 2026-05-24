@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { formats, searchFormats } from "@/lib/formats";
+import release from "@/lib/release.fallback.json";
 
 // ─── DRAFT NAVIGATOR.MODELCONTEXT TYPE DECLARATIONS ───
 
@@ -22,6 +23,27 @@ declare global {
   }
 }
 
+interface ReleaseSnapshot {
+  latestVersion: string;
+  latestDmgUrl: string;
+  latestZipUrl: string;
+  comingNext: { en: string | null; zh: string | null };
+  releases: {
+    en: Array<{
+      version: string;
+      date?: string;
+      items: Array<{ type: string; title: string; pr?: number }>;
+    }>;
+    zh: Array<{
+      version: string;
+      date?: string;
+      items: Array<{ type: string; title: string; pr?: number }>;
+    }>;
+  };
+}
+
+const r = release as ReleaseSnapshot;
+
 // ─── TOOL HANDLERS ───
 
 function handleGetInstallOptions() {
@@ -35,9 +57,13 @@ function handleGetInstallOptions() {
       command: "brew install --cask macpacker",
       method: "Install via Homebrew package manager",
     },
-    direct_download: {
-      url: "https://github.com/sarensw/MacPacker/releases/latest/download/MacPacker.zip",
-      method: "Download the latest release ZIP directly",
+    direct_download_dmg: {
+      url: r.latestDmgUrl,
+      method: "Download the latest .dmg directly",
+    },
+    direct_download_zip: {
+      url: r.latestZipUrl,
+      method: "Download the latest .zip directly",
     },
     github_releases: {
       url: "https://github.com/sarensw/MacPacker/releases",
@@ -48,14 +74,39 @@ function handleGetInstallOptions() {
 
 function handleGetLatestRelease() {
   return {
-    download_url:
-      "https://github.com/sarensw/MacPacker/releases/latest/download/MacPacker.zip",
+    version: r.latestVersion,
+    download_dmg: r.latestDmgUrl,
+    download_zip: r.latestZipUrl,
     releases_page: "https://github.com/sarensw/MacPacker/releases",
     app_store: "https://apps.apple.com/us/app/macpacker/id6473273874",
     platform: "macOS 14+",
     architecture: "Apple Silicon native (Universal)",
     license: "GPL-3.0",
     price: "Free",
+    repository: "https://github.com/sarensw/MacPacker",
+  };
+}
+
+function handleGetChangelog(params: Record<string, unknown>) {
+  const locale = params.locale === "zh" ? "zh" : "en";
+  const limit = typeof params.limit === "number" ? params.limit : 5;
+  const releases = (r.releases[locale] ?? r.releases.en).slice(0, limit);
+  return {
+    locale,
+    total: releases.length,
+    releases: releases.map((rel) => ({
+      version: rel.version,
+      date: rel.date ?? null,
+      items: rel.items,
+    })),
+  };
+}
+
+function handleGetComingNext(params: Record<string, unknown>) {
+  const locale = params.locale === "zh" ? "zh" : "en";
+  return {
+    locale,
+    coming_next: r.comingNext[locale] ?? r.comingNext.en ?? null,
   };
 }
 
@@ -75,6 +126,7 @@ function handleGetSupportedFormats(params: Record<string, unknown>) {
       popular: f.popular,
       description: f.description,
       selectiveExtraction: f.macpackerSelectiveExtraction,
+      docsUrl: `https://macpacker.app/en/docs/${f.slug}`,
     })),
   };
 }
@@ -146,22 +198,61 @@ export default function WebMCP() {
     ctx.addTool({
       name: "get_install_options",
       description:
-        "Get all available installation methods for MacPacker on macOS",
+        "Get all available installation methods for MacPacker on macOS (App Store, Homebrew, direct DMG/ZIP, GitHub releases)",
       parameters: {},
       handler: handleGetInstallOptions,
     });
 
     ctx.addTool({
       name: "get_latest_release",
-      description: "Get information about the latest MacPacker release",
+      description:
+        "Get information about the latest MacPacker release: version, download URLs, platform, license",
       parameters: {},
       handler: handleGetLatestRelease,
     });
 
     ctx.addTool({
+      name: "get_changelog",
+      description:
+        "Get MacPacker changelog entries with version, date, and items (features/fixes/core/lang). Returns the most recent releases.",
+      parameters: {
+        type: "object",
+        properties: {
+          locale: {
+            type: "string",
+            enum: ["en", "zh"],
+            description: "Localized release titles. Default: en",
+          },
+          limit: {
+            type: "number",
+            description: "Maximum number of releases to return. Default: 5",
+          },
+        },
+      },
+      handler: handleGetChangelog,
+    });
+
+    ctx.addTool({
+      name: "get_coming_next",
+      description:
+        "Get the next-up feature MacPacker is currently working on, in the requested locale",
+      parameters: {
+        type: "object",
+        properties: {
+          locale: {
+            type: "string",
+            enum: ["en", "zh"],
+            description: "Localized text. Default: en",
+          },
+        },
+      },
+      handler: handleGetComingNext,
+    });
+
+    ctx.addTool({
       name: "get_supported_formats",
       description:
-        "Get all archive and disk image formats supported by MacPacker",
+        "Get all archive and disk image formats supported by MacPacker, with names, extensions, and docs URLs",
       parameters: {
         type: "object",
         properties: {
@@ -184,14 +275,13 @@ export default function WebMCP() {
     ctx.addTool({
       name: "search_docs",
       description:
-        "Search MacPacker documentation for format-specific guides",
+        "Search MacPacker documentation for format-specific guides by name, extension, or keyword",
       parameters: {
         type: "object",
         properties: {
           query: {
             type: "string",
-            description:
-              "Search query (format name, extension, or topic)",
+            description: "Search query (format name, extension, or topic)",
           },
         },
         required: ["query"],
@@ -202,7 +292,7 @@ export default function WebMCP() {
     ctx.addTool({
       name: "open_issue_template",
       description:
-        "Get a URL to open a GitHub issue for MacPacker with a pre-filled template",
+        "Get a URL to open a GitHub issue for MacPacker with a pre-filled template (bug, feature, or question)",
       parameters: {
         type: "object",
         properties: {

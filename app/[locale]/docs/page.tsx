@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isValidLocale } from "@/lib/i18n";
-import { getLocalizedPopularFormats, getLocalizedFormatsByType } from "@/lib/formats";
+import { isValidLocale, getTranslations } from "@/lib/i18n";
+import {
+  getLocalizedPopularFormats,
+  getLocalizedFormatsByType,
+} from "@/lib/formats";
 import type { FormatEntry, FormatType } from "@/lib/formats";
-import ScrollReveal from "@/components/client/ScrollReveal";
+import { getReleaseData } from "@/lib/release";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const typeLabels: Record<FormatType, { en: string; zh: string }> = {
   archive: { en: "Archives", zh: "压缩包" },
@@ -12,7 +17,12 @@ const typeLabels: Record<FormatType, { en: string; zh: string }> = {
   installer: { en: "Installers", zh: "安装包" },
 };
 
-const typeOrder: FormatType[] = ["archive", "disk-image", "compression", "installer"];
+const typeOrder: FormatType[] = [
+  "archive",
+  "disk-image",
+  "compression",
+  "installer",
+];
 
 export default async function DocsPage({
   params,
@@ -22,166 +32,113 @@ export default async function DocsPage({
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
 
+  const t = await getTranslations(locale);
+  const release = await getReleaseData(locale);
   const isZh = locale === "zh";
   const popularFormats = getLocalizedPopularFormats(locale);
 
   return (
     <>
-      <ScrollReveal />
+      <Header locale={locale} t={t} downloadUrl={release.latestDmgUrl} />
 
-      {/* ─── NAV ─── */}
-      <nav
-        className="fixed top-0 left-0 right-0 z-100 px-12 h-15 flex items-center justify-between bg-[rgba(250,250,248,0.85)] backdrop-blur-[20px] backdrop-saturate-[1.3] border-b border-border max-md:px-5"
-        aria-label={isZh ? "主导航" : "Main navigation"}
-      >
-        <div className="flex items-center gap-2.5">
-          <Link
-            href={`/${locale}`}
-            className="no-underline flex items-center gap-2.5"
-          >
-            <div className="w-[26px] h-[26px] bg-gradient-to-br from-accent to-[#C06830] rounded-[6px] flex items-center justify-center font-bold text-[13px] text-white" aria-hidden="true">M</div>
-            <span className="text-base font-bold text-text tracking-[-0.02em]">MacPacker</span>
-          </Link>
-        </div>
-        <div className="flex items-center gap-7 max-md:hidden">
-          <Link href={`/${locale}#features`} className="text-[13.5px] font-medium text-text-secondary no-underline transition-colors hover:text-text">
-            {isZh ? "功能" : "Features"}
-          </Link>
-          <Link href={`/${locale}#formats`} className="text-[13.5px] font-medium text-text-secondary no-underline transition-colors hover:text-text">
-            {isZh ? "格式" : "Formats"}
-          </Link>
-          <Link href={`/${locale}#open-source`} className="text-[13.5px] font-medium text-text-secondary no-underline transition-colors hover:text-text">
-            {isZh ? "开源" : "Open Source"}
-          </Link>
-          <Link href={`/${locale}/docs`} className="nav-active text-[13.5px] font-medium no-underline transition-colors">
-            {isZh ? "文档" : "Docs"}
-          </Link>
-          <Link href={`/${locale}/blog`} className="text-[13.5px] font-medium text-text-secondary no-underline transition-colors hover:text-text">
-            {isZh ? "博客" : "Blog"}
-          </Link>
-        </div>
-        <div className="flex items-center gap-4">
-          <a
-            href="https://github.com/sarensw/MacPacker"
-            className="flex items-center justify-center min-w-[44px] min-h-[44px] text-[13px] font-semibold text-text-secondary no-underline transition-colors hover:text-text"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={isZh ? "GitHub 上的 MacPacker" : "MacPacker on GitHub"}
-          >
-            GitHub
-          </a>
-        </div>
-      </nav>
-
-      <main>
-        {/* ─── DOCS HERO ─── */}
-        <section className="pt-35 px-12 pb-15 text-center flex flex-col items-center max-md:pt-30 max-md:px-5 max-md:pb-10">
-          <p className="section-eyebrow">
+      <main className="max-w-[1120px] mx-auto px-6 max-md:px-5">
+        <section className="py-16 max-md:py-12 max-w-[640px]">
+          <p className="font-mono text-[11px] tracking-[0.08em] text-ink-tertiary uppercase mb-2">
             {isZh ? "文档" : "Documentation"}
           </p>
-          <h1 className="section-title max-w-[640px]">
+          <h1
+            className="font-medium leading-[1.1] tracking-[-0.025em] text-ink-primary mb-5"
+            style={{ fontSize: "clamp(32px, 4.5vw, 48px)" }}
+          >
             {isZh
               ? "macOS 上的文件提取指南"
-              : "File Extraction Guides for macOS"}
+              : "File extraction guides for macOS"}
           </h1>
-          <p className="mt-4 text-base leading-[1.65] text-text-secondary max-w-[560px] text-center">
+          <p className="text-[16px] leading-[1.6] text-ink-secondary">
             {isZh
               ? "了解如何在 macOS 上打开和提取每种压缩包和磁盘镜像格式。涵盖内置工具、终端命令和 MacPacker 的逐步指南。"
               : "Learn how to open and extract every archive and disk image format on macOS. Step-by-step guides covering built-in tools, Terminal commands, and MacPacker."}
           </p>
         </section>
 
-        {/* ─── POPULAR FORMATS ─── */}
-        <section className="py-10 pb-15 reveal">
-          <div className="max-w-[1120px] mx-auto px-12 max-md:px-5">
-            <h2 className="text-[22px] font-bold tracking-[-0.01em] mb-6 text-text">
-              {isZh ? "热门格式" : "Popular Formats"}
-            </h2>
-            <div className="grid grid-cols-3 gap-3.5 max-md:grid-cols-1">
-              {popularFormats.map((f) => (
-                <FormatCard key={f.slug} format={f} locale={locale} />
-              ))}
-            </div>
-          </div>
-        </section>
+        <FormatGroup
+          title={isZh ? "热门格式" : "Popular formats"}
+          formats={popularFormats}
+          locale={locale}
+        />
 
-        {/* ─── ALL FORMATS BY TYPE ─── */}
         {typeOrder.map((type) => {
           const group = getLocalizedFormatsByType(type, locale);
           if (group.length === 0) return null;
           return (
-            <section key={type} className="py-10 pb-15 reveal">
-              <div className="max-w-[1120px] mx-auto px-12 max-md:px-5">
-                <h2 className="text-[22px] font-bold tracking-[-0.01em] mb-6 text-text">
-                  {isZh ? typeLabels[type].zh : typeLabels[type].en}
-                </h2>
-                <div className="grid grid-cols-3 gap-3.5 max-md:grid-cols-1">
-                  {group.map((f) => (
-                    <FormatCard key={f.slug} format={f} locale={locale} />
-                  ))}
-                </div>
-              </div>
-            </section>
+            <FormatGroup
+              key={type}
+              title={isZh ? typeLabels[type].zh : typeLabels[type].en}
+              formats={group}
+              locale={locale}
+            />
           );
         })}
 
-        {/* ─── CTA ─── */}
-        <section className="pt-20 pb-30 text-center reveal">
-          <div className="max-w-[1120px] mx-auto px-12 max-md:px-5">
-            <h2 className="text-[clamp(24px,3vw,36px)] font-bold tracking-[-0.025em] mb-3">
-              {isZh
-                ? "使用 MacPacker 轻松提取文件"
-                : "Extract files the easy way with MacPacker"}
-            </h2>
-            <p className="text-[15px] text-text-secondary max-w-[480px] mx-auto mb-7 leading-[1.6]">
-              {isZh
-                ? "免费、开源的 macOS 压缩包管理器。浏览、预览和提取 30 多种格式的单个文件。"
-                : "Free, open-source archive manager for macOS. Browse, preview, and extract individual files from 30+ formats."}
-            </p>
-            <div className="flex justify-center gap-2.5 flex-wrap">
-              <a
-                href="https://apps.apple.com/us/app/macpacker/id6473273874"
-                className="btn-primary"
-              >
-                {isZh ? "Mac App Store" : "Mac App Store"}
-              </a>
-              <Link href={`/${locale}`} className="btn-outline">
-                {isZh ? "了解更多" : "Learn more"}
-              </Link>
-            </div>
+        <section className="my-16 bg-bg-surface border-[0.5px] border-border-default rounded-md px-6 py-8 max-w-[720px]">
+          <h2 className="text-[20px] font-medium tracking-[-0.015em] text-ink-primary mb-2">
+            {isZh
+              ? "使用 MacPacker 轻松提取文件"
+              : "Extract files the easy way with MacPacker"}
+          </h2>
+          <p className="text-[15px] text-ink-secondary mb-5 leading-[1.6]">
+            {isZh
+              ? "免费、开源的 macOS 压缩包管理器。浏览、预览和提取 30 多种格式的单个文件。"
+              : "Free, open-source archive manager for macOS. Browse, preview, and extract individual files from 30+ formats."}
+          </p>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <a
+              href={release.latestDmgUrl}
+              className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium hover:bg-[#2a2a2a] transition-colors"
+            >
+              {isZh ? "下载 .dmg" : "Download .dmg"}
+            </a>
+            <a
+              href="https://apps.apple.com/us/app/macpacker/id6473273874"
+              className="inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-bg-page text-ink-primary text-[13px] font-medium border-[0.5px] border-border-strong hover:bg-bg-muted transition-colors"
+            >
+              Mac App Store
+            </a>
+            <Link
+              href={`/${locale}`}
+              className="inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-bg-page text-ink-primary text-[13px] font-medium border-[0.5px] border-border-strong hover:bg-bg-muted transition-colors"
+            >
+              {isZh ? "了解更多" : "Learn more"}
+            </Link>
           </div>
         </section>
       </main>
 
-      {/* ─── FOOTER ─── */}
-      <footer className="py-10 border-t border-border">
-        <div className="max-w-[1120px] mx-auto px-12 flex items-center justify-between max-md:flex-col max-md:gap-4 max-md:px-5">
-          <div className="text-[13px] text-text-dim flex items-center gap-4">
-            <span>&copy; {new Date().getFullYear()} MacPacker</span>
-            <span>&middot;</span>
-            <span>
-              {isZh ? "由 " : "Made by "}
-              <a href="https://sarensw.com" className="text-text-secondary no-underline">sarensw</a>
-            </span>
-          </div>
-          <div className="flex gap-6">
-            <Link href={`/${locale}/docs`} className="text-[13px] text-text-dim no-underline transition-colors hover:text-text-secondary">{isZh ? "文档" : "Docs"}</Link>
-            <Link href={`/${locale}/blog`} className="text-[13px] text-text-dim no-underline transition-colors hover:text-text-secondary">{isZh ? "博客" : "Blog"}</Link>
-            <a
-              href="https://github.com/sarensw/MacPacker"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[13px] text-text-dim no-underline transition-colors hover:text-text-secondary"
-            >
-              GitHub
-            </a>
-            <Link href={`/${locale}/privacy`} className="text-[13px] text-text-dim no-underline transition-colors hover:text-text-secondary">
-              {isZh ? "隐私政策" : "Privacy"}
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <Footer locale={locale} t={t} />
     </>
+  );
+}
+
+function FormatGroup({
+  title,
+  formats,
+  locale,
+}: {
+  title: string;
+  formats: FormatEntry[];
+  locale: string;
+}) {
+  return (
+    <section className="mb-12">
+      <h2 className="text-[18px] font-medium tracking-[-0.01em] text-ink-primary mb-4">
+        {title}
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        {formats.map((f) => (
+          <FormatCard key={f.slug} format={f} locale={locale} />
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -195,16 +152,20 @@ function FormatCard({
   return (
     <Link
       href={`/${locale}/docs/${format.slug}`}
-      className={`flex flex-col p-6 bg-bg-white border rounded no-underline text-inherit transition-all duration-[0.25s] hover:border-border-hover hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(0,0,0,0.05)] ${format.popular ? "border-accent-border bg-accent-bg hover:border-accent" : "border-border"}`}
+      className="flex flex-col p-5 bg-bg-surface border-[0.5px] border-border-default rounded-md no-underline text-inherit transition-colors hover:border-border-strong"
     >
-      <div className="flex items-center justify-between mb-2.5">
-        <span className="text-[17px] font-bold tracking-[-0.01em]">{format.displayName}</span>
-        <span className="text-xs font-semibold text-text-dim font-mono">
-          {format.extensions[0]}
+      <div className="flex items-baseline justify-between mb-2">
+        <span className="text-[15px] font-medium text-ink-primary tracking-[-0.005em]">
+          {format.displayName}
+        </span>
+        <span className="text-[11px] font-mono text-ink-tertiary">
+          .{format.extensions[0]}
         </span>
       </div>
-      <p className="text-[13.5px] leading-[1.55] text-text-secondary flex-1">{format.description}</p>
-      <span className="mt-3.5 text-[13px] font-semibold text-accent">
+      <p className="text-[13px] leading-[1.55] text-ink-secondary flex-1 m-0">
+        {format.description}
+      </p>
+      <span className="mt-4 text-[12px] font-medium text-ink-primary inline-flex items-center gap-1">
         {locale === "zh" ? "阅读指南 →" : "Read guide →"}
       </span>
     </Link>

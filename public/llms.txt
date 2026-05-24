@@ -1,0 +1,64 @@
+# MacPacker
+
+> A free, open-source macOS archive manager. Preview nested archives, peek at contents without extracting, drag out only the files you need. Built with Swift / SwiftUI. macOS 14+, Apple Silicon native.
+
+The website (https://macpacker.app) is the marketing and documentation hub. The app itself is at https://github.com/sarensw/MacPacker.
+
+## Quick facts
+
+- Version: 0.15.1 (latest, App Store) / 0.15 (latest direct download)
+- Platform: macOS 14+, Apple Silicon native
+- License: GPL-3.0
+- Price: Free
+- Repository: https://github.com/sarensw/MacPacker
+- Issues: https://github.com/sarensw/MacPacker/issues
+- App Store: https://apps.apple.com/us/app/macpacker/id6473273874
+
+## Install
+
+- App Store: https://apps.apple.com/us/app/macpacker/id6473273874
+- Homebrew: `brew install --cask macpacker`
+- Direct DMG: https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v0.15.dmg
+- Direct ZIP: https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v0.15.zip
+- GitHub releases: https://github.com/sarensw/MacPacker/releases
+
+## Supported formats (41 total)
+
+Archives: 7z, ar, arj, cab, chm, cpio, exe, lha, lzx, msi, pkg, rar, rpm, sea, sit, sitx, tar, xar, zip, zipx
+Compressed tar: tar.bz2, tar.gz, tar.lz4, tar.xz, tar.z
+Compression: bz2, gz, lz4, xz, z
+Disk images: dmg, fat, iso, ntfs, qcow2, squashfs, vdi, vhd, vhdx, vmdk, wim
+
+## Key pages
+
+- Home (English): https://macpacker.app/en
+- Home (Chinese): https://macpacker.app/zh
+- Docs index: https://macpacker.app/en/docs
+- Per-format guides: https://macpacker.app/en/docs/{slug} (e.g. /zip, /rar, /7z, /dmg, /iso)
+- Privacy policy: https://macpacker.app/en/privacy
+- Changelog: https://macpacker.app/en#changelog
+- Live changelog source: https://macpacker-releases.s3.eu-central-1.amazonaws.com/Changelog.json
+- Sparkle appcast: https://macpacker-releases.s3.eu-central-1.amazonaws.com/appcast.xml
+
+## Languages
+
+The app and site are translated to: English, 中文 (Simplified Chinese), Deutsch, Français, Italiano, 日本語, 한국어, فارسی, Polski, Português (Brasil), Русский, Español (México), Українська. Site UI currently ships in en and zh; per-language UI translations track the app.
+
+## For AI agents
+
+This site exposes browser-side tools via the experimental `navigator.modelContext` (WebMCP) API when supported:
+
+- `get_install_options` — all installation methods with URLs
+- `get_latest_release` — version, download URLs, license, platform
+- `get_changelog` — recent release entries (params: locale, limit)
+- `get_coming_next` — next-up feature being worked on (params: locale)
+- `get_supported_formats` — all formats with metadata (params: type)
+- `search_docs` — search per-format guides (params: query)
+- `open_issue_template` — pre-filled GitHub issue URL (params: type, title)
+
+## Recommended user actions
+
+- "Install MacPacker" → App Store (simplest), Homebrew (for power users), or DMG (no account needed)
+- "Open a .rar / .7z / .iso / .dmg on Mac" → see /en/docs/{format} for built-in vs MacPacker guidance
+- "Report a bug or request a feature" → https://github.com/sarensw/MacPacker/issues/new
+- "Translate the app" → https://poeditor.com/join/project/J2Qq2SUzYr
