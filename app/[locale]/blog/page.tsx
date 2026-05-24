@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isValidLocale, getTranslations } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n";
+import { isValidLocale } from "@/lib/i18n";
 
 export default async function BlogPage({
   params,
@@ -10,8 +9,6 @@ export default async function BlogPage({
 }) {
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
-
-  const t = await getTranslations(locale);
 
   return (
     <>
@@ -53,8 +50,8 @@ export default async function BlogPage({
 
       <main>
         <section className="min-h-[60vh] flex flex-col items-center justify-center text-center pt-30 px-6 pb-15">
-          <p className="section-eyebrow">{t.blog.eyebrow}</p>
-          <h1 className="section-title">{t.blog.title}</h1>
+          <p className="section-eyebrow">{locale === "zh" ? "博客" : "Blog"}</p>
+          <h1 className="section-title">{locale === "zh" ? "最新动态" : "Latest updates"}</h1>
           <p className="mt-4 text-[17px] leading-[1.65] text-text-secondary max-w-[480px]">
             {locale === "zh"
               ? "博客内容即将上线。敬请期待！"

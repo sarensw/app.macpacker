@@ -1,0 +1,247 @@
+{
+  "formats": [
+    {
+      "id": "7zip",
+      "name": "7-Zip Archive",
+      "kind": "archive",
+      "extensions": ["7z"]
+    },
+    {
+      "id": "ar",
+      "name": "Archiver Archive",
+      "kind": "archive",
+      "extensions": ["ar", "deb"]
+    },
+    {
+      "id": "arj",
+      "name": "ARJ Archive",
+      "kind": "archive",
+      "extensions": ["arj"]
+    },
+    {
+      "id": "bzip2",
+      "name": "Bzip2 File",
+      "kind": "compression",
+      "extensions": ["bz2", "bz", "bzip2"]
+    },
+    {
+      "id": "cab",
+      "name": "CAB Archive",
+      "kind": "archive",
+      "extensions": ["cab"]
+    },
+    {
+      "id": "cpio",
+      "name": "CPIO Archive",
+      "kind": "archive",
+      "extensions": ["cpio"]
+    },
+    {
+      "id": "dmg",
+      "name": "Apple Disk Image",
+      "kind": "image",
+      "extensions": ["dmg", "smi", "img"]
+    },
+    {
+      "id": "fat",
+      "name": "FAT Disk Image",
+      "kind": "image",
+      "extensions": ["fat"]
+    },
+    {
+      "id": "gzip",
+      "name": "Gzip File",
+      "kind": "compression",
+      "extensions": ["gz", "gzip"]
+    },
+    {
+      "id": "chm",
+      "name": "Microsoft Compiled HTML Help",
+      "kind": "archive",
+      "extensions": ["chm"]
+    },
+    {
+      "id": "iso",
+      "name": "ISO Disk Image",
+      "kind": "image",
+      "extensions": ["iso"]
+    },
+    {
+      "id": "lha",
+      "name": "LHA/LZH Archive",
+      "kind": "archive",
+      "extensions": ["lha", "lzh"]
+    },
+    {
+      "id": "lz4",
+      "name": "LZ4 File",
+      "kind": "compression",
+      "extensions": ["lz4"]
+    },
+    {
+      "id": "lzx",
+      "name": "LZX Archive",
+      "kind": "archive",
+      "extensions": ["lzx"]
+    },
+    {
+      "id": "msapp",
+      "name": "Microsoft Windows application",
+      "kind": "archive",
+      "extensions": ["exe"]
+    },
+    {
+      "id": "msi",
+      "name": "Microsoft MSI Installer",
+      "kind": "archive",
+      "extensions": ["msi"]
+    },
+    {
+      "id": "ntfs",
+      "name": "NTFS Disk Image",
+      "kind": "image",
+      "extensions": ["ntfs"]
+    },
+    {
+      "id": "pkg",
+      "name": "Apple Software Package",
+      "kind": "archive",
+      "extensions": ["pkg"]
+    },
+    {
+      "id": "qcow2",
+      "name": "QCOW2 Disk Image",
+      "kind": "image",
+      "extensions": ["qcow2"]
+    },
+    {
+      "id": "rar",
+      "name": "RAR Archive",
+      "kind": "archive",
+      "extensions": ["rar"]
+    },
+    {
+      "id": "rpm",
+      "name": "Linux RPM archive",
+      "kind": "archive",
+      "extensions": ["rpm"]
+    },
+    {
+      "id": "sea",
+      "name": "Self-Extracting Archive",
+      "kind": "archive",
+      "extensions": ["sea"]
+    },
+    {
+      "id": "sit",
+      "name": "StuffIt Archive",
+      "kind": "archive",
+      "extensions": ["sit"]
+    },
+    {
+      "id": "sitx",
+      "name": "StuffIt X Archive",
+      "kind": "archive",
+      "extensions": ["sitx"]
+    },
+    {
+      "id": "squashfs",
+      "name": "SquashFS Disk Image",
+      "kind": "image",
+      "extensions": ["squashfs"]
+    },
+    {
+      "id": "tar",
+      "name": "Tar Archive",
+      "kind": "archive",
+      "extensions": ["tar"]
+    },
+    {
+      "id": "vdi",
+      "name": "VDI Disk Image",
+      "kind": "image",
+      "extensions": ["vdi"]
+    },
+    {
+      "id": "vmdk",
+      "name": "VMDK Disk Image",
+      "kind": "image",
+      "extensions": ["vmdk"]
+    },
+    {
+      "id": "vhd",
+      "name": "VHD Disk Image",
+      "kind": "image",
+      "extensions": ["vhd"]
+    },
+    {
+      "id": "vhdx",
+      "name": "VHDX Disk Image",
+      "kind": "image",
+      "extensions": ["vhdx"]
+    },
+    {
+      "id": "wim",
+      "name": "WIM Disk Image",
+      "kind": "image",
+      "extensions": ["wim"]
+    },
+    {
+      "id": "xar",
+      "name": "XAR Archive",
+      "kind": "archive",
+      "extensions": ["xar"]
+    },
+    {
+      "id": "xz",
+      "name": "XZ File",
+      "kind": "compression",
+      "extensions": ["xz"]
+    },
+    {
+      "id": "z",
+      "name": "Unix Compress File",
+      "kind": "compression",
+      "extensions": ["z"]
+    },
+    {
+      "id": "zip",
+      "name": "ZIP Archive",
+      "kind": "archive",
+      "extensions": ["zip"]
+    },
+    {
+      "id": "zipx",
+      "name": "ZIPX Archive",
+      "kind": "archive",
+      "extensions": ["zipx"]
+    }
+  ],
+  "compounds": [
+    {
+      "id": "tar.bz2",
+      "name": "Bzip2 Tar Archive",
+      "extensions": ["tbz2", "tbz", "tbzip2", "tb", "tb2", "tar.bz2"]
+    },
+    {
+      "id": "tar.gz",
+      "name": "Gzip Tar Archive",
+      "extensions": ["tgz", "tgzip", "tar.gz"]
+    },
+    {
+      "id": "tar.lz4",
+      "name": "LZ4 Tar Archive",
+      "extensions": ["tlz4", "tar.lz4"]
+    },
+    {
+      "id": "tar.xz",
+      "name": "XZ Tar Archive",
+      "extensions": ["txz", "tar.xz"]
+    },
+    {
+      "id": "tar.z",
+      "name": "Z Tar Archive",
+      "extensions": ["taz", "tar.z"]
+    }
+  ]
+}

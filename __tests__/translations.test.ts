@@ -30,14 +30,14 @@ describe("getTranslations", () => {
   it("loads English translations", async () => {
     const t = await getTranslations("en");
     expect(t.nav.features).toBe("Features");
-    expect(t.hero.badge).toContain("open source");
+    expect(t.hero.eyebrowFree).toContain("open source");
     expect(t.meta.title).toContain("MacPacker");
   });
 
   it("loads Chinese translations", async () => {
     const t = await getTranslations("zh");
     expect(t.nav.features).toBe("功能");
-    expect(t.hero.badge).toContain("免费开源");
+    expect(t.hero.eyebrowFree).toContain("免费开源");
     expect(t.meta.title).toContain("MacPacker");
   });
 
@@ -120,34 +120,11 @@ describe("translation content", () => {
     expect(zh.meta.siteName).toBe("MacPacker");
   });
 
-  it("has all 6 feature sections in en", () => {
+  it("has all 4 feature sections in en", () => {
     expect(en.features.peek.title).toBeDefined();
     expect(en.features.nested.title).toBeDefined();
     expect(en.features.selective.title).toBeDefined();
     expect(en.features.native.title).toBeDefined();
-    expect(en.features.quicklook.title).toBeDefined();
-    expect(en.features.finder.title).toBeDefined();
-  });
-
-  it("has all 3 how-it-works steps in en", () => {
-    expect(en.howItWorks.open.title).toBeDefined();
-    expect(en.howItWorks.browse.title).toBeDefined();
-    expect(en.howItWorks.extract.title).toBeDefined();
-  });
-
-  it("has 10 languages listed", () => {
-    expect(en.languages.list).toHaveLength(10);
-    expect(zh.languages.list).toHaveLength(10);
-  });
-
-  it("has 3 blog posts", () => {
-    expect(en.blog.posts).toHaveLength(3);
-    expect(zh.blog.posts).toHaveLength(3);
-  });
-
-  it("has 4 tech strip items", () => {
-    expect(en.techStrip.items).toHaveLength(4);
-    expect(zh.techStrip.items).toHaveLength(4);
   });
 
   it("brew command is correct", () => {

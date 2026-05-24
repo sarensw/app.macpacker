@@ -143,7 +143,7 @@ export default async function LocaleLayout({
       <head>
         <JsonLd locale={locale} />
       </head>
-      <body className="font-sans bg-bg text-text antialiased overflow-x-hidden">
+      <body className="font-sans bg-bg-page text-ink-primary antialiased overflow-x-hidden">
         {children}
         <WebMCP />
       </body>

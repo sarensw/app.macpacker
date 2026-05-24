@@ -1,8 +1,8 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import en from "@/lib/translations/en.json";
+import { releaseFixture } from "./fixtures/release";
 
-// Mock next/link
 vi.mock("next/link", () => ({
   default: ({
     children,
@@ -19,15 +19,13 @@ vi.mock("next/link", () => ({
   ),
 }));
 
-// Mock next/navigation
 vi.mock("next/navigation", () => ({
   notFound: vi.fn(),
   usePathname: () => "/en",
 }));
 
-// Mock next/font/google
-vi.mock("next/font/google", () => ({
-  Newsreader: () => ({ variable: "mock-newsreader-variable" }),
+vi.mock("@/lib/release", () => ({
+  getReleaseData: vi.fn().mockResolvedValue(releaseFixture),
 }));
 
 import HomePage from "@/app/[locale]/page";
@@ -42,155 +40,137 @@ afterEach(() => {
   cleanup();
 });
 
-describe("English page - hero and nav", () => {
-  it("renders the nav with MacPacker wordmark", async () => {
+describe("English page - header", () => {
+  it("renders the MacPacker wordmark in the header", async () => {
     await renderEnPage();
-    expect(screen.getByText("MacPacker")).toBeInTheDocument();
+    const header = screen.getByRole("banner");
+    expect(header).toHaveTextContent("MacPacker");
   });
 
-  it("renders navigation links", async () => {
+  it("renders nav links Features / Formats / Changelog", async () => {
     await renderEnPage();
     const nav = screen.getByRole("navigation");
     expect(nav).toHaveTextContent("Features");
     expect(nav).toHaveTextContent("Formats");
-    expect(nav).toHaveTextContent("Open Source");
-    expect(nav).toHaveTextContent("Blog");
+    expect(nav).toHaveTextContent("Changelog");
   });
 
-  it("renders the hero badge", async () => {
+  it("renders the Download CTA in the header pointing at the DMG", async () => {
     await renderEnPage();
-    expect(screen.getByText(en.hero.badge)).toBeInTheDocument();
+    const nav = screen.getByRole("navigation");
+    const dl = nav.querySelector(`a[href="${releaseFixture.latestDmgUrl}"]`);
+    expect(dl).not.toBeNull();
+    expect(dl?.textContent).toContain("Download");
+  });
+});
+
+describe("English page - hero", () => {
+  it("renders the latest version in the eyebrow", async () => {
+    await renderEnPage();
+    expect(screen.getAllByText(/v0\.15\.1/).length).toBeGreaterThanOrEqual(1);
   });
 
-  it("renders hero heading with emphasis", async () => {
+  it("renders the brew command", async () => {
     await renderEnPage();
-    expect(screen.getByText(en.hero.titleEm)).toBeInTheDocument();
+    expect(screen.getByText("brew")).toBeInTheDocument();
+    expect(screen.getByText(/install/)).toBeInTheDocument();
+    expect(screen.getByText(/--cask/)).toBeInTheDocument();
   });
 
-  it("renders hero subtitle", async () => {
+  it("renders the Download .dmg button with DMG href", async () => {
     await renderEnPage();
-    expect(screen.getByText(en.hero.sub)).toBeInTheDocument();
+    const buttons = screen.getAllByText(en.hero.downloadCta);
+    const link = buttons[0].closest("a");
+    expect(link).toHaveAttribute("href", releaseFixture.latestDmgUrl);
   });
 
-  it("renders download buttons", async () => {
+  it("renders the .zip button with ZIP href", async () => {
     await renderEnPage();
-    expect(screen.getByText("Mac App Store")).toBeInTheDocument();
-    expect(screen.getByText("GitHub Releases")).toBeInTheDocument();
+    const link = screen.getByText(en.hero.zipCta).closest("a");
+    expect(link).toHaveAttribute("href", releaseFixture.latestZipUrl);
   });
 
-  it("renders the brew copy button", async () => {
+  it("renders the App Store button", async () => {
     await renderEnPage();
-    expect(
-      screen.getByText("brew install --cask macpacker")
-    ).toBeInTheDocument();
+    const link = screen.getByText(en.hero.appStore).closest("a");
+    expect(link).toHaveAttribute(
+      "href",
+      "https://apps.apple.com/us/app/macpacker/id6473273874",
+    );
+  });
+
+  it("renders the Releases button", async () => {
+    await renderEnPage();
+    const link = screen.getByText(en.hero.releasesCta).closest("a");
+    expect(link).toHaveAttribute(
+      "href",
+      "https://github.com/sarensw/MacPacker/releases",
+    );
   });
 });
 
 describe("English page - sections", () => {
-  it("renders the formats section", async () => {
+  it("renders all 4 features", async () => {
     await renderEnPage();
-    expect(screen.getByText(en.formats.eyebrow)).toBeInTheDocument();
-    expect(screen.getByText(en.formats.title)).toBeInTheDocument();
+    expect(screen.getByText(en.features.peek.title)).toBeInTheDocument();
+    expect(screen.getByText(en.features.nested.title)).toBeInTheDocument();
+    expect(screen.getByText(en.features.selective.title)).toBeInTheDocument();
+    expect(screen.getByText(en.features.native.title)).toBeInTheDocument();
+  });
+
+  it("renders the formats chips", async () => {
+    await renderEnPage();
     expect(screen.getByText("ZIP")).toBeInTheDocument();
     expect(screen.getByText("RAR")).toBeInTheDocument();
     expect(screen.getByText("7z")).toBeInTheDocument();
     expect(screen.getByText("DMG")).toBeInTheDocument();
   });
 
-  it("renders all 6 features", async () => {
-    await renderEnPage();
-    expect(screen.getByText(en.features.peek.title)).toBeInTheDocument();
-    expect(screen.getByText(en.features.nested.title)).toBeInTheDocument();
-    expect(screen.getByText(en.features.selective.title)).toBeInTheDocument();
-    expect(screen.getByText(en.features.native.title)).toBeInTheDocument();
-    expect(screen.getByText(en.features.quicklook.title)).toBeInTheDocument();
-    expect(screen.getByText(en.features.finder.title)).toBeInTheDocument();
-  });
-
-  it("renders the how-it-works section", async () => {
-    await renderEnPage();
-    expect(screen.getByText(en.howItWorks.open.title)).toBeInTheDocument();
-    expect(screen.getByText(en.howItWorks.browse.title)).toBeInTheDocument();
-    expect(screen.getByText(en.howItWorks.extract.title)).toBeInTheDocument();
-  });
-
-  it("renders the open source section", async () => {
+  it("renders the open source line", async () => {
     await renderEnPage();
     expect(screen.getByText(en.openSource.viewOnGithub)).toBeInTheDocument();
   });
 
-  it("renders the languages section", async () => {
+  it("renders the translations line with POEditor link", async () => {
     await renderEnPage();
-    expect(screen.getByText(en.languages.title)).toBeInTheDocument();
-    expect(screen.getByText("English")).toBeInTheDocument();
-    expect(screen.getByText("Deutsch")).toBeInTheDocument();
+    const link = screen
+      .getByText(en.translations.viewOnPoeditor)
+      .closest("a");
+    expect(link).toHaveAttribute(
+      "href",
+      "https://poeditor.com/join/project/J2Qq2SUzYr",
+    );
   });
 
-  it("renders all tech strip items", async () => {
+  it("renders the changelog rail with three versions", async () => {
     await renderEnPage();
-    for (const item of en.techStrip.items) {
-      expect(screen.getByText(item)).toBeInTheDocument();
-    }
+    expect(screen.getAllByText(/v0\.15\.1/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText(/^v0\.15$/)).toBeInTheDocument();
+    expect(screen.getByText(/v0\.14\.1/)).toBeInTheDocument();
   });
 
-  it("renders 3 blog posts", async () => {
+  it("renders the Latest badge on the top changelog entry", async () => {
     await renderEnPage();
-    for (const post of en.blog.posts) {
-      expect(screen.getByText(post.title)).toBeInTheDocument();
-    }
+    expect(screen.getByText(en.changelog.latestBadge)).toBeInTheDocument();
   });
 
-  it("renders the CTA section", async () => {
+  it("renders the coming next line", async () => {
     await renderEnPage();
-    expect(screen.getByText(en.cta.sub)).toBeInTheDocument();
-  });
-
-  it("renders the footer", async () => {
-    await renderEnPage();
-    expect(screen.getByText(en.footer.copyright)).toBeInTheDocument();
-    expect(screen.getByText(en.footer.author)).toBeInTheDocument();
+    expect(
+      screen.getByText(releaseFixture.comingNext as string),
+    ).toBeInTheDocument();
   });
 });
 
-describe("English page - links", () => {
-  it("has correct anchor links for sections", async () => {
+describe("English page - footer", () => {
+  it("renders the privacy link with locale prefix", async () => {
     await renderEnPage();
-    const nav = screen.getByRole("navigation");
-    const links = nav.querySelectorAll("a");
-    const hrefs = Array.from(links).map((a) => a.getAttribute("href"));
-    expect(hrefs).toContain("#features");
-    expect(hrefs).toContain("#formats");
-    expect(hrefs).toContain("#open-source");
+    const link = screen.getByText(en.footer.links.privacy).closest("a");
+    expect(link).toHaveAttribute("href", "/en/privacy");
   });
 
-  it("has locale-prefixed blog link in nav", async () => {
+  it("renders the author name", async () => {
     await renderEnPage();
-    const blogLinks = screen.getAllByText(en.nav.blog);
-    const navBlogLink = blogLinks[0].closest("a");
-    expect(navBlogLink).toHaveAttribute("href", "/en/blog");
-  });
-
-  it("has locale-prefixed privacy link in footer", async () => {
-    await renderEnPage();
-    const privacyLink = screen.getByText(en.footer.privacy).closest("a");
-    expect(privacyLink).toHaveAttribute("href", "/en/privacy");
-  });
-
-  it("has correct App Store link", async () => {
-    await renderEnPage();
-    const appStoreLink = screen.getByText("Mac App Store").closest("a");
-    expect(appStoreLink).toHaveAttribute(
-      "href",
-      "https://apps.apple.com/us/app/macpacker/id6473273874"
-    );
-  });
-
-  it("has correct GitHub releases link", async () => {
-    await renderEnPage();
-    const githubLink = screen.getByText("GitHub Releases").closest("a");
-    expect(githubLink).toHaveAttribute(
-      "href",
-      "https://github.com/sarensw/MacPacker/releases"
-    );
+    expect(screen.getByText(en.footer.author)).toBeInTheDocument();
   });
 });

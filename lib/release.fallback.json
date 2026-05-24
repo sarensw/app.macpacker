@@ -1,0 +1,905 @@
+{
+  "latestVersion": "0.15.1",
+  "latestDmgUrl": "https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v0.15.dmg",
+  "latestZipUrl": "https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v0.15.zip",
+  "comingNext": {
+    "en": "Support for deletion of files / folders from .zip archives",
+    "zh": "支持从 .zip 压缩包中删除文件 / 文件夹"
+  },
+  "releases": {
+    "en": [
+      {
+        "version": "0.15.1",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Language support for Korean",
+            "pr": 95
+          },
+          {
+            "type": "feat",
+            "title": "Language support for Mexican Spanish",
+            "pr": 95
+          }
+        ]
+      },
+      {
+        "version": "0.15",
+        "items": [
+          {
+            "type": "feat",
+            "title": "wim support",
+            "pr": 70
+          },
+          {
+            "type": "feat",
+            "title": "Open password protected / encrypted archives",
+            "pr": 6
+          },
+          {
+            "type": "feat",
+            "title": "New Welcome & About dialogs",
+            "pr": 82
+          },
+          {
+            "type": "feat",
+            "title": "Sorting enabled for all columns, sort order persisted and name is default",
+            "pr": 77
+          },
+          {
+            "type": "feat",
+            "title": "New option to quit on last window closed",
+            "pr": 89
+          },
+          {
+            "type": "fix",
+            "title": "Up/down keys not working when preview is opened",
+            "pr": 78
+          },
+          {
+            "type": "core",
+            "title": "Support for magic numbers at the end of archive files",
+            "pr": 69
+          },
+          {
+            "type": "core",
+            "title": "Update acknowledgements",
+            "pr": 79
+          },
+          {
+            "type": "core",
+            "title": "Drop macOS 13 support",
+            "pr": 80
+          }
+        ],
+        "date": "Fri, 22 May 2026 12:58:11 +0000"
+      },
+      {
+        "version": "0.14.1",
+        "items": [
+          {
+            "type": "fix",
+            "title": "Wrong translations in settings"
+          },
+          {
+            "type": "lang",
+            "title": "Language update for several languages"
+          }
+        ],
+        "date": "Sun, 15 Feb 2026 08:43:17 +0100"
+      },
+      {
+        "version": "0.14",
+        "items": [
+          {
+            "type": "feat",
+            "title": "New menu to open a new empty window"
+          },
+          {
+            "type": "feat",
+            "title": "Extended info on archive in status bar",
+            "pr": 61
+          },
+          {
+            "type": "fix",
+            "title": "tar.gz and tgz not working",
+            "pr": 54
+          },
+          {
+            "type": "fix",
+            "title": "Can't close QuickLook with Space",
+            "pr": 55
+          },
+          {
+            "type": "fix",
+            "title": "macOS not recognizing MacPacker as a viable VHDX reader",
+            "pr": 56
+          },
+          {
+            "type": "fix",
+            "title": "Cache cleanup not happening when just closing a window or loading a new archive",
+            "pr": 58
+          },
+          {
+            "type": "fix",
+            "title": "App crashes when unpacking exe / msi files",
+            "pr": 59
+          },
+          {
+            "type": "fix",
+            "title": "Extract here and Extract to folder via Finder don't work",
+            "pr": 62
+          }
+        ],
+        "date": "Fri, 13 Feb 2026 12:14:34 +0200"
+      },
+      {
+        "version": "0.13",
+        "items": [
+          {
+            "type": "feat",
+            "title": "arj, dmg/apfs (Apple File System), chm, fat, ntfs, tar.z/taz, qcow2, squashfs, vdi, vhd, vhdx, vmdk, xar support"
+          },
+          {
+            "type": "feat",
+            "title": "Special handling for Apple Installer Packages (pkg)"
+          },
+          {
+            "type": "feat",
+            "title": "Added settings for easier access to managing the Finder file provider extension"
+          },
+          {
+            "type": "fix",
+            "title": "Extracting folders does not include files"
+          },
+          {
+            "type": "core",
+            "title": "Added attributions for 3rd party libraries/code"
+          },
+          {
+            "type": "core",
+            "title": "Language support for Persian"
+          }
+        ],
+        "date": "Fri, 16 Jan 2026 00:20:24 +0100"
+      },
+      {
+        "version": "0.12",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Added 'File' > 'Open...' menu to open archives when no window is open"
+          },
+          {
+            "type": "feat",
+            "title": "Improved TAR archive handling"
+          },
+          {
+            "type": "fix",
+            "title": "MacPacker not showing up in 'Open With…' menu in Finder (App Store version only)"
+          },
+          {
+            "type": "fix",
+            "title": "Chinese (Unicode) characters in archive contents not displayed correctly"
+          },
+          {
+            "type": "core",
+            "title": "Separated localization of changelog from app localization"
+          },
+          {
+            "type": "core",
+            "title": "Language support for Ukrainian, Russian"
+          },
+          {
+            "type": "core",
+            "title": "Detect archive type based on magic number in addition to file extension"
+          }
+        ]
+      },
+      {
+        "version": "0.11",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Use system preview instead of internal previewer"
+          },
+          {
+            "type": "feat",
+            "title": "Navigate the archive using keys similar to Finder"
+          },
+          {
+            "type": "fix",
+            "title": "Crash when using the open with option"
+          },
+          {
+            "type": "fix",
+            "title": "Quick look extension missing in App Store version"
+          },
+          {
+            "type": "fix",
+            "title": "Empty window opened in addition to file opened with 'Open With' option in Finder"
+          },
+          {
+            "type": "core",
+            "title": "Re-enable macOS 13 as minimum deployment target"
+          },
+          {
+            "type": "core",
+            "title": "Language support for Italian"
+          }
+        ]
+      },
+      {
+        "version": "0.10",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Quick Look extension"
+          },
+          {
+            "type": "feat",
+            "title": "Added Send-a-smile menu to let users quickly star the repo or add a review in the App Store"
+          },
+          {
+            "type": "fix",
+            "title": "App crashes when all windows are closed and then the app gets terminated"
+          },
+          {
+            "type": "core",
+            "title": "Cleanup logging"
+          }
+        ],
+        "date": "Wed, 08 Oct 2025 09:57:28 +0200"
+      },
+      {
+        "version": "0.9",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Finder integration via context menu"
+          },
+          {
+            "type": "core",
+            "title": "Language support for German, French, Simplified Chinese"
+          }
+        ],
+        "date": "Fri, 26 Sep 2025 08:28:33 +0200"
+      },
+      {
+        "version": "0.8",
+        "items": [
+          {
+            "type": "feat",
+            "title": "gzip, bzip2, xz, cab, iso, sit & sea (StuffIt), Z, cpio support"
+          },
+          {
+            "type": "feat",
+            "title": "Show packed size, size, modified date, permissions in columns"
+          }
+        ]
+      },
+      {
+        "version": "0.7",
+        "items": [
+          {
+            "type": "feat",
+            "title": "lzh, lha, lzx support"
+          },
+          {
+            "type": "feat",
+            "title": "Close internal previewer using Space, or Esc"
+          },
+          {
+            "type": "feat",
+            "title": "Show archive name in title"
+          },
+          {
+            "type": "feat",
+            "title": "Extract selected files via UI"
+          },
+          {
+            "type": "feat",
+            "title": "Extract full archive"
+          },
+          {
+            "type": "fix",
+            "title": "App Store version shows \"MacPacker store\" as product name in Launchpad"
+          },
+          {
+            "type": "core",
+            "title": "New architecture for archive handlers"
+          }
+        ]
+      },
+      {
+        "version": "0.6",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Hit space to open internal preview"
+          },
+          {
+            "type": "feat",
+            "title": "Setting to change the breadcrumb position"
+          },
+          {
+            "type": "feat",
+            "title": "rar read support"
+          },
+          {
+            "type": "feat",
+            "title": "Show folder / file icons in table"
+          },
+          {
+            "type": "core",
+            "title": "Add support for macOS 14"
+          }
+        ]
+      },
+      {
+        "version": "0.5",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Multiple windows support"
+          },
+          {
+            "type": "feat",
+            "title": "Open info for archive"
+          },
+          {
+            "type": "feat",
+            "title": "Breadcrumb view for navigation"
+          },
+          {
+            "type": "fix",
+            "title": "Open With in Finder not working"
+          },
+          {
+            "type": "core",
+            "title": "Major code cleanup"
+          }
+        ],
+        "date": "Thu, 22 May 2025 13:56:08 +0200"
+      },
+      {
+        "version": "0.4",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Viewer to show preview of files"
+          },
+          {
+            "type": "feat",
+            "title": "7zip read support"
+          },
+          {
+            "type": "core",
+            "title": "Clean cache when MacPacker terminates"
+          }
+        ],
+        "date": "Mon, 27 Nov 2023 05:18:17 +0100"
+      },
+      {
+        "version": "0.3",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Highlight when dragging file to MacPacker window"
+          },
+          {
+            "type": "feat",
+            "title": "Double click any file to extract and open it using the default editor"
+          },
+          {
+            "type": "feat",
+            "title": "Breadcrumb showing the current path in the archive (incl. nested support)"
+          },
+          {
+            "type": "feat",
+            "title": "Support for any valid zip-based file"
+          },
+          {
+            "type": "feat",
+            "title": "Automatic cache cleaning & zip creation support"
+          },
+          {
+            "type": "core",
+            "title": "Prepare the core for creating/editing archives"
+          },
+          {
+            "type": "core",
+            "title": "Unit tests"
+          }
+        ],
+        "date": "Thu, 09 Nov 2023 05:15:40 +0100"
+      },
+      {
+        "version": "0.2",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Welcome & about dialog"
+          },
+          {
+            "type": "feat",
+            "title": "Auto update"
+          },
+          {
+            "type": "feat",
+            "title": "zip support"
+          },
+          {
+            "type": "feat",
+            "title": "\"Open With...\" context menu support"
+          }
+        ],
+        "date": "Mon, 25 Sep 2023 03:46:37 +0200"
+      },
+      {
+        "version": "0.1",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Drag & drop an lz4 or tar file to MacPacker"
+          },
+          {
+            "type": "feat",
+            "title": "Manual option to clear the cache"
+          },
+          {
+            "type": "feat",
+            "title": "Traverse through nested archives"
+          }
+        ]
+      }
+    ],
+    "zh": [
+      {
+        "version": "0.15.1",
+        "items": [
+          {
+            "type": "feat",
+            "title": "新增韩语支持",
+            "pr": 95
+          },
+          {
+            "type": "feat",
+            "title": "新增墨西哥西班牙语支持",
+            "pr": 95
+          }
+        ]
+      },
+      {
+        "version": "0.15",
+        "items": [
+          {
+            "type": "feat",
+            "title": "支持 WIM",
+            "pr": 70
+          },
+          {
+            "type": "feat",
+            "title": "打开受密码保护/加密的压缩包",
+            "pr": 6
+          },
+          {
+            "type": "feat",
+            "title": "全新的欢迎与关于对话框",
+            "pr": 82
+          },
+          {
+            "type": "feat",
+            "title": "所有列均支持排序，排序顺序会被保存，名称为默认排序",
+            "pr": 77
+          },
+          {
+            "type": "feat",
+            "title": "新增“关闭最后一个窗口时退出”选项",
+            "pr": 89
+          },
+          {
+            "type": "fix",
+            "title": "打开预览时上下方向键无法使用",
+            "pr": 78
+          },
+          {
+            "type": "core",
+            "title": "支持压缩文件末尾的魔术数字",
+            "pr": 69
+          },
+          {
+            "type": "core",
+            "title": "更新致谢内容",
+            "pr": 79
+          },
+          {
+            "type": "core",
+            "title": "停止支持 macOS 13",
+            "pr": 80
+          }
+        ],
+        "date": "Fri, 22 May 2026 12:58:11 +0000"
+      },
+      {
+        "version": "0.14.1",
+        "items": [
+          {
+            "type": "fix",
+            "title": "Wrong translations in settings"
+          },
+          {
+            "type": "lang",
+            "title": "Language update for several languages"
+          }
+        ],
+        "date": "Sun, 15 Feb 2026 08:43:17 +0100"
+      },
+      {
+        "version": "0.14",
+        "items": [
+          {
+            "type": "feat",
+            "title": "New menu to open a new empty window"
+          },
+          {
+            "type": "feat",
+            "title": "Extended info on archive in status bar",
+            "pr": 61
+          },
+          {
+            "type": "fix",
+            "title": "tar.gz and tgz not working",
+            "pr": 54
+          },
+          {
+            "type": "fix",
+            "title": "Can't close QuickLook with Space",
+            "pr": 55
+          },
+          {
+            "type": "fix",
+            "title": "macOS not recognizing MacPacker as a viable VHDX reader",
+            "pr": 56
+          },
+          {
+            "type": "fix",
+            "title": "Cache cleanup not happening when just closing a window or loading a new archive",
+            "pr": 58
+          },
+          {
+            "type": "fix",
+            "title": "App crashes when unpacking exe / msi files",
+            "pr": 59
+          },
+          {
+            "type": "fix",
+            "title": "Extract here and Extract to folder via Finder don't work",
+            "pr": 62
+          }
+        ],
+        "date": "Fri, 13 Feb 2026 12:14:34 +0200"
+      },
+      {
+        "version": "0.13",
+        "items": [
+          {
+            "type": "feat",
+            "title": "arj, dmg/apfs (Apple File System), chm, fat, ntfs, tar.z/taz, qcow2, squashfs, vdi, vhd, vhdx, vmdk, xar support"
+          },
+          {
+            "type": "feat",
+            "title": "Special handling for Apple Installer Packages (pkg)"
+          },
+          {
+            "type": "feat",
+            "title": "Added settings for easier access to managing the Finder file provider extension"
+          },
+          {
+            "type": "fix",
+            "title": "Extracting folders does not include files"
+          },
+          {
+            "type": "core",
+            "title": "Added attributions for 3rd party libraries/code"
+          },
+          {
+            "type": "core",
+            "title": "Language support for Persian"
+          }
+        ],
+        "date": "Fri, 16 Jan 2026 00:20:24 +0100"
+      },
+      {
+        "version": "0.12",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Added 'File' > 'Open...' menu to open archives when no window is open"
+          },
+          {
+            "type": "feat",
+            "title": "Improved TAR archive handling"
+          },
+          {
+            "type": "fix",
+            "title": "MacPacker not showing up in 'Open With…' menu in Finder (App Store version only)"
+          },
+          {
+            "type": "fix",
+            "title": "Chinese (Unicode) characters in archive contents not displayed correctly"
+          },
+          {
+            "type": "core",
+            "title": "Separated localization of changelog from app localization"
+          },
+          {
+            "type": "core",
+            "title": "Language support for Ukrainian, Russian"
+          },
+          {
+            "type": "core",
+            "title": "Detect archive type based on magic number in addition to file extension"
+          }
+        ]
+      },
+      {
+        "version": "0.11",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Use system preview instead of internal previewer"
+          },
+          {
+            "type": "feat",
+            "title": "Navigate the archive using keys similar to Finder"
+          },
+          {
+            "type": "fix",
+            "title": "Crash when using the open with option"
+          },
+          {
+            "type": "fix",
+            "title": "Quick look extension missing in App Store version"
+          },
+          {
+            "type": "fix",
+            "title": "Empty window opened in addition to file opened with 'Open With' option in Finder"
+          },
+          {
+            "type": "core",
+            "title": "Re-enable macOS 13 as minimum deployment target"
+          },
+          {
+            "type": "core",
+            "title": "Language support for Italian"
+          }
+        ]
+      },
+      {
+        "version": "0.10",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Quick Look extension"
+          },
+          {
+            "type": "feat",
+            "title": "Added Send-a-smile menu to let users quickly star the repo or add a review in the App Store"
+          },
+          {
+            "type": "fix",
+            "title": "App crashes when all windows are closed and then the app gets terminated"
+          },
+          {
+            "type": "core",
+            "title": "Cleanup logging"
+          }
+        ],
+        "date": "Wed, 08 Oct 2025 09:57:28 +0200"
+      },
+      {
+        "version": "0.9",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Finder integration via context menu"
+          },
+          {
+            "type": "core",
+            "title": "Language support for German, French, Simplified Chinese"
+          }
+        ],
+        "date": "Fri, 26 Sep 2025 08:28:33 +0200"
+      },
+      {
+        "version": "0.8",
+        "items": [
+          {
+            "type": "feat",
+            "title": "gzip, bzip2, xz, cab, iso, sit & sea (StuffIt), Z, cpio support"
+          },
+          {
+            "type": "feat",
+            "title": "Show packed size, size, modified date, permissions in columns"
+          }
+        ]
+      },
+      {
+        "version": "0.7",
+        "items": [
+          {
+            "type": "feat",
+            "title": "lzh, lha, lzx support"
+          },
+          {
+            "type": "feat",
+            "title": "Close internal previewer using Space, or Esc"
+          },
+          {
+            "type": "feat",
+            "title": "Show archive name in title"
+          },
+          {
+            "type": "feat",
+            "title": "Extract selected files via UI"
+          },
+          {
+            "type": "feat",
+            "title": "Extract full archive"
+          },
+          {
+            "type": "fix",
+            "title": "App Store version shows \"MacPacker store\" as product name in Launchpad"
+          },
+          {
+            "type": "core",
+            "title": "New architecture for archive handlers"
+          }
+        ]
+      },
+      {
+        "version": "0.6",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Hit space to open internal preview"
+          },
+          {
+            "type": "feat",
+            "title": "Setting to change the breadcrumb position"
+          },
+          {
+            "type": "feat",
+            "title": "rar read support"
+          },
+          {
+            "type": "feat",
+            "title": "Show folder / file icons in table"
+          },
+          {
+            "type": "core",
+            "title": "Add support for macOS 14"
+          }
+        ]
+      },
+      {
+        "version": "0.5",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Multiple windows support"
+          },
+          {
+            "type": "feat",
+            "title": "Open info for archive"
+          },
+          {
+            "type": "feat",
+            "title": "Breadcrumb view for navigation"
+          },
+          {
+            "type": "fix",
+            "title": "Open With in Finder not working"
+          },
+          {
+            "type": "core",
+            "title": "Major code cleanup"
+          }
+        ],
+        "date": "Thu, 22 May 2025 13:56:08 +0200"
+      },
+      {
+        "version": "0.4",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Viewer to show preview of files"
+          },
+          {
+            "type": "feat",
+            "title": "7zip read support"
+          },
+          {
+            "type": "core",
+            "title": "Clean cache when MacPacker terminates"
+          }
+        ],
+        "date": "Mon, 27 Nov 2023 05:18:17 +0100"
+      },
+      {
+        "version": "0.3",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Highlight when dragging file to MacPacker window"
+          },
+          {
+            "type": "feat",
+            "title": "Double click any file to extract and open it using the default editor"
+          },
+          {
+            "type": "feat",
+            "title": "Breadcrumb showing the current path in the archive (incl. nested support)"
+          },
+          {
+            "type": "feat",
+            "title": "Support for any valid zip-based file"
+          },
+          {
+            "type": "feat",
+            "title": "Automatic cache cleaning & zip creation support"
+          },
+          {
+            "type": "core",
+            "title": "Prepare the core for creating/editing archives"
+          },
+          {
+            "type": "core",
+            "title": "Unit tests"
+          }
+        ],
+        "date": "Thu, 09 Nov 2023 05:15:40 +0100"
+      },
+      {
+        "version": "0.2",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Welcome & about dialog"
+          },
+          {
+            "type": "feat",
+            "title": "Auto update"
+          },
+          {
+            "type": "feat",
+            "title": "zip support"
+          },
+          {
+            "type": "feat",
+            "title": "\"Open With...\" context menu support"
+          }
+        ],
+        "date": "Mon, 25 Sep 2023 03:46:37 +0200"
+      },
+      {
+        "version": "0.1",
+        "items": [
+          {
+            "type": "feat",
+            "title": "Drag & drop an lz4 or tar file to MacPacker"
+          },
+          {
+            "type": "feat",
+            "title": "Manual option to clear the cache"
+          },
+          {
+            "type": "feat",
+            "title": "Traverse through nested archives"
+          }
+        ]
+      }
+    ]
+  }
+}
