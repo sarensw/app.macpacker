@@ -1,5 +1,5 @@
 import type { Locale, Translations } from "@/lib/i18n";
-import { AppleIcon, GitHubIcon } from "@/components/icons";
+import { AppleIcon, GitHubIcon, DownloadIcon } from "@/components/icons";
 import BrewCopyButton from "@/components/client/BrewCopyButton";
 
 interface HeroProps {
@@ -17,7 +17,7 @@ export default function Hero({
   latestZipUrl,
 }: HeroProps) {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] gap-12 items-center mb-16 max-md:mb-12">
+    <section className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] gap-8 md:gap-10 items-center mb-16 max-md:mb-12">
       <div>
         <div className="flex flex-wrap items-center gap-2 mb-6">
           <span className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.04em] text-ink-secondary uppercase">
@@ -36,9 +36,7 @@ export default function Hero({
           className="font-medium leading-[1.04] tracking-[-0.025em] mb-6 text-ink-primary"
           style={{ fontSize: "clamp(36px, 5vw, 56px)" }}
         >
-          {t.hero.titlePre}
-          <br />
-          <span className="text-ink-secondary">{t.hero.titlePost}</span>
+          {t.hero.title}
         </h1>
 
         <p className="text-[16px] leading-[1.6] text-ink-secondary mb-8 max-w-[460px]">
@@ -54,14 +52,20 @@ export default function Hero({
         <div className="flex flex-wrap items-center gap-2.5 mt-6">
           <a
             href={latestDmgUrl}
-            className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium hover:bg-[#2a2a2a] transition-colors"
+            className="inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium hover:bg-[#2a2a2a] transition-colors"
           >
-            {t.hero.downloadCta}
+            <span className="w-[14px] h-[14px] inline-block">
+              <DownloadIcon />
+            </span>
+            {t.hero.dmgCta}
           </a>
           <a
             href={latestZipUrl}
             className="inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-bg-surface text-ink-primary text-[13px] font-medium border-[0.5px] border-border-strong hover:bg-bg-page transition-colors"
           >
+            <span className="w-[14px] h-[14px] inline-block">
+              <DownloadIcon />
+            </span>
             {t.hero.zipCta}
           </a>
           <a
@@ -90,16 +94,13 @@ export default function Hero({
         </p>
       </div>
 
-      {/* App screenshot placeholder — real graphic will be added later. */}
-      <div
-        className="relative rounded-lg bg-bg-muted h-[500px] max-md:h-[320px] grid place-items-center"
-        aria-hidden="true"
-      >
-        <span className="font-mono text-[11px] tracking-[0.06em] text-ink-tertiary uppercase">
-          {t.hero.screenshotPlaceholder}
-        </span>
-        <span className="absolute inset-3 border border-dashed border-black/10 rounded-md pointer-events-none" />
-      </div>
+      <img
+        src="/hero.png"
+        alt={t.hero.screenshotPlaceholder}
+        width={1824}
+        height={1224}
+        className="w-full h-auto block md:-mr-6"
+      />
     </section>
   );
 }

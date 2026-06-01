@@ -77,9 +77,9 @@ describe("English page - hero", () => {
     expect(screen.getByText(/--cask/)).toBeInTheDocument();
   });
 
-  it("renders the Download .dmg button with DMG href", async () => {
+  it("renders the .dmg button with DMG href", async () => {
     await renderEnPage();
-    const buttons = screen.getAllByText(en.hero.downloadCta);
+    const buttons = screen.getAllByText(en.hero.dmgCta);
     const link = buttons[0].closest("a");
     expect(link).toHaveAttribute("href", releaseFixture.latestDmgUrl);
   });
@@ -115,7 +115,7 @@ describe("English page - sections", () => {
     expect(screen.getByText(en.features.peek.title)).toBeInTheDocument();
     expect(screen.getByText(en.features.nested.title)).toBeInTheDocument();
     expect(screen.getByText(en.features.selective.title)).toBeInTheDocument();
-    expect(screen.getByText(en.features.native.title)).toBeInTheDocument();
+    expect(screen.getByText(en.features.editing.title)).toBeInTheDocument();
   });
 
   it("renders the formats chips", async () => {

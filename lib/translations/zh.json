@@ -9,18 +9,17 @@
   },
   "hero": {
     "eyebrowFree": "免费开源",
-    "titlePre": "查看任意压缩包内容。",
-    "titlePost": "只提取你需要的文件。",
-    "sub": "预览嵌套压缩包，无需解压即可查看内容，仅拖出你真正需要的文件。这是 macOS 上早该存在的压缩包管理工具。",
+    "title": "macOS 的压缩包管理器。",
+    "sub": "像浏览文件夹一样浏览压缩包。无需解压即可预览文件。只拖出你需要的那些。",
     "brewCommand": "brew install --cask macpacker",
     "copy": "复制",
     "copied": "已复制",
-    "downloadCta": "下载 .dmg",
+    "dmgCta": ".dmg",
     "zipCta": ".zip",
     "appStore": "App Store",
     "appStoreNote": "因 Apple 审核流程，App Store 版本可能比直接下载晚几天。",
     "releasesCta": "发行版",
-    "screenshotPlaceholder": "应用截图"
+    "screenshotPlaceholder": "MacPacker 显示压缩包内容的应用截图"
   },
   "features": {
     "peek": {
@@ -35,9 +34,9 @@
       "title": "选择性提取",
       "description": "只拖出需要的文件。不必为一个配置文件解压整个 2 GB 的压缩包。"
     },
-    "native": {
-      "title": "原生高效",
-      "description": "使用 Swift 与 SwiftUI 构建。无 Electron、无包装层——macOS 上浑然天成。"
+    "editing": {
+      "title": "编辑与保存",
+      "description": "可直接修改并保存 ZIP 压缩包。更多格式的编辑功能即将推出。"
     }
   },
   "formats": {

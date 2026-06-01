@@ -59,7 +59,7 @@ describe("Chinese page - sections", () => {
     expect(screen.getByText(zh.features.peek.title)).toBeInTheDocument();
     expect(screen.getByText(zh.features.nested.title)).toBeInTheDocument();
     expect(screen.getByText(zh.features.selective.title)).toBeInTheDocument();
-    expect(screen.getByText(zh.features.native.title)).toBeInTheDocument();
+    expect(screen.getByText(zh.features.editing.title)).toBeInTheDocument();
   });
 
   it("renders Chinese open source line", async () => {

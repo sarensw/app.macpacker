@@ -9,18 +9,17 @@
   },
   "hero": {
     "eyebrowFree": "Free & open source",
-    "titlePre": "See inside any archive.",
-    "titlePost": "Extract only what you need.",
-    "sub": "Preview nested archives, peek at contents without extracting, and drag out just the files you want. The macOS archive manager that should have existed all along.",
+    "title": "The archive manager for macOS.",
+    "sub": "Browse archives like folders. Preview files without extracting. Drag out only the ones you need.",
     "brewCommand": "brew install --cask macpacker",
     "copy": "Copy",
     "copied": "Copied",
-    "downloadCta": "Download .dmg",
+    "dmgCta": ".dmg",
     "zipCta": ".zip",
     "appStore": "App Store",
     "appStoreNote": "App Store updates may lag a few days behind direct downloads due to Apple review.",
     "releasesCta": "Releases",
-    "screenshotPlaceholder": "App screenshot"
+    "screenshotPlaceholder": "MacPacker showing an archive's contents"
   },
   "features": {
     "peek": {
@@ -35,9 +34,9 @@
       "title": "Selective extraction",
       "description": "Drag out exactly the files you need. No more 2 GB extractions for one config file."
     },
-    "native": {
-      "title": "Native & fast",
-      "description": "Built with Swift and SwiftUI. No Electron, no wrappers — feels right at home on macOS."
+    "editing": {
+      "title": "Edit & save",
+      "description": "Modify and re-save ZIP archives in place. Editing for more formats is on the way."
     }
   },
   "formats": {

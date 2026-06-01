@@ -124,7 +124,7 @@ describe("translation content", () => {
     expect(en.features.peek.title).toBeDefined();
     expect(en.features.nested.title).toBeDefined();
     expect(en.features.selective.title).toBeDefined();
-    expect(en.features.native.title).toBeDefined();
+    expect(en.features.editing.title).toBeDefined();
   });
 
   it("brew command is correct", () => {

@@ -9,7 +9,7 @@ export default function FeatureStrip({ t }: FeatureStripProps) {
     { num: "01", title: t.features.peek.title, body: t.features.peek.description },
     { num: "02", title: t.features.nested.title, body: t.features.nested.description },
     { num: "03", title: t.features.selective.title, body: t.features.selective.description },
-    { num: "04", title: t.features.native.title, body: t.features.native.description },
+    { num: "04", title: t.features.editing.title, body: t.features.editing.description },
   ];
 
   return (
