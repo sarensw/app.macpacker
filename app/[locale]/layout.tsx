@@ -97,11 +97,6 @@ export async function generateMetadata({
         "x-default": "https://macpacker.app/en",
       },
     },
-    icons: {
-      icon: "/icon",
-      apple: { url: "/logo.png", sizes: "180x180", type: "image/png" },
-      shortcut: "/logo.png",
-    },
     // Smart App Banner — surfaces an "Install" CTA on Safari iOS when users
     // happen to land on the site from a mobile device.
     other: {

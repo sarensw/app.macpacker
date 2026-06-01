@@ -60,5 +60,9 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|api|favicon\\.ico|.*\\..*).*)"],
+  matcher: [
+    // Skip Next internals, API routes, files with extensions, and the
+    // metadata-file conventions Next.js serves at extension-less URLs.
+    "/((?!_next|api|icon|apple-icon|opengraph-image|twitter-image|manifest|sitemap|robots|favicon\\.ico|.*\\..*).*)",
+  ],
 };
