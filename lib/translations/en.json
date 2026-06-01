@@ -52,8 +52,8 @@
   },
   "translations": {
     "lead": "Translations.",
-    "body": "Available in 13 languages — help add yours.",
-    "viewOnPoeditor": "Help on POEditor",
+    "body": "Available in 13 languages. Translations are managed on POEditor — anyone can sign up and help.",
+    "viewOnPoeditor": "Translate MacPacker",
     "languages": [
       { "flag": "🇧🇷", "name": "Português (Brasil)" },
       { "flag": "🇨🇳", "name": "中文" },

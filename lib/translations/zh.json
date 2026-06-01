@@ -52,8 +52,8 @@
   },
   "translations": {
     "lead": "多语言。",
-    "body": "已支持 13 种语言——欢迎一起完善。",
-    "viewOnPoeditor": "在 POEditor 上协助",
+    "body": "已支持 13 种语言。翻译通过 POEditor 管理——任何人都可以注册参与。",
+    "viewOnPoeditor": "翻译 MacPacker",
     "languages": [
       { "flag": "🇧🇷", "name": "Português (Brasil)" },
       { "flag": "🇨🇳", "name": "中文" },
