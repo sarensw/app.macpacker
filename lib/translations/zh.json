@@ -42,7 +42,6 @@
   "formats": {
     "eyebrow": "支持的格式",
     "title": "支持的格式",
-    "note": "还支持 XADMaster 和 7-Zip 核心所支持的其他格式。",
     "fullListLink": "查看完整列表 →"
   },
   "openSource": {

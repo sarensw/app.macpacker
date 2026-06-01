@@ -20,7 +20,7 @@ export default function Hero({
     <section className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] gap-8 md:gap-10 items-center mb-16 max-md:mb-12">
       <div>
         <div className="flex flex-wrap items-center gap-2 mb-6">
-          <span className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.04em] text-ink-secondary uppercase">
+          <span className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.04em] text-ink-secondary">
             <span
               className="w-1.5 h-1.5 rounded-full bg-accent-live"
               aria-hidden="true"

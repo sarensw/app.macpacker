@@ -14,10 +14,17 @@ function chipLabel(id: string, firstExtension: string): string {
   return labelOverrides[id] ?? firstExtension.toUpperCase();
 }
 
-const formatChips: FormatChip[] = registry.formats.map((f) => ({
-  id: f.id,
-  label: chipLabel(f.id, f.extensions[0]),
-}));
+// One chip per format, except LHA which surfaces both .lha and .lzh extensions
+// — they're file-format peers in practice and worth listing separately.
+const formatChips: FormatChip[] = registry.formats.flatMap((f) => {
+  if (f.id === "lha") {
+    return [
+      { id: "lha", label: "LHA" },
+      { id: "lzh", label: "LZH" },
+    ];
+  }
+  return [{ id: f.id, label: chipLabel(f.id, f.extensions[0]) }];
+});
 
 const compoundChips: FormatChip[] = registry.compounds.map((c) => ({
   id: c.id,

@@ -553,7 +553,7 @@ export const formats: FormatEntry[] = [
           "DMG is a macOS-specific format. On macOS, use MacPacker or Finder to open DMG files. On other platforms, specialized tools like 7-Zip can extract DMG contents.",
       },
     ],
-    relatedFormats: ["iso", "pkg", "apfs"],
+    relatedFormats: ["iso", "pkg", "fat"],
   },
   {
     slug: "iso",
@@ -1054,46 +1054,6 @@ export const formats: FormatEntry[] = [
 
   // ── Filesystem / Disk Image Formats ──
   {
-    slug: "apfs",
-    displayName: "APFS",
-    fullName: "Apple File System Image",
-    extensions: [".apfs"],
-    type: "disk-image",
-    popular: false,
-    description:
-      "APFS (Apple File System) is Apple's modern filesystem. APFS disk images are used for macOS volumes and backups.",
-    articleTitle: diskImageTitle("APFS"),
-    articleIntro:
-      "APFS (Apple File System) is Apple's modern filesystem, introduced in macOS High Sierra. APFS disk images are used for macOS recovery volumes, Time Machine backups, and containerized storage. Accessing APFS images outside of their original context typically requires specialized tools.",
-    defaultMethod: {
-      tool: "hdiutil / Disk Utility (built-in)",
-      command: "hdiutil attach image.apfs",
-      steps: [
-        "If the APFS image is within a DMG container, double-click to mount.",
-        "For standalone APFS containers, use Disk Utility to attempt mounting.",
-        "From Terminal: hdiutil attach image.dmg (if APFS is inside a DMG).",
-      ],
-      supportsSelectiveExtraction: false,
-      notes:
-        "Standalone APFS images may not mount directly. MacPacker can browse APFS container contents without mounting.",
-    },
-    macpackerSelectiveExtraction: true,
-    keywords: [
-      "open apfs image mac",
-      "apfs disk image macos",
-      "extract apfs mac",
-      "apple file system image",
-    ],
-    faqs: [
-      {
-        question: "How do I access files in an APFS disk image?",
-        answer:
-          "If the APFS image is inside a DMG, double-click to mount it. For standalone APFS images, use MacPacker to browse the contents without mounting.",
-      },
-    ],
-    relatedFormats: ["dmg", "fat", "ntfs"],
-  },
-  {
     slug: "fat",
     displayName: "FAT",
     fullName: "FAT Filesystem Image",
@@ -1132,7 +1092,7 @@ export const formats: FormatEntry[] = [
           "From Terminal, run: hdiutil attach image.img to mount the FAT image. You can then browse files in Finder. MacPacker can also browse FAT images directly without mounting.",
       },
     ],
-    relatedFormats: ["ntfs", "apfs", "dmg"],
+    relatedFormats: ["ntfs", "dmg"],
   },
   {
     slug: "ntfs",
@@ -1171,7 +1131,7 @@ export const formats: FormatEntry[] = [
           "macOS supports NTFS in read-only mode for mounted drives. For NTFS disk images, use MacPacker to browse and extract files without needing to mount the image.",
       },
     ],
-    relatedFormats: ["fat", "apfs", "vhd"],
+    relatedFormats: ["fat", "vhd"],
   },
 
   // ── Virtual Machine Disk Images ──

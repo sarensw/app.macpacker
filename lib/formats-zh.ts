@@ -686,32 +686,6 @@ export const zhFormats: Record<string, FormatLocalization> = {
     ],
   },
 
-  apfs: {
-    fullName: "Apple 文件系统磁盘镜像",
-    description:
-      "APFS（Apple 文件系统）是苹果的现代文件系统。APFS 磁盘镜像用于 macOS 卷宗和备份。",
-    articleTitle: "如何在 macOS 上从 APFS 磁盘镜像中提取文件",
-    articleIntro:
-      "APFS（Apple File System，Apple 文件系统）是苹果在 macOS High Sierra 中引入的现代文件系统。APFS 磁盘镜像用于 macOS 恢复卷宗、Time Machine 备份和容器化存储。在原始环境之外访问 APFS 镜像通常需要借助专业工具。",
-    defaultMethod: {
-      tool: "hdiutil / Disk Utility（系统内置）",
-      steps: [
-        "如果 APFS 镜像位于 DMG 容器中，双击即可挂载。",
-        "对于独立的 APFS 容器，可尝试使用 Disk Utility 进行挂载。",
-        "在 Terminal 中运行：hdiutil attach image.dmg（适用于 APFS 嵌套在 DMG 内的情况）。",
-      ],
-      notes:
-        "独立的 APFS 镜像可能无法直接挂载。MacPacker 可以在不挂载的情况下浏览 APFS 容器的内容。",
-    },
-    faqs: [
-      {
-        question: "如何访问 APFS 磁盘镜像中的文件？",
-        answer:
-          "如果 APFS 镜像在 DMG 内部，双击即可挂载。对于独立的 APFS 镜像，可以使用 MacPacker 在不挂载的情况下浏览其内容。",
-      },
-    ],
-  },
-
   fat: {
     fullName: "FAT 文件系统磁盘镜像",
     description:

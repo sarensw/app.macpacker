@@ -42,7 +42,6 @@
   "formats": {
     "eyebrow": "Supported Formats",
     "title": "Supported Formats",
-    "note": "Plus other formats supported by XADMaster and 7-Zip core.",
     "fullListLink": "See full list →"
   },
   "openSource": {

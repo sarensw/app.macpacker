@@ -37,8 +37,6 @@ export default function FormatsChips({ locale, t }: FormatsChipsProps) {
           </span>
         ))}
       </div>
-
-      <p className="mt-3 text-[12px] text-ink-tertiary">{t.formats.note}</p>
     </section>
   );
 }
