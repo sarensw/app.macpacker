@@ -18,6 +18,7 @@
     "downloadCta": "下载 .dmg",
     "zipCta": ".zip",
     "appStore": "App Store",
+    "appStoreNote": "因 Apple 审核流程，App Store 版本可能比直接下载晚几天。",
     "releasesCta": "发行版",
     "screenshotPlaceholder": "应用截图"
   },

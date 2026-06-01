@@ -18,6 +18,7 @@
     "downloadCta": "Download .dmg",
     "zipCta": ".zip",
     "appStore": "App Store",
+    "appStoreNote": "App Store updates may lag a few days behind direct downloads due to Apple review.",
     "releasesCta": "Releases",
     "screenshotPlaceholder": "App screenshot"
   },

@@ -85,6 +85,9 @@ export default function Hero({
             {t.hero.releasesCta}
           </a>
         </div>
+        <p className="font-mono text-[10px] tracking-[0.02em] text-ink-tertiary mt-2.5 mb-0 pl-0.5 max-w-[460px] leading-[1.5]">
+          {t.hero.appStoreNote}
+        </p>
       </div>
 
       {/* App screenshot placeholder — real graphic will be added later. */}
