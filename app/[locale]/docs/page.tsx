@@ -9,6 +9,7 @@ import type { FormatEntry, FormatType } from "@/lib/formats";
 import { getReleaseData } from "@/lib/release";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import DownloadCard from "@/components/DownloadCard";
 
 const typeLabels: Record<FormatType, { en: string; zh: string }> = {
   archive: { en: "Archives", zh: "压缩包" },
@@ -80,38 +81,13 @@ export default async function DocsPage({
           );
         })}
 
-        <section className="my-16 bg-bg-surface border-[0.5px] border-border-default rounded-md px-6 py-8 max-w-[720px]">
-          <h2 className="text-[20px] font-medium tracking-[-0.015em] text-ink-primary mb-2">
-            {isZh
-              ? "使用 MacPacker 轻松提取文件"
-              : "Extract files the easy way with MacPacker"}
-          </h2>
-          <p className="text-[15px] text-ink-secondary mb-5 leading-[1.6]">
-            {isZh
-              ? "免费、开源的 macOS 压缩包管理器。浏览、预览和提取 30 多种格式的单个文件。"
-              : "Free, open-source archive manager for macOS. Browse, preview, and extract individual files from 30+ formats."}
-          </p>
-          <div className="flex flex-wrap items-center gap-2.5">
-            <a
-              href={release.latestDmgUrl}
-              className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium hover:bg-[#2a2a2a] transition-colors"
-            >
-              {isZh ? "下载 .dmg" : "Download .dmg"}
-            </a>
-            <a
-              href="https://apps.apple.com/us/app/macpacker/id6473273874"
-              className="inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-bg-page text-ink-primary text-[13px] font-medium border-[0.5px] border-border-strong hover:bg-bg-muted transition-colors"
-            >
-              Mac App Store
-            </a>
-            <Link
-              href={`/${locale}`}
-              className="inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-bg-page text-ink-primary text-[13px] font-medium border-[0.5px] border-border-strong hover:bg-bg-muted transition-colors"
-            >
-              {isZh ? "了解更多" : "Learn more"}
-            </Link>
-          </div>
-        </section>
+        <DownloadCard
+          t={t}
+          latestVersion={release.latestVersion}
+          latestDmgUrl={release.latestDmgUrl}
+          latestZipUrl={release.latestZipUrl}
+          className="my-16 max-w-[720px]"
+        />
       </main>
 
       <Footer locale={locale} t={t} />
@@ -159,7 +135,7 @@ function FormatCard({
           {format.displayName}
         </span>
         <span className="text-[11px] font-mono text-ink-tertiary">
-          .{format.extensions[0]}
+          {format.extensions[0]}
         </span>
       </div>
       <p className="text-[13px] leading-[1.55] text-ink-secondary flex-1 m-0">

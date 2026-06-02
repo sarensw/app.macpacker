@@ -44,6 +44,10 @@
     "title": "Supported Formats",
     "fullListLink": "See full list →"
   },
+  "download": {
+    "heading": "Get MacPacker",
+    "platformNote": "macOS 14+"
+  },
   "openSource": {
     "lead": "Open source.",
     "body": "GPL-3.0. Built in the open — inspect, fork, contribute.",

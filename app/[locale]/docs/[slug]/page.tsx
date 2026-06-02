@@ -10,6 +10,7 @@ import {
 import { getReleaseData } from "@/lib/release";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import DownloadCard from "@/components/DownloadCard";
 
 export async function generateStaticParams() {
   const slugs = getAllFormatSlugs();
@@ -191,13 +192,13 @@ export default async function ArticlePage({
 
         {/* ─── ARTICLE ─── */}
         <article className="pb-20">
-          <div className="mb-12 max-w-[720px]">
+          <div className="mb-8 max-w-[720px]">
             <div className="flex items-center gap-3 mb-5">
               <span className="py-[5px] px-2.5 rounded-md font-mono text-[12px] bg-bg-surface text-ink-secondary border-[0.5px] border-border-default">
                 {format.displayName}
               </span>
               <span className="text-[12px] font-mono text-ink-tertiary">
-                {format.extensions.map((e) => `.${e}`).join(" · ")}
+                {format.extensions.join(" · ")}
               </span>
             </div>
             <h1
@@ -211,8 +212,42 @@ export default async function ArticlePage({
             </p>
           </div>
 
+          {/* ─── ON THIS PAGE ─── */}
+          <nav
+            aria-label={isZh ? "本页目录" : "On this page"}
+            className="mb-12 max-w-[720px] bg-bg-surface border-[0.5px] border-border-default rounded-md px-5 py-4"
+          >
+            <p className="font-mono text-[10px] tracking-[0.08em] text-ink-tertiary uppercase mb-2.5">
+              {isZh ? "本页目录" : "On this page"}
+            </p>
+            <ol className="flex flex-col gap-1.5 m-0 p-0 list-none">
+              <li>
+                <a
+                  href="#default-way"
+                  className="text-[14px] text-ink-primary inline-flex items-center gap-2 hover:underline underline-offset-[3px] decoration-[0.5px] decoration-border-strong"
+                >
+                  <span className="text-ink-tertiary" aria-hidden="true">↓</span>
+                  {isZh
+                    ? `在 macOS 上打开 ${format.displayName} 文件的默认方法`
+                    : `The default way to open ${format.displayName} files on macOS`}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#better-way"
+                  className="text-[14px] text-ink-primary inline-flex items-center gap-2 hover:underline underline-offset-[3px] decoration-[0.5px] decoration-border-strong"
+                >
+                  <span className="text-ink-tertiary" aria-hidden="true">↓</span>
+                  {isZh
+                    ? `使用 MacPacker 打开 ${format.displayName} 文件`
+                    : `A better way: open ${format.displayName} files with MacPacker`}
+                </a>
+              </li>
+            </ol>
+          </nav>
+
           {/* ─── DEFAULT METHOD ─── */}
-          <section className="max-w-[720px] mb-12">
+          <section id="default-way" className="max-w-[720px] mb-12 scroll-mt-8">
             <h2 className="text-[22px] font-medium tracking-[-0.015em] text-ink-primary mb-4">
               {isZh
                 ? `在 macOS 上打开 ${format.displayName} 文件的默认方法`
@@ -279,7 +314,7 @@ export default async function ArticlePage({
           )}
 
           {/* ─── MACPACKER SECTION ─── */}
-          <section className="max-w-[720px] mb-12">
+          <section id="better-way" className="max-w-[720px] mb-12 scroll-mt-8">
             <h2 className="text-[22px] font-medium tracking-[-0.015em] text-ink-primary mb-4">
               {isZh
                 ? `使用 MacPacker 打开 ${format.displayName} 文件`
@@ -319,29 +354,15 @@ export default async function ArticlePage({
                 </li>
               ))}
             </ul>
-            <div className="flex flex-wrap gap-2.5">
-              <a
-                href={release.latestDmgUrl}
-                className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium hover:bg-[#2a2a2a] transition-colors"
-              >
-                {isZh ? "下载 .dmg" : "Download .dmg"}
-              </a>
-              <a
-                href="https://apps.apple.com/us/app/macpacker/id6473273874"
-                className="inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-bg-surface text-ink-primary text-[13px] font-medium border-[0.5px] border-border-strong hover:bg-bg-page transition-colors"
-              >
-                Mac App Store
-              </a>
-              <a
-                href="https://github.com/sarensw/MacPacker"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-bg-surface text-ink-primary text-[13px] font-medium border-[0.5px] border-border-strong hover:bg-bg-page transition-colors"
-              >
-                {isZh ? "在 GitHub 上查看" : "View on GitHub"}
-              </a>
-            </div>
           </section>
+
+          <DownloadCard
+            t={t}
+            latestVersion={release.latestVersion}
+            latestDmgUrl={release.latestDmgUrl}
+            latestZipUrl={release.latestZipUrl}
+            className="mb-12 max-w-[720px]"
+          />
 
           {/* ─── FAQ ─── */}
           {format.faqs.length > 0 && (
@@ -391,7 +412,7 @@ export default async function ArticlePage({
                         {r.displayName}
                       </span>
                       <span className="text-[11px] text-ink-tertiary font-mono">
-                        .{r.extensions[0]}
+                        {r.extensions[0]}
                       </span>
                     </div>
                     <p className="text-[12.5px] leading-[1.55] text-ink-secondary m-0">

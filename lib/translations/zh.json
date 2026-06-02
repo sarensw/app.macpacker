@@ -44,6 +44,10 @@
     "title": "支持的格式",
     "fullListLink": "查看完整列表 →"
   },
+  "download": {
+    "heading": "获取 MacPacker",
+    "platformNote": "macOS 14+"
+  },
   "openSource": {
     "lead": "开源。",
     "body": "GPL-3.0。公开构建——可检查、可分支、可贡献。",
