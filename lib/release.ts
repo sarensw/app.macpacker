@@ -82,13 +82,15 @@ function parseAppcast(xml: string): AppcastInfo {
   const dateByVersion = new Map<string, string>();
   let topNonBetaZipUrl: string | null = null;
 
-  // Split on </item> — well-formed Sparkle feed, regex is sufficient.
-  const chunks = xml.split("</item>");
-  for (const chunk of chunks) {
+  // Split on <item> — chunks[0] is the channel preamble (skipped), chunks[1+] are item bodies.
+  // Splitting on </item> would mix the channel <title>MacPacker</title> into chunk 0
+  // alongside the first item, causing the first release to be skipped.
+  const chunks = xml.split("<item>");
+  for (let i = 1; i < chunks.length; i++) {
+    const chunk = chunks[i];
     const titleMatch = /<title>([^<]+)<\/title>/.exec(chunk);
     if (!titleMatch) continue;
     const title = titleMatch[1].trim();
-    if (title === "MacPacker") continue; // channel-level title
 
     const pubMatch = /<pubDate>([^<]+)<\/pubDate>/.exec(chunk);
     if (pubMatch) dateByVersion.set(title, pubMatch[1].trim());
@@ -133,10 +135,6 @@ function deriveUrls(topZipUrl: string | null): {
   dmg: string;
 } | null {
   if (!topZipUrl) return null;
-  // Top non-beta enclosure is the .zip; derive the .dmg sibling by extension swap.
-  // Note: hero eyebrow shows Changelog.json[0].version (e.g. 0.15.1), while these
-  // URLs point at the most recent appcast-published binary (e.g. 0.15). The download
-  // button says just "Download" — no version — to avoid mismatch confusion.
   const base = topZipUrl.replace(/\.zip$/i, "");
   return { zip: `${base}.zip`, dmg: `${base}.dmg` };
 }
