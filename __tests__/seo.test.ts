@@ -8,7 +8,11 @@ describe("sitemap.ts", () => {
   it("returns entries for all locales", () => {
     const entries = sitemap();
     const slugs = getAllFormatSlugs();
-    const expectedCount = locales.length + locales.length + locales.length * slugs.length;
+    const expectedCount =
+      locales.length + // home
+      locales.length + // press
+      locales.length + // docs index
+      locales.length * slugs.length; // docs articles
     expect(entries).toHaveLength(expectedCount);
 
     const urls = entries.map((e) => e.url);

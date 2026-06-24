@@ -52,6 +52,9 @@ export default function Footer({ locale, t }: FooterProps) {
               <Link href={`/${locale}/blog`} className="hover:text-ink-primary transition-colors">
                 {t.footer.links.blog}
               </Link>
+              <Link href={`/${locale}/press`} className="hover:text-ink-primary transition-colors">
+                {t.footer.links.press}
+              </Link>
             </div>
           </div>
 
