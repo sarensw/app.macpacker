@@ -4,5 +4,10 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 *local.json
+.DS_Store
+
+# Generated media kit (rebuilt by scripts/build-press-kit.mjs on every build)
+/public/press/
 
 .claude/worktrees/
+.gstack/
