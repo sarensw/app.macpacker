@@ -29,6 +29,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   }));
 
+  const pressPages = locales.map((locale) => ({
+    url: `${baseUrl}/${locale}/press`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: locale === "en" ? 0.7 : 0.5,
+    alternates: {
+      languages: Object.fromEntries(
+        locales.map((l) => [l, `${baseUrl}/${l}/press`])
+      ),
+    },
+  }));
+
   const slugs = getAllFormatSlugs();
   const docsArticlePages = locales.flatMap((locale) =>
     slugs.map((slug) => ({
@@ -44,5 +56,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  return [...homePages, ...docsIndexPages, ...docsArticlePages];
+  return [...homePages, ...pressPages, ...docsIndexPages, ...docsArticlePages];
 }

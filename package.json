@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "press-kit": "node scripts/build-press-kit.mjs",
+    "predev": "node scripts/build-press-kit.mjs",
+    "prebuild": "node scripts/build-press-kit.mjs"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.0",
@@ -24,6 +27,8 @@
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^5.1.4",
     "jsdom": "^28.1.0",
+    "jszip": "^3.10.1",
+    "sharp": "^0.34.5",
     "typescript": "^5",
     "vitest": "^4.0.18"
   }
