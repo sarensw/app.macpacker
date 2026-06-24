@@ -78,8 +78,13 @@ export default async function PrivacyPage({
           </h2>
           <p className="text-[15px] leading-[1.7] text-ink-secondary mb-6">
             {isZh
-              ? "MacPacker 完全在您的设备本地运行。不会向任何服务器发送数据。没有分析工具、没有追踪器、没有遥测数据。"
-              : "MacPacker runs entirely on your local device. No data is sent to any server. There are no analytics, no trackers, and no telemetry."}
+              ? "MacPacker 完全在您的设备本地运行。应用不会向任何服务器发送数据，也不含任何分析工具、追踪器或遥测数据。"
+              : "MacPacker runs entirely on your local device. The app sends no data to any server, and contains no analytics, trackers, or telemetry."}
+          </p>
+          <p className="text-[15px] leading-[1.7] text-ink-secondary mb-6">
+            {isZh
+              ? "本网站（macpacker.app）使用 Ahrefs Web Analytics（一款注重隐私、无 Cookie 的工具）来统计访问量。它不设置 Cookie，也不会跨站点追踪您。"
+              : "This website (macpacker.app) uses Ahrefs Web Analytics, a privacy-friendly, cookieless tool, to measure visits. It sets no cookies and doesn't track you across sites."}
           </p>
 
           <h2 className="text-[20px] font-medium tracking-[-0.015em] text-ink-primary mb-3 mt-10">
