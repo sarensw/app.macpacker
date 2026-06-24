@@ -198,6 +198,11 @@ export default async function LocaleLayout({
     <html lang={locale} className={newsreader.variable}>
       <head>
         <JsonLd locale={locale} />
+        <script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="aoVZsOFrUliNz+LrQKEdwQ"
+          async
+        />
       </head>
       <body className="font-sans bg-bg-page text-ink-primary antialiased overflow-x-hidden">
         {children}
