@@ -36,6 +36,7 @@ Disk images: dmg, fat, iso, ntfs, qcow2, squashfs, vdi, vhd, vhdx, vmdk, wim
 - Docs index: https://macpacker.app/en/docs
 - Per-format guides: https://macpacker.app/en/docs/{slug} (e.g. /zip, /rar, /7z, /dmg, /iso)
 - Privacy policy: https://macpacker.app/en/privacy
+- Press / media kit: https://macpacker.app/en/press (also /zh/press) — boilerplate, fact sheet, brand assets, downloadable kit
 - Changelog: https://macpacker.app/en#changelog
 - Live changelog source: https://macpacker-releases.s3.eu-central-1.amazonaws.com/Changelog.json
 - Sparkle appcast: https://macpacker-releases.s3.eu-central-1.amazonaws.com/appcast.xml
