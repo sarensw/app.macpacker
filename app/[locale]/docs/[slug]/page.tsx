@@ -8,6 +8,7 @@ import {
   getAllFormatSlugs,
 } from "@/lib/formats";
 import { getReleaseData } from "@/lib/release";
+import { pageMetadata } from "@/lib/seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import DownloadCard from "@/components/DownloadCard";
@@ -30,27 +31,14 @@ export async function generateMetadata({
   if (!format) return {};
 
   return {
-    title: format.articleTitle,
-    description: format.articleIntro.slice(0, 160),
-    keywords: format.keywords,
-    alternates: {
-      canonical: `https://macpacker.app/${locale}/docs/${slug}`,
-      languages: Object.fromEntries(
-        locales.map((l) => [l, `https://macpacker.app/${l}/docs/${slug}`]),
-      ),
-    },
-    openGraph: {
+    ...pageMetadata({
+      locale,
+      path: `/docs/${slug}`,
       title: format.articleTitle,
       description: format.articleIntro.slice(0, 160),
-      locale: locale === "zh" ? "zh_CN" : "en_US",
       type: "article",
-      url: `https://macpacker.app/${locale}/docs/${slug}`,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: format.articleTitle,
-      description: format.articleIntro.slice(0, 160),
-    },
+    }),
+    keywords: format.keywords,
   };
 }
 

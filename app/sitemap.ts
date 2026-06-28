@@ -41,6 +41,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   }));
 
+  const blogPages = locales.map((locale) => ({
+    url: `${baseUrl}/${locale}/blog`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: locale === "en" ? 0.7 : 0.5,
+    alternates: {
+      languages: Object.fromEntries(
+        locales.map((l) => [l, `${baseUrl}/${l}/blog`])
+      ),
+    },
+  }));
+
+  const privacyPages = locales.map((locale) => ({
+    url: `${baseUrl}/${locale}/privacy`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.3,
+    alternates: {
+      languages: Object.fromEntries(
+        locales.map((l) => [l, `${baseUrl}/${l}/privacy`])
+      ),
+    },
+  }));
+
   const slugs = getAllFormatSlugs();
   const docsArticlePages = locales.flatMap((locale) =>
     slugs.map((slug) => ({
@@ -56,5 +80,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  return [...homePages, ...pressPages, ...docsIndexPages, ...docsArticlePages];
+  return [
+    ...homePages,
+    ...docsIndexPages,
+    ...docsArticlePages,
+    ...pressPages,
+    ...blogPages,
+    ...privacyPages,
+  ];
 }

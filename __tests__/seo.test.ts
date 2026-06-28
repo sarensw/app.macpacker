@@ -11,6 +11,8 @@ describe("sitemap.ts", () => {
     const expectedCount =
       locales.length + // home
       locales.length + // press
+      locales.length + // blog
+      locales.length + // privacy
       locales.length + // docs index
       locales.length * slugs.length; // docs articles
     expect(entries).toHaveLength(expectedCount);

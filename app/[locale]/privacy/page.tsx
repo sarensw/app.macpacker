@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { isValidLocale, locales, getTranslations } from "@/lib/i18n";
+import { isValidLocale, getTranslations } from "@/lib/i18n";
 import { getReleaseData } from "@/lib/release";
+import { pageMetadata } from "@/lib/seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -17,26 +18,15 @@ export async function generateMetadata({
 
   const title = isZh ? "隐私政策" : "Privacy Policy";
   const description = isZh
-    ? "MacPacker 不收集、存储或传输任何个人数据。所有操作均在本地完成。"
-    : "MacPacker does not collect, store, or transmit any personal data. Everything stays on your Mac.";
+    ? "MacPacker 不收集、存储或传输任何个人数据——没有分析、没有账户、没有网络请求。所有操作均在你的 Mac 本地完成。"
+    : "MacPacker does not collect, store, or transmit any personal data — no analytics, no accounts, no network requests. Everything stays on your Mac.";
 
-  return {
+  return pageMetadata({
+    locale,
+    path: "/privacy",
     title,
     description,
-    alternates: {
-      canonical: `https://macpacker.app/${locale}/privacy`,
-      languages: Object.fromEntries(
-        locales.map((l) => [l, `https://macpacker.app/${l}/privacy`]),
-      ),
-    },
-    openGraph: {
-      title,
-      description,
-      type: "website",
-      locale: locale === "zh" ? "zh_CN" : "en_US",
-      url: `https://macpacker.app/${locale}/privacy`,
-    },
-  };
+  });
 }
 
 export default async function PrivacyPage({

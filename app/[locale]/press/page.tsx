@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { isValidLocale, locales, getTranslations } from "@/lib/i18n";
+import { isValidLocale, getTranslations } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { getReleaseData } from "@/lib/release";
+import { pageMetadata } from "@/lib/seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { GitHubIcon, DownloadIcon } from "@/components/icons";
@@ -23,24 +24,12 @@ export async function generateMetadata({
   if (!isValidLocale(locale)) return {};
   const t = await getTranslations(locale);
 
-  return {
+  return pageMetadata({
+    locale,
+    path: "/press",
     title: t.press.metaTitle,
     description: t.press.metaDescription,
-    alternates: {
-      canonical: `https://macpacker.app/${locale}/press`,
-      languages: Object.fromEntries(
-        locales.map((l) => [l, `https://macpacker.app/${l}/press`]),
-      ),
-    },
-    openGraph: {
-      title: t.press.metaTitle,
-      description: t.press.metaDescription,
-      type: "website",
-      locale: locale === "zh" ? "zh_CN" : "en_US",
-      url: `https://macpacker.app/${locale}/press`,
-      images: [{ url: "/logo.png", width: 1024, height: 1024, alt: "MacPacker" }],
-    },
-  };
+  });
 }
 
 export default async function PressPage({
