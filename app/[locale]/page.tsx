@@ -10,6 +10,7 @@ import FormatsChips from "@/sections/home/FormatsChips";
 import OpenSourceLine from "@/sections/home/OpenSourceLine";
 import TranslationsLine from "@/sections/home/TranslationsLine";
 import ChangelogRail from "@/sections/home/ChangelogRail";
+import Faq from "@/sections/home/Faq";
 
 export const revalidate = 3600;
 
@@ -51,6 +52,7 @@ export default async function HomePage({
           releases={release.releases}
           comingNext={release.comingNext}
         />
+        <Faq t={t} />
       </main>
 
       <Footer locale={locale} t={t} />

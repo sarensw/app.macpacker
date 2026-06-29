@@ -116,6 +116,7 @@ function JsonLd({ locale, version }: { locale: Locale; version: string }) {
   const softwareApp = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": `${SITE_URL}/#software`,
     name: "MacPacker",
     operatingSystem: "macOS 14+",
     applicationCategory: "UtilitiesApplication",
@@ -158,6 +159,7 @@ function JsonLd({ locale, version }: { locale: Locale; version: string }) {
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${SITE_URL}/#organization`,
     name: "MacPacker",
     url: SITE_URL,
     logo: `${SITE_URL}/logo.png`,
@@ -182,10 +184,18 @@ function JsonLd({ locale, version }: { locale: Locale; version: string }) {
   const website = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
     name: "MacPacker",
     url: SITE_URL,
     inLanguage: locale === "zh" ? "zh-CN" : "en-US",
-    publisher: { "@type": "Organization", name: "MacPacker" },
+    dateModified: "2026-06-29",
+    publisher: {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "MacPacker",
+      url: SITE_URL,
+      logo: `${SITE_URL}/logo.png`,
+    },
     potentialAction: {
       "@type": "SearchAction",
       target: {

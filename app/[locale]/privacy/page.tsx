@@ -59,6 +59,10 @@ export default async function PrivacyPage({
             {isZh ? "隐私政策" : "Privacy Policy"}
           </h1>
 
+          <p className="font-mono text-[11px] tracking-[0.04em] text-ink-tertiary mb-6">
+            {isZh ? "最后更新：2026 年 6 月" : "Last updated: June 2026"}
+          </p>
+
           <p className="text-[16px] leading-[1.7] text-ink-secondary mb-8">
             {isZh
               ? "MacPacker 尊重您的隐私。本应用不收集、存储或传输任何个人数据。"

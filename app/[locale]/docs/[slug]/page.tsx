@@ -104,7 +104,6 @@ export default async function ArticlePage({
       },
     },
     image: `${baseUrl}/og.png`,
-    datePublished: "2025-01-01",
     dateModified: "2026-05-23",
     mainEntityOfPage: `${baseUrl}/${locale}/docs/${slug}`,
   };

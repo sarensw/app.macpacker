@@ -13,7 +13,7 @@ const csp = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' https://analytics.ahrefs.com",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data:",
+  "img-src 'self' data: https:",
   "font-src 'self'",
   "connect-src 'self' https://analytics.ahrefs.com",
   "frame-ancestors 'self'",
@@ -35,6 +35,12 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  images: {
+    // Prefer AVIF (then WebP) for the optimized images, and let browsers cache
+    // the optimized variants for 30 days instead of revalidating every visit.
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 2592000,
+  },
   async headers() {
     return [
       {

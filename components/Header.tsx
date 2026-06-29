@@ -34,7 +34,6 @@ export default function Header({ locale, t, downloadUrl }: HeaderProps) {
             aria-hidden="true"
             width={26}
             height={26}
-            priority
             className="w-[26px] h-[26px] rounded-md"
           />
           <span className="text-[15px] font-medium tracking-[-0.01em] text-ink-primary">
