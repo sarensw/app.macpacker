@@ -4,6 +4,7 @@ import { getReleaseData } from "@/lib/release";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Hero from "@/sections/home/Hero";
+import WhatIs from "@/sections/home/WhatIs";
 import FeatureStrip from "@/sections/home/FeatureStrip";
 import FormatsChips from "@/sections/home/FormatsChips";
 import OpenSourceLine from "@/sections/home/OpenSourceLine";
@@ -39,6 +40,7 @@ export default async function HomePage({
           latestDmgUrl={release.latestDmgUrl}
           latestZipUrl={release.latestZipUrl}
         />
+        <WhatIs t={t} />
         <FeatureStrip t={t} />
         <FormatsChips locale={locale} t={t} />
         <OpenSourceLine t={t} />

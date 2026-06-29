@@ -25,7 +25,9 @@ export async function generateMetadata({
   return pageMetadata({
     locale,
     path: "/docs",
-    title: isZh ? "文档" : "Docs",
+    title: isZh
+      ? "macOS 压缩包提取指南 — 全部格式"
+      : "macOS Archive Extraction Guides — Every Format",
     description: isZh
       ? "在 macOS 上打开并提取每一种压缩包和磁盘镜像格式的分步指南，涵盖内置工具、终端命令以及 ZIP、RAR、7z、DMG、ISO 等 25 多种格式。"
       : "Learn how to extract files from every archive and disk image format on macOS. Step-by-step guides for ZIP, RAR, 7z, DMG, ISO, and 25+ more formats.",

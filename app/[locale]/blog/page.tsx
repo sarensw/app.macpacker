@@ -21,12 +21,17 @@ export async function generateMetadata({
     ? "MacPacker 的最新消息、发行说明和功能更新——这款 macOS 压缩包管理器的开发动态。"
     : "Updates, release notes, and product news for MacPacker — the macOS archive manager.";
 
-  return pageMetadata({
-    locale,
-    path: "/blog",
-    title,
-    description,
-  });
+  return {
+    ...pageMetadata({
+      locale,
+      path: "/blog",
+      title,
+      description,
+    }),
+    // The blog has no posts yet. Keep the page reachable but out of the index
+    // so it isn't treated as thin content; flip this back on once posts ship.
+    robots: { index: false, follow: true },
+  };
 }
 
 export default async function BlogPage({

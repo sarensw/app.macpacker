@@ -21,7 +21,12 @@
     "releasesCta": "Releases",
     "screenshotPlaceholder": "MacPacker showing an archive's contents"
   },
+  "whatIs": {
+    "title": "What is MacPacker?",
+    "body": "MacPacker is a free, open-source archive manager for macOS. Unlike Archive Utility — the built-in macOS tool that unpacks everything at once into a new folder — MacPacker lets you open an archive and browse its contents like a Finder window, seeing folders, file names, and sizes without extracting anything. You can preview individual files with Quick Look, drill straight into nested archives (archives stored inside other archives), and drag out just the one file you need instead of unpacking gigabytes. ZIP archives can even be edited and re-saved in place. MacPacker supports 41 formats — including ZIP, RAR, 7z, TAR, DMG, and ISO — runs natively on Apple Silicon (macOS 14 and later), and is released under the GPL-3.0 license."
+  },
   "features": {
+    "heading": "Core features",
     "peek": {
       "title": "Peek inside",
       "description": "Browse the full contents of any archive without extracting a single byte."
@@ -82,6 +87,7 @@
   },
   "footer": {
     "tagline": "The macOS archive manager that should have existed all along. Free and open source.",
+    "developerNote": "MacPacker is built by Stephan Arenswald, an independent macOS developer. It's open source under the GPL-3.0 license — inspect, fork, or contribute on GitHub.",
     "author": "Stephan Arenswald",
     "madeFor": "Made for macOS",
     "sections": {
@@ -197,7 +203,7 @@
   "meta": {
     "title": "MacPacker — Preview & Extract Any Archive on macOS",
     "titleTemplate": "%s | MacPacker",
-    "description": "Preview nested archives, extract only what you need. The macOS archive manager that should have existed all along.",
+    "description": "MacPacker is a free, open-source macOS archive manager. Preview nested archives, peek inside without extracting, and drag out only the files you need.",
     "siteName": "MacPacker"
   }
 }
