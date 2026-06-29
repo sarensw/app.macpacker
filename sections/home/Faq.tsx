@@ -34,9 +34,10 @@ export default function Faq({ t }: FaqProps) {
         {t.faq.title}
       </h2>
       <div className="flex flex-col gap-3">
-        {t.faq.items.map((item) => (
+        {t.faq.items.map((item, i) => (
           <details
             key={item.q}
+            open={i === 0}
             className="bg-bg-surface border-[0.5px] border-border-default rounded-md p-5 group"
           >
             <summary className="cursor-pointer text-[14px] font-medium text-ink-primary tracking-[-0.005em] flex items-center justify-between gap-3">

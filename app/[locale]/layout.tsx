@@ -162,7 +162,12 @@ function JsonLd({ locale, version }: { locale: Locale; version: string }) {
     "@id": `${SITE_URL}/#organization`,
     name: "MacPacker",
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/logo.png`,
+      width: 1024,
+      height: 1024,
+    },
     foundingDate: "2023",
     founder: {
       "@type": "Person",
@@ -178,6 +183,7 @@ function JsonLd({ locale, version }: { locale: Locale; version: string }) {
       "https://github.com/sarensw/MacPacker",
       "https://apps.apple.com/us/app/macpacker/id6473273874",
       "https://formulae.brew.sh/cask/macpacker",
+      `${SITE_URL}/en/press`,
     ],
   };
 
