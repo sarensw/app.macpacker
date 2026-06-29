@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Locale, Translations } from "@/lib/i18n";
 import { AppleIcon, GitHubIcon, DownloadIcon } from "@/components/icons";
 import BrewCopyButton from "@/components/client/BrewCopyButton";
@@ -94,11 +95,13 @@ export default function Hero({
         </p>
       </div>
 
-      <img
+      <Image
         src="/hero.png"
         alt={t.hero.screenshotPlaceholder}
         width={1824}
         height={1224}
+        priority
+        sizes="(max-width: 900px) 100vw, 672px"
         className="w-full h-auto block md:-mr-6"
       />
     </section>

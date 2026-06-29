@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Locale, Translations } from "@/lib/i18n";
 import LanguageSwitcher from "@/components/client/LanguageSwitcher";
@@ -27,12 +28,13 @@ export default function Header({ locale, t, downloadUrl }: HeaderProps) {
       >
         <Link href={`/${locale}`} className="flex items-center gap-2.5">
           <span className="sr-only">MacPacker</span>
-          <img
+          <Image
             src="/logo.png"
             alt=""
             aria-hidden="true"
             width={26}
             height={26}
+            priority
             className="w-[26px] h-[26px] rounded-md"
           />
           <span className="text-[15px] font-medium tracking-[-0.01em] text-ink-primary">

@@ -1,15 +1,25 @@
 import type { Metadata } from "next";
 import { locales } from "@/lib/i18n";
 
-/** Production origin used for all canonical / hreflang / OpenGraph URLs. */
-export const SITE_URL = "https://macpacker.app";
+/**
+ * Origin used for all canonical / hreflang / OpenGraph URLs.
+ *
+ * Defaults to the production domain so every environment ships correct,
+ * production-pointing metadata out of the box. Deployments that should be
+ * self-referential (e.g. the staging mirror) set `NEXT_PUBLIC_SITE_URL` to
+ * their own origin so canonicals, hreflang, sitemap and OG URLs all match
+ * the domain actually serving them.
+ */
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://macpacker.app"
+).replace(/\/$/, "");
 
-/** Shared social-card image (square app icon). */
+/** Shared social-card image — a 1200×630 landscape card for summary_large_image. */
 const OG_IMAGE = {
-  url: "/logo.png",
-  width: 1024,
-  height: 1024,
-  alt: "MacPacker",
+  url: "/og.png",
+  width: 1200,
+  height: 630,
+  alt: "MacPacker — preview & extract any archive on macOS",
 };
 
 /**
@@ -57,7 +67,7 @@ export function pageMetadata(opts: {
       card: "summary_large_image",
       title,
       description,
-      images: ["/logo.png"],
+      images: ["/og.png"],
     },
   };
 }
