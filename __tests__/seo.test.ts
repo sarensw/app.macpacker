@@ -11,11 +11,14 @@ describe("sitemap.ts", () => {
     const expectedCount =
       locales.length + // home
       locales.length + // press
-      locales.length + // blog
       locales.length + // privacy
       locales.length + // docs index
       locales.length * slugs.length; // docs articles
+    // Note: /blog is intentionally excluded (noindex until posts ship).
     expect(entries).toHaveLength(expectedCount);
+
+    // The blog is omitted from the sitemap while it is noindex.
+    expect(entries.some((e) => e.url?.endsWith("/blog"))).toBe(false);
 
     const urls = entries.map((e) => e.url);
     expect(urls).toContain("https://macpacker.app/en");
@@ -56,15 +59,21 @@ describe("sitemap.ts", () => {
 });
 
 describe("robots.ts", () => {
-  it("allows all user agents", () => {
+  it("allows all user agents via a wildcard rule", () => {
     const config = robots();
-    if (Array.isArray(config.rules)) {
-      const rule = config.rules[0];
-      expect(rule.userAgent).toBe("*");
-      expect(rule.allow).toBe("/");
-    } else {
-      expect(config.rules.userAgent).toBe("*");
-      expect(config.rules.allow).toBe("/");
+    const rules = Array.isArray(config.rules) ? config.rules : [config.rules];
+    const wildcard = rules.find((r) => r.userAgent === "*");
+    expect(wildcard).toBeDefined();
+    expect(wildcard?.allow).toBe("/");
+  });
+
+  it("names AI crawlers explicitly with allow", () => {
+    const config = robots();
+    const rules = Array.isArray(config.rules) ? config.rules : [config.rules];
+    for (const ua of ["GPTBot", "ClaudeBot", "PerplexityBot"]) {
+      const rule = rules.find((r) => r.userAgent === ua);
+      expect(rule, `expected a rule for ${ua}`).toBeDefined();
+      expect(rule?.allow).toBe("/");
     }
   });
 

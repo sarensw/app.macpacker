@@ -8,7 +8,7 @@ import {
   getAllFormatSlugs,
 } from "@/lib/formats";
 import { getReleaseData } from "@/lib/release";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, SITE_URL } from "@/lib/seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import DownloadCard from "@/components/DownloadCard";
@@ -58,7 +58,7 @@ export default async function ArticlePage({
   const isZh = locale === "zh";
   const related = getLocalizedRelatedFormats(slug, locale);
 
-  const baseUrl = "https://macpacker.app";
+  const baseUrl = SITE_URL;
 
   const breadcrumbLd = {
     "@context": "https://schema.org",
@@ -89,7 +89,11 @@ export default async function ArticlePage({
     "@type": "Article",
     headline: format.articleTitle,
     description: format.articleIntro.slice(0, 160),
-    author: { "@type": "Organization", name: "MacPacker" },
+    author: {
+      "@type": "Person",
+      name: "Stephan Arenswald",
+      url: "https://sarensw.com",
+    },
     publisher: {
       "@type": "Organization",
       name: "MacPacker",
@@ -99,7 +103,7 @@ export default async function ArticlePage({
         url: `${baseUrl}/logo.png`,
       },
     },
-    image: `${baseUrl}/logo.png`,
+    image: `${baseUrl}/og.png`,
     datePublished: "2025-01-01",
     dateModified: "2026-05-23",
     mainEntityOfPage: `${baseUrl}/${locale}/docs/${slug}`,
