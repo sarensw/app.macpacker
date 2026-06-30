@@ -22,7 +22,7 @@ export default function Faq({ t }: FaqProps) {
   };
 
   return (
-    <section id="faq" className="mb-12 max-w-[760px]">
+    <section id="faq" className="mb-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}

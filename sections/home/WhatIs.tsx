@@ -9,7 +9,7 @@ interface WhatIsProps {
 // key differentiator, supported formats, platform, and license.
 export default function WhatIs({ t }: WhatIsProps) {
   return (
-    <section id="what-is" className="mb-12 max-w-[760px]">
+    <section id="what-is" className="mb-12">
       <h2 className="text-[20px] font-medium tracking-[-0.015em] text-ink-primary mb-3">
         {t.whatIs.title}
       </h2>
