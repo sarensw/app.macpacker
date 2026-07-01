@@ -53,10 +53,11 @@ export function middleware(request: NextRequest) {
   const preferredLocale = parseAcceptLanguage(acceptLanguage);
   const locale = preferredLocale ?? defaultLocale;
 
-  // Redirect to locale-prefixed path
+  // Redirect to locale-prefixed path. Use 308 (permanent) so search engines
+  // pass link equity to the localized URL instead of treating it as temporary.
   const url = request.nextUrl.clone();
   url.pathname = `/${locale}${pathname}`;
-  return NextResponse.redirect(url);
+  return NextResponse.redirect(url, 308);
 }
 
 export const config = {

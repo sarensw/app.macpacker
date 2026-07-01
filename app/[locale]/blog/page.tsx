@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { isValidLocale, locales, getTranslations } from "@/lib/i18n";
+import { isValidLocale, getTranslations } from "@/lib/i18n";
 import { getReleaseData } from "@/lib/release";
+import { pageMetadata } from "@/lib/seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -17,25 +18,19 @@ export async function generateMetadata({
 
   const title = isZh ? "博客" : "Blog";
   const description = isZh
-    ? "MacPacker 的最新消息、发行说明和功能更新。"
+    ? "MacPacker 的最新消息、发行说明和功能更新——这款 macOS 压缩包管理器的开发动态。"
     : "Updates, release notes, and product news for MacPacker — the macOS archive manager.";
 
   return {
-    title,
-    description,
-    alternates: {
-      canonical: `https://macpacker.app/${locale}/blog`,
-      languages: Object.fromEntries(
-        locales.map((l) => [l, `https://macpacker.app/${l}/blog`]),
-      ),
-    },
-    openGraph: {
+    ...pageMetadata({
+      locale,
+      path: "/blog",
       title,
       description,
-      type: "website",
-      locale: locale === "zh" ? "zh_CN" : "en_US",
-      url: `https://macpacker.app/${locale}/blog`,
-    },
+    }),
+    // The blog has no posts yet. Keep the page reachable but out of the index
+    // so it isn't treated as thin content; flip this back on once posts ship.
+    robots: { index: false, follow: true },
   };
 }
 

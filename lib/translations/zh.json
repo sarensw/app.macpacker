@@ -21,7 +21,12 @@
     "releasesCta": "发行版",
     "screenshotPlaceholder": "MacPacker 显示压缩包内容的应用截图"
   },
+  "whatIs": {
+    "title": "什么是 MacPacker？",
+    "body": "MacPacker 是一款免费、开源的 macOS 压缩包管理器。与一次性把全部内容解压到新文件夹的系统自带工具「归档实用工具」不同，MacPacker 让你像在访达窗口中一样浏览压缩包的内容——查看文件夹、文件名和大小——而无需解压任何文件。你可以用快速查看预览单个文件，直接进入嵌套压缩包（压缩包中的压缩包），并只拖出需要的那一个文件，而不必解压数 GB 的数据。ZIP 压缩包还能就地编辑并重新保存。无论你是想从构建产物中取出单个文件的开发者，还是只想在解压前先看看下载内容的普通用户，MacPacker 都能把繁琐的多步操作变成一次拖拽。它支持 41 种格式——包括 ZIP、RAR、7z、TAR、DMG 和 ISO——原生支持 Apple 芯片（macOS 14 及更高版本），并以 GPL-3.0 许可证发布。"
+  },
   "features": {
+    "heading": "核心功能",
     "peek": {
       "title": "快速预览",
       "description": "无需解压即可浏览压缩包的完整内容。"
@@ -80,8 +85,35 @@
     "latestBadge": "最新",
     "comingNextEyebrow": "下一步"
   },
+  "faq": {
+    "eyebrow": "常见问题",
+    "title": "常见问题",
+    "items": [
+      {
+        "q": "MacPacker 是免费的吗？",
+        "a": "是的。MacPacker 完全免费，并以 GPL-3.0 许可证开源。没有付费档位、订阅、账户或应用内购买，也没有广告或追踪。"
+      },
+      {
+        "q": "MacPacker 支持哪些文件格式？",
+        "a": "MacPacker 支持 41 种压缩包和磁盘镜像格式，包括 ZIP、RAR、7z、TAR（以及 tar.gz、tar.xz、tar.bz2）、DMG、ISO、CAB 等。ZIP 压缩包还能就地编辑并重新保存。"
+      },
+      {
+        "q": "MacPacker 支持 Apple 芯片吗？",
+        "a": "支持。MacPacker 是使用 Swift 和 SwiftUI 构建的 Apple 芯片原生应用，可在 macOS 14（Sonoma）及更高版本上运行，同时支持 Apple 芯片和 Intel Mac。"
+      },
+      {
+        "q": "MacPacker 与 macOS 自带的「归档实用工具」有何不同？",
+        "a": "「归档实用工具」会一次性把整个压缩包解压到新文件夹。MacPacker 让你先浏览和预览压缩包内容、直接打开嵌套压缩包，并只拖出需要的文件——无需解压整个压缩包。"
+      },
+      {
+        "q": "如何安装 MacPacker？",
+        "a": "你可以从 Mac App Store 安装，使用 Homebrew（brew install --cask macpacker），或直接从网站下载 .dmg 或 .zip。每种方式都是免费的。"
+      }
+    ]
+  },
   "footer": {
     "tagline": "这是 macOS 上早该存在的压缩包管理工具。免费且开源。",
+    "developerNote": "MacPacker 由独立 macOS 开发者 Stephan Arenswald 打造，基于 GPL-3.0 许可证开源——欢迎在 GitHub 上查看、复刻或贡献代码。",
     "author": "Stephan Arenswald",
     "madeFor": "专为 macOS 打造",
     "sections": {
@@ -197,7 +229,7 @@
   "meta": {
     "title": "MacPacker — 在 macOS 上预览和提取任何压缩包",
     "titleTemplate": "%s | MacPacker",
-    "description": "预览嵌套压缩包，仅提取所需文件。这是 macOS 上早该存在的压缩包管理工具。",
+    "description": "MacPacker 是一款免费、开源的 macOS 压缩包管理器。无需解压即可预览嵌套压缩包、查看文件内容，并只拖出你需要的文件。支持 ZIP、RAR、7z、DMG 等 41 种格式。",
     "siteName": "MacPacker"
   }
 }

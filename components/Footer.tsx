@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Locale, Translations } from "@/lib/i18n";
 
@@ -15,7 +16,7 @@ export default function Footer({ locale, t }: FooterProps) {
         <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1.5fr)_repeat(3,minmax(0,1fr))] gap-10 mb-8">
           <div>
             <div className="flex items-center gap-2.5 mb-3">
-              <img
+              <Image
                 src="/logo.png"
                 alt=""
                 aria-hidden="true"
@@ -29,6 +30,9 @@ export default function Footer({ locale, t }: FooterProps) {
             </div>
             <p className="text-[12px] leading-[1.6] text-ink-secondary max-w-[280px] m-0">
               {t.footer.tagline}
+            </p>
+            <p className="text-[12px] leading-[1.6] text-ink-tertiary max-w-[280px] mt-2.5 mb-0">
+              {t.footer.developerNote}
             </p>
           </div>
 

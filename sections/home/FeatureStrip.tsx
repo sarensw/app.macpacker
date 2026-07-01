@@ -13,11 +13,12 @@ export default function FeatureStrip({ t }: FeatureStripProps) {
   ];
 
   return (
-    <section
-      id="features"
-      className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border-subtle border-[0.5px] border-border-subtle rounded-md overflow-hidden mb-12"
-    >
-      {features.map((f) => (
+    <section id="features" className="mb-12">
+      <h2 className="text-[20px] font-medium tracking-[-0.015em] text-ink-primary mb-4">
+        {t.features.heading}
+      </h2>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border-subtle border-[0.5px] border-border-subtle rounded-md overflow-hidden">
+        {features.map((f) => (
         <div key={f.num} className="bg-bg-surface p-6">
           <div className="font-mono text-[10px] tracking-[0.08em] text-ink-tertiary mb-[10px]">
             {f.num}
@@ -28,8 +29,9 @@ export default function FeatureStrip({ t }: FeatureStripProps) {
           <p className="text-[12px] leading-[1.5] text-ink-secondary m-0">
             {f.body}
           </p>
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

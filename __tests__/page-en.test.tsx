@@ -73,8 +73,9 @@ describe("English page - hero", () => {
   it("renders the brew command", async () => {
     await renderEnPage();
     expect(screen.getByText("brew")).toBeInTheDocument();
-    expect(screen.getByText(/install/)).toBeInTheDocument();
-    expect(screen.getByText(/--cask/)).toBeInTheDocument();
+    // "install" / "--cask" also appear in the FAQ answers, so allow multiples.
+    expect(screen.getAllByText(/install/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/--cask/).length).toBeGreaterThan(0);
   });
 
   it("renders the .dmg button with DMG href", async () => {

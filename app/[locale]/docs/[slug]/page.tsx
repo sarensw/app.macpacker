@@ -8,6 +8,7 @@ import {
   getAllFormatSlugs,
 } from "@/lib/formats";
 import { getReleaseData } from "@/lib/release";
+import { pageMetadata, SITE_URL } from "@/lib/seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import DownloadCard from "@/components/DownloadCard";
@@ -30,27 +31,14 @@ export async function generateMetadata({
   if (!format) return {};
 
   return {
-    title: format.articleTitle,
-    description: format.articleIntro.slice(0, 160),
-    keywords: format.keywords,
-    alternates: {
-      canonical: `https://macpacker.app/${locale}/docs/${slug}`,
-      languages: Object.fromEntries(
-        locales.map((l) => [l, `https://macpacker.app/${l}/docs/${slug}`]),
-      ),
-    },
-    openGraph: {
+    ...pageMetadata({
+      locale,
+      path: `/docs/${slug}`,
       title: format.articleTitle,
       description: format.articleIntro.slice(0, 160),
-      locale: locale === "zh" ? "zh_CN" : "en_US",
       type: "article",
-      url: `https://macpacker.app/${locale}/docs/${slug}`,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: format.articleTitle,
-      description: format.articleIntro.slice(0, 160),
-    },
+    }),
+    keywords: format.keywords,
   };
 }
 
@@ -70,7 +58,7 @@ export default async function ArticlePage({
   const isZh = locale === "zh";
   const related = getLocalizedRelatedFormats(slug, locale);
 
-  const baseUrl = "https://macpacker.app";
+  const baseUrl = SITE_URL;
 
   const breadcrumbLd = {
     "@context": "https://schema.org",
@@ -101,7 +89,11 @@ export default async function ArticlePage({
     "@type": "Article",
     headline: format.articleTitle,
     description: format.articleIntro.slice(0, 160),
-    author: { "@type": "Organization", name: "MacPacker" },
+    author: {
+      "@type": "Person",
+      name: "Stephan Arenswald",
+      url: "https://sarensw.com",
+    },
     publisher: {
       "@type": "Organization",
       name: "MacPacker",
@@ -111,8 +103,7 @@ export default async function ArticlePage({
         url: `${baseUrl}/logo.png`,
       },
     },
-    image: `${baseUrl}/logo.png`,
-    datePublished: "2025-01-01",
+    image: `${baseUrl}/og.png`,
     dateModified: "2026-05-23",
     mainEntityOfPage: `${baseUrl}/${locale}/docs/${slug}`,
   };

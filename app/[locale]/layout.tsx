@@ -3,6 +3,8 @@ import { Newsreader } from "next/font/google";
 import { notFound } from "next/navigation";
 import { isValidLocale, locales, getTranslations } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
+import { SITE_URL } from "@/lib/seo";
+import { getReleaseData } from "@/lib/release";
 import WebMCP from "@/components/client/WebMCP";
 
 const newsreader = Newsreader({
@@ -36,7 +38,7 @@ export async function generateMetadata({
 
   const t = await getTranslations(locale);
   return {
-    metadataBase: new URL("https://macpacker.app"),
+    metadataBase: new URL(SITE_URL),
     title: {
       default: t.meta.title,
       template: t.meta.titleTemplate,
@@ -72,13 +74,13 @@ export async function generateMetadata({
       siteName: t.meta.siteName,
       type: "website",
       locale: locale === "zh" ? "zh_CN" : "en_US",
-      url: `https://macpacker.app/${locale}`,
+      url: `${SITE_URL}/${locale}`,
       images: [
         {
-          url: "/logo.png",
-          width: 1024,
-          height: 1024,
-          alt: "MacPacker",
+          url: "/og.png",
+          width: 1200,
+          height: 630,
+          alt: "MacPacker — preview & extract any archive on macOS",
         },
       ],
     },
@@ -86,15 +88,13 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: t.meta.title,
       description: t.meta.description,
-      images: ["/logo.png"],
+      images: ["/og.png"],
     },
     alternates: {
-      canonical: `https://macpacker.app/${locale}`,
+      canonical: `${SITE_URL}/${locale}`,
       languages: {
-        ...Object.fromEntries(
-          locales.map((l) => [l, `https://macpacker.app/${l}`])
-        ),
-        "x-default": "https://macpacker.app/en",
+        ...Object.fromEntries(locales.map((l) => [l, `${SITE_URL}/${l}`])),
+        "x-default": `${SITE_URL}/en`,
       },
     },
     // Smart App Banner — surfaces an "Install" CTA on Safari iOS when users
@@ -107,7 +107,7 @@ export async function generateMetadata({
   };
 }
 
-function JsonLd({ locale }: { locale: Locale }) {
+function JsonLd({ locale, version }: { locale: Locale; version: string }) {
   const description =
     locale === "zh"
       ? "预览嵌套压缩包，仅提取所需文件。这是 macOS 上早该存在的压缩包管理工具。"
@@ -116,16 +116,17 @@ function JsonLd({ locale }: { locale: Locale }) {
   const softwareApp = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": `${SITE_URL}/#software`,
     name: "MacPacker",
     operatingSystem: "macOS 14+",
     applicationCategory: "UtilitiesApplication",
-    softwareVersion: "0.15.1",
+    softwareVersion: version,
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
     },
-    url: "https://macpacker.app",
+    url: SITE_URL,
     downloadUrl: [
       "https://apps.apple.com/us/app/macpacker/id6473273874",
       "https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v0.15.dmg",
@@ -133,8 +134,17 @@ function JsonLd({ locale }: { locale: Locale }) {
       "https://github.com/sarensw/MacPacker/releases",
     ],
     installUrl: "https://apps.apple.com/us/app/macpacker/id6473273874",
-    image: "https://macpacker.app/logo.png",
-    screenshot: "https://macpacker.app/logo.png",
+    image: `${SITE_URL}/og.png`,
+    screenshot: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/hero.png`,
+      width: 1824,
+      height: 1224,
+      caption:
+        locale === "zh"
+          ? "MacPacker 正在显示压缩包的内容"
+          : "MacPacker showing the contents of an archive",
+    },
     description,
     license: "https://opensource.org/licenses/GPL-3.0",
     isAccessibleForFree: true,
@@ -149,21 +159,57 @@ function JsonLd({ locale }: { locale: Locale }) {
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${SITE_URL}/#organization`,
     name: "MacPacker",
-    url: "https://macpacker.app",
-    logo: "https://macpacker.app/logo.png",
+    url: SITE_URL,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/logo.png`,
+      width: 1024,
+      height: 1024,
+    },
+    foundingDate: "2023",
+    founder: {
+      "@type": "Person",
+      name: "Stephan Arenswald",
+      url: "https://sarensw.com",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      url: "https://github.com/sarensw/MacPacker/issues",
+    },
     sameAs: [
       "https://github.com/sarensw/MacPacker",
       "https://apps.apple.com/us/app/macpacker/id6473273874",
+      "https://formulae.brew.sh/cask/macpacker",
+      `${SITE_URL}/en/press`,
     ],
   };
 
   const website = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
     name: "MacPacker",
-    url: "https://macpacker.app",
+    url: SITE_URL,
     inLanguage: locale === "zh" ? "zh-CN" : "en-US",
+    dateModified: "2026-06-29",
+    publisher: {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "MacPacker",
+      url: SITE_URL,
+      logo: `${SITE_URL}/logo.png`,
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/${locale}/docs?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 
   return (
@@ -194,10 +240,12 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
 
+  const { latestVersion } = await getReleaseData(locale);
+
   return (
     <html lang={locale} className={newsreader.variable}>
       <head>
-        <JsonLd locale={locale} />
+        <JsonLd locale={locale} version={latestVersion} />
         <script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="aoVZsOFrUliNz+LrQKEdwQ"

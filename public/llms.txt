@@ -4,6 +4,12 @@
 
 The website (https://macpacker.app) is the marketing and documentation hub. The app itself is at https://github.com/sarensw/MacPacker.
 
+License: The app is licensed under GPL-3.0. This site's content may be quoted, summarized, and cited by AI systems and search engines, with attribution to MacPacker (https://macpacker.app).
+
+## About
+
+MacPacker is a free, open-source archive manager for macOS. Unlike Archive Utility — the built-in macOS tool that unpacks everything at once into a new folder — MacPacker lets you open an archive and browse its contents like a Finder window, seeing folders, file names, and sizes without extracting anything. You can preview individual files with Quick Look, drill straight into nested archives (archives stored inside other archives), and drag out just the one file you need instead of unpacking gigabytes. ZIP archives can even be edited and re-saved in place. MacPacker supports 41 formats — including ZIP, RAR, 7z, TAR, DMG, and ISO — runs natively on Apple Silicon (macOS 14 and later), and is released under the GPL-3.0 license. It is built by independent developer Stephan Arenswald (https://sarensw.com).
+
 ## Quick facts
 
 - Version: 0.15.1 (latest, App Store) / 0.15 (latest direct download)
