@@ -108,6 +108,22 @@
       {
         "q": "How do I install MacPacker?",
         "a": "Install it from the Mac App Store, with Homebrew (brew install --cask macpacker), or by downloading the .dmg or .zip directly from the site. Every option is free."
+      },
+      {
+        "q": "How is MacPacker different from The Unarchiver?",
+        "a": "The Unarchiver is an extraction tool: double-click an archive and it unpacks everything into a folder. MacPacker is an archive browser — it opens the archive like a Finder window, so you can preview files with Quick Look, step into nested archives, and drag out only the files you need. If you often want one file out of a big archive rather than all of it, that's the difference."
+      },
+      {
+        "q": "How is MacPacker different from Keka?",
+        "a": "Keka focuses on creating and extracting archives with strong compression options. MacPacker focuses on looking inside archives before anything is extracted: browse contents, preview files, navigate nested archives, and pull out individual files. Both are open source — they solve different halves of the problem."
+      },
+      {
+        "q": "Is MacPacker safe to use?",
+        "a": "Yes. MacPacker is fully open source under GPL-3.0, so anyone can audit the code on GitHub, and it's distributed through the Mac App Store, Homebrew, and signed, notarized builds. It collects no data — archives never leave your Mac."
+      },
+      {
+        "q": "Can MacPacker create archives?",
+        "a": "MacPacker is built around browsing and extracting. It can already edit existing ZIP archives and re-save them in place, and more write support is being developed in the open on GitHub."
       }
     ]
   },

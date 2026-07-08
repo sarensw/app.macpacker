@@ -89,6 +89,7 @@ export default async function ArticlePage({
     "@type": "Article",
     headline: format.articleTitle,
     description: format.articleIntro.slice(0, 160),
+    inLanguage: isZh ? "zh-CN" : "en-US",
     author: {
       "@type": "Person",
       name: "Stephan Arenswald",
@@ -96,6 +97,7 @@ export default async function ArticlePage({
     },
     publisher: {
       "@type": "Organization",
+      "@id": `${baseUrl}/#organization`,
       name: "MacPacker",
       url: baseUrl,
       logo: {
@@ -104,6 +106,7 @@ export default async function ArticlePage({
       },
     },
     image: `${baseUrl}/og.png`,
+    datePublished: "2026-05-23",
     dateModified: "2026-05-23",
     mainEntityOfPage: `${baseUrl}/${locale}/docs/${slug}`,
   };
@@ -124,17 +127,8 @@ export default async function ArticlePage({
         }
       : null;
 
-  const howToLd = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: format.articleTitle,
-    step: format.defaultMethod.steps.map((text, i) => ({
-      "@type": "HowToStep",
-      position: i + 1,
-      text,
-    })),
-  };
-
+  // No HowTo JSON-LD: Google retired HowTo rich results in Sept 2023, and AI
+  // engines read the visible numbered steps directly.
   return (
     <>
       <script
@@ -151,10 +145,6 @@ export default async function ArticlePage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
         />
       )}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToLd) }}
-      />
 
       <Header locale={locale} t={t} downloadUrl={release.latestDmgUrl} />
 
