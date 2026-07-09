@@ -108,6 +108,22 @@
       {
         "q": "如何安装 MacPacker？",
         "a": "你可以从 Mac App Store 安装，使用 Homebrew（brew install --cask macpacker），或直接从网站下载 .dmg 或 .zip。每种方式都是免费的。"
+      },
+      {
+        "q": "MacPacker 与 The Unarchiver 有何不同？",
+        "a": "The Unarchiver 是一个解压工具：双击压缩包，它会把全部内容解压到文件夹。MacPacker 是一个压缩包浏览器——像 Finder 窗口一样打开压缩包，你可以用 Quick Look 预览文件、进入嵌套压缩包，并只拖出需要的文件。如果你经常只需要大压缩包中的一个文件，而不是全部内容，这就是区别。"
+      },
+      {
+        "q": "MacPacker 与 Keka 有何不同？",
+        "a": "Keka 专注于创建和解压压缩包，提供强大的压缩选项。MacPacker 专注于在解压之前查看压缩包内部：浏览内容、预览文件、导航嵌套压缩包、提取单个文件。两者都是开源软件——解决的是问题的不同两半。"
+      },
+      {
+        "q": "MacPacker 安全吗？",
+        "a": "安全。MacPacker 基于 GPL-3.0 完全开源，任何人都可以在 GitHub 上审查代码；它通过 Mac App Store、Homebrew 以及经过签名和公证的构建分发。它不收集任何数据——压缩包永远不会离开你的 Mac。"
+      },
+      {
+        "q": "MacPacker 能创建压缩包吗？",
+        "a": "MacPacker 以浏览和提取为核心。它已经可以编辑现有的 ZIP 压缩包并就地重新保存，更多写入功能正在 GitHub 上公开开发中。"
       }
     ]
   },

@@ -60,6 +60,7 @@ export function pageMetadata(opts: {
       siteName: "MacPacker",
       type,
       locale: locale === "zh" ? "zh_CN" : "en_US",
+      alternateLocale: locale === "zh" ? "en_US" : "zh_CN",
       url,
       images: [OG_IMAGE],
     },

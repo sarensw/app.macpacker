@@ -10,7 +10,7 @@ const baseUrl = SITE_URL;
 // which sections actually changed instead of seeing "everything updated today"
 // on every deploy.
 const LASTMOD = {
-  home: "2026-06-29",
+  home: "2026-07-09",
   docs: "2026-06-29",
   docsArticle: "2026-05-23",
   press: "2026-06-15",

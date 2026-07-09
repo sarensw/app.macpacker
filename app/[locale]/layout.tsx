@@ -74,6 +74,7 @@ export async function generateMetadata({
       siteName: t.meta.siteName,
       type: "website",
       locale: locale === "zh" ? "zh_CN" : "en_US",
+      alternateLocale: locale === "zh" ? "en_US" : "zh_CN",
       url: `${SITE_URL}/${locale}`,
       images: [
         {
@@ -107,7 +108,17 @@ export async function generateMetadata({
   };
 }
 
-function JsonLd({ locale, version }: { locale: Locale; version: string }) {
+function JsonLd({
+  locale,
+  version,
+  dmgUrl,
+  zipUrl,
+}: {
+  locale: Locale;
+  version: string;
+  dmgUrl: string;
+  zipUrl: string;
+}) {
   const description =
     locale === "zh"
       ? "预览嵌套压缩包，仅提取所需文件。这是 macOS 上早该存在的压缩包管理工具。"
@@ -121,6 +132,7 @@ function JsonLd({ locale, version }: { locale: Locale; version: string }) {
     operatingSystem: "macOS 14+",
     applicationCategory: "UtilitiesApplication",
     softwareVersion: version,
+    datePublished: "2024-01-04",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -129,11 +141,38 @@ function JsonLd({ locale, version }: { locale: Locale; version: string }) {
     url: SITE_URL,
     downloadUrl: [
       "https://apps.apple.com/us/app/macpacker/id6473273874",
-      "https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v0.15.dmg",
-      "https://macpacker-releases.s3.eu-central-1.amazonaws.com/MacPacker_v0.15.zip",
+      dmgUrl,
+      zipUrl,
       "https://github.com/sarensw/MacPacker/releases",
     ],
     installUrl: "https://apps.apple.com/us/app/macpacker/id6473273874",
+    softwareHelp: {
+      "@type": "CreativeWork",
+      url: `${SITE_URL}/${locale}/docs`,
+    },
+    releaseNotes: `${SITE_URL}/${locale}#changelog`,
+    featureList:
+      locale === "zh"
+        ? [
+            "像浏览文件夹一样浏览压缩包内容",
+            "使用 Quick Look 预览文件而无需提取",
+            "拖放提取单个文件",
+            "浏览嵌套压缩包（压缩包中的压缩包）",
+            "就地编辑并重新保存 ZIP 压缩包",
+            "支持 41 种格式，包括 ZIP、RAR、7z、TAR、DMG 和 ISO",
+            "打开受密码保护/加密的压缩包",
+            "原生 SwiftUI 界面，Apple 芯片原生运行",
+          ]
+        : [
+            "Browse archive contents like a folder without extracting",
+            "Preview files with Quick Look",
+            "Extract individual files via drag and drop",
+            "Navigate nested archives (archives within archives)",
+            "Edit and re-save ZIP archives in place",
+            "Supports 41 formats including ZIP, RAR, 7z, TAR, DMG, and ISO",
+            "Open password-protected / encrypted archives",
+            "Native SwiftUI interface, Apple Silicon native",
+          ],
     image: `${SITE_URL}/og.png`,
     screenshot: {
       "@type": "ImageObject",
@@ -194,7 +233,7 @@ function JsonLd({ locale, version }: { locale: Locale; version: string }) {
     name: "MacPacker",
     url: SITE_URL,
     inLanguage: locale === "zh" ? "zh-CN" : "en-US",
-    dateModified: "2026-06-29",
+    dateModified: "2026-07-09",
     publisher: {
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
@@ -202,14 +241,8 @@ function JsonLd({ locale, version }: { locale: Locale; version: string }) {
       url: SITE_URL,
       logo: `${SITE_URL}/logo.png`,
     },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/${locale}/docs?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
+    // No SearchAction: the docs page has no ?q= results view, and a fake
+    // search target is worse for crawlers than none at all.
   };
 
   return (
@@ -240,12 +273,18 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
 
-  const { latestVersion } = await getReleaseData(locale);
+  const { latestVersion, latestDmgUrl, latestZipUrl } =
+    await getReleaseData(locale);
 
   return (
     <html lang={locale} className={newsreader.variable}>
       <head>
-        <JsonLd locale={locale} version={latestVersion} />
+        <JsonLd
+          locale={locale}
+          version={latestVersion}
+          dmgUrl={latestDmgUrl}
+          zipUrl={latestZipUrl}
+        />
         <script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="aoVZsOFrUliNz+LrQKEdwQ"
