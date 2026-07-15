@@ -6,9 +6,10 @@ import type { NextConfig } from "next";
 // and a minimal Permissions-Policy disables APIs the site never uses.
 // Content-Security-Policy for a static marketing site. 'unsafe-inline' on
 // script-src is required for Next.js's inline hydration bootstrap and the
-// inline JSON-LD blocks (the site uses no nonce). The only third party is
-// Ahrefs Web Analytics (script + beacon endpoint). Everything else is same
-// origin; next/image and next/font are self-hosted under /_next.
+// inline JSON-LD blocks (the site uses no nonce). The third parties are Ahrefs
+// Web Analytics and Plausible, self-hosted on plausible.sarensw.net (each a
+// script + beacon endpoint). Everything else is same origin; next/image and
+// next/font are self-hosted under /_next.
 //
 // Dev caveat: `next dev` evaluates webpack modules via eval() and hot-reloads
 // over a websocket. The hardened production CSP blocks both (no 'unsafe-eval',
@@ -20,13 +21,13 @@ const isProd = process.env.NODE_ENV === "production";
 
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' https://analytics.ahrefs.com${
+  `script-src 'self' 'unsafe-inline' https://analytics.ahrefs.com https://plausible.sarensw.net${
     isProd ? "" : " 'unsafe-eval'"
   }`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self'",
-  `connect-src 'self' https://analytics.ahrefs.com${
+  `connect-src 'self' https://analytics.ahrefs.com https://plausible.sarensw.net${
     isProd ? "" : " ws: wss:"
   }`,
   "frame-ancestors 'self'",

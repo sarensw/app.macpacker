@@ -290,6 +290,19 @@ export default async function LocaleLayout({
           data-key="aoVZsOFrUliNz+LrQKEdwQ"
           async
         />
+        {/* Privacy-friendly analytics by Plausible (self-hosted). The inline
+            stub queues plausible() calls made before the async script lands;
+            init() is required by the pa-*.js script format to start tracking. */}
+        <script
+          src="https://plausible.sarensw.net/js/pa-AVcENGFFFdOUHRLIus_sf.js"
+          async
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init({captureOnLocalhost:true})",
+          }}
+        />
       </head>
       <body className="font-sans bg-bg-page text-ink-primary antialiased overflow-x-hidden">
         {children}
