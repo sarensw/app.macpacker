@@ -10,7 +10,7 @@
   "hero": {
     "eyebrowFree": "Free & open source",
     "title": "The archive manager for macOS.",
-    "sub": "Browse archives like folders. Preview files without extracting. Drag out only the ones you need.",
+    "sub": "Browse archives like folders. Preview files without extracting. Drag out only the ones you need — or create and edit ZIP archives.",
     "brewCommand": "brew install --cask macpacker",
     "copy": "Copy",
     "copied": "Copied",
@@ -23,7 +23,7 @@
   },
   "whatIs": {
     "title": "What is MacPacker?",
-    "body": "MacPacker is a free, open-source archive manager for macOS. Unlike Archive Utility — the built-in macOS tool that unpacks everything at once into a new folder — MacPacker lets you open an archive and browse its contents like a Finder window, seeing folders, file names, and sizes without extracting anything. You can preview individual files with Quick Look, drill straight into nested archives (archives stored inside other archives), and drag out just the one file you need instead of unpacking gigabytes. ZIP archives can even be edited and re-saved in place. Whether you're a developer pulling a single file out of a build artifact or just want to peek inside a download before unpacking it, MacPacker turns a clumsy multi-step chore into one drag. It supports 41 formats — including ZIP, RAR, 7z, TAR, DMG, and ISO — runs natively on Apple Silicon (macOS 14 and later), and is released under the GPL-3.0 license."
+    "body": "MacPacker is a free, open-source archive manager for macOS. Unlike Archive Utility — the built-in macOS tool that unpacks everything at once into a new folder — MacPacker lets you open an archive and browse its contents like a Finder window, seeing folders, file names, and sizes without extracting anything. You can preview individual files with Quick Look, drill straight into nested archives (archives stored inside other archives), and drag out just the one file you need instead of unpacking gigabytes. And MacPacker is no longer read-only: you can create ZIP archives from scratch, add or delete files in an existing ZIP and save, or compress files and folders to ZIP straight from Finder. Whether you're a developer pulling a single file out of a build artifact or just want to peek inside a download before unpacking it, MacPacker turns a clumsy multi-step chore into one drag. It supports 41 formats — including ZIP, RAR, 7z, TAR, DMG, and ISO — runs natively on Apple Silicon (macOS 14 and later), and is released under the GPL-3.0 license."
   },
   "features": {
     "heading": "Core features",
@@ -40,8 +40,8 @@
       "description": "Drag out exactly the files you need. No more 2 GB extractions for one config file."
     },
     "editing": {
-      "title": "Edit & save",
-      "description": "Modify and re-save ZIP archives in place. Editing for more formats is on the way."
+      "title": "Create & edit",
+      "description": "Create ZIP archives from scratch, add or delete files, and save. Compress to ZIP right from Finder. More formats on the way."
     }
   },
   "formats": {
@@ -95,7 +95,7 @@
       },
       {
         "q": "What file formats does MacPacker support?",
-        "a": "MacPacker opens 41 archive and disk-image formats, including ZIP, RAR, 7z, TAR (and tar.gz, tar.xz, tar.bz2), DMG, ISO, CAB, and more. ZIP archives can also be edited and re-saved in place."
+        "a": "MacPacker opens 41 archive and disk-image formats, including ZIP, RAR, 7z, TAR (and tar.gz, tar.xz, tar.bz2), DMG, ISO, CAB, and more. ZIP archives can also be created, edited (add or delete files), and re-saved."
       },
       {
         "q": "Does MacPacker work on Apple Silicon?",
@@ -115,7 +115,7 @@
       },
       {
         "q": "How is MacPacker different from Keka?",
-        "a": "Keka focuses on creating and extracting archives with strong compression options. MacPacker focuses on looking inside archives before anything is extracted: browse contents, preview files, navigate nested archives, and pull out individual files. Both are open source — they solve different halves of the problem."
+        "a": "Keka focuses on creating and extracting archives across many formats with strong compression options. MacPacker leads with looking inside archives before anything is extracted: browse contents, preview files, navigate nested archives, and pull out individual files — and as of 0.18 it also creates and edits ZIP archives. Both are open source; Keka still covers more formats for compression."
       },
       {
         "q": "Is MacPacker safe to use?",
@@ -123,7 +123,7 @@
       },
       {
         "q": "Can MacPacker create archives?",
-        "a": "MacPacker is built around browsing and extracting. It can already edit existing ZIP archives and re-save them in place, and more write support is being developed in the open on GitHub."
+        "a": "Yes — for ZIP. As of version 0.18, MacPacker can create new ZIP archives from scratch, add or delete files in an existing ZIP and save, and compress files and folders to ZIP straight from Finder. It started as a browser and extractor, and write support for more formats is being developed in the open on GitHub."
       }
     ]
   },
@@ -177,10 +177,10 @@
     "boilerEyebrow": "Copy & paste",
     "boilerTitle": "Boilerplate",
     "boilerIntro": "Approved descriptions in two lengths. Click to copy the current language.",
-    "boilerShortLabel": "Short · ~30 words",
-    "boilerLongLabel": "Long · ~75 words",
-    "boilerShort": "MacPacker is a free, open-source archive manager for macOS. It lets users browse and preview the contents of an archive without extracting it, open nested archives directly, and extract individual files rather than the whole archive.",
-    "boilerLong": "MacPacker is a free, open-source archive manager for macOS, written in Swift and SwiftUI. It lets users browse and preview the contents of an archive without extracting it, open nested archives (archives stored inside other archives) directly, and extract individual files instead of the entire archive. ZIP archives can also be edited and re-saved. MacPacker supports 41 formats, including ZIP, RAR, 7z, TAR, DMG, and ISO. It runs on macOS 14 and later and is released under the GPL-3.0 license.",
+    "boilerShortLabel": "Short · ~45 words",
+    "boilerLongLabel": "Long · ~90 words",
+    "boilerShort": "MacPacker is a free, open-source archive manager for macOS. It lets users browse and preview the contents of an archive without extracting it, open nested archives directly, and extract individual files rather than the whole archive. It can also create and edit ZIP archives.",
+    "boilerLong": "MacPacker is a free, open-source archive manager for macOS, written in Swift and SwiftUI. It lets users browse and preview the contents of an archive without extracting it, open nested archives (archives stored inside other archives) directly, and extract individual files instead of the entire archive. ZIP archives can also be created from scratch, edited by adding or deleting files, and re-saved, and files can be compressed to ZIP directly from Finder. MacPacker supports 41 formats, including ZIP, RAR, 7z, TAR, DMG, and ISO. It runs on macOS 14 and later and is released under the GPL-3.0 license.",
     "copy": "Copy",
     "copied": "Copied",
     "featuresEyebrow": "Features",
@@ -191,23 +191,24 @@
     "feat2Desc": "Archives stored inside other archives can be opened directly, without extracting the outer one first.",
     "feat3Title": "Selective extraction",
     "feat3Desc": "Individual files or folders can be extracted instead of the entire archive.",
-    "feat4Title": "Edit ZIP archives",
-    "feat4Desc": "The contents of a ZIP archive can be changed and saved in place. Editing currently applies to ZIP only.",
+    "feat4Title": "Create & edit ZIP archives",
+    "feat4Desc": "New ZIP archives can be created from scratch, and files can be added to or deleted from an existing ZIP and saved. Files and folders can also be compressed to ZIP from Finder. Write support currently applies to ZIP only.",
     "scopeEyebrow": "Scope",
     "scopeTitle": "What it is, and what it will become",
     "scopeIsLabel": "What it is today",
     "scopeIs": [
       "Opens, browses, and previews archives across 41 formats",
       "Extracts individual files instead of the whole archive",
-      "Edits and re-saves ZIP archives (new in 0.15)"
+      "Creates and edits ZIP archives — add or delete files, then save (new in 0.18)",
+      "Compresses files and folders to ZIP straight from Finder"
     ],
     "scopeFutureLabel": "What it will become",
     "scopeFuture": [
-      "Creating new archives, not just reading them",
-      "Editing more formats than ZIP",
+      "Write support for more formats than ZIP",
+      "Richer editing — rename, reorder, and more",
       "Growing into a full general-purpose archive manager"
     ],
-    "scopeNote": "Editing ZIP archives, added in 0.15, is MacPacker's first write capability and the starting point for full archive creation and management. More will follow, format by format.",
+    "scopeNote": "ZIP write support — in-place editing in 0.15, then full creation and add/delete in 0.18 — is the foundation for general archive creation and management. More will follow, format by format.",
     "formatsEyebrow": "Supported formats",
     "formatsTitle": "formats, one app",
     "fmtArchives": "Archives",

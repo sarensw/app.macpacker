@@ -17,7 +17,7 @@ export function buildLlmsTxt(release: ReleaseData): string {
 
   return `# MacPacker
 
-> A free, open-source macOS archive manager. Preview nested archives, peek at contents without extracting, drag out only the files you need. Built with Swift / SwiftUI. macOS 14+, Apple Silicon native.
+> A free, open-source macOS archive manager. Preview nested archives, peek at contents without extracting, drag out only the files you need — and create or edit ZIP archives. Built with Swift / SwiftUI. macOS 14+, Apple Silicon native.
 
 The website (${SITE_URL}) is the marketing and documentation hub. The app itself is at https://github.com/sarensw/MacPacker.
 
@@ -129,7 +129,7 @@ export function buildLlmsFullTxt(release: ReleaseData): string {
 
   return `# MacPacker — full site content
 
-> A free, open-source macOS archive manager. Preview nested archives, peek at contents without extracting, drag out only the files you need. Built with Swift / SwiftUI. macOS 14+, Apple Silicon native.
+> A free, open-source macOS archive manager. Preview nested archives, peek at contents without extracting, drag out only the files you need — and create or edit ZIP archives. Built with Swift / SwiftUI. macOS 14+, Apple Silicon native.
 
 This document contains the full content of ${SITE_URL} in one file, for AI systems and answer engines. Attribution: MacPacker (${SITE_URL}). App license: GPL-3.0. Latest version: ${release.latestVersion}.
 
