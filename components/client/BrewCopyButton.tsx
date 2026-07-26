@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { downloadEvent } from "@/lib/analytics";
 
 interface BrewCopyButtonProps {
   command: string;
@@ -70,7 +71,7 @@ export default function BrewCopyButton({
         type="button"
         onClick={handleCopy}
         aria-label={copied ? copiedLabel : copyLabel}
-        className="inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] font-mono text-white/70 hover:text-white hover:bg-white/5 transition-colors shrink-0"
+        className={`inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] font-mono text-white/70 hover:text-white hover:bg-white/5 transition-colors shrink-0 ${downloadEvent("brew")}`}
       >
         {copied ? (
           <>

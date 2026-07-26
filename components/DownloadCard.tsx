@@ -1,6 +1,7 @@
 import type { Translations } from "@/lib/i18n";
 import { AppleIcon, GitHubIcon, DownloadIcon } from "@/components/icons";
 import BrewCopyButton from "@/components/client/BrewCopyButton";
+import { downloadEvent } from "@/lib/analytics";
 
 interface DownloadCardProps {
   t: Translations;
@@ -40,7 +41,7 @@ export default function DownloadCard({
       <div className="flex flex-wrap items-center gap-2.5 mt-5">
         <a
           href={latestDmgUrl}
-          className="inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium hover:bg-[#2a2a2a] transition-colors"
+          className={`inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium hover:bg-[#2a2a2a] transition-colors ${downloadEvent("dmg")}`}
         >
           <span className="w-[14px] h-[14px] inline-block">
             <DownloadIcon />
@@ -49,7 +50,7 @@ export default function DownloadCard({
         </a>
         <a
           href={latestZipUrl}
-          className="inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-bg-surface text-ink-primary text-[13px] font-medium border-[0.5px] border-border-strong hover:bg-bg-page transition-colors"
+          className={`inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-bg-surface text-ink-primary text-[13px] font-medium border-[0.5px] border-border-strong hover:bg-bg-page transition-colors ${downloadEvent("zip")}`}
         >
           <span className="w-[14px] h-[14px] inline-block">
             <DownloadIcon />
@@ -58,7 +59,7 @@ export default function DownloadCard({
         </a>
         <a
           href="https://apps.apple.com/us/app/macpacker/id6473273874"
-          className="inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-bg-surface text-ink-primary text-[13px] font-medium border-[0.5px] border-border-strong hover:bg-bg-page transition-colors"
+          className={`inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-bg-surface text-ink-primary text-[13px] font-medium border-[0.5px] border-border-strong hover:bg-bg-page transition-colors ${downloadEvent("appstore")}`}
         >
           <span className="w-[14px] h-[14px] inline-block">
             <AppleIcon />
@@ -69,7 +70,7 @@ export default function DownloadCard({
           href="https://github.com/sarensw/MacPacker/releases"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-bg-surface text-ink-primary text-[13px] font-medium border-[0.5px] border-border-strong hover:bg-bg-page transition-colors"
+          className={`inline-flex items-center gap-2 h-9 px-3.5 rounded-md bg-bg-surface text-ink-primary text-[13px] font-medium border-[0.5px] border-border-strong hover:bg-bg-page transition-colors ${downloadEvent("github")}`}
         >
           <span className="w-[14px] h-[14px] inline-block">
             <GitHubIcon />

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Locale, Translations } from "@/lib/i18n";
 import LanguageSwitcher from "@/components/client/LanguageSwitcher";
+import { downloadEvent } from "@/lib/analytics";
 
 interface HeaderProps {
   locale: Locale;
@@ -64,7 +65,7 @@ export default function Header({ locale, t, downloadUrl }: HeaderProps) {
           <LanguageSwitcher locale={locale} />
           <a
             href={downloadUrl}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium hover:bg-[#2a2a2a] transition-colors"
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium hover:bg-[#2a2a2a] transition-colors ${downloadEvent("dmg")}`}
           >
             {t.nav.downloadCta}
           </a>
@@ -74,7 +75,7 @@ export default function Header({ locale, t, downloadUrl }: HeaderProps) {
           <LanguageSwitcher locale={locale} />
           <a
             href={downloadUrl}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium"
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium ${downloadEvent("dmg")}`}
           >
             {t.nav.downloadCta}
           </a>
