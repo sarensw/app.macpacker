@@ -110,6 +110,19 @@ describe("English page - hero", () => {
   });
 });
 
+describe("English page - plausible download events", () => {
+  it.each(["dmg", "zip", "brew", "appstore", "github"])(
+    "tags a %s CTA with the Download event classes",
+    async (method) => {
+      const { container } = await renderEnPage();
+      const tagged = container.querySelectorAll(
+        `.plausible-event-name\\=Download.plausible-event-method\\=${method}`,
+      );
+      expect(tagged.length).toBeGreaterThan(0);
+    },
+  );
+});
+
 describe("English page - sections", () => {
   it("renders all 4 features", async () => {
     await renderEnPage();
