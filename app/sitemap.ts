@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/lib/i18n";
 import { getAllFormatSlugs } from "@/lib/formats";
+import { getCompetitorSlugs } from "@/lib/compare";
 import { SITE_URL } from "@/lib/seo";
 
 const baseUrl = SITE_URL;
@@ -13,6 +14,7 @@ const LASTMOD = {
   home: "2026-07-09",
   docs: "2026-06-29",
   docsArticle: "2026-05-23",
+  compare: "2026-08-10",
   press: "2026-06-15",
   blog: "2026-06-15",
   privacy: "2026-06-15",
@@ -43,6 +45,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: locale === "en" ? 0.9 : 0.7,
     alternates: { languages: languagesFor("/docs") },
   }));
+
+  const comparePages = locales.map((locale) => ({
+    url: `${baseUrl}/${locale}/compare`,
+    lastModified: LASTMOD.compare,
+    changeFrequency: "monthly" as const,
+    priority: locale === "en" ? 0.9 : 0.7,
+    alternates: { languages: languagesFor("/compare") },
+  }));
+
+  const comparePairPages = locales.flatMap((locale) =>
+    getCompetitorSlugs().map((slug) => ({
+      url: `${baseUrl}/${locale}/compare/${slug}`,
+      lastModified: LASTMOD.compare,
+      changeFrequency: "monthly" as const,
+      priority: locale === "en" ? 0.8 : 0.6,
+      alternates: { languages: languagesFor(`/compare/${slug}`) },
+    })),
+  );
 
   const pressPages = locales.map((locale) => ({
     url: `${baseUrl}/${locale}/press`,
@@ -77,6 +97,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...homePages,
     ...docsIndexPages,
     ...docsArticlePages,
+    ...comparePages,
+    ...comparePairPages,
     ...pressPages,
     ...privacyPages,
   ];

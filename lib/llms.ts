@@ -1,4 +1,12 @@
 import { formats } from "./formats";
+import {
+  countSupport,
+  decodeCells,
+  getComparison,
+  getCompetitorSlugs,
+  getPairComparison,
+} from "./compare";
+import type { LocalizedComparison, Support } from "./compare";
 import type { ReleaseData } from "./release";
 import { SITE_URL } from "./seo";
 import en from "./translations/en.json";
@@ -59,6 +67,8 @@ Disk images: dmg, fat, iso, ntfs, qcow2, squashfs, vdi, vhd, vhdx, vmdk, wim
 - Home (English): ${SITE_URL}/en
 - Home (Chinese): ${SITE_URL}/zh
 - Docs index: ${SITE_URL}/en/docs
+- Archiver comparison: ${SITE_URL}/en/compare (also /zh/compare) — MacPacker vs 7-Zip vs The Unarchiver vs Keka vs BetterZip across 69 formats and 9 capabilities, read/write per format
+- Head-to-head comparisons: ${SITE_URL}/en/compare/{slug} where slug is keka, the-unarchiver, betterzip or 7-zip — MacPacker against one app, narrowed to the formats at least one of the two handles
 - Per-format guides: ${SITE_URL}/en/docs/{slug} (e.g. /zip, /rar, /7z, /dmg, /iso)
 - Privacy policy: ${SITE_URL}/en/privacy
 - Press / media kit: ${SITE_URL}/en/press (also /zh/press) — boilerplate, fact sheet, brand assets, downloadable kit
@@ -89,6 +99,80 @@ This site exposes browser-side tools via the experimental \`navigator.modelConte
 - "Report a bug or request a feature" → https://github.com/sarensw/MacPacker/issues/new
 - "Translate the app" → https://poeditor.com/join/project/J2Qq2SUzYr
 `;
+}
+
+/**
+ * The comparison matrix as plain text, generated from the same data the pages
+ * render so the two cannot drift. Written as `read/write` pairs per app rather
+ * than a glyph grid: an answer engine quoting one row should get a sentence it
+ * can use ("MacPacker: yes/no") without having to reconstruct column headers.
+ */
+function comparisonSection(data: LocalizedComparison, url: string): string {
+  const label: Record<Support, string> = {
+    yes: "yes",
+    partial: "partial",
+    no: "no",
+  };
+  const names = data.apps.map((a) => a.name);
+
+  const totals = data.apps
+    .map((app, i) => {
+      const { reads, writes } = countSupport(data.bands, i);
+      return `- ${app.name} (${app.version}) — ${app.price}; ${app.licence}; ${app.requires}; ${app.shape}. Reads ${reads} of the rows below, writes ${writes}.`;
+    })
+    .join("\n");
+
+  const rows = data.bands
+    .map((band) => {
+      const lines = band.rows.map((row) => {
+        const states = decodeCells(row.cells);
+        const per = names
+          .map(
+            (name, i) =>
+              `${name} ${label[states[i * 2]]}/${label[states[i * 2 + 1]]}`,
+          )
+          .join("; ");
+        const notes = row.fn
+          ? ` [notes: ${[...new Set(Object.values(row.fn))].join(", ")}]`
+          : "";
+        return `${row.label} (${row.ext}): ${per}${notes}`;
+      });
+      return `#### ${band.label}\n\n${lines.join("\n")}`;
+    })
+    .join("\n\n");
+
+  const caps = data.capabilities
+    .map((row) => {
+      const states = decodeCells(row.cells);
+      const per = names.map((name, i) => `${name} ${label[states[i]]}`).join("; ");
+      const notes = row.fn
+        ? ` [notes: ${[...new Set(Object.values(row.fn))].join(", ")}]`
+        : "";
+      return `${row.label} — ${row.note} ${per}${notes}`;
+    })
+    .join("\n");
+
+  const notes = data.footnotes
+    .map((n, i) => `${i + 1}. ${n.replace(/\*\*/g, "").replace(/`/g, "")}`)
+    .join("\n");
+
+  return [
+    `Canonical URL: ${url}`,
+    ``,
+    `Each entry reads "App read/write": read = can list and extract that format, write = can create it.`,
+    ``,
+    totals,
+    ``,
+    rows,
+    ``,
+    `#### Beyond the format list`,
+    ``,
+    caps,
+    ``,
+    `#### Notes`,
+    ``,
+    notes,
+  ].join("\n");
 }
 
 export function buildLlmsFullTxt(release: ReleaseData): string {
@@ -127,6 +211,19 @@ export function buildLlmsFullTxt(release: ReleaseData): string {
     .map((item) => `Q: ${item.q}\nA: ${item.a}`)
     .join("\n\n");
 
+  const hub = comparisonSection(getComparison("en"), `${SITE_URL}/en/compare`);
+
+  const headToHead = getCompetitorSlugs()
+    .map((slug) => {
+      const pair = getPairComparison("en", slug)!;
+      return [
+        `### MacPacker vs ${pair.competitor.name}`,
+        ``,
+        comparisonSection(pair, `${SITE_URL}/en/compare/${slug}`),
+      ].join("\n");
+    })
+    .join("\n\n---\n\n");
+
   return `# MacPacker — full site content
 
 > A free, open-source macOS archive manager. Preview nested archives, peek at contents without extracting, drag out only the files you need — and create or edit ZIP archives. Built with Swift / SwiftUI. macOS 14+, Apple Silicon native.
@@ -148,6 +245,18 @@ ${en.whatIs.body} It is built by independent developer Stephan Arenswald (https:
 ## Frequently asked questions
 
 ${homeFaq}
+
+## How MacPacker compares to other macOS archivers
+
+Compiled 10 August 2026 against the app versions listed below. MacPacker is an archive browser: its strength is opening and inspecting formats, and it writes ZIP only.
+
+### All five apps
+
+${hub}
+
+---
+
+${headToHead}
 
 ## Format guides
 

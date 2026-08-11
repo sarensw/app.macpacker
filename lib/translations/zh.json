@@ -134,12 +134,18 @@
     "madeFor": "专为 macOS 打造",
     "sections": {
       "product": "产品",
+      "compare": "对比",
       "openSource": "开源",
       "legal": "法律"
     },
     "links": {
       "docs": "文档",
       "blog": "博客",
+      "vsKeka": "MacPacker 对比 Keka",
+      "vsUnarchiver": "MacPacker 对比 The Unarchiver",
+      "vsBetterZip": "MacPacker 对比 BetterZip",
+      "vsSevenZip": "MacPacker 对比 7-Zip",
+      "compareAll": "全部格式对照",
       "github": "GitHub",
       "reportBug": "报告问题",
       "translate": "翻译",

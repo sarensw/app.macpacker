@@ -134,12 +134,18 @@
     "madeFor": "Made for macOS",
     "sections": {
       "product": "Product",
+      "compare": "Compare",
       "openSource": "Open source",
       "legal": "Legal"
     },
     "links": {
       "docs": "Docs",
       "blog": "Blog",
+      "vsKeka": "MacPacker vs Keka",
+      "vsUnarchiver": "MacPacker vs The Unarchiver",
+      "vsBetterZip": "MacPacker vs BetterZip",
+      "vsSevenZip": "MacPacker vs 7-Zip",
+      "compareAll": "All formats compared",
       "github": "GitHub",
       "reportBug": "Report a bug",
       "translate": "Translate",

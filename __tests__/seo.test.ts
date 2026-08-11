@@ -3,6 +3,7 @@ import sitemap from "@/app/sitemap";
 import robots from "@/app/robots";
 import { locales } from "@/lib/i18n";
 import { getAllFormatSlugs } from "@/lib/formats";
+import { getCompetitorSlugs } from "@/lib/compare";
 
 describe("sitemap.ts", () => {
   it("returns entries for all locales", () => {
@@ -13,6 +14,8 @@ describe("sitemap.ts", () => {
       locales.length + // press
       locales.length + // privacy
       locales.length + // docs index
+      locales.length + // compare hub
+      locales.length * getCompetitorSlugs().length + // head-to-head pages
       locales.length * slugs.length; // docs articles
     // Note: /blog is intentionally excluded (noindex until posts ship).
     expect(entries).toHaveLength(expectedCount);

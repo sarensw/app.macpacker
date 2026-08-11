@@ -13,8 +13,10 @@ export default function Footer({ locale, t }: FooterProps) {
   return (
     <footer className="border-t-[0.5px] border-border-subtle mt-8 bg-bg-page">
       <div className="max-w-[1120px] mx-auto px-6 pt-10 pb-6 max-md:px-5">
-        <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1.5fr)_repeat(3,minmax(0,1fr))] gap-10 mb-8">
-          <div>
+        {/* Link columns pair up 2-across below md and the brand block spans the
+            row, so the footer does not stack into a very tall column on phones. */}
+        <div className="grid grid-cols-2 md:grid-cols-[minmax(0,1.5fr)_repeat(3,minmax(0,1fr))] gap-x-8 gap-y-8 md:gap-y-10 mb-8">
+          <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5 mb-3">
               <Image
                 src="/logo.png"
@@ -64,47 +66,76 @@ export default function Footer({ locale, t }: FooterProps) {
 
           <div>
             <div className="font-mono text-[10px] tracking-[0.08em] text-ink-tertiary uppercase mb-3">
-              {t.footer.sections.openSource}
+              {t.footer.sections.compare}
             </div>
             <div className="flex flex-col gap-2 text-[13px] text-ink-secondary">
-              <a
-                href="https://github.com/sarensw/MacPacker"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-ink-primary transition-colors"
-              >
-                {t.footer.links.github}
-              </a>
-              <a
-                href="https://github.com/sarensw/MacPacker/issues"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-ink-primary transition-colors"
-              >
-                {t.footer.links.reportBug}
-              </a>
-              <a
-                href="https://poeditor.com/join/project/J2Qq2SUzYr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-ink-primary transition-colors"
-              >
-                {t.footer.links.translate}
-              </a>
+              {(
+                [
+                  ["keka", t.footer.links.vsKeka],
+                  ["the-unarchiver", t.footer.links.vsUnarchiver],
+                  ["betterzip", t.footer.links.vsBetterZip],
+                  ["7-zip", t.footer.links.vsSevenZip],
+                  ["", t.footer.links.compareAll],
+                ] as const
+              ).map(([slug, label]) => (
+                <Link
+                  key={label}
+                  href={`/${locale}/compare${slug ? `/${slug}` : ""}`}
+                  className="hover:text-ink-primary transition-colors"
+                >
+                  {label}
+                </Link>
+              ))}
             </div>
           </div>
 
-          <div>
-            <div className="font-mono text-[10px] tracking-[0.08em] text-ink-tertiary uppercase mb-3">
-              {t.footer.sections.legal}
+          {/* Open source and Legal share a column — three links and one link
+              did not each earn a column of their own. */}
+          <div className="flex flex-col gap-7">
+            <div>
+              <div className="font-mono text-[10px] tracking-[0.08em] text-ink-tertiary uppercase mb-3">
+                {t.footer.sections.openSource}
+              </div>
+              <div className="flex flex-col gap-2 text-[13px] text-ink-secondary">
+                <a
+                  href="https://github.com/sarensw/MacPacker"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-ink-primary transition-colors"
+                >
+                  {t.footer.links.github}
+                </a>
+                <a
+                  href="https://github.com/sarensw/MacPacker/issues"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-ink-primary transition-colors"
+                >
+                  {t.footer.links.reportBug}
+                </a>
+                <a
+                  href="https://poeditor.com/join/project/J2Qq2SUzYr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-ink-primary transition-colors"
+                >
+                  {t.footer.links.translate}
+                </a>
+              </div>
             </div>
-            <div className="flex flex-col gap-2 text-[13px] text-ink-secondary">
-              <Link
-                href={`/${locale}/privacy`}
-                className="hover:text-ink-primary transition-colors"
-              >
-                {t.footer.links.privacy}
-              </Link>
+
+            <div>
+              <div className="font-mono text-[10px] tracking-[0.08em] text-ink-tertiary uppercase mb-3">
+                {t.footer.sections.legal}
+              </div>
+              <div className="flex flex-col gap-2 text-[13px] text-ink-secondary">
+                <Link
+                  href={`/${locale}/privacy`}
+                  className="hover:text-ink-primary transition-colors"
+                >
+                  {t.footer.links.privacy}
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -29,6 +29,16 @@
   --color-accent-live: #28c840;
   --color-accent-success-bg: #e6f4ec;
   --color-accent-success-ink: #166c3a;
+  /* Read/write encoding for the /compare matrix. Two hues so a column is
+     readable at a glance, each ink paired with a soft cell wash. Both inks are
+     text-grade on white (green 6.1:1, amber 6.5:1) and still AA on their own
+     wash (4.8:1, 5.0:1) — unlike --color-accent-live, which is a status dot at
+     1.9:1 and unreadable at this size. */
+  --color-compare-read: #00713f;
+  --color-compare-read-soft: #d8e9df;
+  --color-compare-write: #97480f;
+  --color-compare-write-soft: #f1dfd0;
+  --color-compare-off: #b4bcb7;
 
   --radius-DEFAULT: 12px;
   --radius-sm: 4px;
