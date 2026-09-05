@@ -27,6 +27,7 @@ const CHANGELOG_URL =
   "https://macpacker-releases.s3.eu-central-1.amazonaws.com/Changelog.json";
 const APPCAST_URL =
   "https://macpacker-releases.s3.eu-central-1.amazonaws.com/appcast.xml";
+const GITHUB_RELEASES_URL = "https://github.com/sarensw/MacPacker/releases";
 const FETCH_TIMEOUT_MS = 5000;
 const REVALIDATE_SECONDS = 3600;
 
@@ -46,7 +47,7 @@ interface ChangelogJson {
 
 interface AppcastInfo {
   dateByVersion: Map<string, string>;
-  topNonBetaZipUrl: string | null;
+  topNonBetaVersion: string | null;
 }
 
 interface FallbackSchema {
@@ -80,7 +81,7 @@ async function fetchWithTimeout(url: string): Promise<Response> {
 
 function parseAppcast(xml: string): AppcastInfo {
   const dateByVersion = new Map<string, string>();
-  let topNonBetaZipUrl: string | null = null;
+  let topNonBetaVersion: string | null = null;
 
   // Split on <item> — chunks[0] is the channel preamble (skipped), chunks[1+] are item bodies.
   // Splitting on </item> would mix the channel <title>MacPacker</title> into chunk 0
@@ -100,13 +101,10 @@ function parseAppcast(xml: string): AppcastInfo {
     );
     const isBeta = channelMatch?.[1]?.trim() === "beta";
 
-    if (!isBeta && !topNonBetaZipUrl) {
-      const encMatch = /<enclosure[^>]*url="([^"]+)"/.exec(chunk);
-      if (encMatch) topNonBetaZipUrl = encMatch[1];
-    }
+    if (!isBeta && !topNonBetaVersion) topNonBetaVersion = title;
   }
 
-  return { dateByVersion, topNonBetaZipUrl };
+  return { dateByVersion, topNonBetaVersion };
 }
 
 function isReleaseItemType(t: string): t is ReleaseItemType {
@@ -130,12 +128,12 @@ function buildReleases(
   });
 }
 
-function deriveUrls(topZipUrl: string | null): {
-  zip: string;
-  dmg: string;
-} | null {
-  if (!topZipUrl) return null;
-  const base = topZipUrl.replace(/\.zip$/i, "");
+// Assets ship to GitHub Releases as tag `v{version}` / `MacPacker_v{version}.{dmg,zip}`.
+// The appcast enclosure still points at S3 (Sparkle's own update channel) — the site
+// links to GitHub so downloads don't come off the S3 bill.
+function deriveUrls(version: string | null): { zip: string; dmg: string } | null {
+  if (!version) return null;
+  const base = `${GITHUB_RELEASES_URL}/download/v${version}/MacPacker_v${version}`;
   return { zip: `${base}.zip`, dmg: `${base}.dmg` };
 }
 
@@ -185,9 +183,9 @@ export async function getReleaseData(locale: Locale): Promise<ReleaseData> {
 
   const appcast = appcastXml
     ? parseAppcast(appcastXml)
-    : { dateByVersion: new Map<string, string>(), topNonBetaZipUrl: null };
+    : { dateByVersion: new Map<string, string>(), topNonBetaVersion: null };
 
-  const urls = deriveUrls(appcast.topNonBetaZipUrl);
+  const urls = deriveUrls(appcast.topNonBetaVersion);
   const latestDmgUrl = urls?.dmg ?? fb.latestDmgUrl;
   const latestZipUrl = urls?.zip ?? fb.latestZipUrl;
 
