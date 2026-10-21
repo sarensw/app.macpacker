@@ -89,7 +89,7 @@ export default function Footer({ locale, t }: FooterProps) {
             </div>
           </div>
 
-          {/* Open source and Legal share a column — three links and one link
+          {/* Open source and Legal share a column — three links and two links
               did not each earn a column of their own. */}
           <div className="flex flex-col gap-7">
             <div>
@@ -134,6 +134,12 @@ export default function Footer({ locale, t }: FooterProps) {
                   className="hover:text-ink-primary transition-colors"
                 >
                   {t.footer.links.privacy}
+                </Link>
+                <Link
+                  href={`/${locale}/imprint`}
+                  className="hover:text-ink-primary transition-colors"
+                >
+                  {t.footer.links.imprint}
                 </Link>
               </div>
             </div>

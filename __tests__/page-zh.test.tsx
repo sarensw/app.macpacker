@@ -77,4 +77,10 @@ describe("Chinese page - sections", () => {
     const link = screen.getByText(zh.footer.links.privacy).closest("a");
     expect(link).toHaveAttribute("href", "/zh/privacy");
   });
+
+  it("renders Chinese footer imprint link with locale prefix", async () => {
+    await renderZhPage();
+    const link = screen.getByText(zh.footer.links.imprint).closest("a");
+    expect(link).toHaveAttribute("href", "/zh/imprint");
+  });
 });
