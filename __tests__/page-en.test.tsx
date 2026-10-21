@@ -29,6 +29,7 @@ vi.mock("@/lib/release", () => ({
 }));
 
 import HomePage from "@/app/[locale]/page";
+import ImprintPage from "@/app/[locale]/imprint/page";
 
 async function renderEnPage() {
   const paramsPromise = Promise.resolve({ locale: "en" });
@@ -183,8 +184,24 @@ describe("English page - footer", () => {
     expect(link).toHaveAttribute("href", "/en/privacy");
   });
 
+  it("renders the imprint link with locale prefix", async () => {
+    await renderEnPage();
+    const link = screen.getByText(en.footer.links.imprint).closest("a");
+    expect(link).toHaveAttribute("href", "/en/imprint");
+  });
+
   it("renders the author name", async () => {
     await renderEnPage();
     expect(screen.getByText(en.footer.author)).toBeInTheDocument();
+  });
+});
+
+// The app's "Legal Notice" button opens /imprint in every shipped version.
+describe("English imprint page", () => {
+  it("names the service provider", async () => {
+    const jsx = await ImprintPage({ params: Promise.resolve({ locale: "en" }) });
+    render(<>{jsx}</>);
+    expect(screen.getByText(/Goldmühlestraße 65/)).toBeInTheDocument();
+    expect(screen.getByText("DE452469174")).toBeInTheDocument();
   });
 });
