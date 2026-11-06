@@ -29,6 +29,7 @@ vi.mock("@/lib/release", () => ({
 }));
 
 import HomePage from "@/app/[locale]/page";
+import ChangelogPage from "@/app/[locale]/changelog/page";
 
 async function renderZhPage() {
   const paramsPromise = Promise.resolve({ locale: "zh" });
@@ -44,32 +45,31 @@ describe("Chinese page - sections", () => {
   it("renders Chinese nav links", async () => {
     await renderZhPage();
     const nav = screen.getByRole("navigation");
-    expect(nav).toHaveTextContent("功能");
-    expect(nav).toHaveTextContent("格式");
-    expect(nav).toHaveTextContent("更新日志");
+    expect(nav).toHaveTextContent(zh.nav.features);
+    expect(nav).toHaveTextContent(zh.nav.docs);
+    expect(nav).toHaveTextContent(zh.nav.changelog);
+    expect(nav.querySelector('a[href="/zh/changelog"]')).not.toBeNull();
   });
 
-  it("renders Chinese hero subtitle", async () => {
+  it("renders the Chinese hero subtitle and the Chinese App Store badge", async () => {
     await renderZhPage();
     expect(screen.getByText(zh.hero.sub)).toBeInTheDocument();
+    expect(screen.getAllByAltText(zh.home.appStoreAlt)[0]).toHaveAttribute(
+      "src",
+      "/img/badges/mac-app-store-black-zh-cn.svg",
+    );
   });
 
-  it("renders the 4 Chinese features", async () => {
+  it("renders the Chinese feature tiles", async () => {
     await renderZhPage();
-    expect(screen.getByText(zh.features.peek.title)).toBeInTheDocument();
-    expect(screen.getByText(zh.features.nested.title)).toBeInTheDocument();
-    expect(screen.getByText(zh.features.selective.title)).toBeInTheDocument();
-    expect(screen.getByText(zh.features.editing.title)).toBeInTheDocument();
+    expect(screen.getByText(zh.home.browseTitle)).toBeInTheDocument();
+    expect(screen.getByText(zh.home.finderTitle)).toBeInTheDocument();
+    expect(screen.getByText(zh.home.menuZip)).toBeInTheDocument();
   });
 
-  it("renders Chinese open source line", async () => {
+  it("renders the Chinese open source section", async () => {
     await renderZhPage();
-    expect(screen.getByText(zh.openSource.viewOnGithub)).toBeInTheDocument();
-  });
-
-  it("renders the changelog rail with Chinese release titles", async () => {
-    await renderZhPage();
-    expect(screen.getByText("支持 WIM")).toBeInTheDocument();
+    expect(screen.getByText(zh.home.ossTitle)).toBeInTheDocument();
   });
 
   it("renders Chinese footer privacy link with locale prefix", async () => {
@@ -82,5 +82,13 @@ describe("Chinese page - sections", () => {
     await renderZhPage();
     const link = screen.getByText(zh.footer.links.imprint).closest("a");
     expect(link).toHaveAttribute("href", "/zh/imprint");
+  });
+});
+
+describe("Chinese changelog page", () => {
+  it("renders the release titles in Chinese", async () => {
+    const jsx = await ChangelogPage({ params: Promise.resolve({ locale: "zh" }) });
+    render(<>{jsx}</>);
+    expect(screen.getByText("支持 WIM")).toBeInTheDocument();
   });
 });

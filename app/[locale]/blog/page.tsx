@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { isValidLocale, getTranslations } from "@/lib/i18n";
-import { getReleaseData } from "@/lib/release";
 import { pageMetadata } from "@/lib/seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -43,12 +42,11 @@ export default async function BlogPage({
   if (!isValidLocale(locale)) notFound();
 
   const t = await getTranslations(locale);
-  const release = await getReleaseData(locale);
   const isZh = locale === "zh";
 
   return (
     <>
-      <Header locale={locale} t={t} downloadUrl={release.latestDmgUrl} />
+      <Header locale={locale} t={t} />
 
       <main className="max-w-[1120px] mx-auto px-6 max-md:px-5">
         <section className="py-16 max-md:py-12">
@@ -68,7 +66,7 @@ export default async function BlogPage({
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <Link
-              href={`/${locale}#changelog`}
+              href={`/${locale}/changelog`}
               className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium hover:bg-[#2a2a2a] transition-colors"
             >
               {isZh ? "查看更新日志" : "See the changelog"}

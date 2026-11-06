@@ -36,10 +36,17 @@ export const allFormatChips: FormatChip[] = [...formatChips, ...compoundChips]
     a.label.toLowerCase().localeCompare(b.label.toLowerCase()),
   );
 
+// ─── COUNTS ───
+// The headline numbers ("43 formats under 66 file extensions") come from here,
+// so the site never states a count the registry doesn't back.
+const everyFormat = [...registry.formats, ...registry.compounds];
+export const formatCount = everyFormat.length;
+export const extensionCount = everyFormat.reduce((n, f) => n + f.extensions.length, 0);
+
 // ─── CATEGORIZED LIST (for the press kit's full formats breakdown) ───
 // Groups every supported format under the four human-facing categories. LHA/LZH
-// stays a single entry here so the total matches the headline "41" (the home
-// chip list splits it into two). Labels reuse the same overrides as the chips.
+// stays a single entry here so the total matches formatCount (the chip list
+// splits it into two). Labels reuse the same overrides as the chips.
 
 export type FormatCategoryKey =
   | "archives"
@@ -86,4 +93,25 @@ export const formatsByCategory: FormatCategory[] = (() => {
     { key: "compression", labels: buckets.compression.sort(byLabel) },
     { key: "diskImages", labels: buckets.diskImages.sort(byLabel) },
   ];
+})();
+
+// ─── EXTENSION GROUPS (home spec sheet, llms.txt) ───
+// Same four categories, one entry per format: its first extension, lower case,
+// the way it appears on a file name (7z, tar.gz, dmg).
+export const extensionsByCategory: { key: FormatCategoryKey; extensions: string[] }[] = (() => {
+  const buckets: Record<FormatCategoryKey, string[]> = {
+    archives: [],
+    compressedTar: [],
+    compression: [],
+    diskImages: [],
+  };
+  for (const f of registry.formats) {
+    const category = kindToCategory[f.kind];
+    if (category) buckets[category].push(f.extensions[0]);
+  }
+  for (const c of registry.compounds) buckets.compressedTar.push(c.id);
+  return (Object.keys(buckets) as FormatCategoryKey[]).map((key) => ({
+    key,
+    extensions: buckets[key].sort(byLabel),
+  }));
 })();

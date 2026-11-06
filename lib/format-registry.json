@@ -79,6 +79,12 @@
       "extensions": ["lz4"]
     },
     {
+      "id": "lzma",
+      "name": "LZMA File",
+      "kind": "compression",
+      "extensions": ["lzma"]
+    },
+    {
       "id": "lzx",
       "name": "LZX Archive",
       "kind": "archive",
@@ -118,7 +124,7 @@
       "id": "rar",
       "name": "RAR Archive",
       "kind": "archive",
-      "extensions": ["rar"]
+      "extensions": ["rar", "cbr"]
     },
     {
       "id": "rpm",
@@ -208,7 +214,7 @@
       "id": "zip",
       "name": "ZIP Archive",
       "kind": "archive",
-      "extensions": ["zip"]
+      "extensions": ["zip", "jar", "aar", "apk", "cbz"]
     },
     {
       "id": "zipx",
@@ -232,6 +238,11 @@
       "id": "tar.lz4",
       "name": "LZ4 Tar Archive",
       "extensions": ["tlz4", "tar.lz4"]
+    },
+    {
+      "id": "tar.lzma",
+      "name": "LZMA Tar Archive",
+      "extensions": ["tlzma", "tar.lzma"]
     },
     {
       "id": "tar.xz",

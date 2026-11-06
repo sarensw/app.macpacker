@@ -9,7 +9,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { GitHubIcon, DownloadIcon } from "@/components/icons";
 import CopyTextButton from "@/components/client/CopyTextButton";
-import { formatsByCategory } from "@/lib/format-chips";
+import { formatsByCategory, formatCount } from "@/lib/format-chips";
 
 export const revalidate = 3600;
 
@@ -103,7 +103,7 @@ export default async function PressPage({
         {locale === "zh" ? "跳到主要内容" : "Skip to main content"}
       </a>
 
-      <Header locale={locale} t={t} downloadUrl={release.latestDmgUrl} />
+      <Header locale={locale} t={t} />
 
       <main id="press-content" className="max-w-[1120px] mx-auto px-6 max-md:px-5">
         {/* ─── HERO ─── */}
@@ -241,7 +241,7 @@ export default async function PressPage({
         {/* ─── FORMATS ─── */}
         <section className="mb-12" id="formats">
           <p className={eyebrow}>{p.formatsEyebrow}</p>
-          <h2 className={`${h2cls} mb-6`}>41 {p.formatsTitle}</h2>
+          <h2 className={`${h2cls} mb-6`}>{formatCount} {p.formatsTitle}</h2>
           <div className="flex flex-col gap-5">
             {formatsByCategory.map((cat) => (
               <div key={cat.key}>

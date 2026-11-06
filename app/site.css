@@ -1,0 +1,708 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   Site chrome (header, footer) and the home page, "design B".
+   A port of the approved mock: one tile vocabulary on white, the app icon's
+   orange used only as light (the stage, the open-source tile, two numbers).
+   Plain CSS on purpose: the gradients, the glass header and the drawn macOS
+   UI are hand-tuned and read better here than as utility strings. Every
+   class starts with b- (or dl-/gh- for the download row and the official
+   buttons), so nothing collides with the Tailwind component classes that
+   docs, blog and compare still use.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --paper: #ffffff;
+  --ink: #1d1d1f;
+  --ink-soft: rgba(29, 29, 31, 0.68);
+  --ink-faint: rgba(29, 29, 31, 0.48);
+  --hairline: rgba(29, 29, 31, 0.10);
+  --edge: rgba(29, 29, 31, 0.14);
+  --surface-2: #efeff2;
+  --surface-3: #e4e4e8;
+  --field: #ffffff;
+  --btn-bg: #1d1d1f;
+  --btn-fg: #ffffff;
+  --btn-hover: #3a3a3e;
+  --header-bg: rgba(255, 255, 255, 0.72);
+  --tile: #f5f5f7;
+  --stage: #fff3e8;
+  --glow-amber: rgba(254, 172, 52, 0.55);
+  --glow-red: rgba(245, 94, 34, 0.40);
+  --video: #1d1d1f;
+  --menu: rgba(250, 250, 252, 0.94);
+  --select: #2a64e0;            /* the selection blue of the app's own rows */
+  --shadow: rgba(80, 30, 0, 0.26);
+  --grad: linear-gradient(160deg, #feac34 0%, #f98129 48%, #f55e22 100%);  /* the icon */
+  --mark: #f55e22;
+  --link-line: rgba(245, 94, 34, 0.5);
+  --live: #17a34a;
+  --shell-bg: #1d1d1f;          /* the Homebrew command, as a terminal line */
+  --shell-ink: #f5f5f7;
+  /* GitHub's own button colours (Primer), for Sponsor and Fork me */
+  --gh-btn-bg: #f6f8fa;
+  --gh-btn-hover: #eff2f5;
+  --gh-btn-border: #d1d9e0;
+  --gh-btn-ink: #25292e;
+  --gh-heart: #bf3989;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+  --pad: clamp(22px, 2.6vw, 32px);
+  --tile-radius: 26px;
+}
+
+@layer components {
+  .b-wrap {
+    max-width: 1160px;
+    margin-inline: auto;
+    padding-inline: clamp(20px, 4vw, 40px);
+  }
+  .b-page { color: var(--ink); }
+  .b-page h1, .b-page h2, .b-page h3 { text-wrap: balance; }
+
+  /* ─── BUTTONS ─── */
+
+  .b-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 38px;
+    padding: 0 18px;
+    border-radius: 10px;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    font-size: 14.5px;
+    font-weight: 560;
+    white-space: nowrap;
+    transition: background-color 0.18s ease;
+  }
+  .b-btn:hover { background: var(--btn-hover); }
+  .b-btn-sm { height: 32px; padding: 0 14px; font-size: 13.5px; }
+  .b-btn-outline {
+    background: var(--field);
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--edge);
+  }
+  .b-btn-outline:hover { background: var(--surface-2); }
+  .b-btn svg { flex: none; width: 15px; height: 15px; }
+
+  /* ─── HEADER ─── glass, sticky on every page */
+
+  .b-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    border-bottom: 1px solid var(--hairline);
+    background: var(--header-bg);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    color: var(--ink);
+  }
+  .b-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-block: 11px;
+  }
+  .b-brand { display: flex; align-items: center; gap: 9px; font-size: 15px; font-weight: 620; letter-spacing: -0.01em; }
+  .b-brand img { width: 26px; height: 26px; }
+  .b-nav { display: flex; align-items: center; gap: clamp(14px, 2.2vw, 26px); }
+  .b-nav a { font-size: 14px; color: var(--ink-soft); transition: color 0.18s ease; }
+  .b-nav a:hover { color: var(--ink); }
+  .b-nav a.b-btn { color: var(--btn-fg); }
+  .b-nav-link { display: none; }
+  @media (min-width: 820px) { .b-nav .b-nav-link { display: block; } }
+
+  /* language switch, segmented */
+  .b-lang {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--hairline);
+    padding: 2px;
+  }
+  .b-lang button {
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    padding: 5px 11px;
+    font-size: 12.5px;
+    font-weight: 590;
+    color: var(--ink-faint);
+    cursor: pointer;
+    transition: color 0.18s ease, background-color 0.18s ease;
+  }
+  .b-lang button:hover { color: var(--ink); }
+  .b-lang button[aria-current="true"] {
+    background: var(--field);
+    color: var(--ink);
+    box-shadow: 0 1px 2px rgba(26, 19, 12, 0.10);
+  }
+
+  /* ─── FOOTER ─── */
+
+  .b-footer { border-top: 1px solid var(--hairline); background: var(--paper); color: var(--ink); }
+  .b-footer-grid {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.4fr) repeat(auto-fit, minmax(130px, 1fr));
+    gap: 30px clamp(24px, 4vw, 56px);
+    padding-top: clamp(30px, 4vw, 46px);
+    padding-bottom: 20px;
+  }
+  /* phones: the 220 + 130 px minimums are wider than a 390 px screen, so the brand
+     takes its own row and the four link columns go two by two */
+  @media (max-width: 599px) {
+    .b-footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .b-footer-grid > :first-child { grid-column: 1 / -1; }
+  }
+  .b-tagline { margin-top: 12px; max-width: 32ch; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+  .b-fcol { display: flex; flex-direction: column; gap: 9px; }
+  .b-fcol-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .b-fcol a { font-size: 14px; color: var(--ink-soft); transition: color 0.18s ease; }
+  .b-fcol a:hover { color: var(--ink); }
+  .b-copyright {
+    padding-top: 6px;
+    padding-bottom: 42px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .b-copyright a:hover { color: var(--ink); }
+
+  /* ─── HERO ─── */
+
+  .b-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-top: clamp(48px, 7vw, 96px);
+    padding-bottom: clamp(36px, 5vw, 56px);
+    text-align: center;
+  }
+  .b-icon {
+    width: clamp(68px, 6.8vw, 88px);
+    height: clamp(68px, 6.8vw, 88px);
+    margin-bottom: 4px;
+    filter: drop-shadow(0 12px 24px rgba(245, 94, 34, 0.28));
+  }
+  .b-hero h1 {
+    max-width: 17ch;
+    font-size: clamp(38px, 5.7vw, 68px);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+  }
+  .b-lede { max-width: 50ch; font-size: clamp(16px, 1.5vw, 19px); line-height: 1.5; color: var(--ink-soft); }
+  .b-hero .dl-group, .b-get .dl-group { align-self: center; justify-content: center; margin-top: 6px; }
+  /* a centred button opens its menu centred below it, so it never runs off a phone screen */
+  .b-hero .dl-menu, .b-get .dl-menu { left: 50%; translate: -50% 0; }
+  .b-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px 16px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .b-meta .b-pair { display: inline-flex; align-items: center; gap: 7px; }
+  .b-meta .b-ver { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .b-meta .b-oss { color: var(--ink); font-weight: 600; }
+  .b-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--live);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--live) 22%, transparent);
+  }
+
+  /* ─── DOWNLOAD ROW ─── Apple's badge first, everything else behind one button */
+
+  .dl-group { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  /* Apple: badge at least 40px tall, never altered */
+  .appstore-badge img { height: 40px; width: auto; }
+  /* the badge's corners pass through (2, 2) at 45°, a 7px radius at 40px tall;
+     the buttons beside it take the same corners so the row reads as one set */
+  .dl-group .b-btn, .dl-group .gh-fork { border-radius: 7px; }
+  .dl-more-wrap { position: relative; }
+  .dl-more { height: 40px; gap: 6px; border: 0; padding: 0 13px 0 16px; cursor: pointer; }
+  .dl-more > svg { width: 14px; height: 14px; transition: transform 0.18s ease; }
+  .dl-more[aria-expanded="true"] > svg { transform: rotate(180deg); }
+  /* the button hints at what is behind it: a download | Homebrew | GitHub */
+  .dl-hint { display: inline-flex; align-items: center; gap: 7px; margin-inline: 5px 3px; color: var(--ink-soft); }
+  .dl-hint i { width: 1px; height: 14px; background: var(--edge); }
+  /* Homebrew's mug is drawn in thin lines; a little more size makes it weigh the same */
+  .dl-hint .dl-brew { width: 18px; height: 18px; }
+
+  .dl-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 30;
+    width: max-content;
+    min-width: 100%;
+    max-width: min(380px, calc(100vw - 32px));
+    border-radius: 12px;
+    background: var(--field);
+    box-shadow: 0 0 0 1px var(--edge), 0 18px 40px -14px rgba(15, 17, 20, 0.3);
+    padding: 6px;
+    text-align: left;
+  }
+  .dl-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 9px;
+    padding: 9px 10px;
+    color: var(--ink);
+  }
+  a.dl-item:hover { background: var(--surface-2); }
+  .dl-item > svg { flex: none; width: 17px; height: 17px; color: var(--ink-soft); }
+  .dl-item > .dl-brew { width: 21px; height: 21px; margin-inline: -2px; }
+  .dl-item > span { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .dl-item b { font-size: 14px; font-weight: 600; }
+  .dl-item small { font-size: 12.5px; color: var(--ink-faint); }
+  .dl-copy {
+    flex: none;
+    border: 0;
+    border-radius: 7px;
+    padding: 5px 9px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    cursor: pointer;
+  }
+  /* Homebrew: the command as a terminal line with its prompt, the copy button inside it */
+  .dl-shell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+    border-radius: 7px;
+    background: var(--shell-bg);
+    box-shadow: inset 0 0 0 1px var(--edge);
+    padding: 4px 4px 4px 10px;
+  }
+  .dl-shell code {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    font-family: var(--mono);
+    font-size: 12px;
+    white-space: nowrap;
+    color: var(--shell-ink);
+  }
+  .dl-shell code::before { content: "$ "; color: rgba(255, 255, 255, 0.45); user-select: none; }
+  .dl-shell .dl-copy { background: rgba(255, 255, 255, 0.12); color: rgba(255, 255, 255, 0.78); }
+  .dl-shell .dl-copy:hover { background: rgba(255, 255, 255, 0.22); color: #ffffff; }
+  /* a terminal's colours on the dark strip */
+  .sh-cmd { color: #7ee787; }
+  .sh-flag { color: #79c0ff; }
+  .sh-arg { color: #ffa657; }
+  .dl-note {
+    margin: 4px 10px;
+    border-top: 1px solid var(--hairline);
+    padding-top: 9px;
+    max-width: 44ch;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink-faint);
+  }
+
+  /* ─── PROOF ─── the window rises out of a lit stage; the product video takes its place later */
+
+  .b-stage {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--tile-radius);
+    background:
+      radial-gradient(60% 85% at 15% 0%, var(--glow-amber), transparent 70%),
+      radial-gradient(55% 80% at 88% 4%, var(--glow-red), transparent 70%),
+      var(--stage);
+    padding: clamp(40px, 6vw, 80px) clamp(16px, 7vw, 120px) 0;
+  }
+  .b-stage img {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    margin: 0 auto calc(-1 * clamp(56px, 14vw, 180px));
+    filter: drop-shadow(0 28px 48px var(--shadow));
+  }
+
+  /* the Trendshift badge and a GitHub one drawn to the same spec */
+  .b-awards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    padding-top: 24px;
+  }
+  .b-awards img { height: 55px; width: auto; }
+  .b-ghbadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    width: 250px;
+    height: 55px;
+    border: 1px solid #1f2328;
+    border-radius: 10px;
+    background: #ffffff;
+    padding: 0 14px;
+    color: #1f2328;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+  }
+  .b-ghbadge svg { flex: none; width: 28px; height: 28px; fill: #1f2328; }
+  .b-ghbadge small { display: block; font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #59636e; }
+  .b-ghbadge b { display: block; margin-top: 2px; font-size: 14px; font-weight: 700; }
+
+  /* ─── SECTIONS AND TILES ─── */
+
+  .b-section { padding-top: clamp(72px, 10vw, 128px); scroll-margin-top: 56px; }
+  .b-h2 {
+    margin-bottom: 0.85em;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.032em;
+    text-align: center;
+  }
+  .b-tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--tile-radius);
+    background: var(--tile);
+    padding: var(--pad);
+  }
+  .b-grid { display: grid; gap: 14px; }
+  @media (min-width: 700px) {
+    .b-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .b-wide { grid-column: span 2; }
+  }
+  @media (min-width: 700px) and (max-width: 999px) { .b-wide-md { grid-column: span 2; } }
+  @media (min-width: 1000px) { .b-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+  /* what people say: the video as the big tile, App Store reviews beside it */
+  .b-video {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+    min-height: 270px;
+    background:
+      radial-gradient(70% 95% at 100% 0%, rgba(245, 94, 34, 0.55), transparent 65%),
+      radial-gradient(50% 70% at 70% 0%, rgba(254, 172, 52, 0.30), transparent 70%),
+      var(--video);
+    color: #ffffff;
+  }
+  .b-play {
+    position: absolute;
+    top: var(--pad);
+    right: var(--pad);
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  .b-play svg { width: 24px; height: 24px; margin-left: 3px; fill: currentColor; }
+  .b-video:hover .b-play { transform: scale(1.06); background: rgba(255, 255, 255, 0.26); }
+  .b-video small { font-size: 13px; opacity: 0.7; }
+  .b-video b { max-width: 20ch; font-size: clamp(22px, 2.4vw, 29px); font-weight: 700; line-height: 1.08; letter-spacing: -0.03em; }
+  .b-video .b-note { font-size: 14.5px; opacity: 0.78; }
+
+  .b-quote { display: flex; flex-direction: column; justify-content: space-between; gap: 22px; margin: 0; }
+  .b-quote blockquote { margin: 0; font-size: clamp(16px, 1.4vw, 18px); font-weight: 500; line-height: 1.45; letter-spacing: -0.012em; }
+  .b-quote figcaption { font-size: 13px; color: var(--ink-faint); }
+  .b-quote figcaption b { font-weight: 600; color: var(--ink); }
+
+  .b-press {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 18px;
+    margin-top: 22px;
+    font-size: 14px;
+    color: var(--ink-faint);
+  }
+  .b-press a { font-weight: 600; color: var(--ink-soft); }
+  .b-press a:hover { color: var(--ink); }
+
+  /* features: copy on top, the app's own UI at the bottom */
+  .b-feat { display: flex; flex-direction: column; gap: 22px; min-height: 340px; }
+  .b-feat h3 { font-size: clamp(18px, 1.6vw, 20px); font-weight: 700; line-height: 1.15; letter-spacing: -0.022em; }
+  .b-feat p { margin-top: 8px; max-width: 40ch; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+  .b-art { margin-top: auto; }
+  /* a screenshot detail bleeds off the tile's right and bottom edge */
+  .b-bleed {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    margin: auto calc(-1 * var(--pad)) calc(-1 * var(--pad)) 0;
+  }
+  .b-bleed img {
+    width: min(100%, 440px);
+    height: auto;
+    border-top-left-radius: 12px;
+    box-shadow: 0 0 0 1px var(--edge), 0 22px 44px -22px var(--shadow);
+  }
+  @media (min-width: 700px) {
+    .b-browse { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 28px; }
+    .b-browse .b-bleed { align-self: end; margin-top: 28px; }
+    .b-browse .b-bleed img { width: min(100%, 560px); }
+  }
+
+  /* Quick Look: the space bar, then the panel, large enough to read and cut by the tile */
+  .b-ql { justify-content: flex-start; }
+  .b-ql img { flex: none; width: 480px; max-width: none; }
+  .b-key {
+    position: absolute;
+    bottom: 22px;
+    left: 0;
+    z-index: 1;
+    display: grid;
+    place-items: end center;
+    width: 96px;
+    height: 54px;
+    border-radius: 10px;
+    background: linear-gradient(#3b3b40, #1f1f23);
+    padding-bottom: 9px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 4px 0 #0d0d0f, 0 12px 22px -8px rgba(0, 0, 0, 0.55);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.86);
+  }
+
+  /* nested archives, drawn: a .zip inside a .tar.gz inside a .dmg */
+  .b-box { border-radius: 14px; background: var(--field); box-shadow: 0 0 0 1px var(--edge); padding: 9px 10px 10px; }
+  .b-box .b-box { margin-top: 8px; border-radius: 10px; background: var(--tile); }
+  .b-box .b-box .b-box { background: var(--field); }
+  .b-name { display: flex; align-items: center; gap: 7px; font: 12px/1.3 var(--mono); color: var(--ink-soft); }
+  .b-name::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--ink-faint); }
+  .b-file {
+    width: max-content;
+    margin-top: 8px;
+    border-radius: 6px;
+    background: var(--select);
+    padding: 5px 10px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  /* Finder's context menu with the MacPacker submenu (strings from the app) */
+  .b-menus { position: relative; height: 172px; }
+  .b-menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+    border-radius: 10px;
+    background: var(--menu);
+    padding: 5px;
+    box-shadow: 0 0 0 0.5px var(--edge), 0 14px 34px -10px var(--shadow);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    font-size: 13px;
+  }
+  .b-menu span { border-radius: 5px; padding: 3px 10px; white-space: nowrap; }
+  .b-menu hr { margin: 4px 10px; border: 0; border-top: 1px solid var(--hairline); }
+  .b-menu .b-on { display: flex; justify-content: space-between; gap: 22px; background: var(--select); color: #ffffff; }
+  .b-menu-main { top: 0; left: 0; }
+  .b-menu-sub { top: 58px; left: 128px; }
+
+  /* the numbers tiles: the big thing on top, words below */
+  .b-stat { min-height: 0; }
+  .b-feat .b-num, .b-feat .b-exts {
+    margin: 0;
+    max-width: none;
+    font-size: clamp(54px, 6vw, 76px);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    color: var(--ink);
+  }
+  .b-feat .b-num { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .b-feat .b-exts { display: flex; gap: 0.25em; }
+  .b-more { margin-top: auto; font-size: 14.5px; font-weight: 600; color: var(--ink); }
+  .b-more::after { content: " ›"; color: var(--mark); }
+  .b-feat .b-mono { margin-top: 10px; font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); }
+
+  /* ─── FREE AND OPEN SOURCE ─── the hero's light again */
+
+  .b-free {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding-block: clamp(44px, 6vw, 76px);
+    background:
+      radial-gradient(55% 90% at 12% 0%, var(--glow-amber), transparent 70%),
+      radial-gradient(50% 90% at 92% 100%, var(--glow-red), transparent 70%),
+      var(--stage);
+    text-align: center;
+  }
+  .b-free .b-h2 { margin-bottom: 0; }
+  .b-free p { max-width: 56ch; font-size: 16px; line-height: 1.6; color: var(--ink-soft); }
+  .b-support-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; margin-top: 8px; }
+  .b-support-source {
+    display: inline-block;
+    margin-top: 2px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    text-decoration-color: var(--link-line);
+    text-underline-offset: 3px;
+  }
+  .b-support-source:hover { color: var(--ink); }
+
+  /* the services' own buttons, all at 40px so the row lines up */
+  .bmc-button img { height: 40px; width: auto; }
+  .paypal-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    min-width: 150px;
+    border-radius: 4px;
+    background: #ffc439; /* PayPal button gold */
+    padding: 0 24px;
+  }
+  .paypal-button:hover { background: #f2ba36; }
+  .paypal-button img { height: 21px; width: auto; }
+  /* GitHub's own buttons (Primer secondary): Sponsor with the sponsors heart, Fork me with the mark */
+  .gh-sponsor, .gh-fork {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    border: 1px solid var(--gh-btn-border);
+    border-radius: 6px;
+    background: var(--gh-btn-bg);
+    padding: 0 16px;
+    font: 500 14px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    color: var(--gh-btn-ink);
+    white-space: nowrap;
+  }
+  .gh-sponsor:hover, .gh-fork:hover { background: var(--gh-btn-hover); }
+  .gh-sponsor svg { width: 16px; height: 16px; fill: var(--gh-heart); }
+  .gh-fork svg { width: 18px; height: 18px; fill: currentColor; }
+
+  /* ─── FORMATS AND LANGUAGES ─── a data sheet: rows, mono labels, one hairline between */
+
+  .b-spec { margin: 0; }
+  .b-spec > div {
+    display: grid;
+    gap: 6px 32px;
+    border-bottom: 1px solid var(--hairline);
+    padding-block: 16px;
+  }
+  .b-spec > div:last-child { border-bottom: 0; }
+  @media (min-width: 760px) { .b-spec > div { grid-template-columns: 170px minmax(0, 1fr); } }
+  .b-spec dt {
+    padding-top: 3px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .b-spec dd { margin: 0; font-size: 15px; line-height: 1.55; }
+  /* Supported: everything it reads, then the two it writes, on the same two columns */
+  .b-caps { display: grid; gap: 28px; }
+  .b-cap-head { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: 4px 12px; }
+  .b-cap-head b { font-weight: 600; }
+  .b-ext-groups { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+  @media (min-width: 760px) {
+    .b-cap-head { grid-template-columns: 140px minmax(0, 1fr); gap: 16px; }
+    .b-ext-groups > div { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 16px; align-items: baseline; }
+  }
+  .b-ext-label { display: block; padding-top: 1px; font-size: 13px; color: var(--ink-faint); }
+  .b-ext-grid, .b-langs { display: grid; margin: 0; padding: 0; list-style: none; }
+  .b-ext-grid {
+    grid-template-columns: repeat(auto-fill, minmax(82px, 1fr));
+    gap: 3px 12px;
+    font-family: var(--mono);
+    font-size: 13.5px;
+  }
+  .b-langs {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 4px 12px;
+    margin-top: 10px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+  .b-flag { margin-inline-end: 0.45em; }
+  .b-spec-more {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    text-decoration-color: var(--link-line);
+    text-underline-offset: 3px;
+  }
+  .b-spec-more:hover { color: var(--ink); }
+
+  /* ─── FAQ ─── */
+
+  .b-faq { display: grid; gap: 8px 56px; }
+  @media (min-width: 900px) {
+    .b-faq { grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr); align-items: start; }
+    .b-faq .b-h2 { text-align: left; }
+  }
+  .b-faqlist details { border-top: 1px solid var(--hairline); }
+  .b-faqlist details:last-of-type { border-bottom: 1px solid var(--hairline); }
+  .b-faqlist summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 17px;
+    font-size: 16px;
+    font-weight: 560;
+    letter-spacing: -0.012em;
+    cursor: pointer;
+    list-style: none;
+  }
+  .b-faqlist summary::-webkit-details-marker { display: none; }
+  .b-faqlist summary::after { content: "+"; font-family: var(--mono); font-size: 17px; color: var(--ink-faint); }
+  .b-faqlist details[open] summary::after { content: "–"; }
+  .b-faqlist details p { max-width: 62ch; padding-bottom: 18px; font-size: 15px; line-height: 1.65; color: var(--ink-soft); }
+
+  /* ─── DOWNLOAD ─── */
+
+  .b-get {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: clamp(72px, 10vw, 128px);
+    text-align: center;
+  }
+  .b-get .b-icon { width: clamp(60px, 6vw, 77px); height: clamp(60px, 6vw, 77px); margin-bottom: 0; }
+  .b-get .b-h2 { margin-bottom: 0; }
+
+  /* ─── CHINESE ─── PingFang wants normal tracking and more leading */
+
+  [lang="zh"] .b-hero h1 { max-width: none; font-size: clamp(28px, 5.13vw, 61px); letter-spacing: 0; line-height: 1.16; }
+  [lang="zh"] .b-h2, [lang="zh"] .b-video b { letter-spacing: 0; line-height: 1.25; }
+  [lang="zh"] .b-feat p, [lang="zh"] .b-free p, [lang="zh"] .b-lede, [lang="zh"] .b-faqlist details p { line-height: 1.75; }
+  [lang="zh"] .b-spec dt { letter-spacing: 0.02em; }
+  [lang="zh"] .b-copyright { letter-spacing: 0.02em; text-transform: none; }
+  [lang="zh"] .b-fcol-label { letter-spacing: 0.04em; }
+}

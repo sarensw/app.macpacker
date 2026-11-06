@@ -38,7 +38,7 @@ async function readJson(rel) {
 }
 
 // Group every supported format into the four human-facing categories, mirroring
-// lib/format-chips.ts (LHA/LZH stays one entry so the total reads 41).
+// lib/format-chips.ts (LHA/LZH stays one entry, so the total matches formatCount).
 const LABEL_OVERRIDES = { "7zip": "7z", squashfs: "SquashFS" };
 const KIND_TO_CATEGORY = { archive: "archives", compression: "compression", image: "diskImages" };
 

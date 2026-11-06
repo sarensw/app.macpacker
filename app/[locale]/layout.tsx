@@ -5,6 +5,7 @@ import { isValidLocale, locales, getTranslations } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/seo";
 import { getReleaseData } from "@/lib/release";
+import { formatCount } from "@/lib/format-chips";
 import WebMCP from "@/components/client/WebMCP";
 
 const newsreader = Newsreader({
@@ -129,7 +130,7 @@ function JsonLd({
     "@type": "SoftwareApplication",
     "@id": `${SITE_URL}/#software`,
     name: "MacPacker",
-    operatingSystem: "macOS 14+",
+    operatingSystem: "macOS 14.6+",
     applicationCategory: "UtilitiesApplication",
     softwareVersion: version,
     datePublished: "2024-01-04",
@@ -150,7 +151,7 @@ function JsonLd({
       "@type": "CreativeWork",
       url: `${SITE_URL}/${locale}/docs`,
     },
-    releaseNotes: `${SITE_URL}/${locale}#changelog`,
+    releaseNotes: `${SITE_URL}/${locale}/changelog`,
     featureList:
       locale === "zh"
         ? [
@@ -158,9 +159,9 @@ function JsonLd({
             "使用 Quick Look 预览文件而无需提取",
             "拖放提取单个文件",
             "浏览嵌套压缩包（压缩包中的压缩包）",
-            "从零创建 ZIP 压缩包，添加或删除文件并保存",
-            "从访达直接将文件和文件夹压缩为 ZIP",
-            "支持 41 种格式，包括 ZIP、RAR、7z、TAR、DMG 和 ISO",
+            "从零创建 ZIP 和 7z 压缩包，添加或删除文件并保存",
+            "从访达直接将文件和文件夹压缩为 ZIP 或 7z",
+            `支持 ${formatCount} 种格式，包括 ZIP、RAR、7z、TAR、DMG 和 ISO`,
             "打开受密码保护/加密的压缩包",
             "原生 SwiftUI 界面，Apple 芯片原生运行",
           ]
@@ -169,9 +170,9 @@ function JsonLd({
             "Preview files with Quick Look",
             "Extract individual files via drag and drop",
             "Navigate nested archives (archives within archives)",
-            "Create ZIP archives from scratch, add or delete files, and save",
-            "Compress files and folders to ZIP from Finder",
-            "Supports 41 formats including ZIP, RAR, 7z, TAR, DMG, and ISO",
+            "Create ZIP and 7z archives from scratch, add or delete files, and save",
+            "Compress files and folders to ZIP or 7z from Finder",
+            `Supports ${formatCount} formats including ZIP, RAR, 7z, TAR, DMG, and ISO`,
             "Open password-protected / encrypted archives",
             "Native SwiftUI interface, Apple Silicon native",
           ],

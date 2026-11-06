@@ -20,16 +20,22 @@ those before non-trivial work.
   (`lib/i18n.ts`); `middleware.ts` redirects bare paths to a locale prefix via
   `Accept-Language`. UI strings are in `lib/translations/{en,zh}.json` and must keep
   **strict key parity** — enforced by `__tests__/translations.test.ts`.
-- **Routes** under `app/[locale]/`: `page.tsx` (home), `press/`, `privacy/`,
-  `blog/`, `docs/` (+ `docs/[slug]`). `layout.tsx` sets `html lang`, fonts, JSON-LD,
+- **Routes** under `app/[locale]/`: `page.tsx` (home), `changelog/`, `press/`,
+  `privacy/`, `imprint/`, `blog/`, `compare/` (+ `[slug]`), `docs/` (+ `docs/[slug]`). `layout.tsx` sets `html lang`, fonts, JSON-LD,
   metadata, and `generateStaticParams`.
 - **Server Components by default**, statically rendered (SSG/ISR, `revalidate = 3600`).
   Interactivity is isolated in small client islands under `components/client/`
-  (`BrewCopyButton`, `CopyTextButton`, `LanguageSwitcher`, `WebMCP`). Page sections
-  live in `sections/home/*`; shared UI in `components/`.
+  (`DownloadMenu`, `BrewCopyButton`, `CopyTextButton`, `LanguageSwitcher`, `WebMCP`).
+  Page sections live in `sections/home/*`; shared UI in `components/`.
 - **`lib/`** — `i18n.ts`, `release.ts` (live version + download URLs from the S3
   changelog / Sparkle appcast, with `release.fallback.json`), `formats*.ts`,
-  `format-chips.ts`.
+  `format-chips.ts` (every count the site states, e.g. "43 formats under 66
+  extensions", comes from here). `format-registry.json` is a copy of the app's
+  `Modules/Sources/Core/Formats/Catalog.json` (id, name, kind, extensions) — sync it
+  when the app adds a format.
+- **Home images.** `scripts/cutouts.py` cuts the window and its details out of
+  `press-kit/assets/screenshots/` into `public/img/{en,zh}/`; re-run it after new
+  screenshots.
 - **Media kit.** `scripts/build-press-kit.mjs` generates the downloadable kit into
   `public/press/` (git-ignored) from the translations + `press-kit/assets/`. It runs
   on `predev`/`prebuild`, so it regenerates on every dev start and deploy.
@@ -46,45 +52,43 @@ npm run press-kit  # Rebuild only the media kit into public/press/
 
 ## Design System
 
-Tailwind CSS v4 with CSS-first config: tokens are defined in the **`@theme` block in
-`app/globals.css`** (not `:root`) and consumed as **utility classes**
-(`bg-bg-page`, `text-ink-primary`, `text-accent-live`) — not raw `var(--…)`.
-See `.claude/rules/styles.md`.
+Two systems live side by side; know which one a file belongs to.
 
-**When building anything new, orient on the live home page and `sections/home/*` — not
-on this list or on older pages.** The site has been through a redesign; some tokens and
-pages are legacy.
+### Site chrome and home page — `app/site.css` (use this for new marketing UI)
 
-### Current language (the home redesign — use this)
+The header, the footer and the home page use plain CSS in `app/site.css`, a port of
+the approved "design B" mock: white page, one tile vocabulary (`b-tile`, 26px corners,
+`#f5f5f7`), the app icon's orange used only as light (the stage and open-source
+gradients, the big numbers) and never for text. Light theme only, like the rest of
+the site. Every class is prefixed `b-` (or `dl-`/`gh-` for the download row and the
+services' own buttons) so it never collides with the Tailwind component classes.
+Tokens are plain custom properties on `:root` at the top of the file (`--ink`,
+`--ink-soft`, `--tile`, `--stage`, `--grad`, …).
 
-Monochrome / near-white. Green is the only color accent; the UI is otherwise grayscale.
+- Type: the system stack; headlines bold and tight (`clamp()` sizes in the file),
+  running text 15px; `--mono` for labels and extensions. Chinese gets normal tracking
+  and more leading (`[lang="zh"]` rules at the end of the file).
+- Download row: Apple's badge first, unaltered, 40px tall; the buttons beside it take
+  its 7px corners. Everything else sits in `DownloadMenu`.
+- Official buttons stay official: Buy Me a Coffee and PayPal artwork, GitHub's Primer
+  colours for Sponsor and Fork me.
 
-- Surfaces: `--color-bg-page` #fff · `--color-bg-surface` #fafafa · `--color-bg-muted` #f1f1f3
-- Ink: `--color-ink-primary` #0a0a0a · `--color-ink-secondary` #525258 · `--color-ink-tertiary` #8c8c93
-- Borders: `--color-border-subtle/default/strong`, drawn at **0.5px** (hairlines)
-- Accent: **green only** — `--color-accent-live` #28c840 + `--color-accent-success-bg/ink` for dots/badges
-- Type: `--font-sans` is the **system stack** (San Francisco on macOS); `--font-mono` for labels/eyebrows. No web display font is loaded for the redesign.
-- Radius: `--radius` 12 · `--radius-md` 8 · `--radius-sm` 4 · `--radius-lg` 16. Single breakpoint `--breakpoint-md` 900px (mobile-first).
+### Tailwind tokens — docs, blog, compare, press, privacy, imprint
 
-Section conventions (copy from `sections/home/*`):
-- Eyebrow: `font-mono text-[11px] tracking-[0.08em] uppercase text-ink-tertiary` (**gray, never colored**)
-- Title: `text-[20px] font-medium tracking-[-0.015em] text-ink-primary` (**medium weight, small** — not bold, not `clamp`)
-- Cards: `bg-bg-surface border-[0.5px] border-border-default rounded-md`; section rhythm `mb-12`
-- Buttons: dark pill `bg-ink-primary text-ink-inverse h-9 px-3.5 rounded-md text-[13px] font-medium`; outline = `bg-bg-surface` + `border-border-strong`
+The other pages use Tailwind CSS v4 with CSS-first config: tokens in the **`@theme`
+block in `app/globals.css`** (not `:root`), consumed as utility classes
+(`bg-bg-page`, `text-ink-primary`, `text-accent-live`) — not raw `var(--…)`. See
+`.claude/rules/styles.md`. Monochrome / near-white, green (`--color-accent-live`) as
+the only accent, 0.5px hairlines, small medium-weight titles.
 
-### Legacy — do NOT use on new pages
+`--color-accent` (#D4793C amber), `--font-accent` (Newsreader italic), the
+`--color-bg`/`--color-text`/`--color-border` aliases and the `.section-eyebrow` /
+`.section-title` classes are **legacy**, kept only until docs/blog/privacy get a sweep.
 
-`--color-accent` (#D4793C amber — a legacy website token, **not** the brand color and
-not used in the redesign), `--font-accent` (Newsreader italic), the
-`--color-bg`/`--color-text`/`--color-border` aliases, and the `.section-eyebrow` /
-`.section-title` component classes are **legacy**, kept only for `docs/blog/privacy`
-until a sweep. No orange/amber headline accents, no Newsreader serif italic, no heavy
-bold headings in new work.
-
-The actual brand colors live in the **app icon** (`public/logo.png`): vermilion
-`#F06C3C` and amber `#F09C3C`, charcoal `#3C3C3C`, on a white page. The macOS app uses
-native SwiftUI/AppKit controls with no custom theme — don't infer brand colors from the
-website's CSS tokens (they're a separate, monochrome UI system).
+The brand colors live in the **app icon** (`public/logo.png`, redrawn in 2026): amber
+`#FD9C30` to vermilion `#F45A20`, charcoal `#242630`, on a white page. The macOS app
+uses native SwiftUI/AppKit controls with no custom theme — don't infer brand colors
+from the website's CSS tokens.
 
 ## Deployment
 

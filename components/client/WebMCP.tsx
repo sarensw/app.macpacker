@@ -79,7 +79,7 @@ function handleGetLatestRelease() {
     download_zip: r.latestZipUrl,
     releases_page: "https://github.com/sarensw/MacPacker/releases",
     app_store: "https://apps.apple.com/us/app/macpacker/id6473273874",
-    platform: "macOS 14+",
+    platform: "macOS 14.6+",
     architecture: "Apple Silicon native (Universal)",
     license: "GPL-3.0",
     price: "Free",
