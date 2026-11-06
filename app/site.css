@@ -444,32 +444,43 @@
   .b-feat { display: flex; flex-direction: column; gap: 22px; min-height: 340px; }
   .b-feat h3 { font-size: clamp(17px, 1.5vw, 19px); font-weight: 700; line-height: 1.15; letter-spacing: -0.022em; }
   .b-feat p { margin-top: 8px; max-width: 40ch; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
-  /* Screenshots at exactly half their pixel size (the img's width and height), so one
-     capture pixel is one screen pixel on Retina and the UI stays sharp at its real
-     size. Anchored left, they run off the tile's right and bottom edge. */
+  /* ─── feature screenshots ───
+     Each tile holds a whole window capture (2655 x 1783 px, transparent, with the
+     window's own shadow) drawn at --s of its pixels: 0.375 is 75 % of real size on a
+     Retina screen. Nothing is cropped; the tile's edge does the cutting. Every place
+     below is written in the capture's own pixels times --s, so a new scale (phones)
+     keeps the same view, and the window's left edge lines up with the tile's text. */
+  @media (min-width: 1000px) { .b-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .b-stats { margin-top: 14px; }
+  @media (min-width: 700px) { .b-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .b-shot {
+    --s: 0.375;
     position: relative;
-    display: flex;
-    margin: auto calc(-1 * var(--pad)) calc(-1 * var(--pad)) 0;
+    height: calc(var(--rows) * var(--s));
+    margin: auto calc(-1 * var(--pad)) calc(-1 * var(--pad));
   }
-  .b-shot img { flex: none; max-width: none; }
-  /* cut at a real window or Quick Look corner: round the image to that corner */
-  .b-shot-window { border-top-left-radius: 23px; box-shadow: 0 0 0 1px var(--edge), 0 22px 44px -22px var(--shadow); }
-  /* cut inside a window, or from a capture laid on white */
-  .b-shot-card { border-top-left-radius: 12px; box-shadow: 0 0 0 1px var(--edge), 0 22px 44px -22px var(--shadow); }
-  /* the compress window, whole with its own shadow: its transparent margin sits in the
-     tile's padding, so the window lines up with the text */
-  .b-shot-compress { margin-left: -41px; }
-  /* below three columns the tiles are wider or narrower than the cuts, so the captures
-     fill their tile instead of showing the edge they were cut at */
-  @media (max-width: 999px) {
-    .b-shot img { width: 100%; height: auto; }
-    .b-shot-compress { margin-left: 0; }
-  }
+  @media (max-width: 699px) { .b-shot { --s: 0.3; } }
+  /* captures that matter at their bottom, or start mid-menu, hang from the tile's top */
+  .b-feat-top .b-shot { order: -1; margin: calc(-1 * var(--pad)) calc(-1 * var(--pad)) 0; }
+  .b-shot-row1 { --rows: 1067px; }   /* capture pixels shown, per row of tiles */
+  .b-shot-row2 { --rows: 1147px; }
+  .b-shot-row3 { --rows: 960px; }
+  .b-cap { position: absolute; width: calc(2655px * var(--s)); max-width: none; height: auto; pointer-events: none; }
+  /* the window's top-left corner (159, 108) at the text's left edge, 24px into the shot */
+  .b-cap-browse, .b-cap-preview { left: calc(var(--pad) - 159px * var(--s)); top: calc(24px - 108px * var(--s)); }
+  /* the magnifier and the breadcrumb: the capture down to y 1700 (below the callout) */
+  .b-cap-nested { left: calc(var(--pad) - 159px * var(--s)); bottom: calc(-83px * var(--s)); }
+  /* the capture starts mid-menu at y 373: that cut sits on the tile's top edge */
+  .b-cap-finder { left: calc(var(--pad) - 372px * var(--s)); top: calc(-373px * var(--s)); }
+  /* the dragged PDF and the cursor end near x 1900: keep them in view, the file
+     names run off the tile's left edge */
+  .b-cap-extract { left: calc(100% - 1900px * var(--s) - 16px); top: calc(24px - 108px * var(--s)); }
+  /* the compress window (341, 325), whole with its shadow and the trail of PDFs */
+  .b-cap-compress { left: calc(var(--pad) - 341px * var(--s)); top: calc(24px - 325px * var(--s)); }
   .b-key {
     position: absolute;
     bottom: 22px;
-    left: 0;
+    left: var(--pad);
     z-index: 1;
     display: grid;
     place-items: end center;
