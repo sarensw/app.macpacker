@@ -24,8 +24,6 @@ export default function ChangelogRail({
   releases,
   comingNext,
 }: ChangelogRailProps) {
-  const recent = releases.slice(0, 3);
-
   return (
     <section id="changelog" className="mb-12">
       <div className="flex items-baseline justify-between mb-3">
@@ -33,9 +31,9 @@ export default function ChangelogRail({
           <p className="font-mono text-[11px] tracking-[0.08em] text-ink-tertiary uppercase mb-1">
             {t.changelog.eyebrow}
           </p>
-          <h2 className="text-[20px] font-medium tracking-[-0.015em] text-ink-primary m-0">
+          <h1 className="text-[20px] font-medium tracking-[-0.015em] text-ink-primary m-0">
             {t.changelog.heading}
-          </h2>
+          </h1>
         </div>
         <a
           href="https://github.com/sarensw/MacPacker/releases"
@@ -57,7 +55,7 @@ export default function ChangelogRail({
       )}
 
       <div className="border-[0.5px] border-border-default rounded-md overflow-hidden">
-        {recent.map((entry, idx) => {
+        {releases.map((entry, idx) => {
           const [head, ...rest] = entry.items;
           const bodyParts = rest.map((i) => i.title);
           return (

@@ -63,7 +63,7 @@ export default async function DocsPage({
 
   return (
     <>
-      <Header locale={locale} t={t} downloadUrl={release.latestDmgUrl} />
+      <Header locale={locale} t={t} />
 
       <main className="max-w-[1120px] mx-auto px-6 max-md:px-5">
         <section className="py-16 max-md:py-12 max-w-[640px]">

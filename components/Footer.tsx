@@ -7,159 +7,70 @@ interface FooterProps {
   t: Translations;
 }
 
+const external = { target: "_blank", rel: "noopener noreferrer" } as const;
+
 export default function Footer({ locale, t }: FooterProps) {
-  const year = new Date().getFullYear();
+  const home = `/${locale}`;
+  const { links, sections } = t.footer;
+  const compare = [
+    ["keka", links.vsKeka],
+    ["the-unarchiver", links.vsUnarchiver],
+    ["betterzip", links.vsBetterZip],
+    ["7-zip", links.vsSevenZip],
+    ["", links.compareAll],
+  ] as const;
 
   return (
-    <footer className="border-t-[0.5px] border-border-subtle mt-8 bg-bg-page">
-      <div className="max-w-[1120px] mx-auto px-6 pt-10 pb-6 max-md:px-5">
-        {/* Link columns pair up 2-across below md and the brand block spans the
-            row, so the footer does not stack into a very tall column on phones. */}
-        <div className="grid grid-cols-2 md:grid-cols-[minmax(0,1.5fr)_repeat(3,minmax(0,1fr))] gap-x-8 gap-y-8 md:gap-y-10 mb-8">
-          <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2.5 mb-3">
-              <Image
-                src="/logo.png"
-                alt=""
-                aria-hidden="true"
-                width={22}
-                height={22}
-                className="w-[22px] h-[22px] rounded-md"
-              />
-              <span className="text-[15px] font-medium tracking-[-0.01em] text-ink-primary">
-                MacPacker
-              </span>
-            </div>
-            <p className="text-[12px] leading-[1.6] text-ink-secondary max-w-[280px] m-0">
-              {t.footer.tagline}
-            </p>
-            <p className="text-[12px] leading-[1.6] text-ink-tertiary max-w-[280px] mt-2.5 mb-0">
-              {t.footer.developerNote}
-            </p>
-          </div>
-
-          <div>
-            <div className="font-mono text-[10px] tracking-[0.08em] text-ink-tertiary uppercase mb-3">
-              {t.footer.sections.product}
-            </div>
-            <div className="flex flex-col gap-2 text-[13px] text-ink-secondary">
-              <a href="#features" className="hover:text-ink-primary transition-colors">
-                {t.nav.features}
-              </a>
-              <a href="#formats" className="hover:text-ink-primary transition-colors">
-                {t.nav.formats}
-              </a>
-              <a href="#changelog" className="hover:text-ink-primary transition-colors">
-                {t.nav.changelog}
-              </a>
-              <Link href={`/${locale}/docs`} className="hover:text-ink-primary transition-colors">
-                {t.footer.links.docs}
-              </Link>
-              <Link href={`/${locale}/blog`} className="hover:text-ink-primary transition-colors">
-                {t.footer.links.blog}
-              </Link>
-              <Link href={`/${locale}/press`} className="hover:text-ink-primary transition-colors">
-                {t.footer.links.press}
-              </Link>
-            </div>
-          </div>
-
-          <div>
-            <div className="font-mono text-[10px] tracking-[0.08em] text-ink-tertiary uppercase mb-3">
-              {t.footer.sections.compare}
-            </div>
-            <div className="flex flex-col gap-2 text-[13px] text-ink-secondary">
-              {(
-                [
-                  ["keka", t.footer.links.vsKeka],
-                  ["the-unarchiver", t.footer.links.vsUnarchiver],
-                  ["betterzip", t.footer.links.vsBetterZip],
-                  ["7-zip", t.footer.links.vsSevenZip],
-                  ["", t.footer.links.compareAll],
-                ] as const
-              ).map(([slug, label]) => (
-                <Link
-                  key={label}
-                  href={`/${locale}/compare${slug ? `/${slug}` : ""}`}
-                  className="hover:text-ink-primary transition-colors"
-                >
-                  {label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Open source and Legal share a column — three links and two links
-              did not each earn a column of their own. */}
-          <div className="flex flex-col gap-7">
-            <div>
-              <div className="font-mono text-[10px] tracking-[0.08em] text-ink-tertiary uppercase mb-3">
-                {t.footer.sections.openSource}
-              </div>
-              <div className="flex flex-col gap-2 text-[13px] text-ink-secondary">
-                <a
-                  href="https://github.com/sarensw/MacPacker"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-ink-primary transition-colors"
-                >
-                  {t.footer.links.github}
-                </a>
-                <a
-                  href="https://github.com/sarensw/MacPacker/issues"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-ink-primary transition-colors"
-                >
-                  {t.footer.links.reportBug}
-                </a>
-                <a
-                  href="https://poeditor.com/join/project/J2Qq2SUzYr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-ink-primary transition-colors"
-                >
-                  {t.footer.links.translate}
-                </a>
-              </div>
-            </div>
-
-            <div>
-              <div className="font-mono text-[10px] tracking-[0.08em] text-ink-tertiary uppercase mb-3">
-                {t.footer.sections.legal}
-              </div>
-              <div className="flex flex-col gap-2 text-[13px] text-ink-secondary">
-                <Link
-                  href={`/${locale}/privacy`}
-                  className="hover:text-ink-primary transition-colors"
-                >
-                  {t.footer.links.privacy}
-                </Link>
-                <Link
-                  href={`/${locale}/imprint`}
-                  className="hover:text-ink-primary transition-colors"
-                >
-                  {t.footer.links.imprint}
-                </Link>
-              </div>
-            </div>
-          </div>
+    <footer className="b-footer">
+      <div className="b-wrap b-footer-grid">
+        <div>
+          <Link href={home} className="b-brand">
+            <Image src="/logo.png" alt="" width={26} height={26} />
+            MacPacker
+          </Link>
+          <p className="b-tagline">{t.footer.tagline}</p>
         </div>
 
-        <div className="border-t-[0.5px] border-border-subtle pt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-center sm:text-left font-mono text-[10px] tracking-[0.03em] text-ink-tertiary uppercase">
-          <span>
-            © {year}{" "}
-            <a
-              href="https://sarensw.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-ink-primary transition-colors"
-            >
-              {t.footer.author}
-            </a>
-          </span>
-          <span>{t.footer.madeFor}</span>
+        <div className="b-fcol">
+          <span className="b-fcol-label">{sections.product}</span>
+          <Link href={`${home}#features`}>{t.nav.features}</Link>
+          <Link href={`${home}#specs`}>{t.nav.formats}</Link>
+          <Link href={`${home}/docs`}>{links.docs}</Link>
+          <Link href={`${home}/changelog`}>{t.nav.changelog}</Link>
+          <Link href={`${home}/blog`}>{links.blog}</Link>
         </div>
+
+        <div className="b-fcol">
+          <span className="b-fcol-label">{sections.compare}</span>
+          {compare.map(([slug, label]) => (
+            <Link key={label} href={`${home}/compare${slug ? `/${slug}` : ""}`}>
+              {label}
+            </Link>
+          ))}
+        </div>
+
+        <div className="b-fcol">
+          <span className="b-fcol-label">{sections.openSource}</span>
+          <a href="https://github.com/sarensw/MacPacker" {...external}>{links.github}</a>
+          <a href="https://github.com/sarensw/MacPacker/issues" {...external}>{links.reportBug}</a>
+          <Link href={`${home}#support`}>{links.donate}</Link>
+          <a href="https://poeditor.com/join/project/J2Qq2SUzYr" {...external}>{links.translate}</a>
+          <Link href={`${home}/press`}>{links.press}</Link>
+        </div>
+
+        <div className="b-fcol">
+          <span className="b-fcol-label">{sections.legal}</span>
+          <Link href={`${home}/privacy`}>{links.privacy}</Link>
+          <Link href={`${home}/imprint`}>{links.imprint}</Link>
+        </div>
+      </div>
+
+      <div className="b-wrap b-copyright">
+        © {new Date().getFullYear()}{" "}
+        <a href="https://sarensw.com" {...external}>
+          {t.footer.author}
+        </a>{" "}
+        · {t.footer.madeFor} · GPL-3.0
       </div>
     </footer>
   );

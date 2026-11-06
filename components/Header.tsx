@@ -2,85 +2,42 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Locale, Translations } from "@/lib/i18n";
 import LanguageSwitcher from "@/components/client/LanguageSwitcher";
-import { downloadEvent } from "@/lib/analytics";
 
 interface HeaderProps {
   locale: Locale;
   t: Translations;
-  downloadUrl: string;
 }
 
-export default function Header({ locale, t, downloadUrl }: HeaderProps) {
-  const navLinks: { name: string; href: string; external?: boolean }[] = [
-    { name: t.nav.features, href: "#features" },
-    { name: t.nav.formats, href: "#formats" },
-    { name: t.nav.changelog, href: "#changelog" },
-    { name: t.nav.docs, href: `/${locale}/docs`, external: true },
-    { name: t.nav.blog, href: `/${locale}/blog`, external: true },
+// Glass header, sticky on every page. Download leads to the home page's download
+// section, where the App Store badge comes first and every other way follows.
+export default function Header({ locale, t }: HeaderProps) {
+  const home = `/${locale}`;
+  const links = [
+    { name: t.nav.features, href: `${home}#features` },
+    { name: t.nav.docs, href: `${home}/docs` },
+    { name: t.nav.changelog, href: `${home}/changelog` },
+    { name: t.nav.blog, href: `${home}/blog` },
   ];
 
   return (
-    <header className="bg-bg-page">
-      <nav
-        aria-label={
-          locale === "zh" ? "主导航" : "Main navigation"
-        }
-        className="max-w-[1120px] mx-auto flex items-center justify-between px-6 pt-8 pb-16 max-md:px-5 max-md:pt-6 max-md:pb-10"
-      >
-        <Link href={`/${locale}`} className="flex items-center gap-2.5">
-          <span className="sr-only">MacPacker</span>
-          <Image
-            src="/logo.png"
-            alt=""
-            aria-hidden="true"
-            width={26}
-            height={26}
-            className="w-[26px] h-[26px] rounded-md"
-          />
-          <span className="text-[15px] font-medium tracking-[-0.01em] text-ink-primary">
-            MacPacker
-          </span>
+    <header className="b-header">
+      <div className="b-wrap b-header-row">
+        <Link href={home} className="b-brand">
+          <Image src="/logo.png" alt="" width={26} height={26} priority />
+          MacPacker
         </Link>
-
-        <div className="hidden md:flex items-center gap-7">
-          {navLinks.map((l) =>
-            l.external ? (
-              <Link
-                key={l.name}
-                href={l.href}
-                className="text-[13px] text-ink-secondary hover:text-ink-primary transition-colors"
-              >
-                {l.name}
-              </Link>
-            ) : (
-              <a
-                key={l.name}
-                href={l.href}
-                className="text-[13px] text-ink-secondary hover:text-ink-primary transition-colors"
-              >
-                {l.name}
-              </a>
-            ),
-          )}
+        <nav className="b-nav" aria-label={locale === "zh" ? "主导航" : "Main navigation"}>
+          {links.map((link) => (
+            <Link key={link.href} href={link.href} className="b-nav-link">
+              {link.name}
+            </Link>
+          ))}
           <LanguageSwitcher locale={locale} />
-          <a
-            href={downloadUrl}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium hover:bg-[#2a2a2a] transition-colors ${downloadEvent("dmg")}`}
-          >
+          <Link href={`${home}#get`} className="b-btn b-btn-sm">
             {t.nav.downloadCta}
-          </a>
-        </div>
-
-        <div className="md:hidden flex items-center gap-3">
-          <LanguageSwitcher locale={locale} />
-          <a
-            href={downloadUrl}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-md bg-ink-primary text-ink-inverse text-[13px] font-medium ${downloadEvent("dmg")}`}
-          >
-            {t.nav.downloadCta}
-          </a>
-        </div>
-      </nav>
+          </Link>
+        </nav>
+      </div>
     </header>
   );
 }

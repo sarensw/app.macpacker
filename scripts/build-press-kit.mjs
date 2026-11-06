@@ -38,7 +38,7 @@ async function readJson(rel) {
 }
 
 // Group every supported format into the four human-facing categories, mirroring
-// lib/format-chips.ts (LHA/LZH stays one entry so the total reads 41).
+// lib/format-chips.ts (LHA/LZH stays one entry, so the total matches formatCount).
 const LABEL_OVERRIDES = { "7zip": "7z", squashfs: "SquashFS" };
 const KIND_TO_CATEGORY = { archive: "archives", compression: "compression", image: "diskImages" };
 
@@ -156,9 +156,9 @@ function brandText(t) {
   return `MacPacker — ${p.brandTitle}
 
 Colors (from the app icon and page background)
-  ${p.colorOrange}  #F06C3C
-  ${p.colorAmber}  #F09C3C
-  ${p.colorCharcoal}  #3C3C3C
+  ${p.colorOrange}  #F45A20
+  ${p.colorAmber}  #FD9C30
+  ${p.colorCharcoal}  #242630
   ${p.colorBg}  #FFFFFF
 
 ${p.appNote}

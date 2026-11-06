@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { isValidLocale, getTranslations } from "@/lib/i18n";
-import { getReleaseData } from "@/lib/release";
 import { pageMetadata } from "@/lib/seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -40,12 +39,11 @@ export default async function PrivacyPage({
   if (!isValidLocale(locale)) notFound();
 
   const t = await getTranslations(locale);
-  const release = await getReleaseData(locale);
   const isZh = locale === "zh";
 
   return (
     <>
-      <Header locale={locale} t={t} downloadUrl={release.latestDmgUrl} />
+      <Header locale={locale} t={t} />
 
       <main className="max-w-[720px] mx-auto px-6 max-md:px-5">
         <article className="py-16 max-md:py-12">

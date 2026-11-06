@@ -12,6 +12,7 @@ describe("sitemap.ts", () => {
     const expectedCount =
       locales.length + // home
       locales.length + // press
+      locales.length + // changelog
       locales.length + // privacy
       locales.length + // docs index
       locales.length + // compare hub

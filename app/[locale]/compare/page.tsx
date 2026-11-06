@@ -133,7 +133,7 @@ export default async function ComparePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
       />
 
-      <Header locale={locale} t={t} downloadUrl={release.latestDmgUrl} />
+      <Header locale={locale} t={t} />
 
       <ComparisonView
         data={data}

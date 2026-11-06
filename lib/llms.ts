@@ -8,8 +8,20 @@ import {
 } from "./compare";
 import type { LocalizedComparison, Support } from "./compare";
 import type { ReleaseData } from "./release";
+import { extensionsByCategory, formatCount, type FormatCategoryKey } from "./format-chips";
 import { SITE_URL } from "./seo";
 import en from "./translations/en.json";
+
+const categoryNames: Record<FormatCategoryKey, string> = {
+  archives: "Archives",
+  compressedTar: "Compressed tar",
+  compression: "Compression",
+  diskImages: "Disk images",
+};
+// one line per category, built from the registry so the list never drifts from the app
+const formatLines = extensionsByCategory
+  .map((c) => `${categoryNames[c.key]}: ${c.extensions.join(", ")}`)
+  .join("\n");
 
 /**
  * Builders for /llms.txt and /llms-full.txt (llmstxt.org convention).
@@ -25,7 +37,7 @@ export function buildLlmsTxt(release: ReleaseData): string {
 
   return `# MacPacker
 
-> A free, open-source macOS archive manager. Preview nested archives, peek at contents without extracting, drag out only the files you need — and create or edit ZIP archives. Built with Swift / SwiftUI. macOS 14+, Apple Silicon native.
+> A free, open-source macOS archive manager. Preview nested archives, peek at contents without extracting, drag out only the files you need — and create or edit ZIP and 7z archives. Built with Swift / SwiftUI. macOS 14.6+, Apple Silicon native.
 
 The website (${SITE_URL}) is the marketing and documentation hub. The app itself is at https://github.com/sarensw/MacPacker.
 
@@ -40,7 +52,7 @@ ${en.whatIs.body} It is built by independent developer Stephan Arenswald (https:
 ## Quick facts
 
 - Version: ${latestVersion} (latest)
-- Platform: macOS 14+, Apple Silicon native
+- Platform: macOS 14.6+, Apple Silicon native
 - License: GPL-3.0
 - Price: Free
 - Repository: https://github.com/sarensw/MacPacker
@@ -55,12 +67,9 @@ ${en.whatIs.body} It is built by independent developer Stephan Arenswald (https:
 - Direct ZIP: ${latestZipUrl}
 - GitHub releases: https://github.com/sarensw/MacPacker/releases
 
-## Supported formats (41 total)
+## Supported formats (${formatCount} total)
 
-Archives: 7z, ar, arj, cab, chm, cpio, exe, lha, lzx, msi, pkg, rar, rpm, sea, sit, sitx, tar, xar, zip, zipx
-Compressed tar: tar.bz2, tar.gz, tar.lz4, tar.xz, tar.z
-Compression: bz2, gz, lz4, xz, z
-Disk images: dmg, fat, iso, ntfs, qcow2, squashfs, vdi, vhd, vhdx, vmdk, wim
+${formatLines}
 
 ## Key pages
 
@@ -72,7 +81,7 @@ Disk images: dmg, fat, iso, ntfs, qcow2, squashfs, vdi, vhd, vhdx, vmdk, wim
 - Per-format guides: ${SITE_URL}/en/docs/{slug} (e.g. /zip, /rar, /7z, /dmg, /iso)
 - Privacy policy: ${SITE_URL}/en/privacy
 - Press / media kit: ${SITE_URL}/en/press (also /zh/press) — boilerplate, fact sheet, brand assets, downloadable kit
-- Changelog: ${SITE_URL}/en#changelog
+- Changelog: ${SITE_URL}/en/changelog
 - Live changelog source: https://macpacker-releases.s3.eu-central-1.amazonaws.com/Changelog.json
 - Sparkle appcast: https://macpacker-releases.s3.eu-central-1.amazonaws.com/appcast.xml
 
@@ -226,7 +235,7 @@ export function buildLlmsFullTxt(release: ReleaseData): string {
 
   return `# MacPacker — full site content
 
-> A free, open-source macOS archive manager. Preview nested archives, peek at contents without extracting, drag out only the files you need — and create or edit ZIP archives. Built with Swift / SwiftUI. macOS 14+, Apple Silicon native.
+> A free, open-source macOS archive manager. Preview nested archives, peek at contents without extracting, drag out only the files you need — and create or edit ZIP and 7z archives. Built with Swift / SwiftUI. macOS 14.6+, Apple Silicon native.
 
 This document contains the full content of ${SITE_URL} in one file, for AI systems and answer engines. Attribution: MacPacker (${SITE_URL}). App license: GPL-3.0. Latest version: ${release.latestVersion}.
 

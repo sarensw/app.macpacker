@@ -11,7 +11,8 @@ const baseUrl = SITE_URL;
 // which sections actually changed instead of seeing "everything updated today"
 // on every deploy.
 const LASTMOD = {
-  home: "2026-07-09",
+  home: "2026-11-06",
+  changelog: "2026-11-06",
   docs: "2026-06-29",
   docsArticle: "2026-05-23",
   compare: "2026-08-10",
@@ -64,6 +65,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
+  const changelogPages = locales.map((locale) => ({
+    url: `${baseUrl}/${locale}/changelog`,
+    lastModified: LASTMOD.changelog,
+    changeFrequency: "monthly" as const,
+    priority: locale === "en" ? 0.6 : 0.5,
+    alternates: { languages: languagesFor("/changelog") },
+  }));
+
   const pressPages = locales.map((locale) => ({
     url: `${baseUrl}/${locale}/press`,
     lastModified: LASTMOD.press,
@@ -99,6 +108,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...docsArticlePages,
     ...comparePages,
     ...comparePairPages,
+    ...changelogPages,
     ...pressPages,
     ...privacyPages,
   ];

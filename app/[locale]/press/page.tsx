@@ -9,7 +9,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { GitHubIcon, DownloadIcon } from "@/components/icons";
 import CopyTextButton from "@/components/client/CopyTextButton";
-import { formatsByCategory } from "@/lib/format-chips";
+import { formatsByCategory, formatCount } from "@/lib/format-chips";
 
 export const revalidate = 3600;
 
@@ -76,9 +76,9 @@ export default async function PressPage({
   };
 
   const swatches = [
-    { name: p.colorOrange, hex: "#F06C3C" },
-    { name: p.colorAmber, hex: "#F09C3C" },
-    { name: p.colorCharcoal, hex: "#3C3C3C" },
+    { name: p.colorOrange, hex: "#F45A20" },
+    { name: p.colorAmber, hex: "#FD9C30" },
+    { name: p.colorCharcoal, hex: "#242630" },
     { name: p.colorBg, hex: "#FFFFFF" },
   ];
 
@@ -103,7 +103,7 @@ export default async function PressPage({
         {locale === "zh" ? "跳到主要内容" : "Skip to main content"}
       </a>
 
-      <Header locale={locale} t={t} downloadUrl={release.latestDmgUrl} />
+      <Header locale={locale} t={t} />
 
       <main id="press-content" className="max-w-[1120px] mx-auto px-6 max-md:px-5">
         {/* ─── HERO ─── */}
@@ -241,7 +241,7 @@ export default async function PressPage({
         {/* ─── FORMATS ─── */}
         <section className="mb-12" id="formats">
           <p className={eyebrow}>{p.formatsEyebrow}</p>
-          <h2 className={`${h2cls} mb-6`}>41 {p.formatsTitle}</h2>
+          <h2 className={`${h2cls} mb-6`}>{formatCount} {p.formatsTitle}</h2>
           <div className="flex flex-col gap-5">
             {formatsByCategory.map((cat) => (
               <div key={cat.key}>

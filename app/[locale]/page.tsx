@@ -4,13 +4,13 @@ import { getReleaseData } from "@/lib/release";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Hero from "@/sections/home/Hero";
-import WhatIs from "@/sections/home/WhatIs";
-import FeatureStrip from "@/sections/home/FeatureStrip";
-import FormatsChips from "@/sections/home/FormatsChips";
-import OpenSourceLine from "@/sections/home/OpenSourceLine";
-import TranslationsLine from "@/sections/home/TranslationsLine";
-import ChangelogRail from "@/sections/home/ChangelogRail";
+import Proof from "@/sections/home/Proof";
+import Love from "@/sections/home/Love";
+import Features from "@/sections/home/Features";
+import OpenSource from "@/sections/home/OpenSource";
+import Specs from "@/sections/home/Specs";
 import Faq from "@/sections/home/Faq";
+import GetBand from "@/sections/home/GetBand";
 
 export const revalidate = 3600;
 
@@ -31,28 +31,23 @@ export default async function HomePage({
         {locale === "zh" ? "跳到主要内容" : "Skip to main content"}
       </a>
 
-      <Header locale={locale} t={t} downloadUrl={release.latestDmgUrl} />
+      <Header locale={locale} t={t} />
 
-      <main id="main-content" className="max-w-[1120px] mx-auto px-6 max-md:px-5">
+      <main id="main-content" className="b-page">
         <Hero
           locale={locale}
           t={t}
-          latestVersion={release.latestVersion}
-          latestDmgUrl={release.latestDmgUrl}
-          latestZipUrl={release.latestZipUrl}
+          version={release.latestVersion}
+          dmgUrl={release.latestDmgUrl}
+          zipUrl={release.latestZipUrl}
         />
-        <WhatIs t={t} />
-        <FeatureStrip t={t} />
-        <FormatsChips locale={locale} t={t} />
-        <OpenSourceLine t={t} />
-        <TranslationsLine t={t} />
-        <ChangelogRail
-          locale={locale}
-          t={t}
-          releases={release.releases}
-          comingNext={release.comingNext}
-        />
+        <Proof locale={locale} t={t} />
+        <Love locale={locale} t={t} />
+        <Features locale={locale} t={t} />
+        <OpenSource t={t} />
+        <Specs locale={locale} t={t} />
         <Faq t={t} />
+        <GetBand locale={locale} t={t} dmgUrl={release.latestDmgUrl} zipUrl={release.latestZipUrl} />
       </main>
 
       <Footer locale={locale} t={t} />

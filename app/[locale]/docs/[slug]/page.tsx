@@ -146,7 +146,7 @@ export default async function ArticlePage({
         />
       )}
 
-      <Header locale={locale} t={t} downloadUrl={release.latestDmgUrl} />
+      <Header locale={locale} t={t} />
 
       <main className="max-w-[1120px] mx-auto px-6 max-md:px-5">
         {/* ─── BREADCRUMB ─── */}

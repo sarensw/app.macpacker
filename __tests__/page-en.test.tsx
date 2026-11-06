@@ -30,12 +30,16 @@ vi.mock("@/lib/release", () => ({
 
 import HomePage from "@/app/[locale]/page";
 import ImprintPage from "@/app/[locale]/imprint/page";
+import ChangelogPage from "@/app/[locale]/changelog/page";
+import { formatCount, extensionCount } from "@/lib/format-chips";
 
 async function renderEnPage() {
   const paramsPromise = Promise.resolve({ locale: "en" });
   const jsx = await HomePage({ params: paramsPromise });
   return render(<>{jsx}</>);
 }
+
+const linkOf = (text: string) => screen.getByText(text).closest("a");
 
 afterEach(() => {
   cleanup();
@@ -44,70 +48,61 @@ afterEach(() => {
 describe("English page - header", () => {
   it("renders the MacPacker wordmark in the header", async () => {
     await renderEnPage();
-    const header = screen.getByRole("banner");
-    expect(header).toHaveTextContent("MacPacker");
+    expect(screen.getByRole("banner")).toHaveTextContent("MacPacker");
   });
 
-  it("renders nav links Features / Formats / Changelog", async () => {
+  it("links Features, Docs, Changelog and Blog", async () => {
     await renderEnPage();
     const nav = screen.getByRole("navigation");
-    expect(nav).toHaveTextContent("Features");
-    expect(nav).toHaveTextContent("Formats");
-    expect(nav).toHaveTextContent("Changelog");
+    for (const [label, href] of [
+      ["Features", "/en#features"],
+      ["Docs", "/en/docs"],
+      ["Changelog", "/en/changelog"],
+      ["Blog", "/en/blog"],
+    ]) {
+      expect(nav.querySelector(`a[href="${href}"]`)?.textContent).toBe(label);
+    }
   });
 
-  it("renders the Download CTA in the header pointing at the DMG", async () => {
+  it("sends the Download button to the download section", async () => {
     await renderEnPage();
-    const nav = screen.getByRole("navigation");
-    const dl = nav.querySelector(`a[href="${releaseFixture.latestDmgUrl}"]`);
-    expect(dl).not.toBeNull();
-    expect(dl?.textContent).toContain("Download");
+    const dl = screen.getByRole("navigation").querySelector('a[href="/en#get"]');
+    expect(dl?.textContent).toBe(en.nav.downloadCta);
   });
 });
 
 describe("English page - hero", () => {
-  it("renders the latest version in the eyebrow", async () => {
+  it("renders the title, the lede and the latest version", async () => {
     await renderEnPage();
-    expect(screen.getAllByText(/v0\.15\.1/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(en.hero.title);
+    expect(screen.getByText(en.hero.sub)).toBeInTheDocument();
+    expect(screen.getByText("v0.15.1")).toBeInTheDocument();
   });
 
-  it("renders the brew command", async () => {
+  it("links the App Store badge, in the hero and the download section", async () => {
     await renderEnPage();
-    expect(screen.getByText("brew")).toBeInTheDocument();
-    // "install" / "--cask" also appear in the FAQ answers, so allow multiples.
-    expect(screen.getAllByText(/install/).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/--cask/).length).toBeGreaterThan(0);
+    const badges = screen.getAllByAltText(en.home.appStoreAlt);
+    expect(badges).toHaveLength(2);
+    for (const badge of badges) {
+      expect(badge.closest("a")).toHaveAttribute("href", "https://apps.apple.com/us/app/macpacker/id6473273874");
+    }
   });
 
-  it("renders the .dmg button with DMG href", async () => {
+  it("links Fork me to the repository", async () => {
     await renderEnPage();
-    const buttons = screen.getAllByText(en.hero.dmgCta);
-    const link = buttons[0].closest("a");
-    expect(link).toHaveAttribute("href", releaseFixture.latestDmgUrl);
+    expect(linkOf(en.home.fork)).toHaveAttribute("href", "https://github.com/sarensw/MacPacker");
   });
 
-  it("renders the .zip button with ZIP href", async () => {
+  it("puts the DMG, ZIP, Homebrew and GitHub Releases in the download menu", async () => {
     await renderEnPage();
-    const link = screen.getByText(en.hero.zipCta).closest("a");
-    expect(link).toHaveAttribute("href", releaseFixture.latestZipUrl);
-  });
-
-  it("renders the App Store button", async () => {
-    await renderEnPage();
-    const link = screen.getByText(en.hero.appStore).closest("a");
-    expect(link).toHaveAttribute(
-      "href",
-      "https://apps.apple.com/us/app/macpacker/id6473273874",
-    );
-  });
-
-  it("renders the Releases button", async () => {
-    await renderEnPage();
-    const link = screen.getByText(en.hero.releasesCta).closest("a");
-    expect(link).toHaveAttribute(
+    expect(screen.getAllByText(en.home.dmgTitle)[0].closest("a")).toHaveAttribute("href", releaseFixture.latestDmgUrl);
+    expect(screen.getAllByText(en.home.zipTitle)[0].closest("a")).toHaveAttribute("href", releaseFixture.latestZipUrl);
+    expect(screen.getAllByText(en.home.githubTitle)[0].closest("a")).toHaveAttribute(
       "href",
       "https://github.com/sarensw/MacPacker/releases",
     );
+    expect(screen.getAllByText("brew").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("--cask").length).toBeGreaterThan(0);
   });
 });
 
@@ -125,74 +120,80 @@ describe("English page - plausible download events", () => {
 });
 
 describe("English page - sections", () => {
-  it("renders all 4 features", async () => {
+  it("renders the feature tiles", async () => {
     await renderEnPage();
-    expect(screen.getByText(en.features.peek.title)).toBeInTheDocument();
-    expect(screen.getByText(en.features.nested.title)).toBeInTheDocument();
-    expect(screen.getByText(en.features.selective.title)).toBeInTheDocument();
-    expect(screen.getByText(en.features.editing.title)).toBeInTheDocument();
+    for (const title of [en.home.browseTitle, en.home.previewTitle, en.home.nestedTitle, en.home.extractTitle, en.home.finderTitle, en.home.createTitle]) {
+      expect(screen.getByText(title)).toBeInTheDocument();
+    }
   });
 
-  it("renders the formats chips", async () => {
+  it("states the format counts from the registry", async () => {
     await renderEnPage();
-    expect(screen.getByText("ZIP")).toBeInTheDocument();
-    expect(screen.getByText("RAR")).toBeInTheDocument();
-    expect(screen.getByText("7z")).toBeInTheDocument();
-    expect(screen.getByText("DMG")).toBeInTheDocument();
+    expect(screen.getByText(String(formatCount))).toBeInTheDocument();
+    expect(screen.getByText(`${formatCount} formats under ${extensionCount} file extensions`)).toBeInTheDocument();
+    expect(linkOf(en.home.allFormats)).toHaveAttribute("href", "/en/docs");
   });
 
-  it("renders the open source line", async () => {
+  it("lists every extension group and the 22 languages", async () => {
     await renderEnPage();
-    expect(screen.getByText(en.openSource.viewOnGithub)).toBeInTheDocument();
+    for (const ext of ["7z", "rar", "tar.gz", "lzma", "dmg", "iso"]) {
+      expect(screen.getAllByText(ext).length).toBeGreaterThan(0);
+    }
+    expect(screen.getByText("Tiếng Việt")).toBeInTheDocument();
+    expect(screen.getByText("繁體中文").closest("li")).toHaveAttribute("lang", "zh-Hant-TW");
   });
 
-  it("renders the translations line with POEditor link", async () => {
+  it("links the donation buttons to the app's own accounts", async () => {
     await renderEnPage();
-    const link = screen
-      .getByText(en.translations.viewOnPoeditor)
-      .closest("a");
-    expect(link).toHaveAttribute(
+    expect(screen.getByAltText(en.home.bmcAlt).closest("a")).toHaveAttribute("href", "https://www.buymeacoffee.com/sarensw");
+    expect(screen.getByLabelText(en.home.paypal)).toHaveAttribute(
       "href",
-      "https://poeditor.com/join/project/J2Qq2SUzYr",
+      "https://www.paypal.com/donate/?hosted_button_id=KM8GA7MJMYNQN",
     );
+    expect(screen.getByLabelText(en.home.sponsorLabel)).toHaveAttribute("href", "https://github.com/sponsors/sarensw");
   });
 
-  it("renders the changelog rail with three versions", async () => {
-    await renderEnPage();
-    expect(screen.getAllByText(/v0\.15\.1/).length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByText(/^v0\.15$/)).toBeInTheDocument();
-    expect(screen.getByText(/v0\.14\.1/)).toBeInTheDocument();
-  });
-
-  it("renders the Latest badge on the top changelog entry", async () => {
-    await renderEnPage();
-    expect(screen.getByText(en.changelog.latestBadge)).toBeInTheDocument();
-  });
-
-  it("renders the coming next line", async () => {
-    await renderEnPage();
-    expect(
-      screen.getByText(releaseFixture.comingNext as string),
-    ).toBeInTheDocument();
+  it("renders every FAQ item with matching FAQPage JSON-LD", async () => {
+    const { container } = await renderEnPage();
+    expect(container.querySelectorAll("#faq details")).toHaveLength(en.faq.items.length);
+    const ld = JSON.parse(container.querySelector('#faq script[type="application/ld+json"]')?.textContent ?? "{}");
+    expect(ld.mainEntity).toHaveLength(en.faq.items.length);
   });
 });
 
 describe("English page - footer", () => {
-  it("renders the privacy link with locale prefix", async () => {
+  it("links every page with the locale prefix", async () => {
     await renderEnPage();
-    const link = screen.getByText(en.footer.links.privacy).closest("a");
-    expect(link).toHaveAttribute("href", "/en/privacy");
-  });
-
-  it("renders the imprint link with locale prefix", async () => {
-    await renderEnPage();
-    const link = screen.getByText(en.footer.links.imprint).closest("a");
-    expect(link).toHaveAttribute("href", "/en/imprint");
+    const footer = screen.getByRole("contentinfo");
+    for (const href of ["/en/privacy", "/en/imprint", "/en/changelog", "/en/docs", "/en/press", "/en#specs", "/en/compare/keka"]) {
+      expect(footer.querySelector(`a[href="${href}"]`)).not.toBeNull();
+    }
   });
 
   it("renders the author name", async () => {
     await renderEnPage();
     expect(screen.getByText(en.footer.author)).toBeInTheDocument();
+  });
+});
+
+describe("English changelog page", () => {
+  async function renderChangelog() {
+    const jsx = await ChangelogPage({ params: Promise.resolve({ locale: "en" }) });
+    return render(<>{jsx}</>);
+  }
+
+  it("lists every release, newest first, with the Latest badge", async () => {
+    await renderChangelog();
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(en.changelog.heading);
+    expect(screen.getAllByText(/v0\.15\.1/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText(/^v0\.15$/)).toBeInTheDocument();
+    expect(screen.getByText(/v0\.14\.1/)).toBeInTheDocument();
+    expect(screen.getByText(en.changelog.latestBadge)).toBeInTheDocument();
+  });
+
+  it("renders the coming next line", async () => {
+    await renderChangelog();
+    expect(screen.getByText(releaseFixture.comingNext as string)).toBeInTheDocument();
   });
 });
 
