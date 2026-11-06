@@ -288,10 +288,13 @@ async function copyPageMedia() {
   const toWeb = async (src, dest) => {
     if (sharp) {
       try {
-        await sharp(src)
-          .resize({ width: 1600, withoutEnlargement: true })
-          .jpeg({ quality: 80, mozjpeg: true })
-          .toFile(dest);
+        // window captures are PNGs with a transparent background: keep them PNG,
+        // a JPEG would fill the transparency with black
+        const resized = sharp(src).resize({ width: 1600, withoutEnlargement: true });
+        await (dest.endsWith(".png")
+          ? resized.png({ compressionLevel: 9 })
+          : resized.jpeg({ quality: 80, mozjpeg: true })
+        ).toFile(dest);
         return;
       } catch {
         // fall through to a straight copy

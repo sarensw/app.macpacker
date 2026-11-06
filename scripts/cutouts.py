@@ -1,54 +1,51 @@
-"""Cut the app window, and details of it, out of the press-kit screenshots for
-the home page: wallpaper removed, rounded corners transparent, so the page sets
-them on its own background.
+"""Export the home page's images from the app screenshots.
 
-    python3 -I scripts/cutouts.py      (needs Pillow; writes public/img/{en,zh}/)
+    python3 -I scripts/cutouts.py      (needs Pillow; writes public/img/en/)
 
-Re-run after replacing press-kit/assets/screenshots/. Bounds and corner radii
-were measured on 1800 px (browse) and 1240 px (the others) wide copies of the
-shots; EN and ZH share the geometry. SCALE renders at twice that, so the crops
-stay sharp on Retina screens (next/image serves smaller sizes where they fit).
+The sources are window captures in press-kit/assets/screenshots/en/ (Cmd-Shift-4,
+Space, click the window: a Retina PNG with a transparent background and the
+window's own shadow), 2655 x 1783 px. Re-run after replacing them.
+
+Nothing is cropped for the feature tiles: each capture is exported whole, and the
+page positions it inside its tile (app/site.css, "feature screenshots") so the
+tile's edge does the cutting, the way a window slides in from off screen. The
+page reads the window's place from the capture's own pixel coordinates, so keep
+new captures the same size, or update the coordinates there.
+
+Only the hero stage is cut: to the window itself, without the capture's shadow,
+because the stage draws its own.
+
+Give an output a new name when its picture changes: optimised images are cached
+by file name. The Chinese pages show these too until Chinese captures exist.
 """
 from pathlib import Path
-from PIL import Image, ImageDraw
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "press-kit" / "assets" / "screenshots"
-OUT = ROOT / "public" / "img"
-SCALE = 2
-SS = 4  # supersampling for a smooth corner edge
+SRC = ROOT / "press-kit" / "assets" / "screenshots" / "en"
+OUT = ROOT / "public" / "img" / "en"
 
-ALL, TOP = (True, True, True, True), (True, True, False, False)  # corners: tl, tr, br, bl
-WORK = {"01-browse.jpg": (1800, 1208)}  # measuring width per shot; the rest are 1240 x 832
-WINDOW_01 = (111, 76, 1689, 1062)  # corner radius 50
-WINDOW_02 = (77, 51, 1163, 731)    # corner radius 34
-
-CUTS = {
-    # name: (source, outline box, corner radius, rounded corners, detail box inside the outline or None)
-    "window-browse": ("01-browse.jpg", WINDOW_01, 50, ALL, None),
-    "detail-list": ("02-nested.jpg", WINDOW_02, 34, ALL, (0, 0, 590, 246)),      # title bar + three files
-    "detail-drag": ("03-extract.jpg", WINDOW_02, 34, ALL, (0, 140, 590, 400)),   # rows + dragged PDF
-    "detail-preview": ("04-preview.jpg", (352, 290, 1215, 832), 18, TOP, None),  # Quick Look panel
+WHOLE = {
+    # name: capture, exported as it is
+    "shot-browse": "01-browse.png",
+    "shot-nested": "02-nested.png",
+    "shot-extract": "03-extract.png",
+    "shot-preview": "04-preview.png",
+    "shot-finder": "05-finder.png",
+    "shot-compress": "06-compress.png",
 }
 
+OUT.mkdir(parents=True, exist_ok=True)
+for name, src in WHOLE.items():
+    shot = Image.open(SRC / src).convert("RGBA")
+    out = OUT / f"{name}.webp"
+    shot.save(out, "WEBP", quality=94, method=6)
+    print(f"{out.relative_to(ROOT)}  {shot.width} x {shot.height}  {out.stat().st_size // 1024} KB")
 
-def scaled(box):
-    return tuple(v * SCALE for v in box)
-
-
-for lang in ("en", "zh"):
-    (OUT / lang).mkdir(parents=True, exist_ok=True)
-    for name, (src, box, radius, corners, detail) in CUTS.items():
-        work = scaled(WORK.get(src, (1240, 832)))
-        cut = Image.open(SRC / lang / src).convert("RGB").resize(work, Image.LANCZOS).crop(scaled(box))
-        w, h = cut.size
-        mask = Image.new("L", (w * SS, h * SS), 0)
-        ImageDraw.Draw(mask).rounded_rectangle(
-            (0, 0, w * SS - 1, h * SS - 1), radius * SCALE * SS, fill=255, corners=corners
-        )
-        cut.putalpha(mask.resize((w, h), Image.LANCZOS))
-        if detail:
-            cut = cut.crop(scaled(detail))
-        out = OUT / lang / f"{name}.webp"
-        cut.save(out, "WEBP", quality=86, method=6)
-        print(out.relative_to(ROOT), cut.size, out.stat().st_size // 1024, "KB")
+# the hero stage: the window alone, without the capture's shadow
+window = Image.open(SRC / "01-browse.png").convert("RGBA")
+window = window.crop(window.getchannel("A").point(lambda v: 255 if v > 250 else 0).getbbox())
+window.putalpha(window.getchannel("A").point(lambda v: v if v > 200 else 0))
+out = OUT / "stage-window.webp"
+window.save(out, "WEBP", quality=94, method=6)
+print(f"{out.relative_to(ROOT)}  {window.width} x {window.height}  {out.stat().st_size // 1024} KB")

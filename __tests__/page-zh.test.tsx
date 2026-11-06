@@ -64,7 +64,7 @@ describe("Chinese page - sections", () => {
     await renderZhPage();
     expect(screen.getByText(zh.home.browseTitle)).toBeInTheDocument();
     expect(screen.getByText(zh.home.finderTitle)).toBeInTheDocument();
-    expect(screen.getByText(zh.home.menuZip)).toBeInTheDocument();
+    expect(screen.getByAltText(zh.home.finderAlt)).toBeInTheDocument();
   });
 
   it("renders the Chinese open source section", async () => {

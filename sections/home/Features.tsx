@@ -1,29 +1,45 @@
 import Image from "next/image";
-import type { Locale, Translations } from "@/lib/i18n";
+import type { Translations } from "@/lib/i18n";
 import { extensionCount, formatCount } from "@/lib/format-chips";
 
 interface FeaturesProps {
-  locale: Locale;
   t: Translations;
 }
 
-// Each tile shows its own piece of the app instead of one big screenshot: a
-// crop of the real window, or the app's UI drawn (nested boxes, Finder's menu).
-export default function Features({ locale, t }: FeaturesProps) {
+// ponytail: English screenshots on both locales until Chinese ones exist;
+// then export them into public/img/zh and pick the folder by locale here.
+function Shot({ name, alt }: { name: string; alt: string }) {
+  // the whole capture (2655 x 1783, transparent); app/site.css sizes and places it
+  return (
+    <Image
+      className={`b-cap b-cap-${name}`}
+      src={`/img/en/shot-${name}.webp`}
+      alt={alt}
+      width={2655}
+      height={1783}
+      unoptimized
+    />
+  );
+}
+
+// Each tile holds a whole window capture, placed so the part that shows the feature
+// is in view and the tile's own edge does the cutting. Captures that matter at
+// their top come in from the bottom of the tile; the nested callout and Finder's
+// menu hang from the top, with their text below.
+export default function Features({ t }: FeaturesProps) {
   const h = t.home;
-  const shot = (name: string) => `/img/${locale}/${name}.webp`;
 
   return (
     <section id="features" className="b-wrap b-section">
       <h2 className="b-h2">{h.featuresTitle}</h2>
-      <div className="b-grid">
-        <article className="b-tile b-feat b-browse b-wide">
+      <div className="b-grid b-grid-2">
+        <article className="b-tile b-feat">
           <div>
             <h3>{h.browseTitle}</h3>
             <p>{h.browseBody}</p>
           </div>
-          <div className="b-bleed">
-            <Image src={shot("detail-list")} alt={h.browseAlt} width={590} height={246} sizes="(min-width: 700px) 560px, 90vw" />
+          <div className="b-shot b-shot-row1">
+            <Shot name="browse" alt={h.browseAlt} />
           </div>
         </article>
 
@@ -32,31 +48,31 @@ export default function Features({ locale, t }: FeaturesProps) {
             <h3>{h.previewTitle}</h3>
             <p>{h.previewBody}</p>
           </div>
-          <div className="b-bleed b-ql">
+          <div className="b-shot b-shot-row1">
+            <Shot name="preview" alt={h.previewAlt} />
             <kbd className="b-key" aria-hidden="true">
               {h.spaceKey}
             </kbd>
-            <Image src={shot("detail-preview")} alt={h.previewAlt} width={863} height={542} sizes="480px" />
           </div>
         </article>
 
-        <article className="b-tile b-feat">
+        <article className="b-tile b-feat b-feat-top">
           <div>
             <h3>{h.nestedTitle}</h3>
             <p>{h.nestedBody}</p>
           </div>
-          {/* a .zip inside a .tar.gz inside a .dmg, drawn */}
-          <div className="b-art" aria-hidden="true">
-            <div className="b-box">
-              <span className="b-name">Tools.dmg</span>
-              <div className="b-box">
-                <span className="b-name">src.tar.gz</span>
-                <div className="b-box">
-                  <span className="b-name">assets.zip</span>
-                  <div className="b-file">logo.png</div>
-                </div>
-              </div>
-            </div>
+          <div className="b-shot b-shot-row2">
+            <Shot name="nested" alt={h.nestedAlt} />
+          </div>
+        </article>
+
+        <article className="b-tile b-feat b-feat-top">
+          <div>
+            <h3>{h.finderTitle}</h3>
+            <p>{h.finderBody}</p>
+          </div>
+          <div className="b-shot b-shot-row2">
+            <Shot name="finder" alt={h.finderAlt} />
           </div>
         </article>
 
@@ -65,34 +81,23 @@ export default function Features({ locale, t }: FeaturesProps) {
             <h3>{h.extractTitle}</h3>
             <p>{h.extractBody}</p>
           </div>
-          <div className="b-bleed">
-            <Image src={shot("detail-drag")} alt={h.extractAlt} width={590} height={260} sizes="(min-width: 700px) 440px, 90vw" />
+          <div className="b-shot b-shot-row3">
+            <Shot name="extract" alt={h.extractAlt} />
           </div>
         </article>
 
         <article className="b-tile b-feat">
           <div>
-            <h3>{h.finderTitle}</h3>
-            <p>{h.finderBody}</p>
+            <h3>{h.compressTitle}</h3>
+            <p>{h.compressBody}</p>
           </div>
-          {/* Finder's context menu with the MacPacker submenu, in the app's own words */}
-          <div className="b-art b-menus" aria-hidden="true">
-            <div className="b-menu b-menu-main">
-              <span>{h.menuOpen}</span>
-              <span>{h.menuInfo}</span>
-              <hr />
-              <span className="b-on">
-                MacPacker <span>›</span>
-              </span>
-            </div>
-            <div className="b-menu b-menu-sub">
-              <span>{h.menuZip}</span>
-              <span>{h.menu7z}</span>
-              <span>{h.menuAdd}</span>
-            </div>
+          <div className="b-shot b-shot-row3">
+            <Shot name="compress" alt={h.compressAlt} />
           </div>
         </article>
+      </div>
 
+      <div className="b-grid b-stats">
         <article className="b-tile b-feat b-stat">
           <p className="b-exts" aria-hidden="true">
             <span>.zip</span>
@@ -116,7 +121,7 @@ export default function Features({ locale, t }: FeaturesProps) {
           </a>
         </article>
 
-        <article className="b-tile b-feat b-stat b-wide-md">
+        <article className="b-tile b-feat b-stat">
           <p className="b-num">22</p>
           <div>
             <h3>{h.langsTitle}</h3>

@@ -188,19 +188,19 @@
     text-align: center;
   }
   .b-icon {
-    width: clamp(68px, 6.8vw, 88px);
-    height: clamp(68px, 6.8vw, 88px);
+    width: clamp(62px, 5.8vw, 76px);
+    height: clamp(62px, 5.8vw, 76px);
     margin-bottom: 4px;
     filter: drop-shadow(0 12px 24px rgba(245, 94, 34, 0.28));
   }
   .b-hero h1 {
     max-width: 17ch;
-    font-size: clamp(38px, 5.7vw, 68px);
+    font-size: clamp(34px, 4.7vw, 56px);
     font-weight: 700;
     line-height: 1.02;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.035em;
   }
-  .b-lede { max-width: 50ch; font-size: clamp(16px, 1.5vw, 19px); line-height: 1.5; color: var(--ink-soft); }
+  .b-lede { max-width: 50ch; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.5; color: var(--ink-soft); }
   .b-hero .dl-group, .b-get .dl-group { align-self: center; justify-content: center; margin-top: 6px; }
   /* a centred button opens its menu centred below it, so it never runs off a phone screen */
   .b-hero .dl-menu, .b-get .dl-menu { left: 50%; translate: -50% 0; }
@@ -370,10 +370,10 @@
   .b-section { padding-top: clamp(72px, 10vw, 128px); scroll-margin-top: 56px; }
   .b-h2 {
     margin-bottom: 0.85em;
-    font-size: clamp(28px, 3.5vw, 42px);
+    font-size: clamp(26px, 3vw, 36px);
     font-weight: 700;
     line-height: 1.05;
-    letter-spacing: -0.032em;
+    letter-spacing: -0.028em;
     text-align: center;
   }
   .b-tile {
@@ -383,12 +383,11 @@
     background: var(--tile);
     padding: var(--pad);
   }
-  .b-grid { display: grid; gap: 14px; }
+  .b-grid { display: grid; grid-auto-flow: dense; gap: 14px; }
   @media (min-width: 700px) {
     .b-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .b-wide { grid-column: span 2; }
   }
-  @media (min-width: 700px) and (max-width: 999px) { .b-wide-md { grid-column: span 2; } }
   @media (min-width: 1000px) { .b-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
   /* what people say: the video as the big tile, App Store reviews beside it */
@@ -421,11 +420,11 @@
   .b-play svg { width: 24px; height: 24px; margin-left: 3px; fill: currentColor; }
   .b-video:hover .b-play { transform: scale(1.06); background: rgba(255, 255, 255, 0.26); }
   .b-video small { font-size: 13px; opacity: 0.7; }
-  .b-video b { max-width: 20ch; font-size: clamp(22px, 2.4vw, 29px); font-weight: 700; line-height: 1.08; letter-spacing: -0.03em; }
+  .b-video b { max-width: 20ch; font-size: clamp(21px, 2.1vw, 25px); font-weight: 700; line-height: 1.08; letter-spacing: -0.03em; }
   .b-video .b-note { font-size: 14.5px; opacity: 0.78; }
 
   .b-quote { display: flex; flex-direction: column; justify-content: space-between; gap: 22px; margin: 0; }
-  .b-quote blockquote { margin: 0; font-size: clamp(16px, 1.4vw, 18px); font-weight: 500; line-height: 1.45; letter-spacing: -0.012em; }
+  .b-quote blockquote { margin: 0; font-size: clamp(15.5px, 1.35vw, 17px); font-weight: 500; line-height: 1.45; letter-spacing: -0.012em; }
   .b-quote figcaption { font-size: 13px; color: var(--ink-faint); }
   .b-quote figcaption b { font-weight: 600; color: var(--ink); }
 
@@ -443,35 +442,45 @@
 
   /* features: copy on top, the app's own UI at the bottom */
   .b-feat { display: flex; flex-direction: column; gap: 22px; min-height: 340px; }
-  .b-feat h3 { font-size: clamp(18px, 1.6vw, 20px); font-weight: 700; line-height: 1.15; letter-spacing: -0.022em; }
+  .b-feat h3 { font-size: clamp(17px, 1.5vw, 19px); font-weight: 700; line-height: 1.15; letter-spacing: -0.022em; }
   .b-feat p { margin-top: 8px; max-width: 40ch; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
-  .b-art { margin-top: auto; }
-  /* a screenshot detail bleeds off the tile's right and bottom edge */
-  .b-bleed {
+  /* ─── feature screenshots ───
+     Each tile holds a whole window capture (2655 x 1783 px, transparent, with the
+     window's own shadow) drawn at --s of its pixels: 0.375 is 75 % of real size on a
+     Retina screen. Nothing is cropped; the tile's edge does the cutting. Every place
+     below is written in the capture's own pixels times --s, so a new scale (phones)
+     keeps the same view, and the window's left edge lines up with the tile's text. */
+  @media (min-width: 1000px) { .b-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .b-stats { margin-top: 14px; }
+  @media (min-width: 700px) { .b-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .b-shot {
+    --s: 0.375;
     position: relative;
-    display: flex;
-    justify-content: flex-end;
-    margin: auto calc(-1 * var(--pad)) calc(-1 * var(--pad)) 0;
+    height: calc(var(--rows) * var(--s));
+    margin: auto calc(-1 * var(--pad)) calc(-1 * var(--pad));
   }
-  .b-bleed img {
-    width: min(100%, 440px);
-    height: auto;
-    border-top-left-radius: 12px;
-    box-shadow: 0 0 0 1px var(--edge), 0 22px 44px -22px var(--shadow);
-  }
-  @media (min-width: 700px) {
-    .b-browse { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 28px; }
-    .b-browse .b-bleed { align-self: end; margin-top: 28px; }
-    .b-browse .b-bleed img { width: min(100%, 560px); }
-  }
-
-  /* Quick Look: the space bar, then the panel, large enough to read and cut by the tile */
-  .b-ql { justify-content: flex-start; }
-  .b-ql img { flex: none; width: 480px; max-width: none; }
+  @media (max-width: 699px) { .b-shot { --s: 0.3; } }
+  /* captures that matter at their bottom, or start mid-menu, hang from the tile's top */
+  .b-feat-top .b-shot { order: -1; margin: calc(-1 * var(--pad)) calc(-1 * var(--pad)) 0; }
+  .b-shot-row1 { --rows: 1067px; }   /* capture pixels shown, per row of tiles */
+  .b-shot-row2 { --rows: 1147px; }
+  .b-shot-row3 { --rows: 960px; }
+  .b-cap { position: absolute; width: calc(2655px * var(--s)); max-width: none; height: auto; pointer-events: none; }
+  /* the window's top-left corner (159, 108) at the text's left edge, 24px into the shot */
+  .b-cap-browse, .b-cap-preview { left: calc(var(--pad) - 159px * var(--s)); top: calc(24px - 108px * var(--s)); }
+  /* the magnifier and the breadcrumb: the capture down to y 1700 (below the callout) */
+  .b-cap-nested { left: calc(var(--pad) - 159px * var(--s)); bottom: calc(-83px * var(--s)); }
+  /* the capture starts mid-menu at y 373: that cut sits on the tile's top edge */
+  .b-cap-finder { left: calc(var(--pad) - 372px * var(--s)); top: calc(-373px * var(--s)); }
+  /* the dragged PDF and the cursor end near x 1900: keep them in view, the file
+     names run off the tile's left edge */
+  .b-cap-extract { left: calc(100% - 1900px * var(--s) - 16px); top: calc(24px - 108px * var(--s)); }
+  /* the compress window (341, 325), whole with its shadow and the trail of PDFs */
+  .b-cap-compress { left: calc(var(--pad) - 341px * var(--s)); top: calc(24px - 325px * var(--s)); }
   .b-key {
     position: absolute;
     bottom: 22px;
-    left: 0;
+    left: var(--pad);
     z-index: 1;
     display: grid;
     place-items: end center;
@@ -487,50 +496,12 @@
     color: rgba(255, 255, 255, 0.86);
   }
 
-  /* nested archives, drawn: a .zip inside a .tar.gz inside a .dmg */
-  .b-box { border-radius: 14px; background: var(--field); box-shadow: 0 0 0 1px var(--edge); padding: 9px 10px 10px; }
-  .b-box .b-box { margin-top: 8px; border-radius: 10px; background: var(--tile); }
-  .b-box .b-box .b-box { background: var(--field); }
-  .b-name { display: flex; align-items: center; gap: 7px; font: 12px/1.3 var(--mono); color: var(--ink-soft); }
-  .b-name::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--ink-faint); }
-  .b-file {
-    width: max-content;
-    margin-top: 8px;
-    border-radius: 6px;
-    background: var(--select);
-    padding: 5px 10px;
-    font-size: 12.5px;
-    font-weight: 600;
-    color: #ffffff;
-  }
-
-  /* Finder's context menu with the MacPacker submenu (strings from the app) */
-  .b-menus { position: relative; height: 172px; }
-  .b-menu {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    min-width: 150px;
-    border-radius: 10px;
-    background: var(--menu);
-    padding: 5px;
-    box-shadow: 0 0 0 0.5px var(--edge), 0 14px 34px -10px var(--shadow);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-    font-size: 13px;
-  }
-  .b-menu span { border-radius: 5px; padding: 3px 10px; white-space: nowrap; }
-  .b-menu hr { margin: 4px 10px; border: 0; border-top: 1px solid var(--hairline); }
-  .b-menu .b-on { display: flex; justify-content: space-between; gap: 22px; background: var(--select); color: #ffffff; }
-  .b-menu-main { top: 0; left: 0; }
-  .b-menu-sub { top: 58px; left: 128px; }
-
   /* the numbers tiles: the big thing on top, words below */
   .b-stat { min-height: 0; }
   .b-feat .b-num, .b-feat .b-exts {
     margin: 0;
     max-width: none;
-    font-size: clamp(54px, 6vw, 76px);
+    font-size: clamp(48px, 5.2vw, 64px);
     font-weight: 700;
     line-height: 0.9;
     letter-spacing: -0.05em;
@@ -694,12 +665,12 @@
     padding-bottom: clamp(72px, 10vw, 128px);
     text-align: center;
   }
-  .b-get .b-icon { width: clamp(60px, 6vw, 77px); height: clamp(60px, 6vw, 77px); margin-bottom: 0; }
+  .b-get .b-icon { width: clamp(55px, 5.1vw, 67px); height: clamp(55px, 5.1vw, 67px); margin-bottom: 0; }
   .b-get .b-h2 { margin-bottom: 0; }
 
   /* ─── CHINESE ─── PingFang wants normal tracking and more leading */
 
-  [lang="zh"] .b-hero h1 { max-width: none; font-size: clamp(28px, 5.13vw, 61px); letter-spacing: 0; line-height: 1.16; }
+  [lang="zh"] .b-hero h1 { max-width: none; font-size: clamp(28px, 4.23vw, 50px); letter-spacing: 0; line-height: 1.16; }
   [lang="zh"] .b-h2, [lang="zh"] .b-video b { letter-spacing: 0; line-height: 1.25; }
   [lang="zh"] .b-feat p, [lang="zh"] .b-free p, [lang="zh"] .b-lede, [lang="zh"] .b-faqlist details p { line-height: 1.75; }
   [lang="zh"] .b-spec dt { letter-spacing: 0.02em; }
