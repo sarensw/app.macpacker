@@ -76,9 +76,9 @@ export default async function PressPage({
   };
 
   const swatches = [
-    { name: p.colorOrange, hex: "#F06C3C" },
-    { name: p.colorAmber, hex: "#F09C3C" },
-    { name: p.colorCharcoal, hex: "#3C3C3C" },
+    { name: p.colorOrange, hex: "#F45A20" },
+    { name: p.colorAmber, hex: "#FD9C30" },
+    { name: p.colorCharcoal, hex: "#242630" },
     { name: p.colorBg, hex: "#FFFFFF" },
   ];
 

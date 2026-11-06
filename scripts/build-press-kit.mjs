@@ -156,9 +156,9 @@ function brandText(t) {
   return `MacPacker — ${p.brandTitle}
 
 Colors (from the app icon and page background)
-  ${p.colorOrange}  #F06C3C
-  ${p.colorAmber}  #F09C3C
-  ${p.colorCharcoal}  #3C3C3C
+  ${p.colorOrange}  #F45A20
+  ${p.colorAmber}  #FD9C30
+  ${p.colorCharcoal}  #242630
   ${p.colorBg}  #FFFFFF
 
 ${p.appNote}
