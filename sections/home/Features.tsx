@@ -8,24 +8,48 @@ interface FeaturesProps {
 
 // ponytail: English screenshots on both locales until Chinese ones exist;
 // then cut them into public/img/zh and pick the folder by locale here.
-const shot = (name: string) => `/img/en/${name}.webp`;
+const SHOTS = {
+  // name: CSS size, exactly half the cut's pixels (scripts/cutouts.py), so the
+  // capture is shown 1:1 on Retina screens and served as cut, not re-encoded
+  browse: [350, 547],
+  nested: [715, 547],
+  preview: [350, 498],
+  finder: [715, 504],
+  extract: [350, 430],
+  compress: [710, 430],
+} as const;
 
-// Each tile shows its own piece of the app instead of one big screenshot: a crop
-// of a real window capture (scripts/cutouts.py), bleeding off the tile's edge.
+function Shot({ name, alt, look }: { name: keyof typeof SHOTS; alt: string; look: "window" | "card" | "free" }) {
+  const [width, height] = SHOTS[name];
+  return <Image className={`b-shot-${look}`} src={`/img/en/tile-${name}.webp`} alt={alt} width={width} height={height} unoptimized />;
+}
+
+// Each tile shows its own piece of the real app at its real size. Every row pairs
+// a single tile with a wide one; the three numbers close the grid as a row of their own.
 export default function Features({ t }: FeaturesProps) {
   const h = t.home;
 
   return (
     <section id="features" className="b-wrap b-section">
       <h2 className="b-h2">{h.featuresTitle}</h2>
-      <div className="b-grid">
-        <article className="b-tile b-feat b-browse b-wide">
+      <div className="b-grid b-feats">
+        <article className="b-tile b-feat">
           <div>
             <h3>{h.browseTitle}</h3>
             <p>{h.browseBody}</p>
           </div>
-          <div className="b-bleed">
-            <Image src={shot("tile-browse")} alt={h.browseAlt} width={1185} height={621} sizes="(min-width: 700px) 560px, 90vw" />
+          <div className="b-shot">
+            <Shot name="browse" alt={h.browseAlt} look="window" />
+          </div>
+        </article>
+
+        <article className="b-tile b-feat b-wide">
+          <div>
+            <h3>{h.nestedTitle}</h3>
+            <p>{h.nestedBody}</p>
+          </div>
+          <div className="b-shot">
+            <Shot name="nested" alt={h.nestedAlt} look="card" />
           </div>
         </article>
 
@@ -34,21 +58,21 @@ export default function Features({ t }: FeaturesProps) {
             <h3>{h.previewTitle}</h3>
             <p>{h.previewBody}</p>
           </div>
-          <div className="b-bleed b-bleed-left">
+          <div className="b-shot">
             <kbd className="b-key" aria-hidden="true">
               {h.spaceKey}
             </kbd>
-            <Image className="b-shot-ql" src={shot("tile-preview")} alt={h.previewAlt} width={2005} height={993} sizes="480px" />
+            <Shot name="preview" alt={h.previewAlt} look="window" />
           </div>
         </article>
 
-        <article className="b-tile b-feat">
+        <article className="b-tile b-feat b-wide">
           <div>
-            <h3>{h.nestedTitle}</h3>
-            <p>{h.nestedBody}</p>
+            <h3>{h.finderTitle}</h3>
+            <p>{h.finderBody}</p>
           </div>
-          <div className="b-bleed b-shot-free">
-            <Image src={shot("tile-nested")} alt={h.nestedAlt} width={1330} height={1082} sizes="(min-width: 1000px) 350px, (min-width: 700px) 45vw, 90vw" />
+          <div className="b-shot">
+            <Shot name="finder" alt={h.finderAlt} look="card" />
           </div>
         </article>
 
@@ -57,29 +81,30 @@ export default function Features({ t }: FeaturesProps) {
             <h3>{h.extractTitle}</h3>
             <p>{h.extractBody}</p>
           </div>
-          <div className="b-bleed">
-            <Image src={shot("tile-extract")} alt={h.extractAlt} width={1180} height={590} sizes="(min-width: 700px) 440px, 90vw" />
+          <div className="b-shot">
+            <Shot name="extract" alt={h.extractAlt} look="card" />
           </div>
         </article>
 
-        <article className="b-tile b-feat">
+        <article className="b-tile b-feat b-wide">
           <div>
-            <h3>{h.finderTitle}</h3>
-            <p>{h.finderBody}</p>
+            <h3>{h.compressTitle}</h3>
+            <p>{h.compressBody}</p>
           </div>
-          <div className="b-bleed b-bleed-left b-shot-free">
-            <Image className="b-shot-finder" src={shot("tile-finder")} alt={h.finderAlt} width={1236} height={688} sizes="380px" />
+          <div className="b-shot b-shot-compress">
+            <Shot name="compress" alt={h.compressAlt} look="free" />
           </div>
         </article>
 
-        <article className="b-tile b-feat">
+        <article className="b-tile b-feat b-stat">
+          <p className="b-exts" aria-hidden="true">
+            <span>.zip</span>
+            <span>.7z</span>
+          </p>
           <div>
             <h3>{h.createTitle}</h3>
             <p>{h.createBody}</p>
             <p className="b-mono">AES-256 · ZipCrypto · .zip.001 · .7z.001</p>
-          </div>
-          <div className="b-bleed b-bleed-left b-shot-free">
-            <Image className="b-shot-compress" src={shot("tile-compress")} alt={h.createAlt} width={1370} height={700} sizes="420px" />
           </div>
         </article>
 
@@ -94,7 +119,7 @@ export default function Features({ t }: FeaturesProps) {
           </a>
         </article>
 
-        <article className="b-tile b-feat b-stat b-wide-md">
+        <article className="b-tile b-feat b-stat">
           <p className="b-num">22</p>
           <div>
             <h3>{h.langsTitle}</h3>

@@ -24,6 +24,7 @@ export default function Proof({ t }: ProofProps) {
             height={1463}
             sizes="(min-width: 1160px) 900px, 90vw"
             priority
+            unoptimized
           />
         </figure>
       </div>
