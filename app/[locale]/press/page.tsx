@@ -83,10 +83,10 @@ export default async function PressPage({
   ];
 
   const shots = [
-    { src: `/press/screenshots/${locale}/01-browse.jpg`, caption: p.screenshotBrowse },
-    { src: `/press/screenshots/${locale}/02-nested.jpg`, caption: p.screenshotNested },
-    { src: `/press/screenshots/${locale}/03-extract.jpg`, caption: p.screenshotExtract },
-    { src: `/press/screenshots/${locale}/04-preview.jpg`, caption: p.screenshotPreview },
+    { src: `/press/screenshots/${locale}/01-browse.png`, caption: p.screenshotBrowse },
+    { src: `/press/screenshots/${locale}/02-nested.png`, caption: p.screenshotNested },
+    { src: `/press/screenshots/${locale}/03-extract.png`, caption: p.screenshotExtract },
+    { src: `/press/screenshots/${locale}/04-preview.png`, caption: p.screenshotPreview },
   ];
 
   // ── Shared classes, lifted from the home redesign sections ──

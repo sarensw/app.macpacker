@@ -1,54 +1,41 @@
-"""Cut the app window, and details of it, out of the press-kit screenshots for
-the home page: wallpaper removed, rounded corners transparent, so the page sets
-them on its own background.
+"""Cut the home page's images out of the app screenshots.
 
-    python3 -I scripts/cutouts.py      (needs Pillow; writes public/img/{en,zh}/)
+    python3 -I scripts/cutouts.py      (needs Pillow; writes public/img/en/)
 
-Re-run after replacing press-kit/assets/screenshots/. Bounds and corner radii
-were measured on 1800 px (browse) and 1240 px (the others) wide copies of the
-shots; EN and ZH share the geometry. SCALE renders at twice that, so the crops
-stay sharp on Retina screens (next/image serves smaller sizes where they fit).
+The sources are window captures in press-kit/assets/screenshots/en/ (Cmd-Shift-4,
+Space, click the window: a Retina PNG with a transparent background and the
+window's shadow). Re-run after replacing them, and give an output a new name when its picture
+changes: optimised images are cached by file name. Boxes are in the captures' pixels
+(2655 x 1783); the Chinese pages show these too until Chinese screenshots exist.
 """
 from pathlib import Path
-from PIL import Image, ImageDraw
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "press-kit" / "assets" / "screenshots"
-OUT = ROOT / "public" / "img"
-SCALE = 2
-SS = 4  # supersampling for a smooth corner edge
-
-ALL, TOP = (True, True, True, True), (True, True, False, False)  # corners: tl, tr, br, bl
-WORK = {"01-browse.jpg": (1800, 1208)}  # measuring width per shot; the rest are 1240 x 832
-WINDOW_01 = (111, 76, 1689, 1062)  # corner radius 50
-WINDOW_02 = (77, 51, 1163, 731)    # corner radius 34
+SRC = ROOT / "press-kit" / "assets" / "screenshots" / "en"
+OUT = ROOT / "public" / "img" / "en"
 
 CUTS = {
-    # name: (source, outline box, corner radius, rounded corners, detail box inside the outline or None)
-    "window-browse": ("01-browse.jpg", WINDOW_01, 50, ALL, None),
-    "detail-list": ("02-nested.jpg", WINDOW_02, 34, ALL, (0, 0, 590, 246)),      # title bar + three files
-    "detail-drag": ("03-extract.jpg", WINDOW_02, 34, ALL, (0, 140, 590, 400)),   # rows + dragged PDF
-    "detail-preview": ("04-preview.jpg", (352, 290, 1215, 832), 18, TOP, None),  # Quick Look panel
+    # name: (screenshot, box as (left, top, right, bottom), or None for the whole window)
+    "stage-window": ("01-browse.png", None),                       # the hero stage
+    "tile-browse": ("04-preview.png", (175, 124, 1360, 745)),      # title bar, folders, files
+    "tile-preview": ("04-preview.png", (650, 790, 2655, 1783)),    # the Quick Look panel
+    "tile-nested": ("02-nested.png", (130, 538, 1460, 1620)),      # the breadcrumb, magnified
+    "tile-extract": ("03-extract.png", (700, 520, 1880, 1110)),    # a PDF on its way out
+    "tile-finder": ("05-finder.png", (1180, 640, 2416, 1328)),     # the MacPacker submenu, out of its row
+    "tile-compress": ("06-compress.png", (330, 310, 1700, 1010)),  # the quick compress window
 }
 
-
-def scaled(box):
-    return tuple(v * SCALE for v in box)
-
-
-for lang in ("en", "zh"):
-    (OUT / lang).mkdir(parents=True, exist_ok=True)
-    for name, (src, box, radius, corners, detail) in CUTS.items():
-        work = scaled(WORK.get(src, (1240, 832)))
-        cut = Image.open(SRC / lang / src).convert("RGB").resize(work, Image.LANCZOS).crop(scaled(box))
-        w, h = cut.size
-        mask = Image.new("L", (w * SS, h * SS), 0)
-        ImageDraw.Draw(mask).rounded_rectangle(
-            (0, 0, w * SS - 1, h * SS - 1), radius * SCALE * SS, fill=255, corners=corners
-        )
-        cut.putalpha(mask.resize((w, h), Image.LANCZOS))
-        if detail:
-            cut = cut.crop(scaled(detail))
-        out = OUT / lang / f"{name}.webp"
-        cut.save(out, "WEBP", quality=86, method=6)
-        print(out.relative_to(ROOT), cut.size, out.stat().st_size // 1024, "KB")
+OUT.mkdir(parents=True, exist_ok=True)
+for name, (src, box) in CUTS.items():
+    shot = Image.open(SRC / src).convert("RGBA")
+    if box is None:
+        # the window alone: crop to it and drop the capture's own shadow, the page adds one
+        alpha = shot.getchannel("A")
+        shot = shot.crop(alpha.point(lambda v: 255 if v > 250 else 0).getbbox())
+        shot.putalpha(shot.getchannel("A").point(lambda v: v if v > 200 else 0))
+    else:
+        shot = shot.crop(box)
+    out = OUT / f"{name}.webp"
+    shot.save(out, "WEBP", quality=86, method=6)
+    print(f"{out.relative_to(ROOT)}  {shot.width} x {shot.height}  {out.stat().st_size // 1024} KB")

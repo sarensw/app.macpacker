@@ -1,17 +1,19 @@
 import Image from "next/image";
-import type { Locale, Translations } from "@/lib/i18n";
+import type { Translations } from "@/lib/i18n";
 import { extensionCount, formatCount } from "@/lib/format-chips";
 
 interface FeaturesProps {
-  locale: Locale;
   t: Translations;
 }
 
-// Each tile shows its own piece of the app instead of one big screenshot: a
-// crop of the real window, or the app's UI drawn (nested boxes, Finder's menu).
-export default function Features({ locale, t }: FeaturesProps) {
+// ponytail: English screenshots on both locales until Chinese ones exist;
+// then cut them into public/img/zh and pick the folder by locale here.
+const shot = (name: string) => `/img/en/${name}.webp`;
+
+// Each tile shows its own piece of the app instead of one big screenshot: a crop
+// of a real window capture (scripts/cutouts.py), bleeding off the tile's edge.
+export default function Features({ t }: FeaturesProps) {
   const h = t.home;
-  const shot = (name: string) => `/img/${locale}/${name}.webp`;
 
   return (
     <section id="features" className="b-wrap b-section">
@@ -23,7 +25,7 @@ export default function Features({ locale, t }: FeaturesProps) {
             <p>{h.browseBody}</p>
           </div>
           <div className="b-bleed">
-            <Image src={shot("detail-list")} alt={h.browseAlt} width={590} height={246} sizes="(min-width: 700px) 560px, 90vw" />
+            <Image src={shot("tile-browse")} alt={h.browseAlt} width={1185} height={621} sizes="(min-width: 700px) 560px, 90vw" />
           </div>
         </article>
 
@@ -32,11 +34,11 @@ export default function Features({ locale, t }: FeaturesProps) {
             <h3>{h.previewTitle}</h3>
             <p>{h.previewBody}</p>
           </div>
-          <div className="b-bleed b-ql">
+          <div className="b-bleed b-bleed-left">
             <kbd className="b-key" aria-hidden="true">
               {h.spaceKey}
             </kbd>
-            <Image src={shot("detail-preview")} alt={h.previewAlt} width={863} height={542} sizes="480px" />
+            <Image className="b-shot-ql" src={shot("tile-preview")} alt={h.previewAlt} width={2005} height={993} sizes="480px" />
           </div>
         </article>
 
@@ -45,18 +47,8 @@ export default function Features({ locale, t }: FeaturesProps) {
             <h3>{h.nestedTitle}</h3>
             <p>{h.nestedBody}</p>
           </div>
-          {/* a .zip inside a .tar.gz inside a .dmg, drawn */}
-          <div className="b-art" aria-hidden="true">
-            <div className="b-box">
-              <span className="b-name">Tools.dmg</span>
-              <div className="b-box">
-                <span className="b-name">src.tar.gz</span>
-                <div className="b-box">
-                  <span className="b-name">assets.zip</span>
-                  <div className="b-file">logo.png</div>
-                </div>
-              </div>
-            </div>
+          <div className="b-bleed b-shot-free">
+            <Image src={shot("tile-nested")} alt={h.nestedAlt} width={1330} height={1082} sizes="(min-width: 1000px) 350px, (min-width: 700px) 45vw, 90vw" />
           </div>
         </article>
 
@@ -66,7 +58,7 @@ export default function Features({ locale, t }: FeaturesProps) {
             <p>{h.extractBody}</p>
           </div>
           <div className="b-bleed">
-            <Image src={shot("detail-drag")} alt={h.extractAlt} width={590} height={260} sizes="(min-width: 700px) 440px, 90vw" />
+            <Image src={shot("tile-extract")} alt={h.extractAlt} width={1180} height={590} sizes="(min-width: 700px) 440px, 90vw" />
           </div>
         </article>
 
@@ -75,33 +67,19 @@ export default function Features({ locale, t }: FeaturesProps) {
             <h3>{h.finderTitle}</h3>
             <p>{h.finderBody}</p>
           </div>
-          {/* Finder's context menu with the MacPacker submenu, in the app's own words */}
-          <div className="b-art b-menus" aria-hidden="true">
-            <div className="b-menu b-menu-main">
-              <span>{h.menuOpen}</span>
-              <span>{h.menuInfo}</span>
-              <hr />
-              <span className="b-on">
-                MacPacker <span>›</span>
-              </span>
-            </div>
-            <div className="b-menu b-menu-sub">
-              <span>{h.menuZip}</span>
-              <span>{h.menu7z}</span>
-              <span>{h.menuAdd}</span>
-            </div>
+          <div className="b-bleed b-bleed-left b-shot-free">
+            <Image className="b-shot-finder" src={shot("tile-finder")} alt={h.finderAlt} width={1236} height={688} sizes="380px" />
           </div>
         </article>
 
-        <article className="b-tile b-feat b-stat">
-          <p className="b-exts" aria-hidden="true">
-            <span>.zip</span>
-            <span>.7z</span>
-          </p>
+        <article className="b-tile b-feat">
           <div>
             <h3>{h.createTitle}</h3>
             <p>{h.createBody}</p>
             <p className="b-mono">AES-256 · ZipCrypto · .zip.001 · .7z.001</p>
+          </div>
+          <div className="b-bleed b-bleed-left b-shot-free">
+            <Image className="b-shot-compress" src={shot("tile-compress")} alt={h.createAlt} width={1370} height={700} sizes="420px" />
           </div>
         </article>
 

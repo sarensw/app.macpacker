@@ -445,7 +445,6 @@
   .b-feat { display: flex; flex-direction: column; gap: 22px; min-height: 340px; }
   .b-feat h3 { font-size: clamp(18px, 1.6vw, 20px); font-weight: 700; line-height: 1.15; letter-spacing: -0.022em; }
   .b-feat p { margin-top: 8px; max-width: 40ch; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
-  .b-art { margin-top: auto; }
   /* a screenshot detail bleeds off the tile's right and bottom edge */
   .b-bleed {
     position: relative;
@@ -465,9 +464,14 @@
     .b-browse .b-bleed img { width: min(100%, 560px); }
   }
 
-  /* Quick Look: the space bar, then the panel, large enough to read and cut by the tile */
-  .b-ql { justify-content: flex-start; }
-  .b-ql img { flex: none; width: 480px; max-width: none; }
+  /* left-anchored captures run off the tile's right edge instead: Quick Look (with the
+     space bar in front), Finder's menu, the compress window */
+  .b-bleed-left { justify-content: flex-start; }
+  .b-bleed .b-shot-ql { flex: none; width: 480px; max-width: none; }
+  .b-bleed .b-shot-finder { flex: none; width: 380px; max-width: none; }
+  .b-bleed .b-shot-compress { flex: none; width: 420px; max-width: none; }
+  /* captures that keep their transparent surroundings and their own shadow get no frame */
+  .b-shot-free img { box-shadow: none; border-radius: 0; }
   .b-key {
     position: absolute;
     bottom: 22px;
@@ -487,47 +491,9 @@
     color: rgba(255, 255, 255, 0.86);
   }
 
-  /* nested archives, drawn: a .zip inside a .tar.gz inside a .dmg */
-  .b-box { border-radius: 14px; background: var(--field); box-shadow: 0 0 0 1px var(--edge); padding: 9px 10px 10px; }
-  .b-box .b-box { margin-top: 8px; border-radius: 10px; background: var(--tile); }
-  .b-box .b-box .b-box { background: var(--field); }
-  .b-name { display: flex; align-items: center; gap: 7px; font: 12px/1.3 var(--mono); color: var(--ink-soft); }
-  .b-name::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--ink-faint); }
-  .b-file {
-    width: max-content;
-    margin-top: 8px;
-    border-radius: 6px;
-    background: var(--select);
-    padding: 5px 10px;
-    font-size: 12.5px;
-    font-weight: 600;
-    color: #ffffff;
-  }
-
-  /* Finder's context menu with the MacPacker submenu (strings from the app) */
-  .b-menus { position: relative; height: 172px; }
-  .b-menu {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    min-width: 150px;
-    border-radius: 10px;
-    background: var(--menu);
-    padding: 5px;
-    box-shadow: 0 0 0 0.5px var(--edge), 0 14px 34px -10px var(--shadow);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-    font-size: 13px;
-  }
-  .b-menu span { border-radius: 5px; padding: 3px 10px; white-space: nowrap; }
-  .b-menu hr { margin: 4px 10px; border: 0; border-top: 1px solid var(--hairline); }
-  .b-menu .b-on { display: flex; justify-content: space-between; gap: 22px; background: var(--select); color: #ffffff; }
-  .b-menu-main { top: 0; left: 0; }
-  .b-menu-sub { top: 58px; left: 128px; }
-
   /* the numbers tiles: the big thing on top, words below */
   .b-stat { min-height: 0; }
-  .b-feat .b-num, .b-feat .b-exts {
+  .b-feat .b-num {
     margin: 0;
     max-width: none;
     font-size: clamp(54px, 6vw, 76px);
@@ -537,7 +503,6 @@
     color: var(--ink);
   }
   .b-feat .b-num { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .b-feat .b-exts { display: flex; gap: 0.25em; }
   .b-more { margin-top: auto; font-size: 14.5px; font-weight: 600; color: var(--ink); }
   .b-more::after { content: " ›"; color: var(--mark); }
   .b-feat .b-mono { margin-top: 10px; font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); }

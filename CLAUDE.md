@@ -33,9 +33,11 @@ those before non-trivial work.
   extensions", comes from here). `format-registry.json` is a copy of the app's
   `Modules/Sources/Core/Formats/Catalog.json` (id, name, kind, extensions) — sync it
   when the app adds a format.
-- **Home images.** `scripts/cutouts.py` cuts the window and its details out of
-  `press-kit/assets/screenshots/` into `public/img/{en,zh}/`; re-run it after new
-  screenshots.
+- **Home images.** `scripts/cutouts.py` cuts the window and its details out of the
+  window captures in `press-kit/assets/screenshots/en/` into `public/img/en/` (used on
+  both locales until Chinese captures exist); re-run it after new screenshots.
+  `public/og.png` (link preview) and `public/hero.png` (JSON-LD screenshot) are made
+  from the same captures.
 - **Media kit.** `scripts/build-press-kit.mjs` generates the downloadable kit into
   `public/press/` (git-ignored) from the translations + `press-kit/assets/`. It runs
   on `predev`/`prebuild`, so it regenerates on every dev start and deploy.
