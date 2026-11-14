@@ -329,7 +329,13 @@ async function copyPageMedia() {
 async function main() {
   await mkdir(OUT_DIR, { recursive: true });
   const fallback = await readJson("lib/release.fallback.json");
-  const version = fallback.latestVersion ?? "0.15.1";
+  // the live changelog, like the site (lib/release.ts); the fallback file only offline
+  const live = await fetch("https://macpacker-releases.s3.eu-central-1.amazonaws.com/Changelog.json", {
+    signal: AbortSignal.timeout(5000),
+  })
+    .then((r) => (r.ok ? r.json() : null))
+    .catch(() => null);
+  const version = live?.versions?.[0]?.version ?? fallback.latestVersion ?? "0.15.1";
   const translations = {};
   for (const l of LOCALES) translations[l] = await readJson(`lib/translations/${l}.json`);
   const categories = formatCategories(await readJson("lib/format-registry.json"));

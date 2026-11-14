@@ -87,6 +87,8 @@ export default async function PressPage({
     { src: `/press/screenshots/${locale}/02-nested.png`, caption: p.screenshotNested },
     { src: `/press/screenshots/${locale}/03-extract.png`, caption: p.screenshotExtract },
     { src: `/press/screenshots/${locale}/04-preview.png`, caption: p.screenshotPreview },
+    { src: `/press/screenshots/${locale}/05-finder.png`, caption: p.screenshotFinder },
+    { src: `/press/screenshots/${locale}/06-compress.png`, caption: p.screenshotCompress },
   ];
 
   // ── Shared classes, lifted from the home redesign sections ──
