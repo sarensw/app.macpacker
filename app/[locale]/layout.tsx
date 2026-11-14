@@ -6,6 +6,7 @@ import type { Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/seo";
 import { getReleaseData } from "@/lib/release";
 import { formatCount } from "@/lib/format-chips";
+import { appLanguages } from "@/lib/app-languages";
 import WebMCP from "@/components/client/WebMCP";
 
 const newsreader = Newsreader({
@@ -190,7 +191,7 @@ function JsonLd({
     description,
     license: "https://opensource.org/licenses/GPL-3.0",
     isAccessibleForFree: true,
-    inLanguage: ["en", "zh", "de", "fr", "es", "uk", "ru", "fa", "ja", "ko", "pl", "pt", "it"],
+    inLanguage: appLanguages.map(([code]) => code),
     author: {
       "@type": "Person",
       name: "Stephan Arenswald",

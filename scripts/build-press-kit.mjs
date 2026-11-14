@@ -181,6 +181,7 @@ Contents
   LICENSE-AND-USAGE.txt      GPL-3.0 + ${p.usageTitle}
   assets/icon/              ${p.assetIcon} (PNG 1024x1024)
   assets/screenshots/       ${p.screenshotsTitle}
+  assets/demo/              ${p.demoTitle} (MP4, GIF)
   assets/brand/             ${p.brandTitle}
 
 ${p.usageTitle}
