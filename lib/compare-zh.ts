@@ -143,6 +143,7 @@ export const zhCompare: {
     "仅限 ZIP。",
     "7-Zip 的 macOS 版本是控制台程序：`7zz l` 能列出压缩包内容，但没有窗口。",
     "`unar` 与 `lsar` 命令行工具需要单独下载，不随应用提供。",
+    "MacPacker 能读取 tar.zst，但不支持 tar.br。",
   ],
 
 };

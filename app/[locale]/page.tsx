@@ -42,7 +42,7 @@ export default async function HomePage({
           zipUrl={release.latestZipUrl}
         />
         <Proof locale={locale} t={t} />
-        <Love locale={locale} t={t} />
+        <Love t={t} />
         <Features locale={locale} t={t} />
         <OpenSource t={t} />
         <Specs locale={locale} t={t} />
