@@ -429,17 +429,19 @@
   .b-quote figcaption { font-size: 13px; color: var(--ink-faint); }
   .b-quote figcaption b { font-weight: 600; color: var(--ink); }
 
+  /* inline items, not flex, so the rows balance: no lone last item on a phone */
   .b-press {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px 18px;
     margin-top: 22px;
     font-size: 14px;
     color: var(--ink-faint);
+    text-align: center;
+    text-wrap: balance;
   }
+  .b-press > * { display: inline-block; margin: 3px 9px; white-space: nowrap; }
   .b-press a { font-weight: 600; color: var(--ink-soft); }
   .b-press a:hover { color: var(--ink); }
+  .b-press small { margin-left: 5px; font-size: 13px; font-weight: 400; color: var(--ink-faint); }
+  .b-press + .b-press { margin-top: 0; } /* featured, then listed: one block */
 
   /* features: copy on top, the app's own UI at the bottom */
   .b-feat { display: flex; flex-direction: column; gap: 22px; min-height: 340px; }
