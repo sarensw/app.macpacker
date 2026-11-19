@@ -221,6 +221,12 @@
       "name": "ZIPX Archive",
       "kind": "archive",
       "extensions": ["zipx"]
+    },
+    {
+      "id": "zstd",
+      "name": "Zstandard File",
+      "kind": "compression",
+      "extensions": ["zst"]
     }
   ],
   "compounds": [
@@ -253,6 +259,11 @@
       "id": "tar.z",
       "name": "Z Tar Archive",
       "extensions": ["taz", "tar.z"]
+    },
+    {
+      "id": "tar.zst",
+      "name": "Zstandard Tar Archive",
+      "extensions": ["tzst", "tar.zst"]
     }
   ]
 }

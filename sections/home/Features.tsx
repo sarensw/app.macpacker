@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Locale, Translations } from "@/lib/i18n";
 import { extensionCount, formatCount } from "@/lib/format-chips";
+import { LANGUAGES } from "@/lib/languages";
 
 interface FeaturesProps {
   locale: Locale;
@@ -117,7 +118,7 @@ export default function Features({ locale, t }: FeaturesProps) {
         </article>
 
         <article className="b-tile b-feat b-stat b-wide-md">
-          <p className="b-num">22</p>
+          <p className="b-num">{LANGUAGES.length}</p>
           <div>
             <h3>{h.langsTitle}</h3>
             <p lang="mul">

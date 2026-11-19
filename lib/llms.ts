@@ -9,6 +9,7 @@ import {
 import type { LocalizedComparison, Support } from "./compare";
 import type { ReleaseData } from "./release";
 import { extensionsByCategory, formatCount, type FormatCategoryKey } from "./format-chips";
+import { LANGUAGES } from "./languages";
 import { SITE_URL } from "./seo";
 import en from "./translations/en.json";
 
@@ -87,7 +88,7 @@ ${formatLines}
 
 ## Languages
 
-The app and site are translated to: English, 中文 (Simplified Chinese), Deutsch, Français, Italiano, 日本語, 한국어, فارسی, Polski, Português (Brasil), Русский, Español (México), Українська. Site UI currently ships in en and zh; per-language UI translations track the app.
+The app is translated to ${LANGUAGES.length} languages: ${LANGUAGES.map(([, , name]) => name).join(", ")}. The site ships in en and zh.
 
 ## For AI agents
 

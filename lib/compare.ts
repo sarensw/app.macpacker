@@ -59,7 +59,7 @@ export const apps: CompareApp[] = [
   {
     id: "macpacker",
     name: "MacPacker",
-    version: "0.19.0",
+    version: "1.3.0",
     price: "Free",
     licence: "GPL-3.0, open source",
     requires: "macOS 14.6+",
@@ -170,7 +170,7 @@ export const bands: FormatBand[] = [
       { label: "LZMA (raw)", ext: ".lzma", cells: "nn yn yn yn nn" },
       { label: "Unix compress", ext: ".Z", cells: "yn yn yn yn yy", fn: {6: 2} },
       { label: "LZ4", ext: ".lz4", cells: "yn nn nn yn nn", fn: {6: 2} },
-      { label: "Zstandard", ext: ".zst", cells: "nn yn nn yy yy" },
+      { label: "Zstandard", ext: ".zst", cells: "yn yn nn yy yy" },
       { label: "Brotli", ext: ".br", cells: "nn nn nn yy yy" },
       { label: "lzip", ext: ".lz", cells: "nn nn nn yy nn" },
       { label: "lrzip", ext: ".lrz", cells: "nn nn nn yy nn" },
@@ -183,7 +183,7 @@ export const bands: FormatBand[] = [
     rows: [
       { label: "tar.gz / tar.bz2 / tar.xz / tar.Z", ext: ".tgz .tbz2 .txz .taz", cells: "yn yp yn yy yy", fn: {3: 8} },
       { label: "tar.lz4", ext: ".tlz4", cells: "yn nn nn yn nn", fn: {6: 2} },
-      { label: "tar.zst / tar.br", ext: ".tzst .tbr", cells: "nn pp nn yy yy", fn: {2: 8, 3: 8} },
+      { label: "tar.zst / tar.br", ext: ".tzst .tbr", cells: "pn pp nn yy yy", fn: {0: 15, 2: 8, 3: 8} },
     ],
   },
   {
@@ -238,6 +238,7 @@ export const footnotes: string[] = [
   "ZIP only.",
   "The macOS build of 7-Zip is a console binary: `7zz l` lists an archive, but there is no window.",
   "The `unar` and `lsar` tools are a separate download from the app.",
+  "MacPacker reads tar.zst but not tar.br.",
 ];
 
 /** Page chrome + prose. Mirrored key-for-key by `zhCompare`. */
