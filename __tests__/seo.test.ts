@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
+import { existsSync } from "node:fs";
 import sitemap from "@/app/sitemap";
+import { ogImage, pageMetadata } from "@/lib/seo";
 import robots from "@/app/robots";
 import { locales } from "@/lib/i18n";
 import { getAllFormatSlugs } from "@/lib/formats";
@@ -59,6 +61,16 @@ describe("sitemap.ts", () => {
     for (const entry of entries) {
       expect(entry.changeFrequency).toBe("monthly");
     }
+  });
+});
+
+describe("link preview", () => {
+  it("gives every locale its own card, and the file exists", () => {
+    const urls = locales.map((l) => ogImage(l).url);
+    expect(new Set(urls).size).toBe(locales.length);
+    for (const url of urls) expect(existsSync(`public${url}`), url).toBe(true);
+    const og = pageMetadata({ locale: "zh", path: "/docs", title: "t", description: "d" }).openGraph;
+    expect(og?.images).toEqual([ogImage("zh")]);
   });
 });
 
