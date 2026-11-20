@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { isValidLocale, locales, getTranslations } from "@/lib/i18n";
 import { getCompetitorSlugs, getPairComparison } from "@/lib/compare";
 import { getReleaseData } from "@/lib/release";
-import { pageMetadata, SITE_URL } from "@/lib/seo";
+import { ogImage, pageMetadata, SITE_URL } from "@/lib/seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ComparisonView from "@/components/ComparisonView";
@@ -122,7 +122,7 @@ export default async function ComparePairPage({
       url: SITE_URL,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
     },
-    image: `${SITE_URL}/og.png`,
+    image: `${SITE_URL}${ogImage(locale).url}`,
     datePublished: COMPILED,
     dateModified: COMPILED,
     mainEntityOfPage: `${SITE_URL}/${locale}/compare/${slug}`,

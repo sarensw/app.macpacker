@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 4,
+  "name": "MacPacker link preview",
+  "locales": [
+    "en-US",
+    "zh-Hans"
+  ],
+  "defaultLocale": "en-US",
+  "frames": [
+    {
+      "id": "1CA88A17-EB17-407A-B617-6C11E43ABCBB",
+      "name": "og",
+      "width": 1200,
+      "height": 630,
+      "background": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0,
+        "a": 1.0
+      },
+      "children": [
+        {
+          "id": "FC49E131-3B30-499E-B880-B61D069E14E5",
+          "name": "Stage",
+          "type": "rectangle",
+          "x": 48,
+          "y": 262,
+          "width": 1104,
+          "height": 428,
+          "cornerRadius": {
+            "topLeft": 26,
+            "topRight": 26
+          },
+          "fill": {
+            "r": 1.0,
+            "g": 0.9529,
+            "b": 0.9098,
+            "a": 1.0
+          }
+        },
+        {
+          "id": "99098D72-7A37-46CB-B6B3-FCE076FEF199",
+          "name": "Glow amber",
+          "type": "rectangle",
+          "x": 48,
+          "y": 262,
+          "width": 1104,
+          "height": 428,
+          "cornerRadius": {
+            "topLeft": 26,
+            "topRight": 26
+          },
+          "fillStyle": "radial",
+          "fill": {
+            "r": 0.9961,
+            "g": 0.6745,
+            "b": 0.2039,
+            "a": 0.55
+          },
+          "fillEnd": {
+            "r": 0.9961,
+            "g": 0.6745,
+            "b": 0.2039,
+            "a": 0
+          },
+          "fillCenter": {
+            "x": 0.15,
+            "y": 0.0
+          },
+          "fillRadius": 0.42
+        },
+        {
+          "id": "3AC172BF-3CC2-4F18-B552-283E33E67919",
+          "name": "Glow red",
+          "type": "rectangle",
+          "x": 48,
+          "y": 262,
+          "width": 1104,
+          "height": 428,
+          "cornerRadius": {
+            "topLeft": 26,
+            "topRight": 26
+          },
+          "fillStyle": "radial",
+          "fill": {
+            "r": 0.9608,
+            "g": 0.3686,
+            "b": 0.1333,
+            "a": 0.4
+          },
+          "fillEnd": {
+            "r": 0.9608,
+            "g": 0.3686,
+            "b": 0.1333,
+            "a": 0
+          },
+          "fillCenter": {
+            "x": 0.88,
+            "y": 0.04
+          },
+          "fillRadius": 0.4
+        },
+        {
+          "id": "821065CC-9F40-4F0C-B040-DBC14AE6A301",
+          "name": "Window",
+          "type": "image",
+          "x": 80.0,
+          "y": 253.24,
+          "width": 1040,
+          "height": 698.53,
+          "paths": {
+            "*": "media/window.png"
+          },
+          "shadowColor": {
+            "r": 0.3137,
+            "g": 0.1176,
+            "b": 0.0,
+            "a": 0.26
+          },
+          "shadowRadius": 48,
+          "shadowY": 28
+        },
+        {
+          "id": "87C002C6-8489-4768-BB9F-90DC17D7D4EA",
+          "name": "Icon",
+          "type": "image",
+          "x": 468.0,
+          "y": 34,
+          "width": 72,
+          "height": 72,
+          "paths": {
+            "*": "media/icon.png"
+          },
+          "shadowColor": {
+            "r": 0.9608,
+            "g": 0.3686,
+            "b": 0.1333,
+            "a": 0.28
+          },
+          "shadowRadius": 24,
+          "shadowY": 12
+        },
+        {
+          "id": "FDB18CC9-3715-47C6-A2C0-06DA8CD10E8F",
+          "name": "Wordmark",
+          "type": "text",
+          "x": 554.0,
+          "y": 49.0,
+          "width": 178,
+          "height": 42,
+          "strings": {
+            "en-US": "MacPacker",
+            "zh-Hans": "MacPacker"
+          },
+          "fontName": "System",
+          "fontSize": 34,
+          "weight": "bold",
+          "color": {
+            "r": 0.1137,
+            "g": 0.1137,
+            "b": 0.1216,
+            "a": 1.0
+          },
+          "paddingX": 0,
+          "paddingY": 0,
+          "alignment": "leading"
+        },
+        {
+          "id": "99B4F9DE-4188-4AB0-B9D6-6A57F177FD4D",
+          "name": "Headline",
+          "type": "text",
+          "x": 72,
+          "y": 120,
+          "width": 1056,
+          "height": 76,
+          "strings": {
+            "en-US": "The archive manager for macOS.",
+            "zh-Hans": "macOS 的压缩包管理器。"
+          },
+          "fontName": "System",
+          "fontSize": 64,
+          "weight": "bold",
+          "color": {
+            "r": 0.1137,
+            "g": 0.1137,
+            "b": 0.1216,
+            "a": 1.0
+          },
+          "alignment": "center",
+          "autoFit": true,
+          "autoWidth": false,
+          "paddingX": 0,
+          "paddingY": 0
+        },
+        {
+          "id": "2ECCB52C-B0BE-4986-B156-47EB4B550F9C",
+          "name": "Subline",
+          "type": "text",
+          "x": 72,
+          "y": 204,
+          "width": 1056,
+          "height": 32,
+          "strings": {
+            "en-US": "Browse archives like folders. Preview files without extracting. Free and open source.",
+            "zh-Hans": "像浏览文件夹一样浏览压缩包。无需解压即可预览文件。免费开源。"
+          },
+          "fontName": "System",
+          "fontSize": 24,
+          "weight": "regular",
+          "color": {
+            "r": 0.1137,
+            "g": 0.1137,
+            "b": 0.1216,
+            "a": 0.68
+          },
+          "alignment": "center",
+          "autoFit": true,
+          "autoWidth": false,
+          "paddingX": 0,
+          "paddingY": 0
+        }
+      ],
+      "export": true,
+      "exportLanguages": true
+    }
+  ],
+  "globalElements": [],
+  "frameHistories": []
+}

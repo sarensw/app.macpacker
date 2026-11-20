@@ -3,7 +3,7 @@ import { Newsreader } from "next/font/google";
 import { notFound } from "next/navigation";
 import { isValidLocale, locales, getTranslations } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
-import { SITE_URL } from "@/lib/seo";
+import { SITE_URL, ogImage } from "@/lib/seo";
 import { getReleaseData } from "@/lib/release";
 import { formatCount } from "@/lib/format-chips";
 import { LANGUAGES } from "@/lib/languages";
@@ -78,20 +78,13 @@ export async function generateMetadata({
       locale: locale === "zh" ? "zh_CN" : "en_US",
       alternateLocale: locale === "zh" ? "en_US" : "zh_CN",
       url: `${SITE_URL}/${locale}`,
-      images: [
-        {
-          url: "/og.png",
-          width: 1200,
-          height: 630,
-          alt: "MacPacker — preview & extract any archive on macOS",
-        },
-      ],
+      images: [ogImage(locale)],
     },
     twitter: {
       card: "summary_large_image",
       title: t.meta.title,
       description: t.meta.description,
-      images: ["/og.png"],
+      images: [ogImage(locale)],
     },
     alternates: {
       canonical: `${SITE_URL}/${locale}`,
@@ -177,7 +170,7 @@ function JsonLd({
             "Open password-protected / encrypted archives",
             "Native SwiftUI interface, Apple Silicon native",
           ],
-    image: `${SITE_URL}/og.png`,
+    image: `${SITE_URL}${ogImage(locale).url}`,
     screenshot: {
       "@type": "ImageObject",
       url: `${SITE_URL}/hero.png`,
