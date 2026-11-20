@@ -46,20 +46,25 @@ export interface FormatEntry {
 
 // ─── HELPERS ───
 
+// "an ISO", "an NTFS": names read out letter by letter that start with a vowel sound.
+function article(name: string): string {
+  return /^(ARJ|ISO|LHA|LZ|NTFS|XZ)/.test(name) ? "an" : "a";
+}
+
 function archiveTitle(name: string): string {
-  return `How to Extract Files from a ${name} Archive on macOS`;
+  return `How to Extract Files from ${article(name)} ${name} Archive on macOS`;
 }
 
 function diskImageTitle(name: string): string {
-  return `How to Extract Files from a ${name} Disk Image on macOS`;
+  return `How to Extract Files from ${article(name)} ${name} Disk Image on macOS`;
 }
 
 function compressionTitle(name: string): string {
-  return `How to Extract Files from a ${name} Archive on macOS`;
+  return `How to Extract Files from ${article(name)} ${name} Archive on macOS`;
 }
 
 function installerTitle(name: string): string {
-  return `How to Extract Files from a ${name} Archive on macOS`;
+  return `How to Extract Files from ${article(name)} ${name} Archive on macOS`;
 }
 
 // ─── FORMAT REGISTRY ───
@@ -404,7 +409,7 @@ export const formats: FormatEntry[] = [
     ],
     faqs: [
       {
-        question: "How do I extract a .xz file on Mac?",
+        question: "How do I extract an .xz file on Mac?",
         answer:
           "Open Terminal and run: xz -d file.xz. For .tar.xz archives: tar xJf archive.tar.xz. Note the capital J flag for xz-compressed tar archives.",
       },

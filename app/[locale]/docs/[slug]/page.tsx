@@ -8,7 +8,7 @@ import {
   getAllFormatSlugs,
 } from "@/lib/formats";
 import { getReleaseData } from "@/lib/release";
-import { pageMetadata, SITE_URL } from "@/lib/seo";
+import { ogImage, pageMetadata, SITE_URL } from "@/lib/seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import DownloadCard from "@/components/DownloadCard";
@@ -105,7 +105,7 @@ export default async function ArticlePage({
         url: `${baseUrl}/logo.png`,
       },
     },
-    image: `${baseUrl}/og.png`,
+    image: `${baseUrl}${ogImage(locale).url}`,
     datePublished: "2026-05-23",
     dateModified: "2026-05-23",
     mainEntityOfPage: `${baseUrl}/${locale}/docs/${slug}`,

@@ -14,13 +14,19 @@ export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://macpacker.app"
 ).replace(/\/$/, "");
 
-/** Shared social-card image — a 1200×630 landscape card for summary_large_image. */
-const OG_IMAGE = {
-  url: "/og.png",
-  width: 1200,
-  height: 630,
-  alt: "MacPacker — preview & extract any archive on macOS",
-};
+/**
+ * The link-preview card, one per locale (1200×630, for summary_large_image).
+ * Rendered from press-kit/og.beastproj with FrameBeast, see CLAUDE.md.
+ */
+export function ogImage(locale: string) {
+  const zh = locale === "zh";
+  return {
+    url: zh ? "/og-zh.jpg" : "/og.jpg",
+    width: 1200,
+    height: 630,
+    alt: zh ? "MacPacker：macOS 的压缩包管理器" : "MacPacker, the archive manager for macOS",
+  };
+}
 
 /**
  * Build a consistent SEO metadata block for a localized route.
@@ -62,13 +68,13 @@ export function pageMetadata(opts: {
       locale: locale === "zh" ? "zh_CN" : "en_US",
       alternateLocale: locale === "zh" ? "en_US" : "zh_CN",
       url,
-      images: [OG_IMAGE],
+      images: [ogImage(locale)],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ["/og.png"],
+      images: [ogImage(locale)],
     },
   };
 }

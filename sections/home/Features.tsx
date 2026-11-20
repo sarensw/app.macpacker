@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { Translations } from "@/lib/i18n";
 import { extensionCount, formatCount } from "@/lib/format-chips";
-import { appLanguages } from "@/lib/app-languages";
+import { LANGUAGES } from "@/lib/languages";
 
 interface FeaturesProps {
   t: Translations;
@@ -123,7 +123,7 @@ export default function Features({ t }: FeaturesProps) {
         </article>
 
         <article className="b-tile b-feat b-stat">
-          <p className="b-num">{appLanguages.length}</p>
+          <p className="b-num">{LANGUAGES.length}</p>
           <div>
             <h3>{h.langsTitle}</h3>
             <p lang="mul">

@@ -23,7 +23,7 @@
   },
   "whatIs": {
     "title": "What is MacPacker?",
-    "body": "MacPacker is a free, open-source archive manager for macOS. Unlike Archive Utility — the built-in macOS tool that unpacks everything at once into a new folder — MacPacker lets you open an archive and browse its contents like a Finder window, seeing folders, file names, and sizes without extracting anything. You can preview individual files with Quick Look, drill straight into nested archives (archives stored inside other archives), and drag out just the one file you need instead of unpacking gigabytes. And MacPacker is no longer read-only: you can create ZIP and 7z archives from scratch, add or delete files in an existing one and save, or compress files and folders straight from Finder. Whether you're a developer pulling a single file out of a build artifact or just want to peek inside a download before unpacking it, MacPacker turns a clumsy multi-step chore into one drag. It supports 43 formats — including ZIP, RAR, 7z, TAR, DMG, and ISO — runs natively on Apple Silicon (macOS 14.6 and later), and is released under the GPL-3.0 license."
+    "body": "MacPacker is a free, open-source archive manager for macOS. Unlike Archive Utility — the built-in macOS tool that unpacks everything at once into a new folder — MacPacker lets you open an archive and browse its contents like a Finder window, seeing folders, file names, and sizes without extracting anything. You can preview individual files with Quick Look, drill straight into nested archives (archives stored inside other archives), and drag out just the one file you need instead of unpacking gigabytes. And MacPacker is no longer read-only: you can create ZIP and 7z archives from scratch, add or delete files in an existing one and save, or compress files and folders straight from Finder. Whether you're a developer pulling a single file out of a build artifact or just want to peek inside a download before unpacking it, MacPacker turns a clumsy multi-step chore into one drag. It supports 45 formats — including ZIP, RAR, 7z, TAR, DMG, and ISO — runs natively on Apple Silicon (macOS 14.6 and later), and is released under the GPL-3.0 license."
   },
   "features": {
     "heading": "Core features",
@@ -72,7 +72,7 @@
       },
       {
         "q": "What file formats does MacPacker support?",
-        "a": "MacPacker opens 43 archive and disk-image formats, including ZIP, RAR, 7z, TAR (and tar.gz, tar.xz, tar.bz2), DMG, ISO, CAB, and more. ZIP and 7z archives can also be created, edited (add or delete files), and re-saved."
+        "a": "MacPacker opens 45 archive and disk-image formats, including ZIP, RAR, 7z, TAR (and tar.gz, tar.xz, tar.bz2), DMG, ISO, CAB, and more. ZIP and 7z archives can also be created, edited (add or delete files), and re-saved."
       },
       {
         "q": "Does MacPacker work on Apple Silicon?",
@@ -155,9 +155,9 @@
     "fCategory": "Category",
     "fCategoryValue": "Utilities / Productivity",
     "fFormats": "Formats",
-    "fFormatsValue": "43 supported",
+    "fFormatsValue": "45 supported",
     "fLanguages": "Languages",
-    "fLanguagesValue": "App in 22 · site in EN, 中文",
+    "fLanguagesValue": "App in 23 · site in EN, 中文",
     "fWebsite": "Website",
     "boilerEyebrow": "Copy & paste",
     "boilerTitle": "Boilerplate",
@@ -165,7 +165,7 @@
     "boilerShortLabel": "Short · ~45 words",
     "boilerLongLabel": "Long · ~100 words",
     "boilerShort": "MacPacker is a free, open-source archive manager for macOS. It lets users browse and preview the contents of an archive without extracting it, open nested archives directly, and extract individual files rather than the whole archive. It can also create and edit ZIP and 7z archives.",
-    "boilerLong": "MacPacker is a free, open-source archive manager for macOS, written in Swift and SwiftUI. It lets users browse and preview the contents of an archive without extracting it, open nested archives (archives stored inside other archives) directly, and extract individual files instead of the entire archive. ZIP and 7z archives can also be created from scratch, edited by adding or deleting files, and re-saved, and files can be compressed directly from Finder. MacPacker supports 43 formats, including ZIP, RAR, 7z, TAR, DMG, and ISO. It runs on macOS 14.6 and later and is released under the GPL-3.0 license.",
+    "boilerLong": "MacPacker is a free, open-source archive manager for macOS, written in Swift and SwiftUI. It lets users browse and preview the contents of an archive without extracting it, open nested archives (archives stored inside other archives) directly, and extract individual files instead of the entire archive. ZIP and 7z archives can also be created from scratch, edited by adding or deleting files, and re-saved, and files can be compressed directly from Finder. MacPacker supports 45 formats, including ZIP, RAR, 7z, TAR, DMG, and ISO. It runs on macOS 14.6 and later and is released under the GPL-3.0 license.",
     "copy": "Copy",
     "copied": "Copied",
     "featuresEyebrow": "Features",
@@ -182,7 +182,7 @@
     "scopeTitle": "What it is, and what it will become",
     "scopeIsLabel": "What it is today",
     "scopeIs": [
-      "Opens, browses, and previews archives across 43 formats",
+      "Opens, browses, and previews archives across 45 formats",
       "Extracts individual files instead of the whole archive",
       "Creates and edits ZIP and 7z archives — add or delete files, then save (ZIP since 0.18, 7z since 1.1)",
       "Compresses files and folders to ZIP or 7z straight from Finder"
@@ -258,6 +258,9 @@
     "videoBy": "Snazzy Labs on YouTube",
     "videoNote": "MacPacker is the first app in the video, at 0:26",
     "pressLead": "Also written about by",
+    "featuredLead": "Featured in",
+    "listedLead": "Listed in",
+    "listedStars": "{n} stars",
     "featuresTitle": "What it does",
     "browseTitle": "Browse archives like folders",
     "browseBody": "Open an archive and move through it in a native window, the way you move through folders in Finder.",
@@ -284,7 +287,7 @@
     "formatsBody": "From 7z, RAR and ZIP to disk images like DMG and ISO, under {extensions} file extensions.",
     "formatsLink": "Every format",
     "langsTitle": "languages in the app",
-    "langsLink": "All 22 languages",
+    "langsLink": "All 23 languages",
     "ossTitle": "Free and open source",
     "ossBody": "MacPacker costs nothing: no paid tier, no trial, no account. The source code is on GitHub under GPL-3.0, and anyone can read it, report bugs or help translate.",
     "ossAsk": "If MacPacker is useful to you, a donation helps keep it going.",
@@ -309,7 +312,7 @@
     "edit": "Edit",
     "editVal": "Add and delete files in existing archives, then save",
     "languages": "Languages",
-    "languagesSum": "22 languages",
+    "languagesSum": "23 languages",
     "faqTitle": "Common questions",
     "getTitle": "Download MacPacker",
     "getBody": "Free and open source. Requires macOS 14.6 or later."

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Locale, Translations } from "@/lib/i18n";
 import { extensionCount, extensionsByCategory, formatCount } from "@/lib/format-chips";
-import { appLanguages } from "@/lib/app-languages";
+import { LANGUAGES } from "@/lib/languages";
 
 interface SpecsProps {
   locale: Locale;
@@ -67,7 +67,7 @@ export default function Specs({ locale, t }: SpecsProps) {
           <dd>
             <p>{h.languagesSum}</p>
             <ul className="b-langs">
-              {appLanguages.map(([lang, flag, name]) => (
+              {LANGUAGES.map(([lang, flag, name]) => (
                 <li key={lang} lang={lang}>
                   <span className="b-flag" aria-hidden="true">
                     {flag}

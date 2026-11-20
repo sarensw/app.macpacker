@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { getTranslations, locales, isValidLocale, defaultLocale } from "@/lib/i18n";
 import en from "@/lib/translations/en.json";
 import zh from "@/lib/translations/zh.json";
-import { appLanguages } from "@/lib/app-languages";
+import { LANGUAGES } from "@/lib/languages";
 
 describe("i18n configuration", () => {
   it("has en and zh locales", () => {
@@ -134,8 +134,8 @@ describe("translation content", () => {
   });
 
   // the press page once said 13 while the app had 22
-  it("states the app's language count as lib/app-languages.ts has it", () => {
-    const count = String(appLanguages.length);
+  it("states the app's language count as lib/languages.ts has it", () => {
+    const count = String(LANGUAGES.length);
     for (const t of [en, zh]) {
       for (const text of [t.home.langsLink, t.home.languagesSum, t.press.fLanguagesValue]) {
         expect(text).toContain(count);

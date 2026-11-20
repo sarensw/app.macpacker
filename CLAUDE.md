@@ -36,8 +36,11 @@ those before non-trivial work.
 - **Home images.** `scripts/cutouts.py` cuts the window and its details out of the
   window captures in `press-kit/assets/screenshots/en/` into `public/img/en/` (used on
   both locales until Chinese captures exist); re-run it after new screenshots.
-  `public/og.png` (link preview) and `public/hero.png` (JSON-LD screenshot) are made
-  from the same captures.
+  `public/hero.png` (JSON-LD screenshot) is made from the same captures.
+- **Link preview.** `public/og.jpg` and `public/og-zh.jpg` (1200×630, picked per
+  locale by `ogImage()` in `lib/seo.ts`) are rendered from the FrameBeast project
+  `press-kit/og.beastproj`: `framebeast build press-kit/og.beastproj --out <tmp>
+  --format jpeg`, then copy `en-US/og.jpg` and `zh-Hans/og.jpg` over them.
 - **Media kit.** `scripts/build-press-kit.mjs` generates the downloadable kit into
   `public/press/` (git-ignored) from the translations + `press-kit/assets/`. It runs
   on `predev`/`prebuild`, so it regenerates on every dev start and deploy.

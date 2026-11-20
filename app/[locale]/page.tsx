@@ -41,8 +41,8 @@ export default async function HomePage({
           dmgUrl={release.latestDmgUrl}
           zipUrl={release.latestZipUrl}
         />
-        <Proof t={t} />
-        <Love locale={locale} t={t} />
+        <Proof locale={locale} t={t} />
+        <Love t={t} />
         <Features t={t} />
         <OpenSource t={t} />
         <Specs locale={locale} t={t} />

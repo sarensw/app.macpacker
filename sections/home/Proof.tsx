@@ -1,17 +1,59 @@
 import Image from "next/image";
-import type { Translations } from "@/lib/i18n";
+import type { Locale, Translations } from "@/lib/i18n";
 import { GitHubIcon } from "@/components/icons";
 
 interface ProofProps {
+  locale: Locale;
   t: Translations;
 }
 
+// HelloGitHub's magazine featured MacPacker; the big curated Mac lists and CurlShip
+// list it. Stars are each one's own on GitHub, checked 2026-11-19 and written the way
+// GitHub's Star button shows them.
+const FEATURED = [
+  {
+    name: "HelloGitHub",
+    stars: "190k",
+    href: "https://hellogithub.com/en/repository/sarensw/MacPacker",
+    zh: "https://hellogithub.com/repository/sarensw/MacPacker",
+  },
+];
+
+const LISTINGS = [
+  {
+    name: "Awesome Mac",
+    stars: "119k",
+    href: "https://github.com/jaywcjlove/awesome-mac",
+    zh: "https://github.com/jaywcjlove/awesome-mac/blob/master/README-zh.md",
+  },
+  { name: "Open Source Mac OS Apps", stars: "51.5k", href: "https://github.com/serhii-londar/open-source-mac-os-apps" },
+  { name: "Awesome macOS", stars: "19.5k", href: "https://github.com/iCHAIT/awesome-macOS" },
+  // CurlShip's link to us is dofollow only while https://macpacker.app/ links back
+  // (their bot checks hourly). Any plain link counts, their badge is optional, but
+  // never with rel="nofollow", "ugc" or "sponsored".
+  { name: "CurlShip", href: "https://curlship.com" },
+];
+
+const external = { target: "_blank", rel: "noopener noreferrer" } as const;
+
 // The app window on a lit stage (the product video takes its place later),
-// then the two trending awards, drawn to the same size so they read as a pair.
+// then the two trending awards, drawn to the same size so they read as a pair,
+// and where it is featured and listed as two quiet lines, the look of the press line.
 // Awards checked 2026-11-03 against Trendshift and the GitHub Trending archives.
 // The window is the English capture on both locales, like the feature tiles.
-export default function Proof({ t }: ProofProps) {
+export default function Proof({ locale, t }: ProofProps) {
   const h = t.home;
+  const line = (lead: string, listings: typeof LISTINGS) => (
+    <p className="b-wrap b-press">
+      <span>{lead}</span>
+      {listings.map((listing) => (
+        <a key={listing.name} href={(locale === "zh" && listing.zh) || listing.href} {...external}>
+          {listing.name}
+          {listing.stars && <small>{h.listedStars.replace("{n}", listing.stars)}</small>}
+        </a>
+      ))}
+    </p>
+  );
 
   return (
     <>
@@ -42,6 +84,9 @@ export default function Proof({ t }: ProofProps) {
           </span>
         </div>
       </section>
+
+      {line(h.featuredLead, FEATURED)}
+      {line(h.listedLead, LISTINGS)}
     </>
   );
 }

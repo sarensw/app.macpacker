@@ -134,7 +134,7 @@ describe("English page - sections", () => {
     expect(linkOf(en.home.allFormats)).toHaveAttribute("href", "/en/docs");
   });
 
-  it("lists every extension group and the 22 languages", async () => {
+  it("lists every extension group and the 23 languages", async () => {
     await renderEnPage();
     for (const ext of ["7z", "rar", "tar.gz", "lzma", "dmg", "iso"]) {
       expect(screen.getAllByText(ext).length).toBeGreaterThan(0);

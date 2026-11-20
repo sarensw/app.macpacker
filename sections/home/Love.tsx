@@ -1,7 +1,6 @@
-import type { Locale, Translations } from "@/lib/i18n";
+import type { Translations } from "@/lib/i18n";
 
 interface LoveProps {
-  locale: Locale;
   t: Translations;
 }
 
@@ -33,7 +32,7 @@ const PlayIcon = () => (
 
 // What people say: the Snazzy Labs video as the big tile, the reviews beside it,
 // the written press as one line underneath.
-export default function Love({ locale, t }: LoveProps) {
+export default function Love({ t }: LoveProps) {
   const h = t.home;
 
   return (
@@ -64,12 +63,6 @@ export default function Love({ locale, t }: LoveProps) {
         </a>
         <a href="https://taoofmac.com/space/apps/macpacker" {...external}>
           Tao of Mac
-        </a>
-        <a
-          href={`https://hellogithub.com/${locale === "zh" ? "" : "en/"}periodical/volume/125`}
-          {...external}
-        >
-          HelloGitHub
         </a>
       </p>
     </section>

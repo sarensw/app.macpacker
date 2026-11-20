@@ -1,12 +1,12 @@
-// The app's languages, each named in itself: the one list the site states them from
-// (home spec sheet and count, JSON-LD, llms.txt). Sync it when the app gains a
-// language; a test holds the counts written in the translations to its length.
-// Catalan takes Andorra's flag (there is no Catalonia emoji); Traditional Chinese
-// is the app's zh-TW.
-export const appLanguages = [
+// The app's languages, each named in itself: the language list, its count, the
+// JSON-LD and llms.txt all come from here, so adding one is a single line.
+// Catalan takes Andorra's flag (there is no Catalonia emoji); Traditional
+// Chinese is the app's zh-TW.
+export const LANGUAGES = [
   ["en", "🇺🇸", "English"],
   ["ar", "🇸🇦", "العربية"],
   ["ca", "🇦🇩", "Català"],
+  ["cs", "🇨🇿", "Čeština"],
   ["de", "🇩🇪", "Deutsch"],
   ["el", "🇬🇷", "Ελληνικά"],
   ["es-MX", "🇲🇽", "Español (México)"],
