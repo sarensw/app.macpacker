@@ -122,7 +122,7 @@ describe("English page - plausible download events", () => {
 describe("English page - sections", () => {
   it("renders the feature tiles", async () => {
     await renderEnPage();
-    for (const title of [en.home.browseTitle, en.home.previewTitle, en.home.nestedTitle, en.home.extractTitle, en.home.finderTitle, en.home.createTitle]) {
+    for (const title of [en.home.browseTitle, en.home.previewTitle, en.home.nestedTitle, en.home.extractTitle, en.home.finderTitle, en.home.compressTitle, en.home.createTitle]) {
       expect(screen.getByText(title)).toBeInTheDocument();
     }
   });

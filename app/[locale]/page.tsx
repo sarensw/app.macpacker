@@ -43,7 +43,7 @@ export default async function HomePage({
         />
         <Proof locale={locale} t={t} />
         <Love t={t} />
-        <Features locale={locale} t={t} />
+        <Features t={t} />
         <OpenSource t={t} />
         <Specs locale={locale} t={t} />
         <Faq t={t} />

@@ -33,9 +33,10 @@ those before non-trivial work.
   extensions", comes from here). `format-registry.json` is a copy of the app's
   `Modules/Sources/Core/Formats/Catalog.json` (id, name, kind, extensions) — sync it
   when the app adds a format.
-- **Home images.** `scripts/cutouts.py` cuts the window and its details out of
-  `press-kit/assets/screenshots/` into `public/img/{en,zh}/`; re-run it after new
-  screenshots.
+- **Home images.** `scripts/cutouts.py` cuts the window and its details out of the
+  window captures in `press-kit/assets/screenshots/en/` into `public/img/en/` (used on
+  both locales until Chinese captures exist); re-run it after new screenshots.
+  `public/hero.png` (JSON-LD screenshot) is made from the same captures.
 - **Link preview.** `public/og.jpg` and `public/og-zh.jpg` (1200×630, picked per
   locale by `ogImage()` in `lib/seo.ts`) are rendered from the FrameBeast project
   `press-kit/og.beastproj`: `framebeast build press-kit/og.beastproj --out <tmp>

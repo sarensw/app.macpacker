@@ -88,7 +88,7 @@ ${formatLines}
 
 ## Languages
 
-The app is translated to ${LANGUAGES.length} languages: ${LANGUAGES.map(([, , name]) => name).join(", ")}. The site ships in en and zh.
+The app is translated to ${LANGUAGES.length} languages: ${LANGUAGES.map(([, , name]) => name).join(", ")}. The site ships in English and 中文 (Simplified Chinese).
 
 ## For AI agents
 

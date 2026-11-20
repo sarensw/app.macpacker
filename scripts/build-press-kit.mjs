@@ -181,6 +181,7 @@ Contents
   LICENSE-AND-USAGE.txt      GPL-3.0 + ${p.usageTitle}
   assets/icon/              ${p.assetIcon} (PNG 1024x1024)
   assets/screenshots/       ${p.screenshotsTitle}
+  assets/demo/              ${p.demoTitle} (MP4, GIF)
   assets/brand/             ${p.brandTitle}
 
 ${p.usageTitle}
@@ -288,10 +289,13 @@ async function copyPageMedia() {
   const toWeb = async (src, dest) => {
     if (sharp) {
       try {
-        await sharp(src)
-          .resize({ width: 1600, withoutEnlargement: true })
-          .jpeg({ quality: 80, mozjpeg: true })
-          .toFile(dest);
+        // window captures are PNGs with a transparent background: keep them PNG,
+        // a JPEG would fill the transparency with black
+        const resized = sharp(src).resize({ width: 1600, withoutEnlargement: true });
+        await (dest.endsWith(".png")
+          ? resized.png({ compressionLevel: 9 })
+          : resized.jpeg({ quality: 80, mozjpeg: true })
+        ).toFile(dest);
         return;
       } catch {
         // fall through to a straight copy
@@ -326,7 +330,13 @@ async function copyPageMedia() {
 async function main() {
   await mkdir(OUT_DIR, { recursive: true });
   const fallback = await readJson("lib/release.fallback.json");
-  const version = fallback.latestVersion ?? "0.15.1";
+  // the live changelog, like the site (lib/release.ts); the fallback file only offline
+  const live = await fetch("https://macpacker-releases.s3.eu-central-1.amazonaws.com/Changelog.json", {
+    signal: AbortSignal.timeout(5000),
+  })
+    .then((r) => (r.ok ? r.json() : null))
+    .catch(() => null);
+  const version = live?.versions?.[0]?.version ?? fallback.latestVersion ?? "0.15.1";
   const translations = {};
   for (const l of LOCALES) translations[l] = await readJson(`lib/translations/${l}.json`);
   const categories = formatCategories(await readJson("lib/format-registry.json"));

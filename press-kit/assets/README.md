@@ -13,13 +13,17 @@ press-kit/assets/
 
 Already included automatically:
 - App icon — from `public/logo.png` (1024×1024)
-- A seed screenshot — from `public/hero.png` (replaced once real screenshots are added)
+
+In place (2026-11-06):
+- `screenshots/en/01-browse.png` … `06-compress.png` — window captures (⌘⇧4, Space,
+  click the window): Retina PNGs with a transparent background. `scripts/cutouts.py`
+  cuts the home page's images out of them; re-run it after replacing any of them.
 
 Still to provide:
-- `screenshots/en/01-browse.png`, `02-nested.png`, `03-extract.png`, `04-preview.png`
-  (@2x retina, real macOS window with native chrome, no personal data, consistent size)
-- `screenshots/zh/…` — optional; English is used as the fallback
-- `demo/…` — optional 5–10s clip of the drag-out or the new ZIP-edit flow
+- `screenshots/zh/…` — the same shots with the app in 简体中文 (until then the Chinese
+  kit, press page and home page use the English ones)
+- `demo/…` — the current clip shows an older version of the app; a 5–10 s clip of the
+  drag-out or the compress window would replace it
 
 Note: MacPacker has no separate wordmark — the brand mark **is** the app icon, so
 there's nothing to add for a logotype. Brand colors come from the icon (see the
