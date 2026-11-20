@@ -12,6 +12,8 @@ describe("llms.txt builders", () => {
     expect(txt).toContain(releaseFixture.latestDmgUrl);
     expect(txt).toContain(releaseFixture.latestZipUrl);
     expect(txt).toContain("https://macpacker.app/llms-full.txt");
+    // llmstxt.org file lists are markdown links; checkers reject a file without any
+    expect(txt).toContain(`- [Docs index](${SITE_URL}/en/docs)`);
   });
 
   it("llms-full.txt contains every format guide with its canonical URL", () => {

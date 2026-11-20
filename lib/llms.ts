@@ -74,17 +74,17 @@ ${formatLines}
 
 ## Key pages
 
-- Home (English): ${SITE_URL}/en
-- Home (Chinese): ${SITE_URL}/zh
-- Docs index: ${SITE_URL}/en/docs
-- Archiver comparison: ${SITE_URL}/en/compare (also /zh/compare) — MacPacker vs 7-Zip vs The Unarchiver vs Keka vs BetterZip across 69 formats and 9 capabilities, read/write per format
+- [Home (English)](${SITE_URL}/en)
+- [Home (Chinese)](${SITE_URL}/zh)
+- [Docs index](${SITE_URL}/en/docs)
+- [Archiver comparison](${SITE_URL}/en/compare): MacPacker vs 7-Zip vs The Unarchiver vs Keka vs BetterZip across 69 formats and 9 capabilities, read/write per format (also /zh/compare)
 - Head-to-head comparisons: ${SITE_URL}/en/compare/{slug} where slug is keka, the-unarchiver, betterzip or 7-zip — MacPacker against one app, narrowed to the formats at least one of the two handles
 - Per-format guides: ${SITE_URL}/en/docs/{slug} (e.g. /zip, /rar, /7z, /dmg, /iso)
-- Privacy policy: ${SITE_URL}/en/privacy
-- Press / media kit: ${SITE_URL}/en/press (also /zh/press) — boilerplate, fact sheet, brand assets, downloadable kit
-- Changelog: ${SITE_URL}/en/changelog
-- Live changelog source: https://macpacker-releases.s3.eu-central-1.amazonaws.com/Changelog.json
-- Sparkle appcast: https://macpacker-releases.s3.eu-central-1.amazonaws.com/appcast.xml
+- [Privacy policy](${SITE_URL}/en/privacy)
+- [Press / media kit](${SITE_URL}/en/press): boilerplate, fact sheet, brand assets, downloadable kit (also /zh/press)
+- [Changelog](${SITE_URL}/en/changelog)
+- [Live changelog source](https://macpacker-releases.s3.eu-central-1.amazonaws.com/Changelog.json)
+- [Sparkle appcast](https://macpacker-releases.s3.eu-central-1.amazonaws.com/appcast.xml)
 
 ## Languages
 
