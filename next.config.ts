@@ -58,7 +58,7 @@ const nextConfig: NextConfig = {
   // Open Source Mac OS Apps (51k stars) still embeds the old site's /main.png:
   // send it to today's window shot instead of a 404.
   async redirects() {
-    return [{ source: "/main.png", destination: "/img/en/window-browse.webp", permanent: true }];
+    return [{ source: "/main.png", destination: "/img/en/stage-window.webp", permanent: true }];
   },
   async headers() {
     return [

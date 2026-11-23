@@ -40,6 +40,7 @@ const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 // then the two trending awards, drawn to the same size so they read as a pair,
 // and where it is featured and listed as two quiet lines, the look of the press line.
 // Awards checked 2026-11-03 against Trendshift and the GitHub Trending archives.
+// The window is the English capture on both locales, like the feature tiles.
 export default function Proof({ locale, t }: ProofProps) {
   const h = t.home;
   const line = (lead: string, listings: typeof LISTINGS) => (
@@ -59,12 +60,13 @@ export default function Proof({ locale, t }: ProofProps) {
       <div className="b-wrap">
         <figure className="b-stage">
           <Image
-            src={`/img/${locale}/window-browse.webp`}
+            src="/img/en/stage-window.webp"
             alt={h.screenshotAlt}
-            width={1578}
-            height={986}
+            width={2338}
+            height={1463}
             sizes="(min-width: 1160px) 900px, 90vw"
             priority
+            unoptimized
           />
         </figure>
       </div>
